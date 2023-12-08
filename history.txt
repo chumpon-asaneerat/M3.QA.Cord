@@ -25,8 +25,9 @@ M3 QA Cord #13
 M3 QA Cord #12
 - 
 
+[commit]
 M3 QA Cord #11
-- 
+- Update App Version
 
 [commit]
 M3 QA Cord #10
