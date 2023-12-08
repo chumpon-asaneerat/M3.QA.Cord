@@ -75,6 +75,9 @@
   <ItemGroup>
     <Compile Include="Models\Common\ModelConsts.cs" />
     <Compile Include="Models\Excels\ExcelModels.cs" />
+    <Compile Include="Models\Masters\CordItemCode.cs" />
+    <Compile Include="Models\Masters\Customer.cs" />
+    <Compile Include="Models\Masters\Product.cs" />
     <Compile Include="Models\Users\UserInfo.cs" />
     <Compile Include="MsSqlDbServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
