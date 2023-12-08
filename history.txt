@@ -37,8 +37,10 @@ M3 QA Cord #9
 M3 QA Cord #8
 - 
 
+[commit]
 M3 QA Cord #7
-- 
+- Update M3.QA.Cord.Models #1
+  - Add supports EPPlus
 
 [commit]
 M3 QA Cord #6

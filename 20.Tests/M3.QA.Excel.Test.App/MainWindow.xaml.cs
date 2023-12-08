@@ -38,6 +38,25 @@ namespace M3.Cord.App
 
         #region Loaded/Unloaded
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region Button Handler
+
+        private void cmdBrowseExcel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         #endregion
     }
 }

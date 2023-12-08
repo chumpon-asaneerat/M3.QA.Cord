@@ -3,10 +3,43 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:M3.Cord.App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Excel Test App."
+        Height="450"
+        Width="800"
+        Loaded="Window_Loaded"
+        Unloaded="Window_Unloaded">
+    <TabControl x:Name="tabs"
+                FontSize="24"
+                Margin="5,2">
+        <TabItem Header="Excel">
+            <DockPanel LastChildFill="True">
+                <DockPanel LastChildFill="True">
+                    <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="File Name:"
+                                       Margin="5,0"
+                                       FontSize="24"
+                                       VerticalAlignment="Center" />
+                            <TextBlock x:Name="txtExcelFile"
+                                       Text="-"
+                                       Margin="5,0"
+                                       FontSize="24"
+                                       VerticalAlignment="Center" />
+                            <Button x:Name="cmdBrowseExcel"
+                                    Margin="5,0"
+                                    Width="100"
+                                    Content="Browse"
+                                    FontSize="24"
+                                    VerticalAlignment="Center"
+                                    Click="cmdBrowseExcel_Click" />
+                        </StackPanel>
+                    </DockPanel>
+                    <Grid />
+                </DockPanel>
+                <Grid />
+            </DockPanel>
+        </TabItem>
+        <TabItem Header="SQL Server" />
+    </TabControl>
 </Window>
