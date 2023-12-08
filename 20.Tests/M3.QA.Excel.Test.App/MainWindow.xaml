@@ -15,29 +15,33 @@
         <TabItem Header="Excel">
             <DockPanel LastChildFill="True">
                 <DockPanel LastChildFill="True">
+                    <!-- BROWSE EXCEL FILE -->
                     <DockPanel LastChildFill="True" DockPanel.Dock="Top">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="File Name:"
-                                       Margin="5,0"
-                                       FontSize="24"
-                                       VerticalAlignment="Center" />
-                            <TextBlock x:Name="txtExcelFile"
-                                       Text="-"
-                                       Margin="5,0"
-                                       FontSize="24"
-                                       VerticalAlignment="Center" />
-                            <Button x:Name="cmdBrowseExcel"
-                                    Margin="5,0"
-                                    Width="100"
-                                    Content="Browse"
-                                    FontSize="24"
-                                    VerticalAlignment="Center"
-                                    Click="cmdBrowseExcel_Click" />
-                        </StackPanel>
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="File Name:"
+                                   Margin="5,0"
+                                   FontSize="24"
+                                   VerticalAlignment="Center" />
+                        <Button x:Name="cmdBrowseExcel"
+                                DockPanel.Dock="Right"
+                                Margin="5,0"
+                                Width="100"
+                                Content="Browse"
+                                FontSize="24"
+                                VerticalAlignment="Center"
+                                Click="cmdBrowseExcel_Click" />
+                        <TextBlock x:Name="txtExcelFile"
+                                   Text="-"
+                                   Margin="5,0"
+                                   FontSize="24"
+                                   MinWidth="300"
+                                   TextTrimming="CharacterEllipsis"
+                                   VerticalAlignment="Center" />
                     </DockPanel>
                     <Grid />
                 </DockPanel>
-                <Grid />
+                <!-- EXCEL DATA GRID -->
+                <DataGrid x:Name="gridExcel" AutoGenerateColumns="True"/>
             </DockPanel>
         </TabItem>
         <TabItem Header="SQL Server" />

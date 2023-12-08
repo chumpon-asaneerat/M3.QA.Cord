@@ -58,6 +58,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -119,10 +120,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\M3.Cord\QA\Dapper.*" /Y/D/E
-xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\M3.Cord\QA\EPPlus*.*" /Y/D/E
-
+xcopy "$(SolutionDir)References\EPPlus*.*" "$(TargetDir)\..\M3.Cord\QA\EPPlus*.*" /Y/D/E
 xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\M3.Cord\Tests\Dapper.*" /Y/D/E
-xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\M3.Cord\TestsEPPlus*.*" /Y/D/E
+xcopy "$(SolutionDir)References\EPPlus*.*" "$(TargetDir)\..\M3.Cord\Tests\EPPlus*.*" /Y/D/E
 </PostBuildEvent>
   </PropertyGroup>
 </Project>
