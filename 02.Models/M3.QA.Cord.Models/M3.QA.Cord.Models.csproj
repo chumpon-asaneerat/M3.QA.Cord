@@ -34,6 +34,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\..\References\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -50,6 +57,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MsSqlDbServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -71,6 +79,27 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\00.NLib\NLib.Utils\NLib.Utils.csproj">
+      <Project>{93acb478-4570-4f67-9442-2839d1a46ec9}</Project>
+      <Name>NLib.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\00.NLib\NLib.Wpf.Controls\NLib.Wpf.Controls.csproj">
+      <Project>{238fc7ff-5234-4feb-8265-22b8e8f01b0c}</Project>
+      <Name>NLib.Wpf.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\00.NLib\NLib\NLib.csproj">
+      <Project>{41a9d6c0-c833-403f-9bc1-eecdc246a428}</Project>
+      <Name>NLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\01.Core\M3.QA.Cord.Core\M3.QA.Cord.Core.csproj">
+      <Project>{e46d9576-ea5f-45b6-9073-6b564eca363f}</Project>
+      <Name>M3.QA.Cord.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -50,6 +50,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts\AppConsts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -63,6 +64,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Utils\NullTypeConvertExtensionMethod.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -73,6 +75,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\00.NLib\NLib.Utils\NLib.Utils.csproj">
+      <Project>{93acb478-4570-4f67-9442-2839d1a46ec9}</Project>
+      <Name>NLib.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\00.NLib\NLib\NLib.csproj">
       <Project>{41a9d6c0-c833-403f-9bc1-eecdc246a428}</Project>
       <Name>NLib</Name>

@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3.QA.Cord.Core", "01.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3.QA.Cord.Models", "02.Models\M3.QA.Cord.Models\M3.QA.Cord.Models.csproj", "{2B4A56ED-462A-4B5E-8565-69A1A586FC25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLib.Wpf.Controls", "00.NLib\NLib.Wpf.Controls\NLib.Wpf.Controls.csproj", "{238FC7FF-5234-4FEB-8265-22B8E8F01B0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{2B4A56ED-462A-4B5E-8565-69A1A586FC25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B4A56ED-462A-4B5E-8565-69A1A586FC25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B4A56ED-462A-4B5E-8565-69A1A586FC25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{238FC7FF-5234-4FEB-8265-22B8E8F01B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{238FC7FF-5234-4FEB-8265-22B8E8F01B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{238FC7FF-5234-4FEB-8265-22B8E8F01B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{238FC7FF-5234-4FEB-8265-22B8E8F01B0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{93ACB478-4570-4F67-9442-2839D1A46EC9} = {04506947-A10C-426E-803F-E2643121B6AE}
 		{E46D9576-EA5F-45B6-9073-6B564ECA363F} = {333DDDC1-2242-4CC9-8AE5-6ABDDC5BB601}
 		{2B4A56ED-462A-4B5E-8565-69A1A586FC25} = {EA2C9435-AEEC-4DD6-8D34-B450E52453E3}
+		{238FC7FF-5234-4FEB-8265-22B8E8F01B0C} = {04506947-A10C-426E-803F-E2643121B6AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3F7190B-D7F3-4B5B-90E0-23FD53ABB39F}
