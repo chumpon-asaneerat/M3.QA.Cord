@@ -46,8 +46,11 @@ M3 QA Cord #6
 M3 QA Cord #5
 - 
 
+[commit]
 M3 QA Cord #4
-- 
+- Add projects.
+  - M3.QA.Cord.Core
+  - M3.QA.Cord.Models
 
 [commit]
 M3 QA Cord #3
