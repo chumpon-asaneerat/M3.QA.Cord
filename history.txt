@@ -40,8 +40,10 @@ M3 QA Cord #8
 M3 QA Cord #7
 - 
 
+[commit]
 M3 QA Cord #6
-- 
+- Add projects.
+  - Excel Test App.
 
 [commit]
 M3 QA Cord #5

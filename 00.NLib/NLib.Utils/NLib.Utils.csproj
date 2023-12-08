@@ -96,6 +96,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)References\Newtonsoft*.*" "$(TargetDir)\..\M3.Cord\QA\Newtonsoft*.*" /Y/D/E
+xcopy "$(SolutionDir)References\Newtonsoft*.*" "$(TargetDir)\..\M3.Cord\Tests\Newtonsoft*.*" /Y/D/E
+
 </PostBuildEvent>
   </PropertyGroup>
 </Project>
