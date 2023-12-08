@@ -49,8 +49,9 @@ M3 QA Cord #5
 M3 QA Cord #4
 - 
 
+[commit]
 M3 QA Cord #3
-- 
+- Add NLib projects.
 
 [commit]
 M3 QA Cord #2

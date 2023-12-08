@@ -1,0 +1,47 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    mc:Ignorable="PresentationOptions">
+    <ResourceDictionary.MergedDictionaries>
+        <!--  Force Merge related resource dictionary  -->
+        <ResourceDictionary Source="pack://application:,,,/NLib.Wpf.Controls;component/Themes/CommonStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  CONST TEXTBLOCK FONT SIZE  -->
+    <sys:Double x:Key="TextBlockFontSize" PresentationOptions:Freeze="True">18</sys:Double>
+    <sys:Double x:Key="TextBlockFontSize2" PresentationOptions:Freeze="True">20</sys:Double>
+
+    <!--  TEXT COLORS  -->
+    <SolidColorBrush x:Key="LabelTextColor"
+                     PresentationOptions:Freeze="True"
+                     Color="{StaticResource BlackColor}" />
+    <SolidColorBrush x:Key="ErrorTextColor"
+                     PresentationOptions:Freeze="True"
+                     Color="{StaticResource RedColor}" />
+
+    <!--  LABEL TEXTBLOCK STYLE  -->
+    <Style x:Key="LabelText" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource LabelTextColor}" />
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource TextBlockFontSize}" />
+    </Style>
+    <!--  ERROR MESSAGE STYLE  -->
+    <Style x:Key="ErrorText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource ErrorTextColor}" />
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource TextBlockFontSize2}" />
+        <Setter Property="FontWeight" Value="ExtraBold" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        <!--
+        <Style.Triggers>
+            <Trigger Property ="IsFocused" Value="True">
+                <Setter Property= "Foreground" Value="Red"/>
+            </Trigger>
+        </Style.Triggers>
+        -->
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:NLib.Wpf.Pages">
+    <Style TargetType="{x:Type local:NPage}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:NPage}">
+                    <Grid>
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{DynamicResource PageMargin}" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="{DynamicResource PageMargin}" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="{DynamicResource PageMargin}" />
+                                <RowDefinition Height="{DynamicResource CaptionHeight}" />
+                                <RowDefinition Height="{DynamicResource PageMargin}" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="{DynamicResource PageMargin}" />
+                            </Grid.RowDefinitions>
+                            <!--  CAPTION AREA  -->
+                            <Border x:Name="PART_CaptionBorder"
+                                    Grid.Row="1"
+                                    Grid.RowSpan="1"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="1"
+                                    Background="{TemplateBinding HeaderBackground}"
+                                    BorderBrush="{TemplateBinding HeaderBorderBrush}"
+                                    BorderThickness="{DynamicResource CaptionBorderThickness}"
+                                    CornerRadius="{DynamicResource CaptionBorderCornerRadius}">
+                                <TextBlock x:Name="PART_CaptionText"
+                                           Margin="0,2"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           Foreground="{TemplateBinding HeaderForeground}"
+                                           VerticalAlignment="Center"
+                                           Text="{TemplateBinding HeaderText}"
+                                           TextAlignment="Center" />
+                            </Border>
+                            <DockPanel Grid.Row="3"
+                                       Grid.RowSpan="1"
+                                       Grid.Column="1"
+                                       Grid.ColumnSpan="1"
+                                       LastChildFill="True">
+                                <!--  WORK AREA  -->
+                                <DockPanel LastChildFill="True">
+                                    <ContentPresenter x:Name="PART_WorkAreaContent" Content="{TemplateBinding WorkArea}" />
+                                </DockPanel>
+                            </DockPanel>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!--  DEFAULT COLORS  -->
+        <Setter Property="Background" Value="{DynamicResource PageBG}" />
+        <Setter Property="HeaderForeground" Value="{DynamicResource CaptionForeground}" />
+        <Setter Property="HeaderBackground" Value="{DynamicResource CaptionBackground}" />
+        <Setter Property="HeaderBorderBrush" Value="{DynamicResource CaptionBorderColor}" />
+        <!--  DEFAULT FONTS  -->
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource FontSize30}" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+</ResourceDictionary>
