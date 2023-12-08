@@ -14,8 +14,8 @@
                 Margin="5,2">
         <TabItem Header="Excel">
             <DockPanel LastChildFill="True">
-                <DockPanel LastChildFill="True">
-                    <!-- BROWSE EXCEL FILE -->
+                <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                    <!--  BROWSE EXCEL FILE  -->
                     <DockPanel LastChildFill="True" DockPanel.Dock="Top">
                         <TextBlock DockPanel.Dock="Left"
                                    Text="File Name:"
@@ -40,10 +40,70 @@
                     </DockPanel>
                     <Grid />
                 </DockPanel>
-                <!-- EXCEL DATA GRID -->
-                <DataGrid x:Name="gridExcel" AutoGenerateColumns="True"/>
+                <TabControl>
+                    <TabItem Header="UnitTest">
+                        <!--  EXCEL DATA GRID (UnitTest)  -->
+                        <DataGrid x:Name="gridExcel1" AutoGenerateColumns="True" />
+                    </TabItem>
+                    <TabItem Header="Data">
+                        <!--  EXCEL DATA GRID (Data)  -->
+                        <DataGrid x:Name="gridExcel2" AutoGenerateColumns="True" />
+                    </TabItem>
+                </TabControl>
             </DockPanel>
         </TabItem>
-        <TabItem Header="SQL Server" />
+        <TabItem Header="SQL Server">
+            <DockPanel LastChildFill="True">
+                <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                    <!--  SQL CONNECTION  -->
+                    <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                        <Button x:Name="cmdConnect"
+                                DockPanel.Dock="Left"
+                                Margin="5,0"
+                                Content="Connect"
+                                Width="150"
+                                FontSize="24"
+                                VerticalAlignment="Center"
+                                Click="cmdConnect_Click" />
+                        <Button x:Name="cmdDisconnect"
+                                DockPanel.Dock="Left"
+                                Margin="5,0"
+                                Content="Disconnect"
+                                Width="150"
+                                FontSize="24"
+                                VerticalAlignment="Center"
+                                Click="cmdDisconnect_Click" />
+                        <TextBlock x:Name="txtConnectStatus"
+                               Text="-"
+                               Margin="5,0"
+                               FontSize="24"
+                               MinWidth="300"
+                               TextTrimming="CharacterEllipsis"
+                               VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                        <Button x:Name="cmdGetUsers"
+                                DockPanel.Dock="Left"
+                                Margin="5,0"
+                                Content="Get Users"
+                                Width="150"
+                                FontSize="24"
+                                VerticalAlignment="Center"
+                                Click="cmdGetUsers_Click" />
+                        <Button x:Name="cmdSaveUsers"
+                                DockPanel.Dock="Left"
+                                Margin="5,0"
+                                Content="Save Changes"
+                                Width="150"
+                                FontSize="24"
+                                VerticalAlignment="Center"
+                                Click="cmdSaveUsers_Click" />
+                        <Grid/>
+                    </DockPanel>
+                    <DataGrid x:Name="gridDB" AutoGenerateColumns="True" />
+                </DockPanel>
+                <Grid />
+            </DockPanel>
+        </TabItem>
     </TabControl>
 </Window>

@@ -31,8 +31,9 @@ M3 QA Cord #11
 M3 QA Cord #10
 - 
 
+[commit]
 M3 QA Cord #9
-- 
+- Update M3.QA.Excel.Test.App #2
 
 [commit]
 M3 QA Cord #8

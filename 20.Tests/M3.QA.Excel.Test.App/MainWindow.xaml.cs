@@ -21,6 +21,10 @@ using static M3.Cord.Models.ExcelModel;
 
 #endregion
 
+using Dapper;
+using System.Data;
+using System.Windows.Markup;
+
 namespace M3.Cord.App
 {
     /// <summary>
@@ -44,12 +48,12 @@ namespace M3.Cord.App
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            UpdateDbStatus();
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
         {
-
+            Disconnect();
         }
 
         #endregion
@@ -66,10 +70,116 @@ namespace M3.Cord.App
             }
         }
 
+        private void cmdConnect_Click(object sender, RoutedEventArgs e)
+        {
+            Connect();
+        }
+
+        private void cmdDisconnect_Click(object sender, RoutedEventArgs e)
+        {
+            Disconnect();
+        }
+
+        private void cmdGetUsers_Click(object sender, RoutedEventArgs e)
+        {
+            GetUsers();
+        }
+
+        private void cmdSaveUsers_Click(object sender, RoutedEventArgs e)
+        {
+            SaveUsers();
+        }
+
         #endregion
+
+        #region Private Methods
+
+        #region Sql Server Methods
+
+        private void Connect()
+        {
+            if (!DbServer.Instance.Connected)
+            {
+                DbServer.Instance.Start();
+            }
+            UpdateDbStatus();
+        }
+
+        private void Disconnect()
+        {
+            gridDB.ItemsSource = null;
+            DbServer.Instance.Shutdown();
+            UpdateDbStatus();
+        }
+
+        private void UpdateDbStatus()
+        {
+            txtConnectStatus.Text = DbServer.Instance.Connected ? "Connected" : "Disconnected";
+        }
+
+        private void GetUsers()
+        {
+            gridDB.ItemsSource = null;
+
+            var cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                Console.WriteLine(msg);
+            }
+
+            var p = new DynamicParameters();
+            try
+            {
+                var data = cnn.Query<UserInfo>("SELECT * FROM UserInfo", p,
+                    commandType: CommandType.Text).AsList();
+                gridDB.ItemsSource = data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        private void SaveUsers()
+        {
+            if (!DbServer.Instance.Connected) return;
+            var users = gridDB.ItemsSource as List<UserInfo>;
+            if (null == users || users.Count <= 0) return;
+            var cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                Console.WriteLine(msg);
+            }
+
+            string cmd = "UPDATE USERINFO SET FullName = @FullName WHERE UserId = @UserId";
+
+            foreach (var user in users) 
+            {
+                var p = new DynamicParameters();
+                p.Add("@FullName", user.FullName);
+                p.Add("@UserId", user.UserId);
+                try
+                {
+                    cnn.Execute(cmd, p, commandType: CommandType.Text);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+
+            gridDB.ItemsSource = null; // clear
+        }
+
+        #endregion
+
+        #region Excel methods
 
         private void ProcessExcelFile(string fileName)
         {
+            // Note: ตอนเปิดโปรแกรมต้องปิด excel app ก่อน ไม่เช่นนั้นจะ connect ไม่ได้
             var cfg = new NLib.Data.ExcelConfig();
             cfg.DataSource.FileName = fileName;
             cfg.DataSource.HeaderInFirstRow = false;
@@ -80,13 +190,21 @@ namespace M3.Cord.App
             conn.Config = cfg;
             if (conn.Connect())
             {
-                string sheetName = "UniTest.TensileCond";
-                var table = conn.Query("Select * from [" + sheetName + "$]").Result;
-                gridExcel.ItemsSource = table.DefaultView;
+                string sheetName1 = "UniTest.TensileCond";
+                var table1 = conn.Query("Select * from [" + sheetName1 + "$]").Result;
+                gridExcel1.ItemsSource = (null != table1) ? table1.DefaultView : null;
+
+                string sheetName2 = "Data";
+                var table2 = conn.Query("Select * from [" + sheetName2 + "$]").Result;
+                gridExcel2.ItemsSource = (null != table2) ? table2.DefaultView : null;
             }
             conn.Disconnect();
             conn.Dispose();
             conn = null;
         }
+
+        #endregion
+
+        #endregion
     }
 }
