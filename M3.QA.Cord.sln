@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34330.188
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33328.57
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D5DB1A6D-B4FF-4CC5-8C4C-EAD1FFD97913}"
 	ProjectSection(SolutionItems) = preProject
@@ -31,6 +31,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20.Tests", "20.Tests", "{7AE6BD23-2FB1-4DB6-91A8-CF9AAB062306}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3.QA.Excel.Test.App", "20.Tests\M3.QA.Excel.Test.App\M3.QA.Excel.Test.App.csproj", "{543AC094-3288-41C2-930B-E2C7CC51D1DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3.QA.Production.App", "09.App\M3.QA.Production.App\M3.QA.Production.App.csproj", "{DD389146-98A0-4165-BD76-38259670B2AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.Controls", "05.Controls", "{DB54EEA0-6C8F-487F-8769-D38D4CB4E685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3.QA.Controls", "05.Controls\M3.QA.Controls\M3.QA.Controls.csproj", "{C17D2795-8916-4B15-AB86-AA0492B3409B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +72,14 @@ Global
 		{543AC094-3288-41C2-930B-E2C7CC51D1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{543AC094-3288-41C2-930B-E2C7CC51D1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{543AC094-3288-41C2-930B-E2C7CC51D1DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD389146-98A0-4165-BD76-38259670B2AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD389146-98A0-4165-BD76-38259670B2AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD389146-98A0-4165-BD76-38259670B2AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD389146-98A0-4165-BD76-38259670B2AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C17D2795-8916-4B15-AB86-AA0492B3409B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C17D2795-8916-4B15-AB86-AA0492B3409B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C17D2795-8916-4B15-AB86-AA0492B3409B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C17D2795-8916-4B15-AB86-AA0492B3409B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +92,8 @@ Global
 		{2B4A56ED-462A-4B5E-8565-69A1A586FC25} = {EA2C9435-AEEC-4DD6-8D34-B450E52453E3}
 		{238FC7FF-5234-4FEB-8265-22B8E8F01B0C} = {04506947-A10C-426E-803F-E2643121B6AE}
 		{543AC094-3288-41C2-930B-E2C7CC51D1DE} = {7AE6BD23-2FB1-4DB6-91A8-CF9AAB062306}
+		{DD389146-98A0-4165-BD76-38259670B2AE} = {D7A4F127-A594-4ADF-AEF1-C3B2E44274FC}
+		{C17D2795-8916-4B15-AB86-AA0492B3409B} = {DB54EEA0-6C8F-487F-8769-D38D4CB4E685}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3F7190B-D7F3-4B5B-90E0-23FD53ABB39F}

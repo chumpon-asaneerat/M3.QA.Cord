@@ -1,0 +1,1136 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/NLib.Wpf.Controls;component/Themes/Generic.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  CELL TEMPLATES  -->
+    <DataTemplate x:Key="Selected">
+        <Grid HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Margin="1"
+              Width="30"
+              Height="30">
+            <CheckBox IsChecked="{Binding Selected}"
+                      Style="{StaticResource CommonCheckBox}"
+                      HorizontalAlignment="Center"
+                      HorizontalContentAlignment="Center"
+                      VerticalAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      Foreground="{Binding TextColor}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ReceiveDate">
+        <TextBlock Text="{Binding Path=ReceiveDate, StringFormat='{}{0:dd/MM/yyyy}', Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="IssueDate">
+        <TextBlock Text="{Binding Path=IssueDate, StringFormat='{}{0:dd/MM/yyyy}', Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomerName">
+        <TextBlock Text="{Binding Path=CustomerName, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="RequestNo">
+        <TextBlock Text="{Binding Path=RequestNo, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="WHReceiveDate">
+        <TextBlock Text="{Binding Path=WHReceiveDate, StringFormat='{}{0:dd/MM/yyyy}', Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="TraceNo">
+        <TextBlock Text="{Binding Path=TraceNo, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   Width="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="PalletNo">
+        <TextBlock Text="{Binding Path=PalletNo, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="SPNo">
+        <TextBlock Text="{Binding Path=SPNo, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="DeckNo">
+        <TextBlock Text="{Binding Path=DeckNo, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="LotNo">
+        <TextBlock Text="{Binding Path=LotNo, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="CHNo">
+        <TextBlock Text="{Binding Path=CHNo, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="YarnBarcode">
+        <TextBlock Text="{Binding Path=YarnBarcode, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+    <!--  CHECK BOX FOR DIP MATERIAL CHECK SHEET  -->
+    <DataTemplate x:Key="CheckYarnNo">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckYarnNo}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckYanScrap">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckYanScrap}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckYarnBall">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckYarnBall}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckCover">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckCover}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckSensor">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckSensor}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckDustFilter">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckDustFilter}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <!--  CHECK BOX FOR S7 Creel CHECK SHEET  -->
+    <DataTemplate x:Key="CheckUnstable">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckUnstable}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckNotReachEnd">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckNotReachEnd}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckNotStraight">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckNotStraight}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckHasSound">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckHasSound}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <!--  CHECK BOX FOR S9 Cleaning CHECK SHEET  -->
+    <DataTemplate x:Key="CheckSplitter">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckSplitter}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckRollerCeramic">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckRollerCeramic}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckSlidebar">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckSlidebar}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckRollerCambox">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckRollerCambox}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckTopGuide">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckTopGuide}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckBottomGuide">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckBottomGuide}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckRollerFrontS9">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckRollerFrontS9}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <!--  CHECK BOX FOR S9 Appearance CHECK SHEET  -->
+    <DataTemplate x:Key="CheckGood">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckGood}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckBad">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckBad}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="Check2Color">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding Check2Color}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckKeiba">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckKeiba}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckWeight">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckWeight}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckFrontTwist">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckFrontTwist}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckBackTwist">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckBackTwist}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckSnarl">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckSnarl}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="CheckTube">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding CheckTube}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!--  SOLITION  -->
+    <DataTemplate x:Key="SolutionLot">
+        <TextBlock Text="{Binding Path=SolutionLot, Mode=OneWay}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="MixDate">
+        <TextBlock Text="{Binding Path=MixDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="QualifiedDate">
+        <TextBlock Text="{Binding Path=QualifiedDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="ExpireDate">
+        <TextBlock Text="{Binding Path=ExpireDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="DipSolutionQty">
+        <TextBlock Text="{Binding Path=DipSolutionQty, Mode=OneWay, StringFormat='{}{0:n2}'}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="LifeDay">
+        <TextBlock Text="{Binding Path=LifeDay, Mode=OneWay, StringFormat='{}{0:n0}'}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+
+    <!--  DIP CHEMICAL RECORD SHEET  -->
+    <DataTemplate x:Key="ReqDate">
+        <TextBlock Text="{Binding Path=ReqDate, StringFormat='{}{0:dd/MM/yyyy}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="Quantity">
+        <TextBlock Text="{Binding Path=Quantity, Mode=OneWay, StringFormat='{}{0:n0}'}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+    <DataTemplate x:Key="SolutionName">
+        <TextBlock Text="{Binding Path=SolutionName, Mode=OneWay}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="DIPLotNo">
+        <TextBlock Text="{Binding Path=DIPLotNo, Mode=OneWay}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="TankNo">
+        <TextBlock Text="{Binding Path=TankNo, Mode=OneWay}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="S8LotNo">
+        <TextBlock Text="{Binding Path=S8LotNo, Mode=OneWay}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+
+
+    <DataTemplate x:Key="MCCode">
+        <TextBlock Text="{Binding Path=MCCode, Mode=OneWay}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Remark">
+        <TextBlock Text="{Binding Path=Remark, Mode=OneWay}"
+                   TextAlignment="Left"
+                   MinWidth="200" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CreateDate">
+        <TextBlock Text="{Binding Path=CreateDate, StringFormat='{}{0:dd/MM/yyyy}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ProductionDate">
+        <TextBlock Text="{Binding Path=ProductionDate, StringFormat='{}{0:dd/MM/yyyy}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ConditionDate">
+        <TextBlock Text="{Binding Path=ConditionDate, StringFormat='{}{0:dd/MM/yyyy}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="StartTime">
+        <TextBlock Text="{Binding Path=StartTime, StringFormat='{}{0:HH:mm}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="EndTime">
+        <TextBlock Text="{Binding Path=EndTime, StringFormat='{}{0:HH:mm}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CH">
+        <TextBlock Text="{Binding Path=CH, Mode=OneWay, StringFormat='{}{0:n0}'}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="UnitWeight">
+        <TextBlock Text="{Binding Path=UnitWeight, Mode=OneWay, StringFormat='{}{0:n1}'}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ProductWeight">
+        <TextBlock Text="{Binding Path=ProductWeight, Mode=OneWay, StringFormat='{}{0:n1}'}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="WasteWeight">
+        <TextBlock Text="{Binding Path=WasteWeight, Mode=OneWay, StringFormat='{}{0:n1}'}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="OutputCH">
+        <TextBlock Text="{Binding Path=OutputCH, Mode=OneWay, StringFormat='{}{0:n0}'}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="InputCH">
+        <TextBlock Text="{Binding Path=InputCH, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+    <DataTemplate x:Key="DoffNo">
+        <TextBlock Text="{Binding Path=DoffNo, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+    <DataTemplate x:Key="SPNos">
+        <TextBlock Text="{Binding Path=SPNos, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="ShiftName">
+        <TextBlock Text="{Binding Path=ShiftName, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+    <DataTemplate x:Key="UserName">
+        <TextBlock Text="{Binding Path=UserName, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+    <DataTemplate x:Key="Chief">
+        <TextBlock Text="{Binding Path=Chief, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="80" />
+    </DataTemplate>
+    <DataTemplate x:Key="ProductCode">
+        <TextBlock Text="{Binding Path=ProductCode, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   MinWidth="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="CordStructure">
+        <TextBlock Text="{Binding Path=CordStructure, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   MinWidth="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="ProductLotNo">
+        <TextBlock Text="{Binding Path=ProductLotNo, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="TotalCH">
+        <TextBlock Text="{Binding Path=TotalCH, Mode=OneWay, StringFormat='{}{0:n0}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="UserId">
+        <TextBlock Text="{Binding Path=UserId, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="TotalWeight">
+        <TextBlock Text="{Binding Path=TotalWeight, Mode=OneWay, StringFormat='{}{0:n2}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="PalletCode">
+        <TextBlock Text="{Binding Path=PalletCode, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Left"
+                   MinWidth="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="PalletTypeText">
+        <TextBlock Text="{Binding Path=PalletTypeText, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   Width="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="PalletStatusText">
+        <TextBlock Text="{Binding Path=PalletStatusText, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ItemCode">
+        <TextBlock Text="{Binding Path=ItemCode, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   MinWidth="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Item400">
+        <TextBlock Text="{Binding Path=Item400, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   MinWidth="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ItemYarn">
+        <TextBlock Text="{Binding Path=ItemYarn, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center" />
+    </DataTemplate>
+    <DataTemplate x:Key="PalletType">
+        <TextBlock Text="{Binding Path=PalletType, Mode=OneWay}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Center"
+                   Width="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="WeightQty">
+        <TextBlock Text="{Binding Path=WeightQty, Mode=OneWay, StringFormat='{}{0:n1}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="TargetQty">
+        <TextBlock Text="{Binding Path=TargetQty, Mode=OneWay, StringFormat='{}{0:n1}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="ActualQty">
+        <TextBlock Text="{Binding Path=ActualQty, Mode=OneWay, StringFormat='{}{0:n1}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="150" />
+    </DataTemplate>
+    <DataTemplate x:Key="PCDate">
+        <TextBlock Text="{Binding Path=PCDate, StringFormat='{}{0:dd/MM/yyyy}', Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="ConeCH">
+        <TextBlock Text="{Binding Path=ConeCH, Mode=OneWay, StringFormat='{}{0:n0}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="IsOK">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding IsOK}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="IsNG">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      Foreground="{Binding TextColor}"
+                      IsChecked="{Binding IsNG}"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!--  AGEING  -->
+    <DataTemplate x:Key="SFromSource">
+        <TextBlock Text="{Binding Path=SFromSource, Mode=OneWay}" TextAlignment="Center" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="PalletOrTrace1">
+        <TextBlock Text="{Binding Path=PalletOrTrace1, Mode=OneWay}" TextAlignment="Center" />
+    </DataTemplate>
+    <DataTemplate x:Key="DoffNo1MCNo">
+        <TextBlock Text="{Binding Path=DoffNo1MCNo, Mode=OneWay}" TextAlignment="Center" />
+    </DataTemplate>
+    <DataTemplate x:Key="DoffNo1Doff">
+        <TextBlock Text="{Binding Path=DoffNo1Doff, Mode=OneWay}" TextAlignment="Center" />
+    </DataTemplate>
+    <DataTemplate x:Key="DoffNo1Qty">
+        <TextBlock Text="{Binding Path=DoffNo1Qty, Mode=OneWay}" TextAlignment="Center" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="PalletOrTrace2">
+        <TextBlock Text="{Binding Path=PalletOrTrace2, Mode=OneWay}" TextAlignment="Center" />
+    </DataTemplate>
+    <DataTemplate x:Key="DoffNo2MCNo">
+        <TextBlock Text="{Binding Path=DoffNo2MCNo, Mode=OneWay}" TextAlignment="Center" />
+    </DataTemplate>
+    <DataTemplate x:Key="DoffNo2Doff">
+        <TextBlock Text="{Binding Path=DoffNo2Doff, Mode=OneWay}" TextAlignment="Center" />
+    </DataTemplate>
+    <DataTemplate x:Key="DoffNo2Qty">
+        <TextBlock Text="{Binding Path=DoffNo2Qty, Mode=OneWay}" TextAlignment="Center" />
+    </DataTemplate>
+
+    <!--  SOLUTION RECIPE  -->
+    <DataTemplate x:Key="RecipeView">
+        <TextBlock Text="{Binding Path=RecipeView, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="ChemicalName">
+        <TextBlock Text="{Binding Path=ChemicalName, Mode=OneWay}"
+                   TextAlignment="Left"
+                   MinWidth="250" />
+    </DataTemplate>
+    <DataTemplate x:Key="ChemWet">
+        <TextBlock Text="{Binding Path=ChemWet, Mode=OneWay, StringFormat='{}{0:n2}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="120" />
+    </DataTemplate>
+    <DataTemplate x:Key="ChemDry">
+        <TextBlock Text="{Binding Path=ChemDry, Mode=OneWay, StringFormat='{}{0:n2}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="120" />
+    </DataTemplate>
+    <DataTemplate x:Key="CalculationWet">
+        <TextBlock Text="{Binding Path=CalculationWet, Mode=OneWay, StringFormat='{}{0:n2}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="120" />
+    </DataTemplate>
+    <DataTemplate x:Key="WeightCal">
+        <TextBlock Text="{Binding Path=WeightCal, Mode=OneWay, StringFormat='{}{0:n2}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="120" />
+    </DataTemplate>
+    <DataTemplate x:Key="WeightActual">
+        <TextBlock Text="{Binding Path=WeightActual, Mode=OneWay, StringFormat='{}{0:n2}'}"
+                   Foreground="{Binding TextColor}"
+                   TextAlignment="Right"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="DoffingDate">
+        <TextBlock Text="{Binding Path=PeriodTime, StringFormat='{}{0:dd/MM/yyyy}', Mode=TwoWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <!--  DIP TIME TABLES  -->
+    <DataTemplate x:Key="SLotNo">
+        <TextBlock Text="{Binding Path=LotNoS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="SDate">
+        <TextBlock Text="{Binding Path=PeriodDateS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="STime">
+        <TextBlock Text="{Binding Path=PeriodTimeS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S7Bobbin">
+        <TextBlock Text="{Binding S7BobbinS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="50" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8CoolingWaterSystemBath1Value">
+        <TextBlock Text="{Binding Path=S8CoolingWaterSystemBath1S, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="170" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8CoolingWaterSystemBath2Value">
+        <TextBlock Text="{Binding Path=S8CoolingWaterSystemBath2S, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="170" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8ChemicalWork">
+        <TextBlock Text="{Binding S8ChemicalWorkS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="50" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8ChemicalFilter">
+        <TextBlock Text="{Binding S8ChemicalFilterS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="50" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8SpeedValue">
+        <TextBlock Text="{Binding Path=S8SpeedS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8StretchDValue">
+        <TextBlock Text="{Binding Path=S8StretchDValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8StretchHValue">
+        <TextBlock Text="{Binding Path=S8StretchHValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8StretchNValue">
+        <TextBlock Text="{Binding Path=S8StretchNValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8TempDValue">
+        <TextBlock Text="{Binding Path=S8TempDValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8TempHNValue">
+        <TextBlock Text="{Binding Path=S8TempHNValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S9GlideStatus">
+        <TextBlock Text="{Binding S9GlideStatusS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="50" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CheckBy">
+        <TextBlock Text="{Binding Path=CheckBy, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <!--  DIP S8 BEFORE  -->
+
+    <DataTemplate x:Key="S8B_LotNo">
+        <TextBlock Text="{Binding Path=LotNoS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_SolutionNameBath1Value">
+        <TextBlock Text="{Binding Path=SolutionNameBath1ValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_SolutionNameBath2Value">
+        <TextBlock Text="{Binding Path=SolutionNameBath2ValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_TempJacketDrumBath1">
+        <TextBlock Text="{Binding Path=TempJacketDrumBath1S, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_TempJacketDrumBath2">
+        <TextBlock Text="{Binding Path=TempJacketDrumBath2S, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_TempChemicalBath1">
+        <TextBlock Text="{Binding Path=TempChemicalBath1S, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_TempChemicalBath2">
+        <TextBlock Text="{Binding Path=TempChemicalBath2S, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_StretchDValue">
+        <TextBlock Text="{Binding Path=StretchDValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_StretchHValue">
+        <TextBlock Text="{Binding Path=StretchHValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_StretchNValue">
+        <TextBlock Text="{Binding Path=StretchNValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_TempDValue">
+        <TextBlock Text="{Binding Path=TempDValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_TempHNValue">
+        <TextBlock Text="{Binding Path=TempHNValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_SpeedValue">
+        <TextBlock Text="{Binding Path=SpeedValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_ExhaustFanDryerValue">
+        <TextBlock Text="{Binding Path=ExhaustFanDryerValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_ExhaustFanHNValue">
+        <TextBlock Text="{Binding Path=ExhaustFanHNValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_CleanBath1">
+        <TextBlock Text="{Binding Path=CleanBath1S, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="S8B_CleanBath2">
+        <TextBlock Text="{Binding Path=CleanBath2S, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="S8B_CleanFront">
+        <TextBlock Text="{Binding Path=CleanFrontS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+    <DataTemplate x:Key="S8B_Cambox">
+        <TextBlock Text="{Binding Path=CamboxS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_CheckBy">
+        <TextBlock Text="{Binding Path=CheckBy, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8B_VerifyBy">
+        <TextBlock Text="{Binding Path=VerifyBy, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <!--  DIP S8 PRODUCTION CONDITION  -->
+    <DataTemplate x:Key="S8P_LotNo">
+        <TextBlock Text="{Binding Path=LotNo, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_Date">
+        <TextBlock Text="{Binding Path=DoffingDateS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_DoffNo">
+        <TextBlock Text="{Binding Path=DoffingNoS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   MinWidth="100" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_StretchDValue">
+        <TextBlock Text="{Binding Path=StretchDValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_StretchHValue">
+        <TextBlock Text="{Binding Path=StretchHValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_StretchNValue">
+        <TextBlock Text="{Binding Path=StretchNValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_TempDValue">
+        <TextBlock Text="{Binding Path=TempDValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_TempHNValue">
+        <TextBlock Text="{Binding Path=TempHNValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_SpeedValue">
+        <TextBlock Text="{Binding Path=SpeedValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_TreatValue">
+        <TextBlock Text="{Binding Path=TreatValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_DoffingLengthValue">
+        <TextBlock Text="{Binding Path=DoffingLengthValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_WeightValue">
+        <TextBlock Text="{Binding Path=WeightValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_SpindleValue">
+        <TextBlock Text="{Binding Path=SpindleValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_ProductionGoodValue">
+        <TextBlock Text="{Binding Path=ProductionGoodValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_ProductionTotalValue">
+        <TextBlock Text="{Binding Path=ProductionTotalValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_ProductionCutValue">
+        <TextBlock Text="{Binding Path=ProductionCutValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_PositionCordCutCreelValue">
+        <TextBlock Text="{Binding Path=PositionCordCutCreelValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_PositionCordCutCSValue">
+        <TextBlock Text="{Binding Path=PositionCordCutCSValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_PositionCordCutWinderValue">
+        <TextBlock Text="{Binding Path=PositionCordCutWinderValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_PositionCordCutWasteYarnValue">
+        <TextBlock Text="{Binding Path=PositionCordCutWasteYarnValueS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_CheckTimeStart">
+        <TextBlock Text="{Binding Path=CheckTimeStartS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_CheckTimeFinish">
+        <TextBlock Text="{Binding Path=CheckTimeFinishS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_CheckTimeRecord">
+        <TextBlock Text="{Binding Path=CheckTimeRecordS, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_Operator">
+        <TextBlock Text="{Binding Path=Opertor, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="S8P_Leader">
+        <TextBlock Text="{Binding Path=Leader, Mode=OneWay}"
+                   TextAlignment="Center"
+                   Width="120" />
+    </DataTemplate>
+    <!--  QA Cord Sampling  -->
+    <DataTemplate x:Key="CordSamplingDate">
+        <TextBlock Text="{Binding Path=SamplingDate, StringFormat='{}{0:dd/MM/yyyy}', Mode=OneWay}"
+                   TextAlignment="Left"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CordLotNo">
+        <TextBlock Text="{Binding Path=LotNo, Mode=OneWay}"
+                   TextAlignment="Left"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CordProductCode">
+        <TextBlock Text="{Binding Path=ProductCode, Mode=OneWay}"
+                   TextAlignment="Left"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CordMCCode">
+        <TextBlock Text="{Binding Path=MCCode, Mode=OneWay}"
+                   TextAlignment="Left"
+                   Width="150" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CordIsOK">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      IsChecked="{Binding TestResultOK}"
+                      IsEnabled="False"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CordIsNG">
+        <StackPanel HorizontalAlignment="Stretch" Width="70">
+            <CheckBox Style="{StaticResource CommonCheckBox}"
+                      IsChecked="{Binding TestResultNG}"
+                      IsEnabled="False"
+                      HorizontalAlignment="Center"
+                      Width="50" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

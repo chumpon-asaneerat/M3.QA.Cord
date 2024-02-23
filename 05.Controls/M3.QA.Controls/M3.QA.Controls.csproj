@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C17D2795-8916-4B15-AB86-AA0492B3409B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>M3.QA</RootNamespace>
+    <AssemblyName>M3.QA.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Executables\Production\Common\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\Documents\AdhesionForcePage.xaml.cs">
+      <DependentUpon>AdhesionForcePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Documents\ElongationPage.xaml.cs">
+      <DependentUpon>ElongationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Documents\RPUPage.xaml.cs">
+      <DependentUpon>RPUPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Documents\ShrinkageForcePage.xaml.cs">
+      <DependentUpon>ShrinkageForcePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Documents\DenierPage.xaml.cs">
+      <DependentUpon>DenierPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Documents\Twisting2Page.xaml.cs">
+      <DependentUpon>Twisting2Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Documents\Twisting1Page.xaml.cs">
+      <DependentUpon>Twisting1Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Documents\ShrinkagePage.xaml.cs">
+      <DependentUpon>ShrinkagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Documents\ThicknessPage.xaml.cs">
+      <DependentUpon>ThicknessPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Documents\TensileStrengthPage.xaml.cs">
+      <DependentUpon>TensileStrengthPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Cord Test Data\CordTestDataPage.xaml.cs">
+      <DependentUpon>CordTestDataPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Dip Solution Test Data\DipSolutionTestDataPage.xaml.cs">
+      <DependentUpon>DipSolutionTestDataPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Menu\M3QAMainMenuPage.xaml.cs">
+      <DependentUpon>M3QAMainMenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Receive Cord Test Sample\ReceiveCordTestSamplePage.xaml.cs">
+      <DependentUpon>ReceiveCordTestSamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Receive Dip Solution Test Sample\ReceiveDipSolutionTestSamplePage.xaml.cs">
+      <DependentUpon>ReceiveDipSolutionTestSamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Services\M3QAApp.cs" />
+    <Compile Include="Windows\Common\Common.cs" />
+    <Compile Include="Windows\MessageBox\MessageBoxOKCancelWindow.xaml.cs">
+      <DependentUpon>MessageBoxOKCancelWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MessageBox\MessageBoxWindow.xaml.cs">
+      <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\00.NLib\NLib.Reports\NLib.Reports.csproj">
+      <Project>{5879d92a-f850-4a70-8d88-99d29f6a46f3}</Project>
+      <Name>NLib.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\00.NLib\NLib.Utils\NLib.Utils.csproj">
+      <Project>{93acb478-4570-4f67-9442-2839d1a46ec9}</Project>
+      <Name>NLib.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\00.NLib\NLib.Wpf.Controls\NLib.Wpf.Controls.csproj">
+      <Project>{238fc7ff-5234-4feb-8265-22b8e8f01b0c}</Project>
+      <Name>NLib.Wpf.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\00.NLib\NLib\NLib.csproj">
+      <Project>{41a9d6c0-c833-403f-9bc1-eecdc246a428}</Project>
+      <Name>NLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\01.Core\M3.QA.Cord.Core\M3.QA.Cord.Core.csproj">
+      <Project>{e46d9576-ea5f-45b6-9073-6b564eca363f}</Project>
+      <Name>M3.QA.Cord.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\02.Models\M3.QA.Cord.Models\M3.QA.Cord.Models.csproj">
+      <Project>{2b4a56ed-462a-4b5e-8565-69a1a586fc25}</Project>
+      <Name>M3.QA.Cord.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\20.Tests\M3.QA.Excel.Test.App\M3.QA.Excel.Test.App.csproj">
+      <Project>{543ac094-3288-41c2-930b-e2c7cc51d1de}</Project>
+      <Name>M3.QA.Excel.Test.App</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\Documents\AdhesionForcePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Documents\ElongationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Documents\RPUPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Documents\ShrinkageForcePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Documents\DenierPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Documents\Twisting2Page.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Documents\Twisting1Page.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Documents\ShrinkagePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Documents\ThicknessPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Documents\TensileStrengthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Cord Test Data\CordTestDataPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Dip Solution Test Data\DipSolutionTestDataPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Menu\M3QAMainMenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Receive Cord Test Sample\ReceiveCordTestSamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Receive Dip Solution Test Sample\ReceiveDipSolutionTestSamplePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ListViewColumns.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\MessageBox\MessageBoxOKCancelWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\MessageBox\MessageBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
