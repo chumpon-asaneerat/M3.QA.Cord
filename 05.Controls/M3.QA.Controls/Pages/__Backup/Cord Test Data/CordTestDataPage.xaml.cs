@@ -23,7 +23,7 @@ using M3.QA.Models;
 
 #endregion
 
-namespace M3.QA.Pages
+namespace M3.QA.Pages.Backup
 {
     /// <summary>
     /// Interaction logic for CordTestDataPage.xaml

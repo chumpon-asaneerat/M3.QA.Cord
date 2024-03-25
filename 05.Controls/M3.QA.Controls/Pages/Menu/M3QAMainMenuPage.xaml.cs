@@ -56,24 +56,63 @@ namespace M3.QA.Pages
 
         private void cmdReceiveCordTestSample_Click(object sender, RoutedEventArgs e)
         {
+            /*
             var page = M3QAApp.Pages.ReceiveCordTestSample;
-            //page.Setup();
+            page.Setup();
             PageContentManager.Instance.Current = page;
+            */
         }
+
         private void cmdCordTestData_Click(object sender, RoutedEventArgs e)
         {
+            /*
             var page = M3QAApp.Pages.CordTestData;
+            page.Setup();
             PageContentManager.Instance.Current = page;
+            */
         }
+
+        private void cmdCordProduction_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void cmdReceiveDipSolution_Click(object sender, RoutedEventArgs e)
         {
+            /*
             var page = M3QAApp.Pages.ReceiveDipSolutionTestSample;
+            page.Setup();
             PageContentManager.Instance.Current = page;
+            */
         }
+
         private void cmdDipSolutionTestData_Click(object sender, RoutedEventArgs e)
         {
+            /*
             var page = M3QAApp.Pages.DipSolutionTestData;
+            page.Setup();
             PageContentManager.Instance.Current = page;
+            */
+        }
+
+        private void cmdDipSolutionProduction_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdCordTestSpecification_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdDipSolutionTestSpecification_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdUserManage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         #endregion

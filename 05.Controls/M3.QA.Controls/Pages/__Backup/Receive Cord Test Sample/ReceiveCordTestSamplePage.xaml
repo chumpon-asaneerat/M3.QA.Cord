@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="M3.QA.Pages.DipSolutionTestDataPage"
+﻿<UserControl x:Class="M3.QA.Pages.Backup.ReceiveCordTestSamplePage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -41,7 +41,7 @@
         </Style>
 
     </UserControl.Resources>
-    <page:NPage HeaderText="Dip Solution Test Data">
+    <page:NPage HeaderText="Receive Cord Test Sample">
         <DockPanel LastChildFill="True" Margin="5">
             <!--  BUTTONS  -->
             <DockPanel LastChildFill="True"
@@ -50,9 +50,12 @@
                 <StackPanel Orientation="Horizontal"
                             DockPanel.Dock="Right"
                             VerticalAlignment="Center">
-                    <ctrl:FontAwesomeButton x:Name="cmdSave"
+                    <ctrl:FontAwesomeButton x:Name="cmdReceive"
                                             Margin="5,0,0,0"
-                                            Text="Save" Click="cmdSave_Click" />
+                                            Text="Receive" />
+                    <ctrl:FontAwesomeButton x:Name="cmdCancel"
+                                            Margin="5,0,0,0"
+                                            Text="Cancel" Click="cmdCancel_Click" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             DockPanel.Dock="Left"
@@ -72,91 +75,59 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Stretch">
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Right">
-                        <TextBlock HorizontalAlignment="Left" Text="Login Operator" FontSize ="18" />
+                        <TextBlock HorizontalAlignment="Left" Text="Login Operator"/>
                         <TextBox Width="100" Style="{StaticResource CommonTextBox}" Margin="10,0,0,0"
                              Text=""/>
 
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,10,0,0">
                         <ctrl:NTextBox 
-                                       CaptionText="User"
-                                       Width="200" />
-                        <ctrl:NTextBox 
-                                       CaptionText="Dip Solution"
-                                       Width="200" />
-                        <ctrl:NDatePicker x:Name="dtInputDate"
-                                          CaptionText="Input DATE"
-                                          Width="220" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,10,0,0">
-                        <ctrl:NTextBox 
                                        CaptionText="Lot No"
                                        Width="200" />
                         <ctrl:NTextBox 
-                                       CaptionText="MANUFACTURING DATE"
-                                       Width="300" />
-                        <ctrl:NDatePicker x:Name="dtValidDate"
-                                          CaptionText="VALID DATE"
+                                       CaptionText="Cord Code"
+                                       Width="200" />
+                        <ctrl:NDatePicker x:Name="dtReceiveDate"
+                                          CaptionText="Receive Date/Time"
                                           Width="220" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,10,0,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                        <TextBlock HorizontalAlignment="Left" Text="Product Type"/>
+                        <Line Width="20"></Line>
+                        <RadioButton Content="Twist" Style="{StaticResource CommonRadioButton}"
+                                     GroupName="ProductType"
+                                     IsChecked="True">
 
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Border Grid.Row="0" Grid.Column="0" Height="40" Width="80"/>
-                            <Border Grid.Row="0" Grid.Column="1" >
-                                <TextBlock Text="PH" TextAlignment="Center" HorizontalAlignment="Center" Width="200" FontSize ="18"/>
-                            </Border>
-                            <Border Grid.Row="0" Grid.Column="2">
-                                <TextBlock Text="TEMPERATURE (°C)" TextAlignment="Center" HorizontalAlignment="Center" Width="200" FontSize ="18"/>
-                            </Border>
-                            <Border Grid.Row="0" Grid.Column="3">
-                                <TextBlock Text="VISCOSITY (Cps)" TextAlignment="Center" HorizontalAlignment="Center" Width="200" FontSize ="18"/>
-                            </Border>
+                        </RadioButton>
+                        <Line Width="20"></Line>
+                        <RadioButton Content="Dip" Style="{StaticResource CommonRadioButton}"
+                                     GroupName="ProductType"
+                                     IsChecked="False">
 
-                            <Border Grid.Row="1" Grid.Column="0" Height="40">
-                                <TextBlock HorizontalAlignment="Left" FontSize ="18" >
-                                <Run Text="Spec" />
-                                </TextBlock>
-                            </Border>
-                            <Border Grid.Row="1" Grid.Column="1">
-                                <TextBox Width="190" />
-                            </Border>
-                            <Border Grid.Row="1" Grid.Column="2">
-                                <TextBox Width="190" />
-                            </Border>
-                            <Border Grid.Row="1" Grid.Column="3">
-                                <TextBox Width="190" />
-                            </Border>
-
-                            <Border Grid.Row="2" Grid.Column="0" Height="40">
-                                <TextBlock HorizontalAlignment="Left" FontSize ="18">
-                                <Run Text="Result" />
-                                </TextBlock>
-                            </Border>
-                            <Border Grid.Row="2" Grid.Column="1">
-                                <TextBox Width="190" />
-                            </Border>
-                            <Border Grid.Row="2" Grid.Column="2">
-                                <TextBox Width="190" />
-                            </Border>
-                            <Border Grid.Row="2" Grid.Column="3">
-                                <TextBox Width="190" />
-                            </Border>
-                        </Grid>
+                        </RadioButton>
+                        <Line Width="20"></Line>
+                        <ctrl:NComboBox x:Name="cbSelectMC"
+                                        DockPanel.Dock="Left"
+                                        CaptionText="Select MC"
+                                        Width="300"/>
                     </StackPanel>
-
-
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,10,0,0">
+                        <TextBlock HorizontalAlignment="Left" Text="Spindle No" Margin="0,10,20,10"/>
+                        <TextBox Width="100" Style="{StaticResource CommonTextBox}"  Margin="0,5,10,5"
+                             Text=""/>
+                        <TextBox Width="100" Style="{StaticResource CommonTextBox}" Margin="0,5,10,5"
+                             Text=""/>
+                        <TextBox Width="100" Style="{StaticResource CommonTextBox}" Margin="0,5,10,5"
+                             Text=""/>
+                        <TextBox Width="100" Style="{StaticResource CommonTextBox}" Margin="0,5,10,5"
+                             Text=""/>
+                        <TextBox Width="100" Style="{StaticResource CommonTextBox}" Margin="0,5,10,5"
+                             Text=""/>
+                        <TextBox Width="100" Style="{StaticResource CommonTextBox}" Margin="0,5,10,5"
+                             Text=""/>
+                        <TextBox Width="100" Style="{StaticResource CommonTextBox}" Margin="0,5,10,5"
+                             Text=""/>
+                    </StackPanel>
                     <Grid />
                 </DockPanel>
             </DockPanel>

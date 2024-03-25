@@ -23,15 +23,15 @@ using M3.QA.Models;
 
 #endregion
 
-namespace M3.QA.Pages
+namespace M3.QA.Pages.Backup
 {
     /// <summary>
-    /// Interaction logic for ReceiveCordTestSamplePage.xaml
+    /// Interaction logic for DipSolutionTestDataPage.xaml
     /// </summary>
-    public partial class ReceiveCordTestSamplePage : UserControl
+    public partial class DipSolutionTestDataPage : UserControl
     {
         #region Constructor
-        public ReceiveCordTestSamplePage()
+        public DipSolutionTestDataPage()
         {
             InitializeComponent();
         }
@@ -53,7 +53,7 @@ namespace M3.QA.Pages
 
         #region Button Handlers
 
-        private void cmdCancel_Click(object sender, RoutedEventArgs e)
+        private void cmdSave_Click(object sender, RoutedEventArgs e)
         {
             M3QAApp.Pages.GotoQAMainMenu();
         }
@@ -67,6 +67,5 @@ namespace M3.QA.Pages
         }
 
         #endregion
-
     }
 }

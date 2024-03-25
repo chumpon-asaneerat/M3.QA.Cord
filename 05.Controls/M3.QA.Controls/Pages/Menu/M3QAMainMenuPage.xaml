@@ -1,11 +1,9 @@
-﻿<UserControl
+﻿<UserControl x:Class="M3.QA.Pages.M3QAMainMenuPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:M3.QA.Pages"
-             x:Class="M3.QA.Pages.M3QAMainMenuPage"
-             xmlns:Pages="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Pages="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
              xmlns:ctrl="clr-namespace:NLib.Wpf.Controls;assembly=NLib.Wpf.Controls"
              mc:Ignorable="d"
              d:DesignHeight="650"
@@ -14,17 +12,13 @@
              Unloaded="UserControl_Unloaded">
     <UserControl.Resources>
         <!--  COLORS  -->
-        <SolidColorBrush x:Key="G4BG" Color="DarkOrange" />
-        <SolidColorBrush x:Key="G4BGHover" Color="DarkRed" />
-        <SolidColorBrush x:Key="G4FG" Color="WhiteSmoke" />
+        <SolidColorBrush x:Key="CordBG" Color="DarkOrange" />
+        <SolidColorBrush x:Key="CordBGHover" Color="DarkRed" />
+        <SolidColorBrush x:Key="CordFG" Color="WhiteSmoke" />
 
-        <SolidColorBrush x:Key="CordWarehouseBG" Color="ForestGreen" />
-        <SolidColorBrush x:Key="CordWarehouseBGHover" Color="DarkGreen" />
-        <SolidColorBrush x:Key="CordWarehouseFG" Color="WhiteSmoke" />
-
-        <SolidColorBrush x:Key="CordProductionBG" Color="Orchid" />
-        <SolidColorBrush x:Key="CordProductionBGHover" Color="Purple" />
-        <SolidColorBrush x:Key="CordProductionFG" Color="WhiteSmoke" />
+        <SolidColorBrush x:Key="SolutionBG" Color="ForestGreen" />
+        <SolidColorBrush x:Key="SolutionBGHover" Color="DarkGreen" />
+        <SolidColorBrush x:Key="SolutionFG" Color="WhiteSmoke" />
 
         <SolidColorBrush x:Key="OtherBG" Color="Navy" />
         <SolidColorBrush x:Key="OtherBGHover" Color="RoyalBlue" />
@@ -45,7 +39,56 @@
             <Setter Property="Height" Value="120" />
             <Setter Property="FontSize" Value="30" />
         </Style>
-
+        <Style x:Key="CordButtonStyle"
+               BasedOn="{StaticResource CommonButtonStyle}"
+               TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource CordBG}" />
+            <Setter Property="Foreground" Value="{StaticResource CordFG}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource CordBGHover}" />
+                                <Setter Property="Foreground" Value="{StaticResource CordFG}" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="{StaticResource CordBGHover}" />
+                                <Setter Property="Foreground" Value="{StaticResource CordFG}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SolutionButtonStyle"
+               BasedOn="{StaticResource CommonButtonStyle}"
+               TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SolutionBG}" />
+            <Setter Property="Foreground" Value="{StaticResource SolutionFG}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource SolutionBGHover}" />
+                                <Setter Property="Foreground" Value="{StaticResource SolutionFG}" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="{StaticResource SolutionBGHover}" />
+                                <Setter Property="Foreground" Value="{StaticResource SolutionFG}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="OtherButtonStyle"
                BasedOn="{StaticResource CommonButtonStyle}"
                TargetType="Button">
@@ -72,93 +115,109 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Pages:NPage HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HeaderText="Main Menu">
+    <Pages:NPage HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 HeaderText="Main Menu">
         <Grid>
             <DockPanel LastChildFill="True" Margin="5">
                 <TextBlock DockPanel.Dock="Top" Height="20" />
                 <ctrl:NGroupMenu>
                     <!--  Cord MENU  -->
-                    <ctrl:NGroupMenuItem HeaderText="Cord" HeaderBackground="{StaticResource G4BG}"
-                                     Style="{StaticResource CommonGroupItemStyle}">
+                    <ctrl:NGroupMenuItem HeaderText="Cord"
+                                         HeaderBackground="{StaticResource CordBG}"
+                                         Style="{StaticResource CommonGroupItemStyle}">
                         <Button x:Name="cmdReceiveCordTestSample"
-                            Style="{StaticResource OtherButtonStyle}" Click="cmdReceiveCordTestSample_Click">
+                                Style="{StaticResource CordButtonStyle}"
+                                Click="cmdReceiveCordTestSample_Click">
                             <TextBlock TextAlignment="Center">
                                 <Run Text="Receive Cord" />
-                                <LineBreak/>
-                                <Run Text="Test Sample"/>
+                                <LineBreak />
+                                <Run Text="Test Sample" />
                             </TextBlock>
                         </Button>
                         <Button x:Name="cmdCordTestData"
-                            Style="{StaticResource OtherButtonStyle}" Click="cmdCordTestData_Click">
+                                Style="{StaticResource CordButtonStyle}"
+                                Click="cmdCordTestData_Click">
                             <TextBlock TextAlignment="Center">
                                 <Run Text="Cord" />
-                                <LineBreak/>
-                                <Run Text="Test Data"/>
+                                <LineBreak />
+                                <Run Text="Test Data" />
                             </TextBlock>
                         </Button>
-                        <Button x:Name="cmdCordProduction"
-                            Style="{StaticResource OtherButtonStyle}">
+                        <Button x:Name="cmdCordProduction" Style="{StaticResource CordButtonStyle}"
+                                Click="cmdCordProduction_Click">
                             <TextBlock TextAlignment="Center">
                                 <Run Text="Cord" />
-                                <LineBreak/>
-                                <Run Text="Production"/>
+                                <LineBreak />
+                                <Run Text="Production" />
                             </TextBlock>
                         </Button>
                     </ctrl:NGroupMenuItem>
                     <!--  Dip Solution  -->
                     <ctrl:NGroupMenuItem HeaderText="Dip Solution"
-                                     HeaderBackground="{StaticResource G4BG}"
-                                     Style="{StaticResource CommonGroupItemStyle}">
-
+                                         HeaderBackground="{StaticResource SolutionBG}"
+                                         Style="{StaticResource CommonGroupItemStyle}">
                         <Button x:Name="cmdReceiveDipSolution"
-                            Style="{StaticResource OtherButtonStyle}" Click="cmdReceiveDipSolution_Click">
+                                Style="{StaticResource SolutionButtonStyle}"
+                                Click="cmdReceiveDipSolution_Click">
                             <TextBlock TextAlignment="Center">
-                            <Run Text="Receive" />
-                            <LineBreak />
-                            <Run Text="Dip Solution" />
-                                 <LineBreak />
-                            <Run Text="Test Sample" />
+                                <Run Text="Receive" />
+                                <LineBreak />
+                                <Run Text="Dip Solution" />
+                                <LineBreak />
+                                <Run Text="Test Sample" />
                             </TextBlock>
                         </Button>
                         <Button x:Name="cmdDipSolutionTestData"
-                            Style="{StaticResource OtherButtonStyle}" Click="cmdDipSolutionTestData_Click">
+                                Style="{StaticResource SolutionButtonStyle}"
+                                Click="cmdDipSolutionTestData_Click">
                             <TextBlock TextAlignment="Center">
-                            <Run Text="Dip Solution" />
-                                 <LineBreak />
-                            <Run Text="Test Data" />
+                                <Run Text="Dip Solution" />
+                                <LineBreak />
+                                <Run Text="Test Data" />
                             </TextBlock>
                         </Button>
                         <Button x:Name="cmdDipSolutionProduction"
-                            Style="{StaticResource OtherButtonStyle}">
+                                Style="{StaticResource SolutionButtonStyle}"
+                                Click="cmdDipSolutionProduction_Click">
                             <TextBlock TextAlignment="Center">
-                            <Run Text="Dip Solution" />
-                                 <LineBreak />
-                            <Run Text="Production" />
+                                <Run Text="Dip Solution" />
+                                <LineBreak />
+                                <Run Text="Production" />
                             </TextBlock>
                         </Button>
                     </ctrl:NGroupMenuItem>
                     <!--  Master Data  -->
                     <ctrl:NGroupMenuItem HeaderText="Master Data"
-                                     HeaderBackground="{StaticResource G4BG}"
-                                     Style="{StaticResource CommonGroupItemStyle}">
-
+                                         HeaderBackground="{StaticResource OtherBG}"
+                                         Style="{StaticResource CommonGroupItemStyle}">
                         <Button x:Name="cmdCordTestSpecification"
-                            Style="{StaticResource OtherButtonStyle}">
+                                Style="{StaticResource OtherButtonStyle}"
+                                Click="cmdCordTestSpecification_Click">
                             <TextBlock TextAlignment="Center">
-                            <Run Text="Cord" />
-                            <LineBreak />
-                            <Run Text="Test Specification" />
+                                <Run Text="Cord" />
+                                <LineBreak />
+                                <Run Text="Test Specification" />
                             </TextBlock>
                         </Button>
                         <Button x:Name="cmdDipSolutionTestSpecification"
-                            Style="{StaticResource OtherButtonStyle}">
+                                Style="{StaticResource OtherButtonStyle}"
+                                Click="cmdDipSolutionTestSpecification_Click">
                             <TextBlock TextAlignment="Center">
-                            <Run Text="Dip Solution" />
-                                 <LineBreak />
-                            <Run Text="Test Specification" />
+                                <Run Text="Dip Solution" />
+                                <LineBreak />
+                                <Run Text="Test Specification" />
                             </TextBlock>
                         </Button>
-
+                        <Button x:Name="cmdUserManage"
+                                Style="{StaticResource OtherButtonStyle}"
+                                Click="cmdUserManage_Click">
+                            <TextBlock TextAlignment="Center">
+                                <Run Text="User" />
+                                <LineBreak />
+                                <Run Text="Management" />
+                            </TextBlock>
+                        </Button>
                     </ctrl:NGroupMenuItem>
                 </ctrl:NGroupMenu>
             </DockPanel>

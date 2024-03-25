@@ -85,19 +85,22 @@
     <Compile Include="Controls\Documents\TensileStrengthPage.xaml.cs">
       <DependentUpon>TensileStrengthPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Cord Test Data\CordTestDataPage.xaml.cs">
+    <Compile Include="Pages\__Backup\Cord Test Data\CordTestDataPage.xaml.cs">
       <DependentUpon>CordTestDataPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Dip Solution Test Data\DipSolutionTestDataPage.xaml.cs">
+    <Compile Include="Pages\__Backup\Dip Solution Test Data\DipSolutionTestDataPage.xaml.cs">
       <DependentUpon>DipSolutionTestDataPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Masters\Users\UserManagementPage.xaml.cs">
+      <DependentUpon>UserManagementPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Menu\M3QAMainMenuPage.xaml.cs">
       <DependentUpon>M3QAMainMenuPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Receive Cord Test Sample\ReceiveCordTestSamplePage.xaml.cs">
+    <Compile Include="Pages\__Backup\Receive Cord Test Sample\ReceiveCordTestSamplePage.xaml.cs">
       <DependentUpon>ReceiveCordTestSamplePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Receive Dip Solution Test Sample\ReceiveDipSolutionTestSamplePage.xaml.cs">
+    <Compile Include="Pages\__Backup\Receive Dip Solution Test Sample\ReceiveDipSolutionTestSamplePage.xaml.cs">
       <DependentUpon>ReceiveDipSolutionTestSamplePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -114,12 +117,22 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Services\M3QAApp.cs" />
+    <Compile Include="Services\SignInService.cs" />
     <Compile Include="Windows\Common\Common.cs" />
+    <Compile Include="Windows\Masters\UserEditorWindow.xaml.cs">
+      <DependentUpon>UserEditorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MessageBox\MessageBoxOKCancelWindow.xaml.cs">
       <DependentUpon>MessageBoxOKCancelWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MessageBox\MessageBoxWindow.xaml.cs">
       <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SignIn\ConfirmUserWindow.xaml.cs">
+      <DependentUpon>ConfirmUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SignIn\SignInWindow.xaml.cs">
+      <DependentUpon>SignInWindow.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -201,11 +214,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Cord Test Data\CordTestDataPage.xaml">
+    <Page Include="Pages\__Backup\Cord Test Data\CordTestDataPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Dip Solution Test Data\DipSolutionTestDataPage.xaml">
+    <Page Include="Pages\__Backup\Dip Solution Test Data\DipSolutionTestDataPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Masters\Users\UserManagementPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -213,11 +230,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Receive Cord Test Sample\ReceiveCordTestSamplePage.xaml">
+    <Page Include="Pages\__Backup\Receive Cord Test Sample\ReceiveCordTestSamplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Receive Dip Solution Test Sample\ReceiveDipSolutionTestSamplePage.xaml">
+    <Page Include="Pages\__Backup\Receive Dip Solution Test Sample\ReceiveDipSolutionTestSamplePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -229,11 +246,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\Masters\UserEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\MessageBox\MessageBoxOKCancelWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\MessageBox\MessageBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SignIn\ConfirmUserWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SignIn\SignInWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

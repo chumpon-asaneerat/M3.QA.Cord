@@ -23,15 +23,15 @@ using M3.QA.Models;
 
 #endregion
 
-namespace M3.QA.Pages
+namespace M3.QA.Pages.Backup
 {
     /// <summary>
-    /// Interaction logic for ReceiveDipSolutionTestSamplePage.xaml
+    /// Interaction logic for ReceiveCordTestSamplePage.xaml
     /// </summary>
-    public partial class ReceiveDipSolutionTestSamplePage : UserControl
+    public partial class ReceiveCordTestSamplePage : UserControl
     {
         #region Constructor
-        public ReceiveDipSolutionTestSamplePage()
+        public ReceiveCordTestSamplePage()
         {
             InitializeComponent();
         }

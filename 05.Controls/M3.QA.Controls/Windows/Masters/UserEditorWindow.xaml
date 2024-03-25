@@ -1,0 +1,138 @@
+﻿<Window x:Class="M3.QA.Windows.UserEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctrl="clr-namespace:NLib.Wpf.Controls;assembly=NLib.Wpf.Controls"
+        xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
+        mc:Ignorable="d"
+        Title="User Information"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Height="350"
+        Width="650">
+    <Window.Resources>
+        <!--  LOCAL STYLES  -->
+        <Style TargetType="Border">
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="BorderBrush" Value="DimGray" />
+            <Setter Property="BorderThickness" Value="0.5" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource CommonTextBox}">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="PasswordBox" BasedOn="{StaticResource CommonPwdBox}">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource CommonComboBox}">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="RadioButton" BasedOn="{StaticResource CommonRadioButton}">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+    <page:NPage HeaderText="User Information">
+        <DockPanel LastChildFill="True" Margin="5">
+            <!--  BUTTON BARS  -->
+            <DockPanel LastChildFill="True"
+                       DockPanel.Dock="Bottom"
+                       Height="40">
+                <ctrl:FontAwesomeButton x:Name="cmdCancel"
+                                        DockPanel.Dock="Left"
+                                        IconType="Cancel"
+                                        Text="Cancel"
+                                        Click="cmdCancel_Click" />
+                <ctrl:FontAwesomeButton x:Name="cmdOk"
+                                        DockPanel.Dock="Right"
+                                        IconType="Ok"
+                                        Text="Ok"
+                                        Click="cmdOk_Click" />
+                <Grid />
+            </DockPanel>
+            <!--  WORK AREA  -->
+            <DockPanel LastChildFill="True">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <TextBlock Text="User Role:"
+                                   Margin="2"
+                                   Width="200"
+                                   TextAlignment="Right" />
+                        <RadioButton x:Name="rbAdmin"
+                                     Margin="5,2"
+                                     Content="Administrator"
+                                     GroupName="Rights" />
+                        <RadioButton x:Name="rbSupervisor"
+                                     Margin="5,2"
+                                     Content="Supervisor"
+                                     GroupName="Rights" />
+                        <RadioButton x:Name="rbUser"
+                                     Margin="5,2"
+                                     Content="User"
+                                     GroupName="Rights" />
+                    </StackPanel>
+                    <!--  FULL NAME  -->
+                    <StackPanel Orientation="Horizontal" Margin="0,2">
+                        <TextBlock Margin="5,0"
+                                   Text="Full Name"
+                                   TextAlignment="Right"
+                                   Width="200" />
+                        <TextBox x:Name="txtFullName"
+                                 Margin="5,0"
+                                 TextAlignment="Left"
+                                 Width="250" />
+                    </StackPanel>
+                    <!--  User Name  -->
+                    <StackPanel Orientation="Horizontal" Margin="0,2">
+                        <TextBlock Margin="5,0"
+                                   Text="User Name"
+                                   TextAlignment="Right"
+                                   Width="200" />
+                        <TextBox x:Name="txtUserName"
+                                 Margin="5,0"
+                                 TextAlignment="Left"
+                                 Width="200" />
+                    </StackPanel>
+                    <!--  Password  -->
+                    <StackPanel Orientation="Horizontal" Margin="0,2">
+                        <TextBlock Margin="5,0"
+                                   Text="Password"
+                                   TextAlignment="Right"
+                                   Width="200" />
+                        <PasswordBox x:Name="txtPwd"
+                                     Margin="5,0"
+                                     Width="200" />
+                    </StackPanel>
+                    <!--  Password (Confirm)  -->
+                    <StackPanel Orientation="Horizontal" Margin="0,2">
+                        <TextBlock Margin="5,0"
+                                   Text="Password (Confirm)"
+                                   TextAlignment="Right"
+                                   Width="200" />
+                        <PasswordBox x:Name="txtPwdConfirm"
+                                     Margin="5,0"
+                                     Width="200" />
+                    </StackPanel>
+                </StackPanel>
+                <Grid />
+                <Grid />
+            </DockPanel>
+        </DockPanel>
+    </page:NPage>
+</Window>
+

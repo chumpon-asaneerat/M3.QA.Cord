@@ -17,6 +17,16 @@ namespace M3.QA
 {
     public class M3QAApp
     {
+        /// Current.
+        /// </summary>
+        public static class Current
+        {
+            /// <summary>
+            /// Gets Current User.
+            /// </summary>
+            public static UserInfo User { get { return SignInManager.Instance.User; } }
+        }
+
         /// <summary>
         /// Pages Static class.
         /// </summary>
@@ -70,8 +80,9 @@ namespace M3.QA
 
             #endregion
 
-            #region ReceiveCordTestSample
+            #region Cord
 
+            /*
             public static ReceiveCordTestSamplePage ReceiveCordTestSample
             {
                 get
@@ -80,10 +91,19 @@ namespace M3.QA
                 }
             }
 
+            public static CordTestDataPage CordTestData
+            {
+                get
+                {
+                    return GetPage<CordTestDataPage>();
+                }
+            }
+            */
+
             #endregion
 
-            #region ReceiveDipSolution
-
+            #region Dip Solution
+            /*
             public static ReceiveDipSolutionTestSamplePage ReceiveDipSolutionTestSample
             {
                 get
@@ -99,15 +119,7 @@ namespace M3.QA
                     return GetPage<DipSolutionTestDataPage>();
                 }
             }
-
-            public static CordTestDataPage CordTestData
-            {
-                get
-                {
-                    return GetPage<CordTestDataPage>();
-                }
-            }
-
+            */
             #endregion
         }
 
@@ -158,6 +170,16 @@ namespace M3.QA
             public static MessageBoxOKCancelWindow MessageBoxOKCancel
             {
                 get { return GetWindow<QA.Windows.MessageBoxOKCancelWindow>(); }
+            }
+
+            #endregion
+
+            #region User
+
+            /// <summary>Gets Cord User Window.</summary>
+            public static UserEditorWindow UserEditor
+            {
+                get { return GetWindow<UserEditorWindow>(); }
             }
 
             #endregion
