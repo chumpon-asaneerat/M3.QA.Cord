@@ -56,15 +56,36 @@ namespace M3.QA.Pages
 
         private void cmdReceiveCordTestSample_Click(object sender, RoutedEventArgs e)
         {
-            /*
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
+
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
+            // Receive Cord Test Sample
             var page = M3QAApp.Pages.ReceiveCordTestSample;
             page.Setup();
             PageContentManager.Instance.Current = page;
-            */
         }
 
         private void cmdCordTestData_Click(object sender, RoutedEventArgs e)
         {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
+
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
             /*
             var page = M3QAApp.Pages.CordTestData;
             page.Setup();
@@ -74,11 +95,32 @@ namespace M3.QA.Pages
 
         private void cmdCordProduction_Click(object sender, RoutedEventArgs e)
         {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
 
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
         }
 
         private void cmdReceiveDipSolution_Click(object sender, RoutedEventArgs e)
         {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
+
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
             /*
             var page = M3QAApp.Pages.ReceiveDipSolutionTestSample;
             page.Setup();
@@ -88,6 +130,17 @@ namespace M3.QA.Pages
 
         private void cmdDipSolutionTestData_Click(object sender, RoutedEventArgs e)
         {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
+
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
             /*
             var page = M3QAApp.Pages.DipSolutionTestData;
             page.Setup();
@@ -97,22 +150,75 @@ namespace M3.QA.Pages
 
         private void cmdDipSolutionProduction_Click(object sender, RoutedEventArgs e)
         {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
 
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
         }
 
         private void cmdCordTestSpecification_Click(object sender, RoutedEventArgs e)
         {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
 
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
         }
 
         private void cmdDipSolutionTestSpecification_Click(object sender, RoutedEventArgs e)
         {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
 
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
         }
 
         private void cmdUserManage_Click(object sender, RoutedEventArgs e)
         {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
 
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
+            if (M3QAApp.Current.User.RoleId > 10)
+            {
+                // Role 1 : Admin
+                // Role 10 : Supervisor
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ผู้ใช้ปัจจุบันไม่มีสิทธิเข้าถึงหน้าจอนี้ได้");
+                msgbox.ShowDialog();
+                return;
+            }
+
+            var page = M3QAApp.Pages.UserManage;
+            page.Setup();
+            PageContentManager.Instance.Current = page;
         }
 
         #endregion

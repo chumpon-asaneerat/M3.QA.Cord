@@ -10,6 +10,7 @@ using NLib.Services;
 using M3.QA.Models;
 using M3.QA.Pages;
 using M3.QA.Windows;
+using M3.QA.Pages.Backup;
 
 #endregion
 
@@ -82,7 +83,6 @@ namespace M3.QA
 
             #region Cord
 
-            /*
             public static ReceiveCordTestSamplePage ReceiveCordTestSample
             {
                 get
@@ -90,6 +90,7 @@ namespace M3.QA
                     return GetPage<ReceiveCordTestSamplePage>();
                 }
             }
+            /*
 
             public static CordTestDataPage CordTestData
             {
@@ -120,6 +121,16 @@ namespace M3.QA
                 }
             }
             */
+            #endregion
+
+            #region Master
+
+            /// <summary>Gets M3 Cord User Manage Page.</summary>
+            public static UserManagementPage UserManage
+            {
+                get { return GetPage<UserManagementPage>(); }
+            }
+
             #endregion
         }
 
@@ -170,6 +181,26 @@ namespace M3.QA
             public static MessageBoxOKCancelWindow MessageBoxOKCancel
             {
                 get { return GetWindow<QA.Windows.MessageBoxOKCancelWindow>(); }
+            }
+
+            #endregion
+
+            #region SignIn
+
+            /// <summary>Gets SignIn Window.</summary>
+            public static SignInWindow SignIn
+            {
+                get { return GetWindow<SignInWindow>(); }
+            }
+
+            #endregion
+
+            #region Confirm User
+
+            /// <summary>Gets Confirm User Window.</summary>
+            public static ConfirmUserWindow ConfirmUser
+            {
+                get { return GetWindow<ConfirmUserWindow>(); }
             }
 
             #endregion

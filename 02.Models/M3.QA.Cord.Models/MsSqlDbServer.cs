@@ -22,19 +22,19 @@ namespace M3.QA
     #region Connection Config
 
     /// <summary>
-    /// The M3 Cord SqlServer database config.
+    /// The QA Cord SqlServer database config.
     /// </summary>
-    public class M3CordDbConfig
+    public class QACordDbConfig
     {
         #region Constructor
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public M3CordDbConfig() : base()
+        public QACordDbConfig() : base()
         {
             ServerName = "localhost";
-            DatabaseName = "M3Cord";
+            DatabaseName = "QACord";
             Authentication = 0;
             UserName = "sa";
             Password = "winnt123";
@@ -138,24 +138,24 @@ namespace M3.QA
             return File.Exists(fullFileName);
         }
 
-        private M3CordDbConfig GetConfig()
+        private QACordDbConfig GetConfig()
         {
-            M3CordDbConfig cfg;
+            QACordDbConfig cfg;
 
             string fileName = Path.Combine(ConfigFolder, "QACordDbServer.json");
             if (!ConfigExists(fileName))
             {
                 // create new one and save.
-                cfg = new M3CordDbConfig();
+                cfg = new QACordDbConfig();
                 NJson.SaveToFile(cfg, fileName, false);
             }
 
-            cfg = NJson.LoadFromFile<M3CordDbConfig>(fileName);
+            cfg = NJson.LoadFromFile<QACordDbConfig>(fileName);
 
             if (null == cfg)
             {
                 // create new one and save.
-                cfg = new M3CordDbConfig();
+                cfg = new QACordDbConfig();
                 //NJson.SaveToFile(cfg, fileName, false);
             }
             return cfg;

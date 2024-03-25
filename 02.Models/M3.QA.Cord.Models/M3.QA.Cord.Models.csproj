@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Executables\Production\Common\</OutputPath>
+    <OutputPath>..\..\Executables\Common\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -122,10 +122,10 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\M3.Cord\QA\Dapper.*" /Y/D/E
-xcopy "$(SolutionDir)References\EPPlus*.*" "$(TargetDir)\..\M3.Cord\QA\EPPlus*.*" /Y/D/E
-xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\M3.Cord\Tests\Dapper.*" /Y/D/E
-xcopy "$(SolutionDir)References\EPPlus*.*" "$(TargetDir)\..\M3.Cord\Tests\EPPlus*.*" /Y/D/E
+    <PostBuildEvent>xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\QACord\Dapper.*" /Y/D/E
+xcopy "$(SolutionDir)References\EPPlus*.*" "$(TargetDir)\..\QACord\EPPlus*.*" /Y/D/E
+xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\..\Test\Excel\Dapper.*" /Y/D/E
+xcopy "$(SolutionDir)References\EPPlus*.*" "$(TargetDir)\..\..\Test\Excel\EPPlus*.*" /Y/D/E
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

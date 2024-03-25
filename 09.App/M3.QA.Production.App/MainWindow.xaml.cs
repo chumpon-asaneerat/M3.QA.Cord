@@ -53,7 +53,7 @@ namespace M3.QA
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
         {
-            //DbServer.Instance.Shutdown();
+            DbServer.Instance.Shutdown();
 
             // Release Page Content Manager
             PageContentManager.Instance.Shutdown();
