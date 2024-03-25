@@ -85,6 +85,18 @@
     <Compile Include="Controls\Documents\TensileStrengthPage.xaml.cs">
       <DependentUpon>TensileStrengthPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StatusBar\CordStatusBar.xaml.cs">
+      <DependentUpon>CordStatusBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatusBar\Elements\AppVersionElement.xaml.cs">
+      <DependentUpon>AppVersionElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatusBar\Elements\ClientInfoElement.xaml.cs">
+      <DependentUpon>ClientInfoElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml.cs">
+      <DependentUpon>OperatorInfoElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\__Backup\Cord Test Data\CordTestDataPage.xaml.cs">
       <DependentUpon>CordTestDataPage.xaml</DependentUpon>
     </Compile>
@@ -213,6 +225,22 @@
     <Page Include="Controls\Documents\TensileStrengthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StatusBar\CordStatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\StatusBar\Elements\AppVersionElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\StatusBar\Elements\ClientInfoElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\__Backup\Cord Test Data\CordTestDataPage.xaml">
       <Generator>MSBuild:Compile</Generator>

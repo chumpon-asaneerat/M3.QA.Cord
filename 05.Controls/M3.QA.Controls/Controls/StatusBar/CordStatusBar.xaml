@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="M3.QA.Controls.CordStatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:elem="clr-namespace:M3.QA.Controls.Elements"
+             d:DesignHeight="16"
+             d:DesignWidth="900"
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d">
+    <DockPanel Background="DimGray" LastChildFill="True">
+        <elem:OperatorInfoElement DockPanel.Dock="Left" />
+        <elem:AppVersionElement DockPanel.Dock="Right" />
+        <elem:ClientInfoElement DockPanel.Dock="Right" />
+        <Grid />
+    </DockPanel>
+</UserControl>

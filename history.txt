@@ -7,8 +7,12 @@ M3 QA Cord #19
 M3 QA Cord #18
 - 
 
+[commit]
 M3 QA Cord #17
-- 
+- Implements QA Cord #3
+  - User Management #3
+  - Receive Cord Test Sample
+  - Receive Dip Solution Test Sample
 
 [commit]
 M3 QA Cord #16
