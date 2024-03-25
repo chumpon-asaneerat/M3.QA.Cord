@@ -1,9 +1,8 @@
 ﻿#region Using
 
-using M3.Cord.Models;
-using NLib;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Text;
@@ -17,15 +16,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static M3.Cord.Models.ExcelModel;
 
 #endregion
 
 using Dapper;
-using System.Data;
-using System.Windows.Markup;
+using M3.QA.Models;
 
-namespace M3.Cord.App
+namespace M3.QA
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -62,7 +59,7 @@ namespace M3.Cord.App
 
         private void cmdBrowseExcel_Click(object sender, RoutedEventArgs e)
         {
-            string file = Dialogs.OpenDialog(this);
+            string file = ExcelModel.Dialogs.OpenDialog(this);
             if (!string.IsNullOrWhiteSpace(file))
             {
                 txtExcelFile.Text = file;

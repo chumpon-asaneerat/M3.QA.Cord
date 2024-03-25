@@ -17,7 +17,7 @@ using NLib.IO;
 
 #endregion
 
-namespace M3.Cord
+namespace M3.QA
 {
     #region Connection Config
 
@@ -70,10 +70,10 @@ namespace M3.Cord
 
     #endregion
 
-    #region M3 Cord DbServer
+    #region M3 QA DbServer
 
     /// <summary>
-    /// M3 Cord Db Server (SqlServer).
+    /// M3 QA Db Server (SqlServer).
     /// </summary>
     public class DbServer : NSingelton<DbServer>
     {
@@ -142,7 +142,7 @@ namespace M3.Cord
         {
             M3CordDbConfig cfg;
 
-            string fileName = Path.Combine(ConfigFolder, "M3CordDbServer.json");
+            string fileName = Path.Combine(ConfigFolder, "QACordDbServer.json");
             if (!ConfigExists(fileName))
             {
                 // create new one and save.

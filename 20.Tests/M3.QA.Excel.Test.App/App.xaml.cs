@@ -1,4 +1,6 @@
-﻿using NLib.Logs;
+﻿#region Using
+
+using NLib.Logs;
 using NLib;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace M3.Cord.App
+#endregion
+
+namespace M3.QA
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace M3.Cord
+namespace M3.QA
 {
     public static class AppConsts
     {
@@ -23,8 +23,8 @@ namespace M3.Cord
                     // common
                     public static string Version = AppConsts.Version;
                     public static string Minor = AppConsts.Minor;
-                    public static string Build = "1";
-                    public static DateTime LastUpdate = new DateTime(2023, 12, 08, 14, 00, 00);
+                    public static string Build = "20";
+                    public static DateTime LastUpdate = new DateTime(2024, 3, 26, 07, 00, 00);
                 }
 
                 public static class ExcelTest

@@ -1,4 +1,4 @@
-﻿<Window x:Class="M3.Cord.App.MainWindow"
+﻿<Window x:Class="M3.QA.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -74,12 +74,12 @@
                                 VerticalAlignment="Center"
                                 Click="cmdDisconnect_Click" />
                         <TextBlock x:Name="txtConnectStatus"
-                               Text="-"
-                               Margin="5,0"
-                               FontSize="24"
-                               MinWidth="300"
-                               TextTrimming="CharacterEllipsis"
-                               VerticalAlignment="Center" />
+                                   Text="-"
+                                   Margin="5,0"
+                                   FontSize="24"
+                                   MinWidth="300"
+                                   TextTrimming="CharacterEllipsis"
+                                   VerticalAlignment="Center" />
                     </DockPanel>
                     <DockPanel LastChildFill="True" DockPanel.Dock="Top">
                         <Button x:Name="cmdGetUsers"
@@ -98,7 +98,7 @@
                                 FontSize="24"
                                 VerticalAlignment="Center"
                                 Click="cmdSaveUsers_Click" />
-                        <Grid/>
+                        <Grid />
                     </DockPanel>
                     <DataGrid x:Name="gridDB" AutoGenerateColumns="True" />
                 </DockPanel>

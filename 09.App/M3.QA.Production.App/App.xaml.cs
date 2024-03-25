@@ -9,7 +9,7 @@ using OfficeOpenXml;
 
 #endregion
 
-namespace M3.QA.Production.App
+namespace M3.QA
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -48,14 +48,14 @@ namespace M3.QA.Production.App
                 AppInfo = new NAppInformation()
                 {
                     /*  This property is required */
-                    //CompanyName = AppConsts.CompanyName,
-                    ///*  This property is required */
-                    //ProductName = AppConsts.Application.Cord.Production.ApplicationName,
-                    ///* For Application Version */
-                    //Version = AppConsts.Application.Cord.Production.Version,
-                    //Minor = AppConsts.Application.Cord.Production.Minor,
-                    //Build = AppConsts.Application.Cord.Production.Build,
-                    //LastUpdate = AppConsts.Application.Cord.Production.LastUpdate
+                    CompanyName = AppConsts.CompanyName,
+                    /*  This property is required */
+                    ProductName = AppConsts.Application.Cord.QA.ApplicationName,
+                    /* For Application Version */
+                    Version = AppConsts.Application.Cord.QA.Version,
+                    Minor = AppConsts.Application.Cord.QA.Minor,
+                    Build = AppConsts.Application.Cord.QA.Build,
+                    LastUpdate = AppConsts.Application.Cord.QA.LastUpdate
                 },
                 /* Setup Storage */
                 Storage = new NAppStorage()

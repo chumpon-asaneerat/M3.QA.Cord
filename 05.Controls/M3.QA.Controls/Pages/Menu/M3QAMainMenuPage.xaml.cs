@@ -1,7 +1,5 @@
 ﻿#region Using
 
-using M3.Cord.Models;
-using NLib.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
+using NLib.Services;
 
 #endregion
 
@@ -86,6 +86,5 @@ namespace M3.QA.Pages
         }
 
         #endregion
-
     }
 }

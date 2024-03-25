@@ -17,14 +17,13 @@ using Newtonsoft.Json;
 
 #endregion
 
-namespace M3.Cord.Models
+namespace M3.QA.Models
 {
-    public class Customer
+    public class MCustomer
     {
         #region Public Proeprties
 
-        public int? CustomerId { get; set; }
-        public string CustomerName { get; set; }
+        public string Customer { get; set; }
 
         #endregion
 
@@ -34,11 +33,11 @@ namespace M3.Cord.Models
         /// Gets
         /// </summary>
         /// <returns></returns>
-        public static NDbResult<List<Customer>> Gets()
+        public static NDbResult<List<MCustomer>> Gets(string product)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
-            NDbResult<List<Customer>> rets = new NDbResult<List<Customer>>();
+            NDbResult<List<MCustomer>> rets = new NDbResult<List<MCustomer>>();
 
             IDbConnection cnn = DbServer.Instance.Db;
             if (null == cnn || !DbServer.Instance.Connected)
@@ -53,10 +52,11 @@ namespace M3.Cord.Models
             }
 
             var p = new DynamicParameters();
+            p.Add("@product", product);
 
             try
             {
-                var items = cnn.Query<Customer>("GetCustomers", p,
+                var items = cnn.Query<MCustomer>("M_GetCustomerListByProduct", p,
                     commandType: CommandType.StoredProcedure);
                 var data = (null != items) ? items.ToList() : null;
                 rets.Success(data);
@@ -72,113 +72,10 @@ namespace M3.Cord.Models
             if (null == rets.data)
             {
                 // create empty list.
-                rets.data = new List<Customer>();
+                rets.data = new List<MCustomer>();
             }
 
             return rets;
-        }
-
-        /// <summary>
-        /// Save
-        /// </summary>
-        /// <param name="value">The Customer to save.</param>
-        /// <returns></returns>
-        public static NDbResult<Customer> Save(Customer value)
-        {
-            MethodBase med = MethodBase.GetCurrentMethod();
-
-            NDbResult<Customer> ret = new NDbResult<Customer>();
-
-            if (null == value)
-            {
-                ret.ParameterIsNull();
-                return ret;
-            }
-
-            IDbConnection cnn = DbServer.Instance.Db;
-            if (null == cnn || !DbServer.Instance.Connected)
-            {
-                string msg = "Connection is null or cannot connect to database server.";
-                med.Err(msg);
-                // Set error number/message
-                ret.ErrNum = 8000;
-                ret.ErrMsg = msg;
-
-                return ret;
-            }
-
-            var p = new DynamicParameters();
-            p.Add("@CustomerName", value.CustomerName);
-            p.Add("@CustomerId", value.CustomerId, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
-
-            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
-            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
-
-            try
-            {
-                cnn.Execute("SaveCustomer", p, commandType: CommandType.StoredProcedure);
-                ret.Success(value);
-                // Set PK
-                value.CustomerId = p.Get<int>("@CustomerId");
-                // Set error number/message
-                ret.ErrNum = p.Get<int>("@errNum");
-                ret.ErrMsg = p.Get<string>("@errMsg");
-            }
-            catch (Exception ex)
-            {
-                med.Err(ex);
-                // Set error number/message
-                ret.ErrNum = 9999;
-                ret.ErrMsg = ex.Message;
-            }
-
-            return ret;
-        }
-
-        public static NDbResult Delete(Customer value)
-        {
-            MethodBase med = MethodBase.GetCurrentMethod();
-
-            NDbResult ret = new NDbResult();
-
-            if (null == value)
-            {
-                ret.ParameterIsNull();
-                return ret;
-            }
-
-            IDbConnection cnn = DbServer.Instance.Db;
-            if (null == cnn || !DbServer.Instance.Connected)
-            {
-                string msg = "Connection is null or cannot connect to database server.";
-                med.Err(msg);
-                // Set error number/message
-                ret.ErrNum = 8000;
-                ret.ErrMsg = msg;
-
-                return ret;
-            }
-
-            var p = new DynamicParameters();
-            p.Add("@CustomerId", value.CustomerId);
-
-            try
-            {
-                cnn.Execute("DELETE FROM Customer WHERE CustomerId = @CustomerId", p, commandType: CommandType.Text);
-                ret.Success();
-                // Set error number/message
-                ret.ErrNum = p.Get<int>("@errNum");
-                ret.ErrMsg = p.Get<string>("@errMsg");
-            }
-            catch (Exception ex)
-            {
-                med.Err(ex);
-                // Set error number/message
-                ret.ErrNum = 9999;
-                ret.ErrMsg = ex.Message;
-            }
-
-            return ret;
         }
 
         #endregion

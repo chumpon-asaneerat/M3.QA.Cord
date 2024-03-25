@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 
 #endregion
 
-namespace M3.QA.Production.App
+namespace M3.QA
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -48,7 +48,7 @@ namespace M3.QA.Production.App
             var page = M3QAApp.Pages.M3QAMainMenu;
             PageContentManager.Instance.Current = page;
 
-            //DbServer.Instance.Start();
+            DbServer.Instance.Start();
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)

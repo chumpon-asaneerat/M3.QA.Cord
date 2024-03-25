@@ -1,17 +1,15 @@
 ﻿#region Using
 
-using M3.Cord.Models;
-using M3.QA.Windows;
-using NLib.Services;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-//using NLib.Services;
-//using M3.Cord.Models;
-//using M3.Services;
+using NLib.Services;
+using M3.QA.Models;
+using M3.QA.Pages;
+using M3.QA.Windows;
 
 #endregion
 
@@ -52,7 +50,7 @@ namespace M3.QA
 
             public static void GotoQAMainMenu()
             {
-                var page = Pages.M3QAMainMenu;
+                var page = M3QAMainMenu;
                 page.Setup();
                 PageContentManager.Instance.Current = page;
             }
@@ -62,48 +60,51 @@ namespace M3.QA
             #region Main Menu (Cord)
 
             /// <summary>Gets M3 QA MainMenu Page.</summary>
-            public static QA.Pages.M3QAMainMenuPage M3QAMainMenu
+            public static M3QAMainMenuPage M3QAMainMenu
             {
                 get
                 {
-                    return GetPage<QA.Pages.M3QAMainMenuPage>();
+                    return GetPage<M3QAMainMenuPage>();
                 }
             }
 
             #endregion
 
             #region ReceiveCordTestSample
-            public static QA.Pages.ReceiveCordTestSamplePage ReceiveCordTestSample
+
+            public static ReceiveCordTestSamplePage ReceiveCordTestSample
             {
                 get
                 {
-                    return GetPage<QA.Pages.ReceiveCordTestSamplePage>();
+                    return GetPage<ReceiveCordTestSamplePage>();
                 }
             }
+
             #endregion
 
             #region ReceiveDipSolution
-            public static QA.Pages.ReceiveDipSolutionTestSamplePage ReceiveDipSolutionTestSample
+
+            public static ReceiveDipSolutionTestSamplePage ReceiveDipSolutionTestSample
             {
                 get
                 {
-                    return GetPage<QA.Pages.ReceiveDipSolutionTestSamplePage>();
+                    return GetPage<ReceiveDipSolutionTestSamplePage>();
                 }
             }
 
-            public static QA.Pages.DipSolutionTestDataPage DipSolutionTestData
+            public static DipSolutionTestDataPage DipSolutionTestData
             {
                 get
                 {
-                    return GetPage<QA.Pages.DipSolutionTestDataPage>();
+                    return GetPage<DipSolutionTestDataPage>();
                 }
             }
 
-            public static QA.Pages.CordTestDataPage CordTestData
+            public static CordTestDataPage CordTestData
             {
                 get
                 {
-                    return GetPage<QA.Pages.CordTestDataPage>();
+                    return GetPage<CordTestDataPage>();
                 }
             }
 
@@ -160,7 +161,6 @@ namespace M3.QA
             }
 
             #endregion
-
         }
     }
 }

@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E46D9576-EA5F-45B6-9073-6B564ECA363F}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>M3.QA.Cord.Core</RootNamespace>
+    <RootNamespace>M3.QA</RootNamespace>
     <AssemblyName>M3.QA.Cord.Core</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

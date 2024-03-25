@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace M3.Cord.Utils
+namespace M3.QA.Utils
 {
     public static class NullTypeConvertExtensionMethod
     {

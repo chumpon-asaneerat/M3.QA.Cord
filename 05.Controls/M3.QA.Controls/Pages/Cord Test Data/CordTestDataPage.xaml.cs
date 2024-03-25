@@ -15,11 +15,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using NLib.Services;
-using M3.Cord.Models;
-using NLib.Models;
 using NLib;
+using NLib.Services;
+using NLib.Models;
 using NLib.Wpf.Controls;
+using M3.QA.Models;
 
 #endregion
 

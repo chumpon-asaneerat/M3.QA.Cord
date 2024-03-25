@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 #endregion
 
-namespace M3.Cord.Models
+namespace M3.QA.Models
 {
     public class ModelConsts
     {

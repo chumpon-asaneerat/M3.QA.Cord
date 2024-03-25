@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>M3.QA.Production.App.App</StartupObject>
+    <StartupObject>M3.QA.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">

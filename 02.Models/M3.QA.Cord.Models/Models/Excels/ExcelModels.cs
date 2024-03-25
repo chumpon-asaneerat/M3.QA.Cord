@@ -16,7 +16,7 @@ using OfficeOpenXml;
 
 #endregion
 
-namespace M3.Cord.Models
+namespace M3.QA.Models
 {
     #region ImportError
 

@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2B4A56ED-462A-4B5E-8565-69A1A586FC25}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>M3.QA.Cord.Models</RootNamespace>
+    <RootNamespace>M3.QA</RootNamespace>
     <AssemblyName>M3.QA.Cord.Models</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -75,10 +75,9 @@
   <ItemGroup>
     <Compile Include="Models\Common\ModelConsts.cs" />
     <Compile Include="Models\Excels\ExcelModels.cs" />
-    <Compile Include="Models\Masters\CordItemCode.cs" />
     <Compile Include="Models\Masters\Customer.cs" />
-    <Compile Include="Models\Masters\Product.cs" />
     <Compile Include="Models\Users\UserInfo.cs" />
+    <Compile Include="Models\Users\UserRole.cs" />
     <Compile Include="MsSqlDbServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
