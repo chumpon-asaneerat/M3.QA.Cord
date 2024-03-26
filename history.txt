@@ -13,8 +13,9 @@ M3 QA Cord #27
 M3 QA Cord #26
 - 
 
+[commit]
 M3 QA Cord #25
-- 
+- Change output app name from M3.QA.Production.App to M3.QA.Cord.App
 
 [commit]
 M3 QA Cord #24
