@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="M3.QA.Pages.ReceiveDIPSolutionTestSamplePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ctrl="clr-namespace:NLib.Wpf.Controls;assembly=NLib.Wpf.Controls"
+             xmlns:util="clr-namespace:NLib.Wpf.Controls.Utils;assembly=NLib.Wpf.Controls"
+             xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="1000">
+    <page:NPage HeaderText="Receive DIP Solution Test Sample">
+        <DockPanel LastChildFill="True" Margin="5">
+            <!--  BUTTON BARS  -->
+            <DockPanel LastChildFill="True"
+                       DockPanel.Dock="Bottom"
+                       Height="40">
+                <ctrl:FontAwesomeButton x:Name="cmdCancel"
+                                        DockPanel.Dock="Left"
+                                        IconType="Save"
+                                        Text="Save"
+                                        Click="cmdSave_Click" />
+                <ctrl:FontAwesomeButton x:Name="cmdBack"
+                                        DockPanel.Dock="Right"
+                                        IconType="Home"
+                                        Text="Back"
+                                        Click="cmdBack_Click" />
+                <Grid />
+            </DockPanel>
+            <!--  WORK AREA  -->
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <DockPanel LastChildFill="True">
+                    <DockPanel DockPanel.Dock="Top">
+                        <!--  LOT NO  -->
+                        <ctrl:NTextBox x:Name="txtLotNo"
+                                       CaptionText="Lot No:"
+                                       DockPanel.Dock="Left"
+                                       Text="{Binding LotNo}"
+                                       Width="200" />
+                        <!--  CUSTOMER  -->
+                        <ctrl:NComboBox x:Name="cbCustomers"
+                                        DockPanel.Dock="Left"
+                                        CaptionText="Customer:"
+                                        DisplayMemberPath="Customer"
+                                        Width="250"
+                                        SelectionChanged="cbCustomers_SelectionChanged" />
+                        <!--  DIP Solution  -->
+                        <ctrl:NComboBox x:Name="cbCodes"
+                                        DockPanel.Dock="Left"
+                                        CaptionText="DIP Solution:"
+                                        DisplayMemberPath="ItemCode"
+                                        Width="200"
+                                        SelectionChanged="cbCodes_SelectionChanged" />
+                        <!--  CUSTOMER  -->
+                        <ctrl:NComboBox x:Name="cbDIPMC"
+                                        DockPanel.Dock="Left"
+                                        CaptionText="Select M/C:"
+                                        DisplayMemberPath="MCName"
+                                        Width="250" />
+                        <Grid />
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <!--  Send By  -->
+                            <ctrl:NTextBox CaptionText="Send By:"
+                                           Margin="5"
+                                           Text="{Binding SendBy}" />
+                            <!--  Send DATE  -->
+                            <ctrl:NInputGroup CaptionText="Send Date/Time:"
+                                              DockPanel.Dock="Left"
+                                              Width="250">
+                                <xctk:DateTimePicker x:Name="dtSend"
+                                                     Format="Custom"
+                                                     FormatString="dd/MM/yyyy HH:mm"
+                                                     Value="{Binding SendDate}"
+                                                     AutoCloseCalendar="True"
+                                                     AutoCloseCalendarOnTimeSelection="True" />
+                            </ctrl:NInputGroup>
+                        </StackPanel>
+                        <Grid />
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                            <TextBlock Text="Spindle No: "
+                                       Margin="5"
+                                       VerticalAlignment="Bottom"
+                                       FontWeight="SemiBold"
+                                       FontSize="24" />
+                        </StackPanel>
+                        <Grid />
+                    </DockPanel>
+                    <Grid />
+                </DockPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </page:NPage>
+</UserControl>

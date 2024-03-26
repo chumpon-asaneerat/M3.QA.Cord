@@ -103,6 +103,9 @@
     <Compile Include="Pages\Cords\ReceiveCordSampleTestPage.xaml.cs">
       <DependentUpon>ReceiveCordSampleTestPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ReceiveDIPSolutionTestSamplePage.xaml.cs">
+      <DependentUpon>ReceiveDIPSolutionTestSamplePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\__Backup\Cord Test Data\CordTestDataPage.xaml.cs">
       <DependentUpon>CordTestDataPage.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Cords\ReceiveCordSampleTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ReceiveDIPSolutionTestSamplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

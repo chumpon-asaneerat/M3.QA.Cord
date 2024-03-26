@@ -82,11 +82,11 @@ namespace M3.QA
 
             #region Cord
 
-            public static ReceiveCordSampleTestPage ReceiveCordSampleTest
+            public static ReceiveCordTestSamplePage ReceiveCordSampleTest
             {
                 get
                 {
-                    return GetPage<ReceiveCordSampleTestPage>();
+                    return GetPage<ReceiveCordTestSamplePage>();
                 }
             }
             /*
@@ -103,15 +103,16 @@ namespace M3.QA
             #endregion
 
             #region Dip Solution
-            /*
-            public static ReceiveDipSolutionTestSamplePage ReceiveDipSolutionTestSample
+
+            public static ReceiveDIPSolutionTestSamplePage ReceiveDipSolutionTestSample
             {
                 get
                 {
-                    return GetPage<ReceiveDipSolutionTestSamplePage>();
+                    return GetPage<ReceiveDIPSolutionTestSamplePage>();
                 }
             }
 
+            /*
             public static DipSolutionTestDataPage DipSolutionTestData
             {
                 get

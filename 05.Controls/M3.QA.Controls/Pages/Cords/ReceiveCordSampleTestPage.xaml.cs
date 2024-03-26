@@ -24,16 +24,16 @@ using System.Windows.Shapes;
 namespace M3.QA.Pages
 {
     /// <summary>
-    /// Interaction logic for ReceiveCordSampleTestPage.xaml
+    /// Interaction logic for ReceiveCordTestSamplePage.xaml
     /// </summary>
-    public partial class ReceiveCordSampleTestPage : UserControl
+    public partial class ReceiveCordTestSamplePage : UserControl
     {
         #region Constructor
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public ReceiveCordSampleTestPage()
+        public ReceiveCordTestSamplePage()
         {
             InitializeComponent();
         }
