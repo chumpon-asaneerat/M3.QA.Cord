@@ -10,7 +10,6 @@ using NLib.Services;
 using M3.QA.Models;
 using M3.QA.Pages;
 using M3.QA.Windows;
-using M3.QA.Pages.Backup;
 
 #endregion
 
@@ -83,11 +82,11 @@ namespace M3.QA
 
             #region Cord
 
-            public static ReceiveCordTestSamplePage ReceiveCordTestSample
+            public static ReceiveCordSampleTestPage ReceiveCordSampleTest
             {
                 get
                 {
-                    return GetPage<ReceiveCordTestSamplePage>();
+                    return GetPage<ReceiveCordSampleTestPage>();
                 }
             }
             /*
@@ -170,6 +169,13 @@ namespace M3.QA
             {
                 var win = M3QAApp.Windows.MessageBox;
                 win.Setup("Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ");
+                win.ShowDialog();
+            }
+
+            public static void ShowMessage(string message)
+            {
+                var win = M3QAApp.Windows.MessageBox;
+                win.Setup(message);
                 win.ShowDialog();
             }
 

@@ -74,6 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Common\ModelConsts.cs" />
+    <Compile Include="Models\CordMC.cs" />
+    <Compile Include="Models\CustomerCode.cs" />
     <Compile Include="Models\Excels\ExcelModels.cs" />
     <Compile Include="Models\Masters\Customer.cs" />
     <Compile Include="Models\Users\UserInfo.cs" />
@@ -119,7 +121,9 @@
       <Name>M3.QA.Cord.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\Cords\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\QACord\Dapper.*" /Y/D/E

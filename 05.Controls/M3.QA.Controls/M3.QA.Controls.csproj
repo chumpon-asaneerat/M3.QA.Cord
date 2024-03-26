@@ -100,7 +100,7 @@
     <Compile Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml.cs">
       <DependentUpon>OperatorInfoElement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ReceiveCordSampleTestPage.xaml.cs">
+    <Compile Include="Pages\Cords\ReceiveCordSampleTestPage.xaml.cs">
       <DependentUpon>ReceiveCordSampleTestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\__Backup\Cord Test Data\CordTestDataPage.xaml.cs">
@@ -114,12 +114,6 @@
     </Compile>
     <Compile Include="Pages\Menu\M3QAMainMenuPage.xaml.cs">
       <DependentUpon>M3QAMainMenuPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\__Backup\Receive Cord Test Sample\ReceiveCordTestSamplePage.xaml.cs">
-      <DependentUpon>ReceiveCordTestSamplePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\__Backup\Receive Dip Solution Test Sample\ReceiveDipSolutionTestSamplePage.xaml.cs">
-      <DependentUpon>ReceiveDipSolutionTestSamplePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -248,7 +242,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\ReceiveCordSampleTestPage.xaml">
+    <Page Include="Pages\Cords\ReceiveCordSampleTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -267,14 +261,6 @@
     <Page Include="Pages\Menu\M3QAMainMenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\__Backup\Receive Cord Test Sample\ReceiveCordTestSamplePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\__Backup\Receive Dip Solution Test Sample\ReceiveDipSolutionTestSamplePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -306,7 +292,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Cords\" />
     <Folder Include="Pages\Solutions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

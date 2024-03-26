@@ -68,7 +68,7 @@ namespace M3.QA.Pages
                 return;
             }
             // Receive Cord Test Sample
-            var page = M3QAApp.Pages.ReceiveCordTestSample;
+            var page = M3QAApp.Pages.ReceiveCordSampleTest;
             page.Setup();
             PageContentManager.Instance.Current = page;
         }

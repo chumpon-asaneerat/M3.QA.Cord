@@ -73,6 +73,7 @@
                                     VerticalAlignment="Bottom"
                                     Margin="5,0">
                             <RadioButton x:Name="rbTwist"
+                                         IsEnabled="False"
                                          Margin="5"
                                          FontSize="22"
                                          FontWeight="SemiBold"
@@ -80,6 +81,7 @@
                                          GroupName="ProductTypes"
                                          Style="{StaticResource CommonRadioButton}" />
                             <RadioButton x:Name="rbDIP"
+                                         IsEnabled="False"
                                          Margin="5"
                                          FontSize="22"
                                          FontWeight="SemiBold"
