@@ -19,8 +19,10 @@ M3 QA Cord #25
 M3 QA Cord #24
 - 
 
+[commit]
 M3 QA Cord #23
-- 
+- Implements QA Cord #9
+  - Receive Dip Solution Test Sample #3
 
 [commit]
 M3 QA Cord #22

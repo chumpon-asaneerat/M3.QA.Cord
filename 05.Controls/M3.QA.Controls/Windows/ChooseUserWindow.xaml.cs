@@ -1,5 +1,6 @@
 ﻿using M3.QA.Models;
 using NLib.Models;
+using NLib.Wpf.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,14 @@ namespace M3.QA.Windows
 
         private void cmdSelect_Click(object sender, RoutedEventArgs e)
         {
-            ChooseSelectedItem();
+            var btn = sender as FontAwesomeButton;
+            var ctx = (null != btn) ? btn.DataContext : null;
+            var user = (null != ctx)  ? ctx as UserInfo : null;
+            if (null != user)
+            {
+                this.User = user;
+                DialogResult = true;
+            }
         }
 
         private void cmdCancel_Click(object sender, RoutedEventArgs e)

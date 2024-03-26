@@ -66,7 +66,7 @@ namespace M3.QA.Pages
             win.Setup();
             if (win.ShowDialog() == true)
             {
-                sample.SaveBy = (null != win.User) ? win.User.FullName : null;
+                sample.SendBy = (null != win.User) ? win.User.FullName : null;
             }
         }
 
@@ -96,7 +96,7 @@ namespace M3.QA.Pages
             // get cord customers
             customers = MCustomer.Gets("Solution").Value();
             cbCustomers.ItemsSource = customers;
-            if (null != customers && customers.Count > 1)
+            if (null != customers && customers.Count > 0)
             {
                 this.InvokeAction(() =>
                 {
@@ -112,7 +112,7 @@ namespace M3.QA.Pages
             // get cord code by customer
             cordCodes = CordCode.Gets(customer.Customer).Value();
             cbCodes.ItemsSource = cordCodes;
-            if (null != cordCodes && cordCodes.Count > 1)
+            if (null != cordCodes && cordCodes.Count > 0)
             {
                 this.InvokeAction(() =>
                 {
@@ -129,9 +129,18 @@ namespace M3.QA.Pages
 
             sample.SendDate = DateTime.Now;
             sample.ReceiveDate = DateTime.Now;
-            sample.ForcastFinishDate = DateTime.Now;
+            sample.ForecastFinishDate = DateTime.Now;
 
             this.DataContext = sample;
+
+            // Change Customer selection index
+            if (null != customers && customers.Count > 0)
+            {
+                this.InvokeAction(() =>
+                {
+                    cbCustomers.SelectedIndex = 0;
+                });
+            }
         }
 
         private void Save()
@@ -204,12 +213,12 @@ namespace M3.QA.Pages
                 return;
             }
 
-            if (!dtForcast.Value.HasValue)
+            if (!dtForecast.Value.HasValue)
             {
                 this.InvokeAction(() =>
                 {
                     M3QAApp.Windows.ShowMessage("กรุณาเลือก วันที่ Forcase Finished");
-                    dtForcast.FocusControl();
+                    dtForecast.FocusControl();
                 });
                 return;
             }

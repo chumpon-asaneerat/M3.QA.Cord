@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace M3.QA.Models
 {
-    public class DIPSolutionSampleRecv
+    public class DIPSolutionSampleRecv : NInpc
     {
         #region Public Properties
 
@@ -28,10 +28,21 @@ namespace M3.QA.Models
 
         public string Compound { get; set; }
 
-        public string SendBy { get; set; }
+        public string SendBy 
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () => 
+                {
+                    Raise(() => this.SendBy);
+                });
+            }
+
+        }
         public DateTime? SendDate { get; set; }
         public DateTime? ReceiveDate { get; set; }
-        public DateTime? ForcastFinishDate { get; set; }
+        public DateTime? ForecastFinishDate { get; set; }
 
         public string SaveBy { get; set; }
         public DateTime? SaveDate { get; set; }
@@ -80,7 +91,7 @@ namespace M3.QA.Models
             p.Add("@SendDate", value.SendDate);
 
             p.Add("@ReceiveDate", value.ReceiveDate);
-            p.Add("@ForcastFinishDate", value.ForcastFinishDate);
+            p.Add("@ForecastFinishDate", value.ForecastFinishDate);
 
             p.Add("@SaveBy", value.SaveBy);
             p.Add("@SaveDate", value.SaveDate);

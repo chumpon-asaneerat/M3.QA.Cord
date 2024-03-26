@@ -103,15 +103,15 @@
                                                      AutoCloseCalendar="True"
                                                      AutoCloseCalendarOnTimeSelection="True" />
                             </ctrl:NInputGroup>
-                            <!--  FORCAST DATE  -->
+                            <!--  FORECAST DATE  -->
                             <ctrl:NInputGroup CaptionText="Forcast Finished Date/Time:"
                                               DockPanel.Dock="Left"
                                               Width="250">
-                                <xctk:DateTimePicker x:Name="dtForcast"
+                                <xctk:DateTimePicker x:Name="dtForecast"
                                                      Margin="0,5,0,0"
                                                      Format="Custom"
                                                      FormatString="dd/MM/yyyy HH:mm"
-                                                     Value="{Binding ForcastFinishDate}"
+                                                     Value="{Binding ForecastFinishDate}"
                                                      AutoCloseCalendar="True"
                                                      AutoCloseCalendarOnTimeSelection="True" />
                             </ctrl:NInputGroup>

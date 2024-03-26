@@ -95,7 +95,7 @@ namespace M3.QA.Pages
             // get cord customers
             customers = MCustomer.Gets("Cord").Value();
             cbCustomers.ItemsSource = customers;
-            if (null != customers && customers.Count > 1)
+            if (null != customers && customers.Count > 0)
             {
                 this.InvokeAction(() =>
                 {
@@ -111,7 +111,7 @@ namespace M3.QA.Pages
             // get cord code by customer
             cordCodes = CordCode.Gets(customer.Customer).Value();
             cbCodes.ItemsSource = cordCodes;
-            if (null != cordCodes && cordCodes.Count > 1) 
+            if (null != cordCodes && cordCodes.Count > 0) 
             {
                 this.InvokeAction(() =>
                 {
@@ -138,7 +138,7 @@ namespace M3.QA.Pages
                 // DIP need to select MC
                 rbDIP.IsChecked = true;
                 cbDIPMC.IsEnabled = true;
-                if (null != MCs && MCs.Count > 1)
+                if (null != MCs && MCs.Count > 0)
                 {
                     this.InvokeAction(() =>
                     {
@@ -158,7 +158,7 @@ namespace M3.QA.Pages
             this.DataContext = sample;
 
             // Change Customer selection index
-            if (null != customers && customers.Count > 1)
+            if (null != customers && customers.Count > 0)
             {
                 this.InvokeAction(() =>
                 {
