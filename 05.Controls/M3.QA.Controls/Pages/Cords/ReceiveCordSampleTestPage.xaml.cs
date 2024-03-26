@@ -42,6 +42,7 @@ namespace M3.QA.Pages
 
         #region Internal Variables
 
+        private CordTestSampleRecv sample = new CordTestSampleRecv();
         private List<MCustomer> customers = null;
         private List<CordCode> cordCodes = null;
         private List<DIPMC> MCs = null;
@@ -149,8 +150,13 @@ namespace M3.QA.Pages
 
         private void ClearInputs()
         {
-            dtRecv.Value = DateTime.Now;
-            txtLotNo.Text = string.Empty;
+            this.DataContext = null;
+
+            sample = new CordTestSampleRecv();
+            sample.ReceiveDate = DateTime.Now; // Set default Now.
+
+            this.DataContext = sample;
+
             // Change Customer selection index
             if (null != customers && customers.Count > 1)
             {
@@ -163,7 +169,15 @@ namespace M3.QA.Pages
 
         private void Save()
         {
-            if (string.IsNullOrWhiteSpace(txtLotNo.Text))
+            if (null == sample)
+            {
+                this.InvokeAction(() =>
+                {
+                    M3QAApp.Windows.ShowMessage("Instance is null.");
+                });
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(sample.LotNo))
             {
                 this.InvokeAction(() =>
                 {
@@ -213,7 +227,23 @@ namespace M3.QA.Pages
                 return;
             }
 
-            ClearInputs();
+            var code = cbCodes.SelectedItem as CordCode;
+            var dip = cbDIPMC.SelectedItem as DIPMC;
+
+            sample.MasterId = (null != code) ? code.MasterId : new int?();
+            sample.DIPMC = (null != dip) ? dip.MCName : null;
+            sample.ReceiveBy = (null != M3QAApp.Current.User) ? M3QAApp.Current.User.FullName : null;
+
+            var ret = CordTestSampleRecv.Save(sample);
+            if (null == ret || !ret.Ok)
+            {
+                M3QAApp.Windows.SaveFailed();
+            }
+            else
+            {
+                M3QAApp.Windows.SaveSuccess();
+                ClearInputs();
+            }
         }
 
         #endregion

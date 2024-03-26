@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ctrl="clr-namespace:NLib.Wpf.Controls;assembly=NLib.Wpf.Controls"
+             xmlns:util="clr-namespace:NLib.Wpf.Controls.Utils;assembly=NLib.Wpf.Controls"
              xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
@@ -18,90 +19,196 @@
                 <ctrl:FontAwesomeButton x:Name="cmdCancel"
                                         DockPanel.Dock="Left"
                                         IconType="Save"
-                                        Text="Save" 
-                                        Click="cmdSave_Click"/>
+                                        Text="Save"
+                                        Click="cmdSave_Click" />
                 <ctrl:FontAwesomeButton x:Name="cmdBack"
                                         DockPanel.Dock="Right"
                                         IconType="Home"
-                                        Text="Back" 
-                                        Click="cmdBack_Click"/>
+                                        Text="Back"
+                                        Click="cmdBack_Click" />
                 <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
-            <DockPanel LastChildFill="True">
-                <DockPanel DockPanel.Dock="Top">
-                    <!--  LOT NO  -->
-                    <ctrl:NTextBox x:Name="txtLotNo"
-                                   CaptionText="Lot No:"
-                                   DockPanel.Dock="Left"
-                                   Text=""
-                                   Width="200" />
-                    <!--  CUSTOMER  -->
-                    <ctrl:NComboBox x:Name="cbCustomers"
-                                    DockPanel.Dock="Left"
-                                    CaptionText="Customer:"
-                                    DisplayMemberPath="Customer"
-                                    Width="250"
-                                    SelectionChanged="cbCustomers_SelectionChanged" />
-                    <!--  CORD CODE  -->
-                    <ctrl:NComboBox x:Name="cbCodes"
-                                    DockPanel.Dock="Left"
-                                    CaptionText="Cord Code:"
-                                    DisplayMemberPath="ItemCode"
-                                    Width="200"
-                                    SelectionChanged="cbCodes_SelectionChanged" />
-                    <!--  RECEIVE DATE  -->
-                    <ctrl:NInputGroup CaptionText="Receive Date/Time:"
-                                      DockPanel.Dock="Left"
-                                      Width="250">
-                        <xctk:DateTimePicker x:Name="dtRecv"
-                                             Format="Custom"
-                                             FormatString="dd/MM/yyyy HH:mm" />
-                    </ctrl:NInputGroup>
-                    <Grid />
-                </DockPanel>
-                <DockPanel DockPanel.Dock="Top">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <!--  PRODUCT TYPE  -->
-                        <TextBlock Text="Product Type:"
-                                   DockPanel.Dock="Top"
-                                   Margin="5"
-                                   VerticalAlignment="Bottom"
-                                   FontWeight="SemiBold"
-                                   FontSize="24" />
-                        <StackPanel Orientation="Horizontal"
-                                    VerticalAlignment="Bottom"
-                                    Margin="5,0">
-                            <RadioButton x:Name="rbTwist"
-                                         IsEnabled="False"
-                                         Margin="5"
-                                         FontSize="22"
-                                         FontWeight="SemiBold"
-                                         Content="Twist"
-                                         GroupName="ProductTypes"
-                                         Style="{StaticResource CommonRadioButton}" />
-                            <RadioButton x:Name="rbDIP"
-                                         IsEnabled="False"
-                                         Margin="5"
-                                         FontSize="22"
-                                         FontWeight="SemiBold"
-                                         Content="DIP"
-                                         GroupName="ProductTypes"
-                                         VerticalAlignment="Bottom"
-                                         VerticalContentAlignment="Bottom"
-                                         Style="{StaticResource CommonRadioButton}" />
-                        </StackPanel>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <DockPanel LastChildFill="True">
+                    <DockPanel DockPanel.Dock="Top">
+                        <!--  LOT NO  -->
+                        <ctrl:NTextBox x:Name="txtLotNo"
+                                       CaptionText="Lot No:"
+                                       DockPanel.Dock="Left"
+                                       Text="{Binding LotNo}"
+                                       Width="200" />
                         <!--  CUSTOMER  -->
-                        <ctrl:NComboBox x:Name="cbDIPMC"
+                        <ctrl:NComboBox x:Name="cbCustomers"
                                         DockPanel.Dock="Left"
-                                        CaptionText="Select M/C:"
-                                        DisplayMemberPath="MCName"
-                                        Width="250" />
-                    </StackPanel>
+                                        CaptionText="Customer:"
+                                        DisplayMemberPath="Customer"
+                                        Width="250"
+                                        SelectionChanged="cbCustomers_SelectionChanged" />
+                        <!--  CORD CODE  -->
+                        <ctrl:NComboBox x:Name="cbCodes"
+                                        DockPanel.Dock="Left"
+                                        CaptionText="Cord Code:"
+                                        DisplayMemberPath="ItemCode"
+                                        Width="200"
+                                        SelectionChanged="cbCodes_SelectionChanged" />
+                        <!--  RECEIVE DATE  -->
+                        <ctrl:NInputGroup CaptionText="Receive Date/Time:"
+                                          DockPanel.Dock="Left"
+                                          Width="250">
+                            <xctk:DateTimePicker x:Name="dtRecv"
+                                                 Format="Custom"
+                                                 FormatString="dd/MM/yyyy HH:mm"
+                                                 Value="{Binding ReceiveDate}"
+                                                 AutoCloseCalendar="True"
+                                                 AutoCloseCalendarOnTimeSelection="True" />
+                        </ctrl:NInputGroup>
+                        <Grid />
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <!--  PRODUCT TYPE  -->
+                            <TextBlock Text="Product Type:"
+                                       DockPanel.Dock="Top"
+                                       Margin="5"
+                                       VerticalAlignment="Bottom"
+                                       FontWeight="SemiBold"
+                                       FontSize="24" />
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Bottom"
+                                        Margin="5,0">
+                                <RadioButton x:Name="rbTwist"
+                                             IsEnabled="False"
+                                             Margin="5"
+                                             FontSize="22"
+                                             FontWeight="SemiBold"
+                                             Content="Twist"
+                                             GroupName="ProductTypes"
+                                             Style="{StaticResource CommonRadioButton}" />
+                                <RadioButton x:Name="rbDIP"
+                                             IsEnabled="False"
+                                             Margin="5"
+                                             FontSize="22"
+                                             FontWeight="SemiBold"
+                                             Content="DIP"
+                                             GroupName="ProductTypes"
+                                             VerticalAlignment="Bottom"
+                                             VerticalContentAlignment="Bottom"
+                                             Style="{StaticResource CommonRadioButton}" />
+                            </StackPanel>
+                            <!--  CUSTOMER  -->
+                            <ctrl:NComboBox x:Name="cbDIPMC"
+                                            DockPanel.Dock="Left"
+                                            CaptionText="Select M/C:"
+                                            DisplayMemberPath="MCName"
+                                            Width="250" />
+                        </StackPanel>
+                        <Grid />
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                            <TextBlock Text="Spindle No: "
+                                       Margin="5"
+                                       VerticalAlignment="Bottom"
+                                       FontWeight="SemiBold"
+                                       FontSize="24" />
+                            <TextBox Text="{Binding SP1, TargetNullValue=''}"
+                                     util:FocusOptions.SelectAll="True"
+                                     util:KeyboardOptions.Enabled="True"
+                                     util:KeyboardOptions.EnterAsTab="True"
+                                     util:KeyboardOptions.LeftRightNavigation="True"
+                                     util:KeyboardOptions.UpDownNavigation="True"
+                                     Margin="3,0"
+                                     Width="100"
+                                     FontSize="24"
+                                     FontWeight="SemiBold"
+                                     VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Style="{StaticResource CommonTextBox}" />
+                            <TextBox Text="{Binding SP2, TargetNullValue=''}"
+                                     util:FocusOptions.SelectAll="True"
+                                     util:KeyboardOptions.Enabled="True"
+                                     util:KeyboardOptions.EnterAsTab="True"
+                                     util:KeyboardOptions.LeftRightNavigation="True"
+                                     util:KeyboardOptions.UpDownNavigation="True"
+                                     Margin="3,0"
+                                     Width="100"
+                                     FontSize="24"
+                                     FontWeight="SemiBold"
+                                     VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Style="{StaticResource CommonTextBox}" />
+                            <TextBox Text="{Binding SP3, TargetNullValue=''}"
+                                     util:FocusOptions.SelectAll="True"
+                                     util:KeyboardOptions.Enabled="True"
+                                     util:KeyboardOptions.EnterAsTab="True"
+                                     util:KeyboardOptions.LeftRightNavigation="True"
+                                     util:KeyboardOptions.UpDownNavigation="True"
+                                     Margin="3,0"
+                                     Width="100"
+                                     FontSize="24"
+                                     FontWeight="SemiBold"
+                                     VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Style="{StaticResource CommonTextBox}" />
+                            <TextBox Text="{Binding SP4, TargetNullValue=''}"
+                                     util:FocusOptions.SelectAll="True"
+                                     util:KeyboardOptions.Enabled="True"
+                                     util:KeyboardOptions.EnterAsTab="True"
+                                     util:KeyboardOptions.LeftRightNavigation="True"
+                                     util:KeyboardOptions.UpDownNavigation="True"
+                                     Margin="3,0"
+                                     Width="100"
+                                     FontSize="24"
+                                     FontWeight="SemiBold"
+                                     VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Style="{StaticResource CommonTextBox}" />
+                            <TextBox Text="{Binding SP5, TargetNullValue=''}"
+                                     util:FocusOptions.SelectAll="True"
+                                     util:KeyboardOptions.Enabled="True"
+                                     util:KeyboardOptions.EnterAsTab="True"
+                                     util:KeyboardOptions.LeftRightNavigation="True"
+                                     util:KeyboardOptions.UpDownNavigation="True"
+                                     Margin="3,0"
+                                     Width="100"
+                                     FontSize="24"
+                                     FontWeight="SemiBold"
+                                     VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Style="{StaticResource CommonTextBox}" />
+                            <TextBox Text="{Binding SP6, TargetNullValue=''}"
+                                     util:FocusOptions.SelectAll="True"
+                                     util:KeyboardOptions.Enabled="True"
+                                     util:KeyboardOptions.EnterAsTab="True"
+                                     util:KeyboardOptions.LeftRightNavigation="True"
+                                     util:KeyboardOptions.UpDownNavigation="True"
+                                     Margin="3,0"
+                                     Width="100"
+                                     FontSize="24"
+                                     FontWeight="SemiBold"
+                                     VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Style="{StaticResource CommonTextBox}" />
+                            <TextBox Text="{Binding SP7, TargetNullValue=''}"
+                                     util:FocusOptions.SelectAll="True"
+                                     util:KeyboardOptions.Enabled="True"
+                                     util:KeyboardOptions.EnterAsTab="True"
+                                     util:KeyboardOptions.LeftRightNavigation="True"
+                                     util:KeyboardOptions.UpDownNavigation="True"
+                                     Margin="3,0"
+                                     Width="100"
+                                     FontSize="24"
+                                     FontWeight="SemiBold"
+                                     VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Style="{StaticResource CommonTextBox}" />
+                        </StackPanel>
+                        <Grid />
+                    </DockPanel>
                     <Grid />
                 </DockPanel>
-                <Grid />
-            </DockPanel>
+            </ScrollViewer>
         </DockPanel>
     </page:NPage>
 </UserControl>
