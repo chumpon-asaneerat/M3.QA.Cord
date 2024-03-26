@@ -16,8 +16,9 @@ M3 QA Cord #26
 M3 QA Cord #25
 - 
 
+[commit]
 M3 QA Cord #24
-- 
+- Update App Build 20
 
 [commit]
 M3 QA Cord #23
