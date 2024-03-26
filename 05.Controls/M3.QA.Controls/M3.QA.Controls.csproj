@@ -103,7 +103,7 @@
     <Compile Include="Pages\Cords\ReceiveCordSampleTestPage.xaml.cs">
       <DependentUpon>ReceiveCordSampleTestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ReceiveDIPSolutionTestSamplePage.xaml.cs">
+    <Compile Include="Pages\Solutions\ReceiveDIPSolutionTestSamplePage.xaml.cs">
       <DependentUpon>ReceiveDIPSolutionTestSamplePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\__Backup\Cord Test Data\CordTestDataPage.xaml.cs">
@@ -133,6 +133,9 @@
     </Compile>
     <Compile Include="Services\M3QAApp.cs" />
     <Compile Include="Services\SignInService.cs" />
+    <Compile Include="Windows\ChooseUserWindow.xaml.cs">
+      <DependentUpon>ChooseUserWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Common\Common.cs" />
     <Compile Include="Windows\Masters\UserEditorWindow.xaml.cs">
       <DependentUpon>UserEditorWindow.xaml</DependentUpon>
@@ -249,7 +252,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ReceiveDIPSolutionTestSamplePage.xaml">
+    <Page Include="Pages\Solutions\ReceiveDIPSolutionTestSamplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -277,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\ChooseUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Masters\UserEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -298,8 +305,6 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Solutions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

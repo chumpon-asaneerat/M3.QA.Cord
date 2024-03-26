@@ -79,6 +79,7 @@
     <Compile Include="Models\Cords\CustomerCode.cs" />
     <Compile Include="Models\Excels\ExcelModels.cs" />
     <Compile Include="Models\Masters\Customer.cs" />
+    <Compile Include="Models\Solutions\DIPSolutionSampleRecv.cs" />
     <Compile Include="Models\Users\UserInfo.cs" />
     <Compile Include="Models\Users\UserRole.cs" />
     <Compile Include="MsSqlDbServer.cs" />

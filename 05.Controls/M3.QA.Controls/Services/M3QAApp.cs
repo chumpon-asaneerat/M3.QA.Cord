@@ -212,7 +212,17 @@ namespace M3.QA
 
             #endregion
 
-            #region User
+            #region Choose User
+
+            /// <summary>Gets Choose User Window.</summary>
+            public static ChooseUserWindow ChooseUser
+            {
+                get { return GetWindow<ChooseUserWindow>(); }
+            }
+
+            #endregion
+
+            #region User Editor
 
             /// <summary>Gets Cord User Window.</summary>
             public static UserEditorWindow UserEditor

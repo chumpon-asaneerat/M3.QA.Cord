@@ -19,26 +19,22 @@ using Newtonsoft.Json;
 
 namespace M3.QA.Models
 {
-    public class CordTestSampleRecv
+    public class DIPSolutionSampleRecv
     {
         #region Public Properties
 
         public string LotNo { get; set; }
         public int? MasterId { get; set; }
 
-        public int? SP1 { get; set; }
-        public int? SP2 { get; set; }
-        public int? SP3 { get; set; }
-        public int? SP4 { get; set; }
-        public int? SP5 { get; set; }
-        public int? SP6 { get; set; }
-        public int? SP7 { get; set; }
-        public int TotalSP { get; set; }
+        public string Compound { get; set; }
 
-        public string DIPMC { get; set; }
-
-        public string ReceiveBy { get; set; }
+        public string SendBy { get; set; }
+        public DateTime? SendDate { get; set; }
         public DateTime? ReceiveDate { get; set; }
+        public DateTime? ForcastFinishDate { get; set; }
+
+        public string SaveBy { get; set; }
+        public DateTime? SaveDate { get; set; }
 
         #endregion
 
@@ -47,13 +43,13 @@ namespace M3.QA.Models
         /// <summary>
         /// Save
         /// </summary>
-        /// <param name="value">The CordTestSampleRecv item to save.</param>
+        /// <param name="value">The DIPSolutionSampleRecv item to save.</param>
         /// <returns></returns>
-        public static NDbResult<CordTestSampleRecv> Save(CordTestSampleRecv value)
+        public static NDbResult<DIPSolutionSampleRecv> Save(DIPSolutionSampleRecv value)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
-            NDbResult<CordTestSampleRecv> ret = new NDbResult<CordTestSampleRecv>();
+            NDbResult<DIPSolutionSampleRecv> ret = new NDbResult<DIPSolutionSampleRecv>();
 
             if (null == value)
             {
@@ -73,41 +69,28 @@ namespace M3.QA.Models
                 return ret;
             }
 
-            int totalSP = 0;
-            if (value.SP1.HasValue) totalSP++;
-            if (value.SP2.HasValue) totalSP++;
-            if (value.SP3.HasValue) totalSP++;
-            if (value.SP4.HasValue) totalSP++;
-            if (value.SP5.HasValue) totalSP++;
-            if (value.SP6.HasValue) totalSP++;
-            if (value.SP7.HasValue) totalSP++;
-
             var p = new DynamicParameters();
 
             p.Add("@LotNo", value.LotNo);
             p.Add("@MasterId", value.MasterId);
 
-            p.Add("@SP1", value.SP1);
-            p.Add("@SP2", value.SP2);
-            p.Add("@SP3", value.SP3);
-            p.Add("@SP4", value.SP4);
-            p.Add("@SP5", value.SP5);
-            p.Add("@SP6", value.SP6);
-            p.Add("@SP7", value.SP7);
+            p.Add("@Compound", value.Compound);
 
-            p.Add("@TotalSP", totalSP);
+            p.Add("@SendBy", value.SendBy);
+            p.Add("@SendDate", value.SendDate);
 
-            p.Add("@DIPMC", string.IsNullOrWhiteSpace(value.DIPMC) ? null : value.DIPMC);
-
-            p.Add("@ReceiveBy", value.ReceiveBy);
             p.Add("@ReceiveDate", value.ReceiveDate);
+            p.Add("@ForcastFinishDate", value.ForcastFinishDate);
+
+            p.Add("@SaveBy", value.SaveBy);
+            p.Add("@SaveDate", value.SaveDate);
 
             p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
             p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
 
             try
             {
-                cnn.Execute("P_SaveReceiveCord", p, commandType: CommandType.StoredProcedure);
+                cnn.Execute("P_SaveReceiveSolution", p, commandType: CommandType.StoredProcedure);
                 ret.Success(value);
                 // Set error number/message
                 ret.ErrNum = p.Get<int>("@errNum");

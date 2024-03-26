@@ -52,41 +52,69 @@
                                         DisplayMemberPath="ItemCode"
                                         Width="200"
                                         SelectionChanged="cbCodes_SelectionChanged" />
-                        <!--  CUSTOMER  -->
-                        <ctrl:NComboBox x:Name="cbDIPMC"
-                                        DockPanel.Dock="Left"
-                                        CaptionText="Select M/C:"
-                                        DisplayMemberPath="MCName"
-                                        Width="250" />
+                        <!--  COMPOUND  -->
+                        <ctrl:NTextBox x:Name="txtCompound"
+                                       CaptionText="Compound:"
+                                       DockPanel.Dock="Left"
+                                       Text="{Binding Compound}"
+                                       Width="200" />
                         <Grid />
                     </DockPanel>
                     <DockPanel DockPanel.Dock="Top">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    DockPanel.Dock="Top">
                             <!--  Send By  -->
                             <ctrl:NTextBox CaptionText="Send By:"
                                            Margin="5"
+                                           IsReadOnly="True"
+                                           IsTabStop="False"
                                            Text="{Binding SendBy}" />
+                            <Button x:Name="cmdSendBy"
+                                    Content="Choose"
+                                    Style="{StaticResource InlineButton}"
+                                    Margin="0,0,0,5"
+                                    Width="80"
+                                    VerticalAlignment="Bottom"
+                                    Click="cmdSendBy_Click" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <!--  Send DATE  -->
                             <ctrl:NInputGroup CaptionText="Send Date/Time:"
                                               DockPanel.Dock="Left"
                                               Width="250">
                                 <xctk:DateTimePicker x:Name="dtSend"
+                                                     Margin="0,5,0,0"
                                                      Format="Custom"
                                                      FormatString="dd/MM/yyyy HH:mm"
                                                      Value="{Binding SendDate}"
                                                      AutoCloseCalendar="True"
                                                      AutoCloseCalendarOnTimeSelection="True" />
                             </ctrl:NInputGroup>
-                        </StackPanel>
-                        <Grid />
-                    </DockPanel>
-                    <DockPanel DockPanel.Dock="Top">
-                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                            <TextBlock Text="Spindle No: "
-                                       Margin="5"
-                                       VerticalAlignment="Bottom"
-                                       FontWeight="SemiBold"
-                                       FontSize="24" />
+                            <!--  Receive DATE  -->
+                            <ctrl:NInputGroup CaptionText="Receive Date/Time:"
+                                              DockPanel.Dock="Left"
+                                              Width="250">
+                                <xctk:DateTimePicker x:Name="dtRecv"
+                                                     Margin="0,5,0,0"
+                                                     Format="Custom"
+                                                     FormatString="dd/MM/yyyy HH:mm"
+                                                     Value="{Binding ReceiveDate}"
+                                                     AutoCloseCalendar="True"
+                                                     AutoCloseCalendarOnTimeSelection="True" />
+                            </ctrl:NInputGroup>
+                            <!--  FORCAST DATE  -->
+                            <ctrl:NInputGroup CaptionText="Forcast Finished Date/Time:"
+                                              DockPanel.Dock="Left"
+                                              Width="250">
+                                <xctk:DateTimePicker x:Name="dtForcast"
+                                                     Margin="0,5,0,0"
+                                                     Format="Custom"
+                                                     FormatString="dd/MM/yyyy HH:mm"
+                                                     Value="{Binding ForcastFinishDate}"
+                                                     AutoCloseCalendar="True"
+                                                     AutoCloseCalendarOnTimeSelection="True" />
+                            </ctrl:NInputGroup>
                         </StackPanel>
                         <Grid />
                     </DockPanel>
