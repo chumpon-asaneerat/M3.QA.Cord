@@ -128,8 +128,8 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\QACord\Dapper.*" /Y/D/E
 xcopy "$(SolutionDir)References\EPPlus*.*" "$(TargetDir)\..\QACord\EPPlus*.*" /Y/D/E
-xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\..\Test\Excel\Dapper.*" /Y/D/E
-xcopy "$(SolutionDir)References\EPPlus*.*" "$(TargetDir)\..\..\Test\Excel\EPPlus*.*" /Y/D/E
+xcopy "$(SolutionDir)References\Dapper.*" "$(TargetDir)\..\Test\Excel\Dapper.*" /Y/D/E
+xcopy "$(SolutionDir)References\EPPlus*.*" "$(TargetDir)\..\Test\Excel\EPPlus*.*" /Y/D/E
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

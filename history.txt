@@ -10,8 +10,9 @@ M3 QA Cord #28
 M3 QA Cord #27
 - 
 
+[commit]
 M3 QA Cord #26
-- 
+- Update output target dlls when build projects.
 
 [commit]
 M3 QA Cord #25
