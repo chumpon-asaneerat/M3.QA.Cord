@@ -85,9 +85,6 @@
     <Compile Include="Controls\Documents\ThicknessPage.xaml.cs">
       <DependentUpon>ThicknessPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Documents\TensileStrengthPage.xaml.cs">
-      <DependentUpon>TensileStrengthPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\StatusBar\CordStatusBar.xaml.cs">
       <DependentUpon>CordStatusBar.xaml</DependentUpon>
     </Compile>
@@ -108,9 +105,6 @@
     </Compile>
     <Compile Include="Pages\Solutions\ReceiveDIPSolutionTestSamplePage.xaml.cs">
       <DependentUpon>ReceiveDIPSolutionTestSamplePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\__Backup\Cord Test Data\CordTestDataPage.xaml.cs">
-      <DependentUpon>CordTestDataPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\__Backup\Dip Solution Test Data\DipSolutionTestDataPage.xaml.cs">
       <DependentUpon>DipSolutionTestDataPage.xaml</DependentUpon>
@@ -231,10 +225,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Documents\TensileStrengthPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\StatusBar\CordStatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -262,10 +252,6 @@
     <Page Include="Pages\Solutions\ReceiveDIPSolutionTestSamplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\__Backup\Cord Test Data\CordTestDataPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\__Backup\Dip Solution Test Data\DipSolutionTestDataPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -312,6 +298,8 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pages\Cords\Properties\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

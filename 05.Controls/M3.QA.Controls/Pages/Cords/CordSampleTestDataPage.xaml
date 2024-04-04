@@ -59,17 +59,22 @@
                                         Click="cmdBack_Click" />
                 <Grid />
             </DockPanel>
+            <!--  SEARCH/RESULT LINE 1  -->
             <DockPanel DockPanel.Dock="Top" LastChildFill="True">
                 <StackPanel Orientation="Horizontal">
                     <!--  LOT NO  -->
                     <StackPanel Orientation="Vertical" Margin="2">
                         <TextBlock Text="Lot No:" />
-                        <TextBox x:Name="txtLotNo" Width="150" KeyDown="txtLotNo_KeyDown"/>
+                        <TextBox x:Name="txtLotNo"
+                                 Width="150"
+                                 KeyDown="txtLotNo_KeyDown" />
                     </StackPanel>
                     <!--  CORD CODE  -->
                     <StackPanel Orientation="Vertical" Margin="2">
                         <TextBlock Text="Cord Code:" />
-                        <TextBox x:Name="txtCordCode" Width="150" Text="{Binding ItemCode, TargetNullValue=''}" />
+                        <TextBox x:Name="txtCordCode"
+                                 Width="150"
+                                 Text="{Binding ItemCode, TargetNullValue=''}" />
                     </StackPanel>
                     <!--  START TEST DATE  -->
                     <StackPanel Orientation="Vertical" Margin="2">
@@ -79,12 +84,13 @@
                                              Format="Custom"
                                              FormatString="dd/MM/yyyy HH:mm"
                                              AutoCloseCalendar="True"
-                                             AutoCloseCalendarOnTimeSelection="True" 
-                                             Value="{Binding StartTestDate, TargetNullValue=''}"/>
+                                             AutoCloseCalendarOnTimeSelection="True"
+                                             Value="{Binding StartTestDate, TargetNullValue=''}" />
                     </StackPanel>
                 </StackPanel>
                 <Grid />
             </DockPanel>
+            <!--  SEARCH/RESULT LINE 2  -->
             <DockPanel DockPanel.Dock="Top" LastChildFill="True">
                 <StackPanel Orientation="Horizontal">
                     <!--  SP NO  -->
@@ -105,11 +111,77 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <Grid/>
+                <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
             <TabControl TabStripPlacement="Left">
-                <TabItem Header="Tensile Strength" />
+                <TabItem Header="Tensile Strength">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl MinHeight="100"
+                                      VirtualizingPanel.IsVirtualizing="True"
+                                      VirtualizingPanel.VirtualizationMode="Recycling"
+                                      ItemsSource="{Binding TensileStrengths}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel LastChildFill="True">
+                                        <!--  SP No.  -->
+                                        <Border Margin="2" Padding="3">
+                                            <StackPanel Orientation="Vertical" Width="100">
+                                                <TextBlock Text="Spindle No" TextAlignment="Center" />
+                                                <TextBox Text="{Binding SPNo}"
+                                                         TextAlignment="Center"
+                                                         Width="90"
+                                                         Style="{StaticResource CommonTextBox}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <!--  EACH N/R  -->
+                                        <ItemsControl ItemsSource="{Binding Items}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel Orientation="Horizontal"
+                                                                            VirtualizingPanel.IsVirtualizing="True"
+                                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Margin="2" Padding="3">
+                                                        <DockPanel LastChildFill="True">
+                                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <StackPanel Orientation="Vertical">
+                                                                    <TextBlock TextAlignment="Center">
+                                                                        <Run Text="N" />
+                                                                        <Run Text="{Binding No}" />
+                                                                    </TextBlock>
+                                                                    <TextBox Text="{Binding N}"
+                                                                             Width="90"
+                                                                             TextAlignment="Center"
+                                                                             Style="{StaticResource CommonTextBox}" />
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <StackPanel Orientation="Vertical">
+                                                                    <TextBlock TextAlignment="Center">
+                                                                        <Run Text="R" />
+                                                                        <Run Text="{Binding No}" />
+                                                                    </TextBlock>
+                                                                    <TextBox Text="{Binding R}"
+                                                                             Width="90"
+                                                                             TextAlignment="Center"
+                                                                             Style="{StaticResource CommonTextBox}" />
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                        </DockPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </TabItem>
                 <TabItem Header="Elongation" />
                 <TabItem Header="Adhesion Force (Peel)" />
                 <TabItem Header="Shrinkage force(N)" />
