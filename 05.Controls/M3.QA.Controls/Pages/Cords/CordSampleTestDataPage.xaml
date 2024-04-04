@@ -64,7 +64,7 @@
                     <StackPanel Orientation="Vertical" Margin="2">
                         <TextBlock Text="Date:" />
                         <xctk:DateTimePicker x:Name="txtStartTestDate"
-                                             Width="150"
+                                             Width="220"
                                              Format="Custom"
                                              FormatString="dd/MM/yyyy HH:mm"
                                              AutoCloseCalendar="True"
