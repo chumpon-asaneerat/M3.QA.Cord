@@ -89,16 +89,14 @@ namespace M3.QA
                     return GetPage<ReceiveCordTestSamplePage>();
                 }
             }
-            /*
-
-            public static CordTestDataPage CordTestData
+            
+            public static CordSampleTestDataPage CordSampleTestData
             {
                 get
                 {
-                    return GetPage<CordTestDataPage>();
+                    return GetPage<CordSampleTestDataPage>();
                 }
             }
-            */
 
             #endregion
 

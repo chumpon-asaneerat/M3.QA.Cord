@@ -86,11 +86,9 @@ namespace M3.QA.Pages
                 msgbox.ShowDialog();
                 return;
             }
-            /*
-            var page = M3QAApp.Pages.CordTestData;
+            var page = M3QAApp.Pages.CordSampleTestData;
             page.Setup();
             PageContentManager.Instance.Current = page;
-            */
         }
 
         private void cmdCordProduction_Click(object sender, RoutedEventArgs e)
