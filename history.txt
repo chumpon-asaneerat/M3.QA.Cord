@@ -1,5 +1,36 @@
-M3 QA Cord #30
+M3 QA Cord #40
 - 
+
+M3 QA Cord #39
+- 
+
+M3 QA Cord #38
+- 
+
+M3 QA Cord #37
+- 
+
+M3 QA Cord #36
+- 
+
+M3 QA Cord #35
+- 
+
+M3 QA Cord #34
+- 
+
+M3 QA Cord #33
+- 
+
+M3 QA Cord #32
+- 
+
+M3 QA Cord #31
+- 
+
+[commit]
+M3 QA Cord #30
+- Update Controls Styles #2
 
 [commit]
 M3 QA Cord #29

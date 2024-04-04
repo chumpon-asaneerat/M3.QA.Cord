@@ -5,7 +5,7 @@
                     mc:Ignorable="d">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/NLib.Wpf.Controls;component/Themes/Controls/CommonContrrols/Colors.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/NLib.Wpf.Controls;component/Themes/Controls/CommonContrrols/Brushs.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/NLib.Wpf.Controls;component/Themes/Controls/CommonContrrols/Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type TabControl}">
