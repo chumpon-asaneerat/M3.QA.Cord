@@ -6,41 +6,11 @@
              xmlns:ctrl="clr-namespace:NLib.Wpf.Controls;assembly=NLib.Wpf.Controls"
              xmlns:util="clr-namespace:NLib.Wpf.Controls.Utils;assembly=NLib.Wpf.Controls"
              xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
+             xmlns:prop="clr-namespace:M3.QA.Pages"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <UserControl.Resources>
-        <!--  RESET TEXTBLOCK STYLE  -->
-        <Style TargetType="TextBlock">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="18" />
-            </Style.Setters>
-        </Style>
-        <!--  RESET TEXTBOX STYLE  -->
-        <Style TargetType="TextBox">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="18" />
-            </Style.Setters>
-        </Style>
-        <!--  RESET DATETIME PICKER STYLE  -->
-        <Style TargetType="xctk:DateTimePicker">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="18" />
-            </Style.Setters>
-        </Style>
-        <!--  RESET TABCONTROL AND TABITEM STYLE  -->
-        <Style TargetType="TabControl">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="18" />
-            </Style.Setters>
-        </Style>
-        <Style TargetType="TabItem">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="18" />
-            </Style.Setters>
-        </Style>
-    </UserControl.Resources>
     <page:NPage HeaderText="Cord Test Data">
         <DockPanel LastChildFill="True" Margin="5">
             <!--  BUTTON BARS  -->
@@ -114,73 +84,9 @@
                 <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
-            <TabControl TabStripPlacement="Left">
+            <TabControl TabStripPlacement="Left" Margin="0,5">
                 <TabItem Header="Tensile Strength">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <ItemsControl MinHeight="100"
-                                      VirtualizingPanel.IsVirtualizing="True"
-                                      VirtualizingPanel.VirtualizationMode="Recycling"
-                                      ItemsSource="{Binding TensileStrengths}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <DockPanel LastChildFill="True">
-                                        <!--  SP No.  -->
-                                        <Border Margin="2" Padding="3">
-                                            <StackPanel Orientation="Vertical" Width="100">
-                                                <TextBlock Text="Spindle No" TextAlignment="Center" />
-                                                <TextBox Text="{Binding SPNo}"
-                                                         TextAlignment="Center"
-                                                         Width="90"
-                                                         Style="{StaticResource CommonTextBox}" />
-                                            </StackPanel>
-                                        </Border>
-                                        <!--  EACH N/R  -->
-                                        <ItemsControl ItemsSource="{Binding Items}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <VirtualizingStackPanel Orientation="Horizontal"
-                                                                            VirtualizingPanel.IsVirtualizing="True"
-                                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Margin="2" Padding="3">
-                                                        <DockPanel LastChildFill="True">
-                                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                                <StackPanel Orientation="Vertical">
-                                                                    <TextBlock TextAlignment="Center">
-                                                                        <Run Text="N" />
-                                                                        <Run Text="{Binding No}" />
-                                                                    </TextBlock>
-                                                                    <TextBox Text="{Binding N}"
-                                                                             Width="90"
-                                                                             TextAlignment="Center"
-                                                                             Style="{StaticResource CommonTextBox}" />
-                                                                </StackPanel>
-                                                            </StackPanel>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <StackPanel Orientation="Vertical">
-                                                                    <TextBlock TextAlignment="Center">
-                                                                        <Run Text="R" />
-                                                                        <Run Text="{Binding No}" />
-                                                                    </TextBlock>
-                                                                    <TextBox Text="{Binding R}"
-                                                                             Width="90"
-                                                                             TextAlignment="Center"
-                                                                             Style="{StaticResource CommonTextBox}" />
-                                                                </StackPanel>
-                                                            </StackPanel>
-                                                        </DockPanel>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </DockPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
+                    <prop:CordTensileStrengthPage />
                 </TabItem>
                 <TabItem Header="Elongation" />
                 <TabItem Header="Adhesion Force (Peel)" />

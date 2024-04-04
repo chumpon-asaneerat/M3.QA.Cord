@@ -100,6 +100,9 @@
     <Compile Include="Pages\Cords\CordSampleTestDataPage.xaml.cs">
       <DependentUpon>CordSampleTestDataPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Cords\Properties\CordTensileStrengthPage.xaml.cs">
+      <DependentUpon>CordTensileStrengthPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Cords\ReceiveCordSampleTestPage.xaml.cs">
       <DependentUpon>ReceiveCordSampleTestPage.xaml</DependentUpon>
     </Compile>
@@ -245,6 +248,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Cords\Properties\CordTensileStrengthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Cords\ReceiveCordSampleTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -298,8 +305,6 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Cords\Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
