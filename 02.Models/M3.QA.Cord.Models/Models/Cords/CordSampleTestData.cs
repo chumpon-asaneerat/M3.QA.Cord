@@ -36,6 +36,23 @@ namespace M3.QA.Models
         public string Spindle { get; set; }
         public string ELongLoadN { get; set; }
 
+        public bool CanEditStartDate { get; set; }
+
+        // Test Properties
+        public List<CordTensileStrengthProperty> TensileStrengths { get; set; }
+
+        #endregion
+
+        #region Private Methods
+
+        private void InitTestProperties()
+        {
+            if (TotalSP.HasValue) 
+            {
+                TensileStrengths = CordTensileStrengthProperty.Create(TotalSP.Value);
+            }
+        }
+
         #endregion
 
         #region Static Methods
@@ -77,6 +94,14 @@ namespace M3.QA.Models
             {
                 var items = cnn.Query<CordSampleTestData>("M_CheckLotReceive", p, commandType: CommandType.StoredProcedure);
                 var data = (null != items) ? items.ToList().FirstOrDefault() : null;
+
+                if (null != data)
+                {
+                    // already has date so cannot edit.
+                    data.CanEditStartDate = (data.StartTestDate.HasValue) ? false : true;
+                    data.InitTestProperties();
+                }
+
                 ret.Success(data);
                 // Set error number/message
                 ret.ErrNum = 0;
@@ -187,16 +212,29 @@ namespace M3.QA.Models
 
         #region Static Methods
 
+        public static List<CordTensileStrengthProperty> Create(int maxSP)
+        {
+            List<CordTensileStrengthProperty> results = new List<CordTensileStrengthProperty>();
+            for (int i = 1; i <= maxSP; i++) 
+            {
+                if (i > 7) continue;
+                var inst = new CordTensileStrengthProperty() { SPNo = i };
+
+                results.Add(inst);
+            }
+            return results;
+        }
+
         /// <summary>
         /// Gets CordSampleTestData by Lot No.
         /// </summary>
         /// <param name="value">The CordSampleTestData item to save.</param>
         /// <returns></returns>
-        public static NDbResult<CordTensileStrengthProperty> GetByLotNo(string lotNo)
+        public static NDbResult<List<CordTensileStrengthProperty>> GetsByLotNo(string lotNo)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
-            NDbResult<CordTensileStrengthProperty> ret = new NDbResult<CordTensileStrengthProperty>();
+            NDbResult<List<CordTensileStrengthProperty>> ret = new NDbResult<List<CordTensileStrengthProperty>>();
 
             if (string.IsNullOrWhiteSpace(lotNo))
             {
@@ -222,13 +260,16 @@ namespace M3.QA.Models
 
             try
             {
-                var items = cnn.Query<CordTensileStrengthProperty>("P_GetTensileDataByLot", p, commandType: CommandType.StoredProcedure);
-                var data = (null != items) ? items.ToList().FirstOrDefault() : null;
-                if (null != data)
+                var items = cnn.Query<CordTensileStrengthProperty>("P_GetTensileDataByLot", 
+                    p, commandType: CommandType.StoredProcedure).ToList();
+                if (null != items)
                 {
-                    data.BuildData();
+                    foreach (var item in items)
+                    {
+                        item.BuildData();
+                    }
                 }
-                ret.Success(data);
+                ret.Success(items);
                 // Set error number/message
                 ret.ErrNum = 0;
                 ret.ErrMsg = "Success";
