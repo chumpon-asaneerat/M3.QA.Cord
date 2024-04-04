@@ -95,6 +95,50 @@ namespace NLib.Wpf.Pages
 
         #endregion
 
+        #region HeaderFontSize
+
+        /// <summary>
+        /// The HeaderFontSizeProperty Dependency property.
+        /// </summary>
+        public static readonly DependencyProperty HeaderFontSizeProperty =
+            DependencyProperty.Register(
+                nameof(HeaderFontSize),
+                typeof(double),
+                typeof(NPage),
+                new FrameworkPropertyMetadata((double)14, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        /// <summary>
+        /// Gets or sets Header Font Size.
+        /// </summary>
+        public double HeaderFontSize
+        {
+            get { return (double)GetValue(HeaderFontSizeProperty); }
+            set { SetValue(HeaderFontSizeProperty, value); }
+        }
+
+        #endregion
+
+        #region HeaderFontWeight
+
+        /// <summary>
+        /// The HeaderFontWeightProperty Dependency property.
+        /// </summary>
+        public static readonly DependencyProperty HeaderFontWeightProperty =
+            DependencyProperty.Register(
+                nameof(HeaderFontWeight),
+                typeof(FontWeight),
+                typeof(NPage),
+                new FrameworkPropertyMetadata(FontWeights.Normal, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        /// <summary>
+        /// Gets or sets Header Font Weight.
+        /// </summary>
+        public FontWeight HeaderFontWeight
+        {
+            get { return (FontWeight)GetValue(HeaderFontWeightProperty); }
+            set { SetValue(HeaderFontWeightProperty, value); }
+        }
+
+        #endregion
+
         #region HeaderBorderBrush
 
         /// <summary>

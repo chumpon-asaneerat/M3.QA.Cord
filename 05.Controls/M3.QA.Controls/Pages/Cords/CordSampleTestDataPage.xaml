@@ -14,19 +14,30 @@
         <!--  RESET TEXTBLOCK STYLE  -->
         <Style TargetType="TextBlock">
             <Style.Setters>
-                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontSize" Value="18" />
             </Style.Setters>
         </Style>
         <!--  RESET TEXTBOX STYLE  -->
         <Style TargetType="TextBox">
             <Style.Setters>
-                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontSize" Value="18" />
             </Style.Setters>
         </Style>
         <!--  RESET DATETIME PICKER STYLE  -->
         <Style TargetType="xctk:DateTimePicker">
             <Style.Setters>
-                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontSize" Value="18" />
+            </Style.Setters>
+        </Style>
+        <!--  RESET TABCONTROL AND TABITEM STYLE  -->
+        <Style TargetType="TabControl">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18" />
+            </Style.Setters>
+        </Style>
+        <Style TargetType="TabItem">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18" />
             </Style.Setters>
         </Style>
     </UserControl.Resources>
@@ -53,12 +64,12 @@
                     <!--  LOT NO  -->
                     <StackPanel Orientation="Vertical" Margin="2">
                         <TextBlock Text="Lot No:" />
-                        <TextBox x:Name="txtLotNo" Width="150" />
+                        <TextBox x:Name="txtLotNo" Width="150" KeyDown="txtLotNo_KeyDown"/>
                     </StackPanel>
                     <!--  CORD CODE  -->
                     <StackPanel Orientation="Vertical" Margin="2">
                         <TextBlock Text="Cord Code:" />
-                        <TextBox x:Name="txtCordCode" Width="150" />
+                        <TextBox x:Name="txtCordCode" Width="150" Text="{Binding ItemCode, TargetNullValue=''}" />
                     </StackPanel>
                     <!--  START TEST DATE  -->
                     <StackPanel Orientation="Vertical" Margin="2">
@@ -68,13 +79,57 @@
                                              Format="Custom"
                                              FormatString="dd/MM/yyyy HH:mm"
                                              AutoCloseCalendar="True"
-                                             AutoCloseCalendarOnTimeSelection="True" />
+                                             AutoCloseCalendarOnTimeSelection="True" 
+                                             Value="{Binding StartTestDate, TargetNullValue=''}"/>
                     </StackPanel>
                 </StackPanel>
                 <Grid />
             </DockPanel>
+            <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                <StackPanel Orientation="Horizontal">
+                    <!--  SP NO  -->
+                    <StackPanel Orientation="Vertical" Margin="2">
+                        <TextBlock Text="Spindle No:" />
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="" />
+                            <TextBox x:Name="txtSPNo" Width="150" />
+                        </StackPanel>
+                    </StackPanel>
+                    <!--  PI NO  -->
+                    <StackPanel Orientation="Vertical" Margin="2">
+                        <TextBlock Text="PI No:" />
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Margin="3,0" Text="SL-" />
+                            <TextBox x:Name="txtPINo" Width="150" />
+                            <TextBlock Margin="3,0" Text="Kg." />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <Grid/>
+            </DockPanel>
             <!--  WORK AREA  -->
-            <Grid />
+            <TabControl TabStripPlacement="Left">
+                <TabItem Header="Tensile Strength" />
+                <TabItem Header="Elongation" />
+                <TabItem Header="Adhesion Force (Peel)" />
+                <TabItem Header="Shrinkage force(N)" />
+                <TabItem Header="Shrinkage %" />
+                <TabItem Header="1st Twisting Number" />
+                <TabItem Header="2nd Twisting Number" />
+                <TabItem Header="Thickness" />
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="Denier ," />
+                            <LineBreak />
+                            <Run Text="Moisture regain ," />
+                            <LineBreak />
+                            <Run Text="Weight" />
+                        </TextBlock>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem Header="RPU" />
+            </TabControl>
         </DockPanel>
     </page:NPage>
 </UserControl>

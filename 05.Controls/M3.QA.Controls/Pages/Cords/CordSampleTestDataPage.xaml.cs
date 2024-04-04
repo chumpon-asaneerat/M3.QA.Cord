@@ -42,6 +42,8 @@ namespace M3.QA.Pages
 
         #region Internal Variables
 
+        private CordSampleTestData item = null;
+
         #endregion
 
         #region Button Handlers
@@ -58,7 +60,60 @@ namespace M3.QA.Pages
 
         #endregion
 
+        #region TextBox Handlers
+
+        private void txtLotNo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) 
+            {
+                Search();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape)
+            {
+                Clear();
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
         #region Private Methods
+
+        private void Search()
+        {
+            string sLotNo = txtLotNo.Text;
+            if (string.IsNullOrEmpty(sLotNo))
+            {
+                M3QAApp.Windows.ShowMessage("กรุณาใส่ Lot No");
+                this.InvokeAction(() => 
+                {
+                    txtLotNo.FocusControl();
+                });
+                return;
+            }
+
+            var ret = CordSampleTestData.GetByLotNo(sLotNo.Trim());
+            if (null == ret || !ret.Ok)
+            {
+                string msg = string.Empty;
+                msg += "Lot No not found on Received Test Data";
+
+                M3QAApp.Windows.ShowMessage(msg);
+                return;
+            }
+            // Set current item and binding
+            this.DataContext = null;
+            item = ret.Value();
+            this.DataContext = item;
+        }
+
+        private void Clear()
+        {
+            this.DataContext = null;
+            item = new CordSampleTestData();
+            this.DataContext = item;
+        }
 
         #endregion
 
@@ -66,7 +121,7 @@ namespace M3.QA.Pages
 
         public void Setup()
         {
-            
+            Clear();
         }
 
         #endregion

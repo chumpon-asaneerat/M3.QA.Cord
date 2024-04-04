@@ -33,7 +33,8 @@
                                     CornerRadius="{DynamicResource CaptionBorderCornerRadius}">
                                 <TextBlock x:Name="PART_CaptionText"
                                            Margin="0,2"
-                                           FontSize="{TemplateBinding FontSize}"
+                                           FontSize="{TemplateBinding HeaderFontSize}"
+                                           FontWeight="{TemplateBinding HeaderFontWeight}"
                                            Foreground="{TemplateBinding HeaderForeground}"
                                            VerticalAlignment="Center"
                                            Text="{TemplateBinding HeaderText}"
@@ -61,7 +62,8 @@
         <Setter Property="HeaderBorderBrush" Value="{DynamicResource CaptionBorderColor}" />
         <!--  DEFAULT FONTS  -->
         <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize" Value="{DynamicResource FontSize30}" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
+        <Setter Property="HeaderFontSize" Value="{DynamicResource FontSize30}" />
+        <Setter Property="HeaderFontWeight" Value="Bold" />
     </Style>
 </ResourceDictionary>

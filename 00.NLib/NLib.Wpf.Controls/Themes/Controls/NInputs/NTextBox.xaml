@@ -99,13 +99,13 @@
         </Setter>
         <!--  DEFAULT COLORS  -->
         <Setter Property="CaptionForeground" Value="{StaticResource BlackBlush}" />
-        <Setter Property="CaptionFontSize" Value="{DynamicResource FontSize24}" />
+        <Setter Property="CaptionFontSize" Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="CaptionFontWeight" Value="DemiBold" />
         <Setter Property="Background" Value="{StaticResource TransparentBrush}" />
         <Setter Property="InputForeground" Value="{StaticResource BlackBlush}" />
         <!--  DEFAULT FONTS  -->
         <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize" Value="{DynamicResource FontSize24}" />
+        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="FontWeight" Value="Normal" />
         <!--  DEFAULT SIZE  -->
         <Setter Property="Width" Value="200" />
