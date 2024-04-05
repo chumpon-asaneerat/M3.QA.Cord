@@ -551,15 +551,14 @@ namespace M3.QA.Models
 
         #region Static Methods
 
-        internal static List<CordElongationProperty> Create(string lotNo, int masterId, int maxSP,
-            int? sp1, int? sp2, int? sp3, int? sp4, int? sp5, int? sp6, int? sp7, string eLoadN)
+        internal static List<CordElongationProperty> Create(CordSampleTestData value)
         {
             List<CordElongationProperty> results = new List<CordElongationProperty>();
 
 
 
 
-
+            /*
             // For Break
             for (int i = 1; i <= maxSP; i++)
             {
@@ -568,19 +567,19 @@ namespace M3.QA.Models
                 int? SP;
                 switch (i)
                 {
-                    case 1: SP = sp1; break;
-                    case 2: SP = sp2; break;
-                    case 3: SP = sp3; break;
-                    case 4: SP = sp4; break;
-                    case 5: SP = sp5; break;
-                    case 6: SP = sp6; break;
-                    case 7: SP = sp7; break;
+                    case 1: SP = value.SP1; break;
+                    case 2: SP = value.SP2; break;
+                    case 3: SP = value.SP3; break;
+                    case 4: SP = value.SP4; break;
+                    case 5: SP = value.SP5; break;
+                    case 6: SP = value.SP6; break;
+                    case 7: SP = value.SP7; break;
                     default: SP = new int?(); break;
                 }
                 var inst = new CordElongationProperty()
                 {
-                    LotNo = lotNo,
-                    MasterId = masterId,
+                    LotNo = value.LotNo,
+                    MasterId = value.MasterId.Value,
                     PropertyNo = 2, // Elongation Break = 2
                     SPNo = SP,
                     NeedSP = false, // Elongation Break not requred SP No
@@ -627,7 +626,7 @@ namespace M3.QA.Models
                     }
                 }
             }
-
+            */
             return results.OrderBy(o => o.SPNo).ThenBy(o => o.PropertyNo).ThenBy(o => o.ELoadId).ToList(); ;
         }
 

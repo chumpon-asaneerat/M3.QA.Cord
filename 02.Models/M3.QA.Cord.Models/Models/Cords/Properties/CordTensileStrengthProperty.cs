@@ -38,10 +38,18 @@ namespace M3.QA.Models
         /// <param name="sp6"></param>
         /// <param name="sp7"></param>
         /// <returns></returns>
-        internal static List<CordTensileStrengthProperty> Create(string lotNo, int maxSP, int noOfSample,
-            int? sp1, int? sp2, int? sp3, int? sp4, int? sp5, int? sp6, int? sp7)
+        internal static List<CordTensileStrengthProperty> Create(CordSampleTestData value)
         {
             List<CordTensileStrengthProperty> results = new List<CordTensileStrengthProperty>();
+            if (null == value)
+                return results;
+
+            // For Tensile Strength Proepty No = 1
+            var total = (value.MasterId.HasValue) ? 
+                Utils.M_GetPropertyTotalNByItem.GetByItem(value.MasterId.Value, 1).Value() : null;
+            int noOfSample = (null != total) ? total.NoSample : 0;
+            int maxSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
+
             for (int i = 1; i <= maxSP; i++)
             {
                 if (i > 7) continue;
@@ -49,18 +57,18 @@ namespace M3.QA.Models
                 int? SP;
                 switch (i)
                 {
-                    case 1: SP = sp1; break;
-                    case 2: SP = sp2; break;
-                    case 3: SP = sp3; break;
-                    case 4: SP = sp4; break;
-                    case 5: SP = sp5; break;
-                    case 6: SP = sp6; break;
-                    case 7: SP = sp7; break;
+                    case 1: SP = value.SP1; break;
+                    case 2: SP = value.SP2; break;
+                    case 3: SP = value.SP3; break;
+                    case 4: SP = value.SP4; break;
+                    case 5: SP = value.SP5; break;
+                    case 6: SP = value.SP6; break;
+                    case 7: SP = value.SP7; break;
                     default: SP = new int?(); break;
                 }
                 var inst = new CordTensileStrengthProperty()
                 {
-                    LotNo = lotNo,
+                    LotNo = value.LotNo,
                     PropertyNo = 1, // TensileStrength = 1
                     SPNo = SP,
                     NeedSP = true,
@@ -69,6 +77,25 @@ namespace M3.QA.Models
 
                 results.Add(inst);
             }
+
+            var existItems = (value.MasterId.HasValue) ? 
+                GetsByLotNo(value.LotNo, value.MasterId.Value).Value() : null;
+            if (null != existItems && null != results)
+            {
+                int idx = -1;
+                foreach (var item in existItems)
+                {
+                    item.NoOfSample = noOfSample; // need to set because not return from db.
+
+                    idx = results.FindIndex((x) => { return x.SPNo == item.SPNo; });
+                    if (idx != -1)
+                    {
+                        Clone(item, results[idx]);
+                    }
+                    idx++;
+                }
+            }
+
             return results;
         }
 

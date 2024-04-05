@@ -55,38 +55,14 @@ namespace M3.QA.Models
 
         #region Private Methods
 
-        private void InitTensileStrengths(string lotNo, int masterId, int totalSP)
+        private void InitTensileStrengths()
         {
-            // For Tensile Strength Proepty No = 1
-            var total = Utils.M_GetPropertyTotalNByItem.GetByItem(masterId, 1).Value();
-            int noOfSample = (null != total) ? total.NoSample : 0;
-
-            TensileStrengths = CordTensileStrengthProperty.Create(lotNo, totalSP, noOfSample,
-                this.SP1, this.SP2, this.SP3, this.SP4, this.SP5, this.SP6, this.SP7);
-
-            var existItems = CordTensileStrengthProperty.GetsByLotNo(
-                lotNo, masterId).Value();
-            if (null != existItems && null != TensileStrengths)
-            {
-                int idx = -1;
-                foreach (var item in existItems)
-                {
-                    item.NoOfSample = noOfSample; // need to set because not return from db.
-
-                    idx = TensileStrengths.FindIndex((x) => { return x.SPNo == item.SPNo; });
-                    if (idx != -1)
-                    {
-                        CordTensileStrengthProperty.Clone(item, TensileStrengths[idx]);
-                    }
-                    idx++;
-                }
-            }
+            TensileStrengths = CordTensileStrengthProperty.Create(this);
         }
 
-        private void InitElongations(string lotNo, int masterId, int totalSP)
+        private void InitElongations()
         {
-            var elongations = CordElongationProperty.Create(lotNo, masterId, totalSP,
-                this.SP1, this.SP2, this.SP3, this.SP4, this.SP5, this.SP6, this.SP7, this.ELongLoadN);
+            var elongations = CordElongationProperty.Create(this);
             /*
             int noOfSample = 0;
             Utils.M_GetPropertyTotalNByItem total;
@@ -160,8 +136,8 @@ namespace M3.QA.Models
         {
             if (TotalSP.HasValue && MasterId.HasValue)
             {
-                InitTensileStrengths(LotNo, MasterId.Value, TotalSP.Value);
-                InitElongations(LotNo, MasterId.Value, TotalSP.Value);
+                InitTensileStrengths();
+                InitElongations();
             }
         }
 
