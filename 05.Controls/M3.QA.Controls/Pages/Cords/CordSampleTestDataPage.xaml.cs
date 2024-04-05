@@ -106,6 +106,8 @@ namespace M3.QA.Pages
             this.DataContext = null;
             item = ret.Value();
             this.DataContext = item;
+
+            pgrid.SelectedObject = item;
         }
 
         private void Clear()
@@ -113,6 +115,8 @@ namespace M3.QA.Pages
             this.DataContext = null;
             item = new CordSampleTestData();
             this.DataContext = item;
+
+            pgrid.SelectedObject = item;
         }
 
         #endregion

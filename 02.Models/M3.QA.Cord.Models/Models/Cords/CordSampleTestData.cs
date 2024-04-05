@@ -20,106 +20,71 @@ using M3.QA.Models;
 using System.Windows.Media.Converters;
 
 #endregion
-
 namespace M3.QA.Models
 {
-    #region CordSampleTestData
+    #region Utils class
 
-    public class CordSampleTestData : NInpc
+    public static class Utils
     {
-        #region Public Properties
+        #region M_GetPropertyTotalNByItem
 
-        public string LotNo { get; set; }
-
-        public string ItemCode { get; set; }
-
-        public int? MasterId { get; set; }
-        public int? TotalSP { get; set; }
-        public DateTime? StartTestDate { get; set; }
-
-        public string Spindle { get; set; }
-        public string ELongLoadN { get; set; }
-
-        public bool CanEditStartDate { get; set; }
-
-        // Test Properties
-        public List<CordTensileStrengthProperty> TensileStrengths { get; set; }
-
-        #endregion
-
-        #region Private Methods
-
-        private void InitTestProperties()
+        public class M_GetPropertyTotalNByItem
         {
-            if (TotalSP.HasValue) 
+            #region Public Properties
+
+            public int MasterId { get; set; }
+            public int PropertyNo { get; set; }
+            public int NoSample { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<M_GetPropertyTotalNByItem> GetByItem(int masterId, int propertyNo)
             {
-                TensileStrengths = CordTensileStrengthProperty.Create(TotalSP.Value);
-            }
-        }
+                MethodBase med = MethodBase.GetCurrentMethod();
 
-        #endregion
+                NDbResult<M_GetPropertyTotalNByItem> ret = new NDbResult<M_GetPropertyTotalNByItem>();
 
-        #region Static Methods
-
-        /// <summary>
-        /// Gets CordSampleTestData by Lot No.
-        /// </summary>
-        /// <param name="value">The CordSampleTestData item to save.</param>
-        /// <returns></returns>
-        public static NDbResult<CordSampleTestData> GetByLotNo(string lotNo)
-        {
-            MethodBase med = MethodBase.GetCurrentMethod();
-
-            NDbResult<CordSampleTestData> ret = new NDbResult<CordSampleTestData>();
-
-            if (string.IsNullOrWhiteSpace(lotNo))
-            {
-                ret.ParameterIsNull();
-                return ret;
-            }
-
-            IDbConnection cnn = DbServer.Instance.Db;
-            if (null == cnn || !DbServer.Instance.Connected)
-            {
-                string msg = "Connection is null or cannot connect to database server.";
-                med.Err(msg);
-                // Set error number/message
-                ret.ErrNum = 8000;
-                ret.ErrMsg = msg;
-
-                return ret;
-            }
-
-            var p = new DynamicParameters();
-
-            p.Add("@LotNo", lotNo);
-
-            try
-            {
-                var items = cnn.Query<CordSampleTestData>("M_CheckLotReceive", p, commandType: CommandType.StoredProcedure);
-                var data = (null != items) ? items.ToList().FirstOrDefault() : null;
-
-                if (null != data)
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
                 {
-                    // already has date so cannot edit.
-                    data.CanEditStartDate = (data.StartTestDate.HasValue) ? false : true;
-                    data.InitTestProperties();
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
                 }
 
-                ret.Success(data);
-                // Set error number/message
-                ret.ErrNum = 0;
-                ret.ErrMsg = "Success";
-            }
-            catch (Exception ex)
-            {
-                med.Err(ex);
-                // Set error number/message
-                ret.ErrNum = 9999;
-                ret.ErrMsg = ex.Message;
+                var p = new DynamicParameters();
+
+                p.Add("@MasterId", masterId);
+                p.Add("@PropertyNo", propertyNo);
+
+                try
+                {
+                    var items = cnn.Query<M_GetPropertyTotalNByItem>("M_GetPropertyTotalNByItem", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList().FirstOrDefault() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
             }
 
-            return ret;
+            #endregion
         }
 
         #endregion
@@ -127,287 +92,12 @@ namespace M3.QA.Models
 
     #endregion
 
-    #region CordTensileStrengthProperty
+    #region CordTestProperty
 
-    public class CordTensileStrengthProperty : NInpc
-    {
-        #region Constructor
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        public CordTensileStrengthProperty() : base() 
-        {
-            BuildData(true);
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void BuildData(bool onCreate = false)
-        {
-            Items = new List<CordTensileStrengthData>()
-            {
-                new CordTensileStrengthData() 
-                { 
-                    No = 1,
-                    N = (!onCreate) ? this.N1 : new decimal?(),
-                    R = (!onCreate) ? this.R1 : new decimal?()
-                },
-                new CordTensileStrengthData() 
-                {
-                    No = 2,
-                    N = (!onCreate) ? this.N2 : new decimal?(),
-                    R = (!onCreate) ? this.R2 : new decimal?()
-                },
-                new CordTensileStrengthData() 
-                { 
-                    No = 3,
-                    N = (!onCreate) ? this.N3 : new decimal?(),
-                    R = (!onCreate) ? this.R3 : new decimal?()
-                }
-            };
-        }
-
-        private void UpdateDataToProperties()
-        {
-            if (null != Items) 
-            {
-                foreach (var item in Items)
-                {
-                    if (null == item) continue;
-                    if (item.No == 1) 
-                    {
-                        this.N1 = item.N;
-                        this.R1 = item.R;
-                    }
-                    else if (item.No == 2)
-                    {
-                        this.N2 = item.N;
-                        this.R2 = item.R;
-                    }
-                    else if (item.No == 3)
-                    {
-                        this.N3 = item.N;
-                        this.R3 = item.R;
-                    }
-                }
-            }
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        public string LotNo { get; set; }
-        public int SPNo { get; set; }
-        public decimal? N1 { get; set; }
-        public decimal? N2 { get; set; }
-        public decimal? N3 { get; set; }
-        public decimal? R1 { get; set; }
-        public decimal? R2 { get; set; }
-        public decimal? R3 { get; set; }
-
-        public string InputBy { get; set; }
-        public DateTime? InputDate { get; set; }
-        public string EditBy { get; set; }
-        public DateTime? EditDate { get; set; }
-
-        public List<CordTensileStrengthData> Items { get; set; }
-
-        #endregion
-
-        #region Static Methods
-
-        public static List<CordTensileStrengthProperty> Create(int maxSP)
-        {
-            List<CordTensileStrengthProperty> results = new List<CordTensileStrengthProperty>();
-            for (int i = 1; i <= maxSP; i++) 
-            {
-                if (i > 7) continue;
-                var inst = new CordTensileStrengthProperty() { SPNo = i };
-
-                results.Add(inst);
-            }
-            return results;
-        }
-
-        /// <summary>
-        /// Gets CordSampleTestData by Lot No.
-        /// </summary>
-        /// <param name="value">The CordSampleTestData item to save.</param>
-        /// <returns></returns>
-        public static NDbResult<List<CordTensileStrengthProperty>> GetsByLotNo(string lotNo)
-        {
-            MethodBase med = MethodBase.GetCurrentMethod();
-
-            NDbResult<List<CordTensileStrengthProperty>> ret = new NDbResult<List<CordTensileStrengthProperty>>();
-
-            if (string.IsNullOrWhiteSpace(lotNo))
-            {
-                ret.ParameterIsNull();
-                return ret;
-            }
-
-            IDbConnection cnn = DbServer.Instance.Db;
-            if (null == cnn || !DbServer.Instance.Connected)
-            {
-                string msg = "Connection is null or cannot connect to database server.";
-                med.Err(msg);
-                // Set error number/message
-                ret.ErrNum = 8000;
-                ret.ErrMsg = msg;
-
-                return ret;
-            }
-
-            var p = new DynamicParameters();
-
-            p.Add("@LotNo", lotNo);
-
-            try
-            {
-                var items = cnn.Query<CordTensileStrengthProperty>("P_GetTensileDataByLot", 
-                    p, commandType: CommandType.StoredProcedure).ToList();
-                if (null != items)
-                {
-                    foreach (var item in items)
-                    {
-                        item.BuildData();
-                    }
-                }
-                ret.Success(items);
-                // Set error number/message
-                ret.ErrNum = 0;
-                ret.ErrMsg = "Success";
-            }
-            catch (Exception ex)
-            {
-                med.Err(ex);
-                // Set error number/message
-                ret.ErrNum = 9999;
-                ret.ErrMsg = ex.Message;
-            }
-
-            return ret;
-        }
-
-        public static NDbResult<CordTensileStrengthProperty> Save(CordTensileStrengthProperty value)
-        {
-            MethodBase med = MethodBase.GetCurrentMethod();
-
-            NDbResult<CordTensileStrengthProperty> ret = new NDbResult<CordTensileStrengthProperty>();
-
-            if (null == value)
-            {
-                ret.ParameterIsNull();
-                return ret;
-            }
-
-            IDbConnection cnn = DbServer.Instance.Db;
-            if (null == cnn || !DbServer.Instance.Connected)
-            {
-                string msg = "Connection is null or cannot connect to database server.";
-                med.Err(msg);
-                // Set error number/message
-                ret.ErrNum = 8000;
-                ret.ErrMsg = msg;
-
-                return ret;
-            }
-
-            // sync all items to properties
-            value.UpdateDataToProperties();
-
-            var p = new DynamicParameters();
-
-            p.Add("@LotNo", value.LotNo);
-            p.Add("@spno", value.SPNo);
-
-            p.Add("@n1", value.N1);
-            p.Add("@n2", value.N2);
-            p.Add("@n3", value.N3);
-            p.Add("@r1", value.R1);
-            p.Add("@r2", value.R2);
-            p.Add("@r3", value.R3);
-
-            p.Add("@user", value.EditBy);
-            p.Add("@savedate", value.EditDate);
-
-            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
-            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
-
-            try
-            {
-                cnn.Execute("P_SaveTensile", p, commandType: CommandType.StoredProcedure);
-                ret.Success(value);
-                // Set error number/message
-                ret.ErrNum = p.Get<int>("@errNum");
-                ret.ErrMsg = p.Get<string>("@errMsg");
-            }
-            catch (Exception ex)
-            {
-                med.Err(ex);
-                // Set error number/message
-                ret.ErrNum = 9999;
-                ret.ErrMsg = ex.Message;
-            }
-
-            return ret;
-        }
-
-        #endregion
-    }
-
-    #endregion
-
-    #region CordTensileStrengthData
-
-    public class CordTensileStrengthData : NInpc
-    {
-        #region Private Methods
-
-        private void CheckRange()
-        {
-
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        public int No { get; set; }
-
-        public decimal? N
-        {
-            get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () => { CheckRange(); });
-            }
-        }
-        public decimal? R
-        {
-            get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () => { });
-            }
-        }
-
-        public bool EnableReTest { get; set; } = true;
-
-        #endregion
-    }
-
-    #endregion
-}
-
-
-namespace M3.QA.Models2
-{
-    public abstract class CordTestProperty : NInpc
+    /// <summary>
+    /// The CordTestProperty class.
+    /// </summary>
+    public class CordTestProperty : NInpc
     {
         #region Internal Variables
 
@@ -420,6 +110,9 @@ namespace M3.QA.Models2
 
         #region Constructor
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public CordTestProperty() : base()
         {
             #region Init Get/Set link methods
@@ -458,7 +151,7 @@ namespace M3.QA.Models2
                 () => { return this.R7; }
             };
             // Set R
-            _SetNs = new List<Action<decimal?>>()
+            _SetRs = new List<Action<decimal?>>()
             {
                 (value) => { this.R1 = value; },
                 (value) => { this.R2 = value; },
@@ -479,7 +172,7 @@ namespace M3.QA.Models2
 
         #region Private Methods
 
-        private void CalcAvg()
+        protected virtual void CalcAvg()
         {
 
         }
@@ -705,10 +398,21 @@ namespace M3.QA.Models2
 
         #endregion
 
+        #region Items
+
+        /// <summary>
+        /// Gets Items.
+        /// </summary>
         public List<CordTestPropertyItem> Items { get; set; }
 
         #endregion
+
+        #endregion
     }
+
+    #endregion
+
+    #region CordTestPropertyItem
 
     public class CordTestPropertyItem : NInpc 
     {
@@ -778,12 +482,15 @@ namespace M3.QA.Models2
         #endregion
     }
 
+    #endregion
+
+    #region CordTensileStrengthProperty
+
+    /// <summary>
+    /// The CordTensileStrengthProperty class.
+    /// </summary>
     public class CordTensileStrengthProperty : CordTestProperty
     {
-        #region Private Methods
-
-        #endregion
-
         #region Public Properties
 
         public string InputBy { get; set; }
@@ -795,7 +502,12 @@ namespace M3.QA.Models2
 
         #region Static Methods
 
-        public static List<CordTensileStrengthProperty> Create(int maxSP)
+        /// <summary>
+        /// Create
+        /// </summary>
+        /// <param name="maxSP"></param>
+        /// <returns></returns>
+        internal static List<CordTensileStrengthProperty> Create(int maxSP)
         {
             List<CordTensileStrengthProperty> results = new List<CordTensileStrengthProperty>();
             for (int i = 1; i <= maxSP; i++)
@@ -808,11 +520,12 @@ namespace M3.QA.Models2
             return results;
         }
         /// <summary>
-        /// Gets CordSampleTestData by Lot No.
+        /// Gets CordTensileStrengthProperty by Lot No.
         /// </summary>
-        /// <param name="value">The CordSampleTestData item to save.</param>
+        /// <param name="lotNo">The Lot No.</param>
+        /// <param name="masterId">The MasterId.</param>
         /// <returns></returns>
-        public static NDbResult<List<CordTensileStrengthProperty>> GetsByLotNo(string lotNo)
+        public static NDbResult<List<CordTensileStrengthProperty>> GetsByLotNo(string lotNo, int masterId)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -846,8 +559,10 @@ namespace M3.QA.Models2
                     p, commandType: CommandType.StoredProcedure).ToList();
                 if (null != items)
                 {
-                    // call SP M_GetPropertyTotalNByItem to gets NoSample
-                    int noOfSample = 3;
+                    // Call SP M_GetPropertyTotalNByItem to gets NoSample
+                    // For Tensile Strength Proepty No = 1
+                    var total = Utils.M_GetPropertyTotalNByItem.GetByItem(masterId, 1).Value();
+                    int noOfSample = (null != total) ? total.NoSample : 0;
 
                     foreach (var item in items)
                     {
@@ -869,7 +584,11 @@ namespace M3.QA.Models2
 
             return ret;
         }
-
+        /// <summary>
+        /// Save.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static NDbResult<CordTensileStrengthProperty> Save(CordTensileStrengthProperty value)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
@@ -933,4 +652,113 @@ namespace M3.QA.Models2
 
         #endregion
     }
+
+    #endregion
+
+    #region CordSampleTestData
+
+    /// <summary>
+    /// The CordSampleTestData class.
+    /// </summary>
+    public class CordSampleTestData : NInpc
+    {
+        #region Public Properties
+
+        public string LotNo { get; set; }
+
+        public string ItemCode { get; set; }
+
+        public int? MasterId { get; set; }
+        public int? TotalSP { get; set; }
+        public DateTime? StartTestDate { get; set; }
+
+        public string Spindle { get; set; }
+        public string ELongLoadN { get; set; }
+
+        public bool CanEditStartDate { get; set; }
+
+        // Test Properties
+        public List<CordTensileStrengthProperty> TensileStrengths { get; set; }
+
+        #endregion
+
+        #region Private Methods
+
+        private void InitTestProperties()
+        {
+            if (TotalSP.HasValue)
+            {
+                TensileStrengths = CordTensileStrengthProperty.Create(TotalSP.Value);
+            }
+        }
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// Gets CordSampleTestData by Lot No.
+        /// </summary>
+        /// <param name="value">The CordSampleTestData item to save.</param>
+        /// <returns></returns>
+        public static NDbResult<CordSampleTestData> GetByLotNo(string lotNo)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordSampleTestData> ret = new NDbResult<CordSampleTestData>();
+
+            if (string.IsNullOrWhiteSpace(lotNo))
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@LotNo", lotNo);
+
+            try
+            {
+                var items = cnn.Query<CordSampleTestData>("M_CheckLotReceive", p, commandType: CommandType.StoredProcedure);
+                var data = (null != items) ? items.ToList().FirstOrDefault() : null;
+
+                if (null != data)
+                {
+                    // already has date so cannot edit.
+                    data.CanEditStartDate = (data.StartTestDate.HasValue) ? false : true;
+                    data.InitTestProperties();
+                }
+
+                ret.Success(data);
+                // Set error number/message
+                ret.ErrNum = 0;
+                ret.ErrMsg = "Success";
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+        #endregion
+    }
+
+    #endregion
 }

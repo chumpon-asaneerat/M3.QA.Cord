@@ -83,6 +83,10 @@
                 </StackPanel>
                 <Grid />
             </DockPanel>
+            <!-- Property Grid  -->
+            <DockPanel LastChildFill="True" DockPanel.Dock="Right">
+                <xctk:PropertyGrid x:Name="pgrid" Width="250" />
+            </DockPanel>
             <!--  WORK AREA  -->
             <TabControl TabStripPlacement="Left" Margin="0,5">
                 <TabItem Header="Tensile Strength">
