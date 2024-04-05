@@ -151,7 +151,24 @@ namespace M3.QA.Models
         }
 
         /// <summary>Gets or sets Need SP to Enable Test.</summary>
-        public bool NeedSP { get; set; }
+        public bool NeedSP 
+        {
+            get { return Get<bool>();  }
+            set
+            {
+                Set(value, () => 
+                {
+                    this.Raise(() => this.EnableTest);
+                    if (null != Items)
+                    {
+                        foreach (var item in Items)
+                        {
+                            item.NeedSP = value;
+                        }
+                    }
+                });
+            }
+        }
 
         #endregion
 
@@ -159,7 +176,7 @@ namespace M3.QA.Models
 
         public bool EnableTest
         {
-            get { return (NeedSP) ? SPNo.HasValue : false; }
+            get { return (NeedSP) ? SPNo.HasValue : true; }
             set { }
         }
 
@@ -467,7 +484,7 @@ namespace M3.QA.Models
         /// </summary>
         public bool EnableNormalTest
         {
-            get { return (NeedSP) ? SPNo.HasValue : false; }
+            get { return (NeedSP) ? SPNo.HasValue : true; }
             set { }
         }
         /// <summary>
