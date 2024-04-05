@@ -3,85 +3,93 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <ItemsControl MinHeight="100"
-                      VirtualizingPanel.IsVirtualizing="True"
-                      VirtualizingPanel.VirtualizationMode="Recycling"
-                      ItemsSource="{Binding TensileStrengths}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel LastChildFill="True">
-                        <!--  SP No.  -->
-                        <Border Margin="2"
-                                Padding="3"
-                                DockPanel.Dock="Left">
-                            <StackPanel Orientation="Vertical" Width="100">
-                                <TextBlock Text="Spindle No" TextAlignment="Center" />
-                                <TextBox Text="{Binding SPNo, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
-                                         TextAlignment="Center"
-                                         Width="90"
-                                         Style="{StaticResource CommonTextBox}" />
-                            </StackPanel>
-                        </Border>
-                        <!--  EACH N/R  -->
-                        <ItemsControl ItemsSource="{Binding Items}" DockPanel.Dock="Left">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Horizontal"
-                                                            VirtualizingPanel.IsVirtualizing="True"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="2" Padding="3">
-                                        <DockPanel LastChildFill="True">
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical">
-                                                    <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
-                                                    <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
-                                                             IsEnabled="{Binding EnableNormalTest}"
-                                                             Width="90"
-                                                             TextAlignment="Center"
-                                                             Style="{StaticResource CommonTextBox}" />
+    <page:NPage HeaderText="Tensile Strength"
+                HeaderBackground="ForestGreen"
+                HeaderBorderBrush="ForestGreen">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ItemsControl MinHeight="100"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.VirtualizationMode="Recycling"
+                          ItemsSource="{Binding TensileStrengths}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel LastChildFill="True">
+                            <!--  SP No.  -->
+                            <Border Margin="2"
+                                    Padding="3"
+                                    DockPanel.Dock="Left">
+                                <StackPanel Orientation="Vertical" Width="100">
+                                    <TextBlock Text="Spindle No" TextAlignment="Center" />
+                                    <TextBox Text="{Binding SPNo, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                             IsReadOnly="True"
+                                             TextAlignment="Center"
+                                             Width="90"
+                                             Style="{StaticResource CommonTextBox}" />
+                                </StackPanel>
+                            </Border>
+                            <!--  EACH N/R  -->
+                            <ItemsControl ItemsSource="{Binding Items}"
+                                          DockPanel.Dock="Left"
+                                          IsEnabled="{Binding EnableTest}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="2" Padding="3">
+                                            <DockPanel LastChildFill="True">
+                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
+                                                        <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                                                 IsEnabled="{Binding EnableNormalTest}"
+                                                                 Width="90"
+                                                                 TextAlignment="Center"
+                                                                 Style="{StaticResource CommonTextBox}" />
+                                                    </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical">
-                                                    <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
-                                                    <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
-                                                             IsEnabled="{Binding EnableReTest}"
-                                                             Width="90"
-                                                             TextAlignment="Center"
-                                                             Style="{StaticResource CommonTextBox}" />
+                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
+                                                        <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                                                 IsEnabled="{Binding EnableReTest}"
+                                                                 Width="90"
+                                                                 TextAlignment="Center"
+                                                                 Style="{StaticResource CommonTextBox}" />
+                                                    </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
-                                            <Grid />
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <!--  AVG.  -->
-                        <Border Margin="2"
-                                Padding="3"
-                                DockPanel.Dock="Left">
-                            <StackPanel Orientation="Vertical" Width="100">
-                                <TextBlock Text="AVG" TextAlignment="Center" />
-                                <TextBox Text="{Binding Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
-                                         TextAlignment="Center"
-                                         IsReadOnly="True"
-                                         Width="90"
-                                         Style="{StaticResource CommonTextBox}" />
-                            </StackPanel>
-                        </Border>
-                        <Grid />
-                    </DockPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
+                                                <Grid />
+                                            </DockPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <!--  AVG.  -->
+                            <Border Margin="2"
+                                    Padding="3"
+                                    DockPanel.Dock="Left">
+                                <StackPanel Orientation="Vertical" Width="100">
+                                    <TextBlock Text="AVG" TextAlignment="Center" />
+                                    <TextBox Text="{Binding Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
+                                             TextAlignment="Center"
+                                             IsReadOnly="True"
+                                             Width="90"
+                                             Style="{StaticResource CommonTextBox}" />
+                                </StackPanel>
+                            </Border>
+                            <Grid />
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </page:NPage>
 </UserControl>
