@@ -62,7 +62,6 @@ namespace M3.QA.Models
 
         private void InitElongations()
         {
-            var elongations = CordElongationProperty.Create(this);
             /*
             int noOfSample = 0;
             Utils.M_GetPropertyTotalNByItem total;
@@ -129,7 +128,7 @@ namespace M3.QA.Models
             // Sort by SP No.
             //Elongations = results.OrderBy(o => o.SPNo).ThenBy(o => o.PropertyNo).ToList();
 
-            Elongations = elongations;
+            Elongations = CordElongationProperty.Create(this);
         }
 
         private void InitTestProperties()

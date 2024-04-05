@@ -1,6 +1,7 @@
 ﻿#region Using
 
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -22,7 +23,12 @@ namespace M3.QA.Models
     /// </summary>
     public class CordElongationSubProperty : CordTestProperty
     {
+        /// <summary>Gets is show Eload.</summary>
         public virtual Visibility ShowEload { get { return Visibility.Hidden; } set { } }
+        /// <summary>Gets Property Text.</summary>
+        public virtual string PropertyText { get { return "unknown"; } set { } }
+        /// <summary>Gets or sets ELongLoadN.</summary>
+        public string ELongLoadN { get; set; }
     }
 
     #endregion
@@ -38,7 +44,7 @@ namespace M3.QA.Models
 
         public override Visibility ShowEload { get { return Visibility.Hidden; } set { } }
         /// <summary>Gets Property Text.</summary>
-        public string PropertyText { get { return "at Break"; } set { } }
+        public override string PropertyText { get { return "at Break"; } set { } }
 
         #endregion
 
@@ -47,48 +53,60 @@ namespace M3.QA.Models
         /// <summary>
         /// Create
         /// </summary>
-        /// <param name="lotNo"></param>
-        /// <param name="maxSP"></param>
-        /// <param name="noOfSample"></param>
-        /// <param name="sp1"></param>
-        /// <param name="sp2"></param>
-        /// <param name="sp3"></param>
-        /// <param name="sp4"></param>
-        /// <param name="sp5"></param>
-        /// <param name="sp6"></param>
-        /// <param name="sp7"></param>
+        /// <param name="value"></param>
+        /// <param name="elongItem"></param>
         /// <returns></returns>
-        internal static List<CordElongationBreakProperty> Create(string lotNo, int maxSP, int noOfSample,
-            int? sp1, int? sp2, int? sp3, int? sp4, int? sp5, int? sp6, int? sp7)
+        internal static List<CordElongationBreakProperty> Create(CordSampleTestData value,
+            CordElongationProperty elongItem)
         {
             List<CordElongationBreakProperty> results = new List<CordElongationBreakProperty>();
-            for (int i = 1; i <= maxSP; i++)
+
+            if (null == value || null == value)
+                return results;
+
+            int noOfSample;
+            CordElongationBreakProperty inst;
+            Utils.M_GetPropertyTotalNByItem total;
+
+            // For Elongation Break Proepty No = 2
+            total = (value.MasterId.HasValue) ?
+                Utils.M_GetPropertyTotalNByItem.GetByItem(value.MasterId.Value, 2).Value() : null;
+            noOfSample = (null != total) ? total.NoSample : 0;
+
+            inst = new CordElongationBreakProperty()
             {
-                if (i > 7) continue;
+                LotNo = value.LotNo,
+                PropertyNo = 2, // Elongation Break = 2
+                SPNo = elongItem.SPNo,
+                NeedSP = false, // Elongation Break not requred SP No
+                NoOfSample = noOfSample
+            };
 
-                int? SP;
-                switch (i)
+            results.Add(inst);
+
+            // Check Exists data
+            var existBreaks = (value.MasterId.HasValue) ? GetsByLotNo(
+                value.LotNo, value.MasterId.Value).Value() : null;
+
+            if (null != existBreaks && null != results)
+            {
+                int idx = -1;
+                foreach (var item in existBreaks)
                 {
-                    case 1: SP = sp1; break;
-                    case 2: SP = sp2; break;
-                    case 3: SP = sp3; break;
-                    case 4: SP = sp4; break;
-                    case 5: SP = sp5; break;
-                    case 6: SP = sp6; break;
-                    case 7: SP = sp7; break;
-                    default: SP = new int?(); break;
+                    item.NoOfSample = noOfSample; // need to set because not return from db.
+
+                    idx = results.FindIndex((x) => 
+                    { 
+                        return x.SPNo == item.SPNo && x.PropertyNo == item.PropertyNo; 
+                    });
+                    if (idx != -1)
+                    {
+                        Clone(item, results[idx]);
+                    }
+                    idx++;
                 }
-                var inst = new CordElongationBreakProperty()
-                {
-                    LotNo = lotNo,
-                    PropertyNo = 2, // Elongation Break = 2
-                    SPNo = SP,
-                    NeedSP = false, // Elongation Break not requred SP No
-                    NoOfSample = noOfSample
-                };
-
-                results.Add(inst);
             }
+
             return results;
         }
 
@@ -287,9 +305,7 @@ namespace M3.QA.Models
 
         public override Visibility ShowEload { get { return Visibility.Visible; } set { } }
         /// <summary>Gets Property Text.</summary>
-        public string PropertyText { get { return "at Load"; } set { } }
-        /// <summary>Gets or sets ELongLoadN.</summary>
-        public string ELongLoadN { get; set; }
+        public override string PropertyText { get { return "at Load"; } set { } }
 
         #endregion
 
@@ -298,49 +314,71 @@ namespace M3.QA.Models
         /// <summary>
         /// Create
         /// </summary>
-        /// <param name="lotNo"></param>
-        /// <param name="maxSP"></param>
-        /// <param name="noOfSample"></param>
-        /// <param name="sp1"></param>
-        /// <param name="sp2"></param>
-        /// <param name="sp3"></param>
-        /// <param name="sp4"></param>
-        /// <param name="sp5"></param>
-        /// <param name="sp6"></param>
-        /// <param name="sp7"></param>
+        /// <param name="value"></param>
+        /// <param name="elongItem"></param>
         /// <returns></returns>
-        internal static List<CordElongationLoadProperty> Create(string lotNo, int maxSP, int noOfSample,
-            int? sp1, int? sp2, int? sp3, int? sp4, int? sp5, int? sp6, int? sp7, string eLoadN)
+        internal static List<CordElongationLoadProperty> Create(CordSampleTestData value,
+            CordElongationProperty elongItem)
         {
             List<CordElongationLoadProperty> results = new List<CordElongationLoadProperty>();
-            for (int i = 1; i <= maxSP; i++)
+
+            if (null == value || null == value)
+                return results;
+
+            int noOfSample;
+            CordElongationLoadProperty inst;
+            Utils.M_GetPropertyTotalNByItem total;
+
+            // For Elongation Load Proepty No = 3
+            total = (value.MasterId.HasValue) ?
+                Utils.M_GetPropertyTotalNByItem.GetByItem(value.MasterId.Value, 3).Value() : null;
+            noOfSample = (null != total) ? total.NoSample : 0;
+
+            string[] elongIds = !string.IsNullOrWhiteSpace(value.ELongLoadN) ?
+                value.ELongLoadN.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries) : null;
+            if (null != value.ELongLoadN && value.ELongLoadN.Length > 0)
             {
-                if (i > 7) continue;
-
-                int? SP;
-                switch (i)
+                foreach (string elongId in elongIds)
                 {
-                    case 1: SP = sp1; break;
-                    case 2: SP = sp2; break;
-                    case 3: SP = sp3; break;
-                    case 4: SP = sp4; break;
-                    case 5: SP = sp5; break;
-                    case 6: SP = sp6; break;
-                    case 7: SP = sp7; break;
-                    default: SP = new int?(); break;
+                    inst = new CordElongationLoadProperty()
+                    {
+                        LotNo = value.LotNo,
+                        PropertyNo = 3, // Elongation Load = 3
+                        SPNo = elongItem.SPNo,
+                        NeedSP = true, // Elongation Load requred SP No
+                        NoOfSample = noOfSample,
+                        ELongLoadN = elongId
+                    };
+
+                    results.Add(inst);
                 }
-                var inst = new CordElongationLoadProperty()
-                {
-                    LotNo = lotNo,
-                    PropertyNo = 3, // Elongation Load = 3
-                    SPNo = SP,
-                    NeedSP = true, // Elongation Load not requred SP No
-                    NoOfSample = noOfSample,
-                    ELongLoadN = eLoadN
-                };
-
-                results.Add(inst);
             }
+
+            // Check Exists data
+            var existLoads = (value.MasterId.HasValue) ? GetsByLotNo(
+                value.LotNo, value.MasterId.Value).Value() : null;
+
+            if (null != existLoads && null != results)
+            {
+                int idx = -1;
+                foreach (var item in existLoads)
+                {
+                    item.NoOfSample = noOfSample; // need to set because not return from db.
+
+                    idx = results.FindIndex((x) => 
+                    { 
+                        return x.SPNo == item.SPNo && 
+                            x.PropertyNo == item.PropertyNo &&
+                            x.ELongLoadN == item.ELongLoadN; 
+                    });
+                    if (idx != -1)
+                    {
+                        Clone(item, results[idx]);
+                    }
+                    idx++;
+                }
+            }
+
             return results;
         }
 
@@ -540,10 +578,8 @@ namespace M3.QA.Models
 
         public string LotNo { get; set; }
         public int? MasterId { get; set; }
-        public int PropertyNo { get ; set; }
         public int? SPNo { get; set; }
-        public bool NeedSP { get; set; }
-        public string ELoadId { get; set; }
+        public string ELongLoadN { get; set; }
 
         public List<CordElongationSubProperty> SubProperties { get; set; }
 
@@ -551,15 +587,42 @@ namespace M3.QA.Models
 
         #region Static Methods
 
+        /// <summary>
+        /// Creat Sub Properties.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="elongItem"></param>
+        /// <returns></returns>
+        private static List<CordElongationSubProperty> CreateSubProperties(CordSampleTestData value,
+            CordElongationProperty elongItem)
+        {
+            List<CordElongationSubProperty> results = new List<CordElongationSubProperty>();
+
+            if (null == value || null == elongItem)
+                return results;
+
+            var eBreaks = CordElongationBreakProperty.Create(value, elongItem);
+            var eLoads = CordElongationLoadProperty.Create(value, elongItem);
+
+            if (null != eBreaks) results.AddRange(eBreaks);
+            if (null != eLoads) results.AddRange(eLoads);
+
+            // Sort by SP No/PropetyNo/ELongLoadN.
+            return results.OrderBy(o => o.SPNo).ThenBy(o => o.PropertyNo).ThenBy(o => o.ELongLoadN).ToList();
+        }
+        /// <summary>
+        /// Create.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         internal static List<CordElongationProperty> Create(CordSampleTestData value)
         {
             List<CordElongationProperty> results = new List<CordElongationProperty>();
 
+            if (null == value)
+                return results;
 
-
-
-            /*
-            // For Break
+            var maxSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
             for (int i = 1; i <= maxSP; i++)
             {
                 if (i > 7) continue;
@@ -580,54 +643,16 @@ namespace M3.QA.Models
                 {
                     LotNo = value.LotNo,
                     MasterId = value.MasterId.Value,
-                    PropertyNo = 2, // Elongation Break = 2
                     SPNo = SP,
-                    NeedSP = false, // Elongation Break not requred SP No
-                    ELoadId = null
+                    ELongLoadN = value.ELongLoadN
                 };
+                // load break/load sub properties.
+                inst.SubProperties = CreateSubProperties(value, inst);
 
                 results.Add(inst);
             }
-            // For Load
-            string[] eLoadIds = eLoadN.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            if (null != eLoadIds && eLoadIds.Length > 0)
-            {
-                foreach (var eLoadId in eLoadIds)
-                {
-                    if (string.IsNullOrWhiteSpace(eLoadId)) 
-                        continue;
-                    for (int i = 1; i <= maxSP; i++)
-                    {
-                        if (i > 7) continue;
 
-                        int? SP;
-                        switch (i)
-                        {
-                            case 1: SP = sp1; break;
-                            case 2: SP = sp2; break;
-                            case 3: SP = sp3; break;
-                            case 4: SP = sp4; break;
-                            case 5: SP = sp5; break;
-                            case 6: SP = sp6; break;
-                            case 7: SP = sp7; break;
-                            default: SP = new int?(); break;
-                        }
-                        var inst = new CordElongationProperty()
-                        {
-                            LotNo = lotNo,
-                            MasterId = masterId,
-                            PropertyNo = 3, // Elongation Load = 3
-                            SPNo = SP,
-                            NeedSP = true, // Elongation Load requred SP No
-                            ELoadId = eLoadId
-                        };
-
-                        results.Add(inst);
-                    }
-                }
-            }
-            */
-            return results.OrderBy(o => o.SPNo).ThenBy(o => o.PropertyNo).ThenBy(o => o.ELoadId).ToList(); ;
+            return results.OrderBy(o => o.SPNo).ToList();
         }
 
         #endregion

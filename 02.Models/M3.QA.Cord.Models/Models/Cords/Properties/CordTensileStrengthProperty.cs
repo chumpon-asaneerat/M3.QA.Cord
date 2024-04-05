@@ -27,16 +27,7 @@ namespace M3.QA.Models
         /// <summary>
         /// Create
         /// </summary>
-        /// <param name="lotNo"></param>
-        /// <param name="maxSP"></param>
-        /// <param name="noOfSample"></param>
-        /// <param name="sp1"></param>
-        /// <param name="sp2"></param>
-        /// <param name="sp3"></param>
-        /// <param name="sp4"></param>
-        /// <param name="sp5"></param>
-        /// <param name="sp6"></param>
-        /// <param name="sp7"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         internal static List<CordTensileStrengthProperty> Create(CordSampleTestData value)
         {
