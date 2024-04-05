@@ -114,7 +114,9 @@
                 <TabItem Header="Tensile Strength">
                     <prop:CordTensileStrengthPage />
                 </TabItem>
-                <TabItem Header="Elongation" />
+                <TabItem Header="Elongation">
+                    <prop:CordElongationPage />
+                </TabItem>
                 <TabItem Header="Adhesion Force (Peel)" />
                 <TabItem Header="Shrinkage force(N)" />
                 <TabItem Header="Shrinkage %" />
