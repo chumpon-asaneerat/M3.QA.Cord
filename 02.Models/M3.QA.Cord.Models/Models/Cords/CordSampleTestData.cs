@@ -515,16 +515,37 @@ namespace M3.QA.Models
         /// </summary>
         /// <param name="maxSP"></param>
         /// <returns></returns>
-        internal static List<CordTensileStrengthProperty> Create(string lotNo, int maxSP, int noOfSample)
+        internal static List<CordTensileStrengthProperty> Create(string lotNo, int maxSP, int noOfSample,
+            int? sp1,
+            int? sp2,
+            int? sp3,
+            int? sp4,
+            int? sp5,
+            int? sp6,
+            int? sp7)
         {
             List<CordTensileStrengthProperty> results = new List<CordTensileStrengthProperty>();
             for (int i = 1; i <= maxSP; i++)
             {
                 if (i > 7) continue;
 
+                int? SP;
+
+                switch (i)
+                {
+                    case 1: SP = sp1; break;
+                    case 2: SP = sp2; break;
+                    case 3: SP = sp3; break;
+                    case 4: SP = sp4; break;
+                    case 5: SP = sp5; break;
+                    case 6: SP = sp6; break;
+                    case 7: SP = sp7; break;
+                    default: SP = new int?(); break;
+                }
                 var inst = new CordTensileStrengthProperty() 
                 { 
                     LotNo = lotNo, 
+                    SPNo = SP,
                     NoOfSample = noOfSample 
                 };
 
@@ -725,6 +746,15 @@ namespace M3.QA.Models
         public string ItemCode { get; set; }
 
         public int? MasterId { get; set; }
+
+        public int? SP1 { get; set; }
+        public int? SP2 { get; set; }
+        public int? SP3 { get; set; }
+        public int? SP4 { get; set; }
+        public int? SP5 { get; set; }
+        public int? SP6 { get; set; }
+        public int? SP7 { get; set; }
+
         public int? TotalSP { get; set; }
         public DateTime? StartTestDate { get; set; }
 
@@ -746,18 +776,20 @@ namespace M3.QA.Models
             var total = Utils.M_GetPropertyTotalNByItem.GetByItem(masterId, 1).Value();
             int noOfSample = (null != total) ? total.NoSample : 0;
 
-            TensileStrengths = CordTensileStrengthProperty.Create(lotNo, totalSP, noOfSample);
+            TensileStrengths = CordTensileStrengthProperty.Create(lotNo, totalSP, noOfSample,
+                this.SP1, this.SP2, this.SP3, this.SP4, this.SP5, this.SP6, this.SP7);
 
             var existItems = CordTensileStrengthProperty.GetsByLotNo(
                 lotNo, masterId).Value();
             if (null != existItems && null != TensileStrengths)
             {
-                int idx = 0;
+                int idx = -1;
                 foreach (var item in existItems)
                 {
                     item.NoOfSample = noOfSample; // need to set because not return from db.
 
-                    if (idx < TensileStrengths.Count)
+                    idx = TensileStrengths.FindIndex((x) => { return x.SPNo == item.SPNo; });
+                    if (idx != -1)
                     {
                         CordTensileStrengthProperty.Clone(item, TensileStrengths[idx]);
                     }
