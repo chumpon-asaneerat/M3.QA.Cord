@@ -480,7 +480,9 @@ namespace M3.QA.Models
         /// Gets or sets Test No. (N1, N2, N3)
         /// </summary>
         public int No { get; set; }
-
+        /// <summary>
+        /// Gets or sets Test Value.
+        /// </summary>
         public decimal? N
         {
             get 
@@ -498,6 +500,9 @@ namespace M3.QA.Models
                 }
             }
         }
+        /// <summary>
+        /// Gets or sets Re Test Value.
+        /// </summary>
         public decimal? R
         {
             get 
@@ -512,19 +517,25 @@ namespace M3.QA.Models
                 }
             }
         }
-
+        /// <summary>
+        /// Check is Enable Normal Test. 
+        /// </summary>
         public bool EnableNormalTest
         {
             get { return SPNo.HasValue; }
             set { }
         }
+        /// <summary>
+        /// Check is Enable Re Test. 
+        /// </summary>
         public bool EnableReTest
         {
             get { return SPNo.HasValue && N.HasValue; } 
             set { } 
         }
-
+        /// <summary>Gets N Display Caption.</summary>
         public string NCaption { get { return "N" + No.ToString(); } set { } }
+        /// <summary>Gets R Display Caption.</summary>
         public string RCaption { get { return "R" + No.ToString(); } set { } }
 
         #endregion
@@ -553,16 +564,19 @@ namespace M3.QA.Models
         /// <summary>
         /// Create
         /// </summary>
+        /// <param name="lotNo"></param>
         /// <param name="maxSP"></param>
+        /// <param name="noOfSample"></param>
+        /// <param name="sp1"></param>
+        /// <param name="sp2"></param>
+        /// <param name="sp3"></param>
+        /// <param name="sp4"></param>
+        /// <param name="sp5"></param>
+        /// <param name="sp6"></param>
+        /// <param name="sp7"></param>
         /// <returns></returns>
         internal static List<CordTensileStrengthProperty> Create(string lotNo, int maxSP, int noOfSample,
-            int? sp1,
-            int? sp2,
-            int? sp3,
-            int? sp4,
-            int? sp5,
-            int? sp6,
-            int? sp7)
+            int? sp1, int? sp2, int? sp3, int? sp4, int? sp5, int? sp6, int? sp7)
         {
             List<CordTensileStrengthProperty> results = new List<CordTensileStrengthProperty>();
             for (int i = 1; i <= maxSP; i++)
@@ -570,7 +584,6 @@ namespace M3.QA.Models
                 if (i > 7) continue;
 
                 int? SP;
-
                 switch (i)
                 {
                     case 1: SP = sp1; break;
