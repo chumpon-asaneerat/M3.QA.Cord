@@ -20,7 +20,7 @@
                                 DockPanel.Dock="Left">
                             <StackPanel Orientation="Vertical" Width="100">
                                 <TextBlock Text="Spindle No" TextAlignment="Center" />
-                                <TextBox Text="{Binding SPNo}"
+                                <TextBox Text="{Binding SPNo, TargetNullValue=''}"
                                          TextAlignment="Center"
                                          Width="90"
                                          Style="{StaticResource CommonTextBox}" />
@@ -41,11 +41,8 @@
                                         <DockPanel LastChildFill="True">
                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                 <StackPanel Orientation="Vertical">
-                                                    <TextBlock TextAlignment="Center">
-                                                        <Run Text="N" />
-                                                        <Run Text="{Binding No}" />
-                                                    </TextBlock>
-                                                    <TextBox Text="{Binding N}"
+                                                    <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
+                                                    <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
                                                              Width="90"
                                                              TextAlignment="Center"
                                                              Style="{StaticResource CommonTextBox}" />
@@ -53,11 +50,8 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                 <StackPanel Orientation="Vertical">
-                                                    <TextBlock TextAlignment="Center">
-                                                        <Run Text="R" />
-                                                        <Run Text="{Binding No}" />
-                                                    </TextBlock>
-                                                    <TextBox Text="{Binding R}"
+                                                    <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
+                                                    <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
                                                              Width="90"
                                                              TextAlignment="Center"
                                                              Style="{StaticResource CommonTextBox}" />
@@ -75,8 +69,9 @@
                                 DockPanel.Dock="Left">
                             <StackPanel Orientation="Vertical" Width="100">
                                 <TextBlock Text="AVG" TextAlignment="Center" />
-                                <TextBox Text="{Binding SPNo}"
+                                <TextBox Text="{Binding Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
                                          TextAlignment="Center"
+                                         IsReadOnly="True"
                                          Width="90"
                                          Style="{StaticResource CommonTextBox}" />
                             </StackPanel>

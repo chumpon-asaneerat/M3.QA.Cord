@@ -157,8 +157,7 @@ namespace M3.QA.Models
 
             #endregion
 
-            // Build default sample items.
-            BuildItems(3);
+            BuildItems(0); // create empty items.
         }
 
         #endregion
@@ -170,7 +169,7 @@ namespace M3.QA.Models
 
         }
 
-        private void BuildItems(int noOfSample)
+        protected internal void BuildItems(int noOfSample)
         {
             Items = new List<CordTestPropertyItem>();
             CordTestPropertyItem item;
@@ -196,11 +195,11 @@ namespace M3.QA.Models
 
         #region LotNo/SPNo/NoOfSample
 
+        /// <summary>Gets or sets Lot No.</summary>
         public string LotNo { get; set; }
-        public int SPNo { get; set; }
-        /// <summary>
-        /// Gets Max No of Test/Retest/
-        /// </summary>
+        /// <summary>Gets or sets SP No.</summary>
+        public int? SPNo { get; set; }
+        /// <summary>Gets Max No of Test/Retest.</summary>
         public int NoOfSample 
         { 
             get
@@ -297,12 +296,6 @@ namespace M3.QA.Models
                 });
             }
         }
-
-        /// <summary>Gets is N1 visible on UI.</summary>
-        public bool AllowN1 { get; set; }
-
-        /// <summary>Gets is R1 visible on UI.</summary>
-        public bool AllowR1 { get; set; }
 
         #endregion
 
@@ -404,6 +397,12 @@ namespace M3.QA.Models
 
         #endregion
 
+        /// <summary>Gets is N1 visible on UI.</summary>
+        public bool AllowN1 { get; set; }
+
+        /// <summary>Gets is R1 visible on UI.</summary>
+        public bool AllowR1 { get; set; }
+
         #region Items
 
         /// <summary>
@@ -483,6 +482,9 @@ namespace M3.QA.Models
             }
         }
 
+        public string NCaption { get { return "N" + No.ToString(); } set { } }
+        public string RCaption { get { return "R" + No.ToString(); } set { } }
+
         public bool EnableReTest { get; set; } = true;
 
         #endregion
@@ -513,17 +515,73 @@ namespace M3.QA.Models
         /// </summary>
         /// <param name="maxSP"></param>
         /// <returns></returns>
-        internal static List<CordTensileStrengthProperty> Create(int maxSP)
+        internal static List<CordTensileStrengthProperty> Create(int maxSP, int noOfSample)
         {
             List<CordTensileStrengthProperty> results = new List<CordTensileStrengthProperty>();
             for (int i = 1; i <= maxSP; i++)
             {
                 if (i > 7) continue;
-                var inst = new CordTensileStrengthProperty() { SPNo = i };
+                var inst = new CordTensileStrengthProperty() { NoOfSample = noOfSample };
 
                 results.Add(inst);
             }
             return results;
+        }
+        /// <summary>
+        /// Clone.
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="dst"></param>
+        public static void Clone(CordTensileStrengthProperty src, CordTensileStrengthProperty dst)
+        {
+            if (null == src || null == dst)
+                return;
+
+            dst.LotNo = src.LotNo;
+            dst.SPNo = src.SPNo;
+            dst.NoOfSample = src.NoOfSample;
+
+
+            dst.EditBy = src.EditBy;
+            dst.EditDate = src.EditDate;
+            dst.InputBy = src.InputBy;
+            dst.InputDate = src.InputDate;
+
+            dst.N1 = src.N1;
+            dst.N2 = src.N2;
+            dst.N3 = src.N3;
+            dst.N4 = src.N4;
+            dst.N5 = src.N5;
+            dst.N6 = src.N6;
+            dst.N7 = src.N7;
+
+            dst.R1 = src.R1;
+            dst.R2 = src.R2;
+            dst.R3 = src.R3;
+            dst.R4 = src.R4;
+            dst.R5 = src.R5;
+            dst.R6 = src.R6;
+            dst.R7 = src.R7;
+
+            /*
+            dst.AllowN1 = src.AllowN1;
+            dst.AllowN2 = src.AllowN2;
+            dst.AllowN3 = src.AllowN3;
+            dst.AllowN4 = src.AllowN4;
+            dst.AllowN5 = src.AllowN5;
+            dst.AllowN6 = src.AllowN6;
+            dst.AllowN7 = src.AllowN7;
+
+            dst.AllowR1 = src.AllowR1;
+            dst.AllowR2 = src.AllowR2;
+            dst.AllowR3 = src.AllowR3;
+            dst.AllowR4 = src.AllowR4;
+            dst.AllowR5 = src.AllowR5;
+            dst.AllowR6 = src.AllowR6;
+            dst.AllowR7 = src.AllowR7;
+
+            dst.Avg = src.Avg;
+            */
         }
         /// <summary>
         /// Gets CordTensileStrengthProperty by Lot No.
@@ -563,18 +621,6 @@ namespace M3.QA.Models
             {
                 var items = cnn.Query<CordTensileStrengthProperty>("P_GetTensileDataByLot",
                     p, commandType: CommandType.StoredProcedure).ToList();
-                if (null != items)
-                {
-                    // Call SP M_GetPropertyTotalNByItem to gets NoSample
-                    // For Tensile Strength Proepty No = 1
-                    var total = Utils.M_GetPropertyTotalNByItem.GetByItem(masterId, 1).Value();
-                    int noOfSample = (null != total) ? total.NoSample : 0;
-
-                    foreach (var item in items)
-                    {
-                        item.NoOfSample = noOfSample;
-                    }
-                }
                 ret.Success(items);
                 // Set error number/message
                 ret.ErrNum = 0;
@@ -690,11 +736,38 @@ namespace M3.QA.Models
 
         #region Private Methods
 
+        private void InitTensileStrengths(int masterId, int totalSP)
+        {
+            // For Tensile Strength Proepty No = 1
+            var total = Utils.M_GetPropertyTotalNByItem.GetByItem(masterId, 1).Value();
+            int noOfSample = (null != total) ? total.NoSample : 0;
+
+            TensileStrengths = CordTensileStrengthProperty.Create(totalSP, noOfSample);
+
+            if (this.MasterId.HasValue)
+            {
+                var existItems = CordTensileStrengthProperty.GetsByLotNo(
+                    this.LotNo, this.MasterId.Value).Value();
+                if (null != existItems && null != TensileStrengths)
+                {
+                    int idx;
+                    foreach (var item in existItems)
+                    {
+                        idx = TensileStrengths.FindIndex((src) => { return src.SPNo == item.SPNo; });
+                        if (idx != -1)
+                        {
+                            CordTensileStrengthProperty.Clone(item, TensileStrengths[idx]);
+                        }
+                    }
+                }
+            }
+        }
+
         private void InitTestProperties()
         {
-            if (TotalSP.HasValue)
+            if (TotalSP.HasValue && MasterId.HasValue)
             {
-                TensileStrengths = CordTensileStrengthProperty.Create(TotalSP.Value);
+                InitTensileStrengths(MasterId.Value, TotalSP.Value);
             }
         }
 
