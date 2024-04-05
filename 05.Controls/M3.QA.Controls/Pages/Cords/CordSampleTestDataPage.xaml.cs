@@ -53,6 +53,11 @@ namespace M3.QA.Pages
             M3QAApp.Pages.GotoQAMainMenu();
         }
 
+        private void cmdClear_Click(object sender, RoutedEventArgs e)
+        {
+            Clear();
+        }
+
         private void cmdSave_Click(object sender, RoutedEventArgs e)
         {
             Save();
@@ -104,19 +109,27 @@ namespace M3.QA.Pages
             }
             // Set current item and binding
             this.DataContext = null;
+
             item = ret.Value();
             this.DataContext = item;
 
-            pgrid.SelectedObject = item;
+            //pgrid.SelectedObject = item;
         }
 
         private void Clear()
         {
             this.DataContext = null;
+
+            txtLotNo.Text = string.Empty;
             item = new CordSampleTestData();
+            
             this.DataContext = item;
 
-            pgrid.SelectedObject = item;
+            //pgrid.SelectedObject = item;
+            this.InvokeAction(() =>
+            {
+                txtLotNo.FocusControl();
+            });
         }
 
         private void Save()
@@ -131,6 +144,8 @@ namespace M3.QA.Pages
                 { 
                     // error.
                 }
+
+                Clear();
             }
         }
 

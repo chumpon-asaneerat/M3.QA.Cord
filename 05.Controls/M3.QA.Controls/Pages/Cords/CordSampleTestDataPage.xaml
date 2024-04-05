@@ -37,13 +37,16 @@
                         <TextBlock Text="Lot No:" />
                         <TextBox x:Name="txtLotNo"
                                  Width="150"
+                                 TextAlignment="Center"
                                  KeyDown="txtLotNo_KeyDown" />
                     </StackPanel>
                     <!--  CORD CODE  -->
                     <StackPanel Orientation="Vertical" Margin="2">
                         <TextBlock Text="Cord Code:" />
                         <TextBox x:Name="txtCordCode"
+                                 TextAlignment="Center"
                                  Width="150"
+                                 IsReadOnly="True"
                                  Text="{Binding ItemCode, TargetNullValue=''}" />
                     </StackPanel>
                     <!--  START TEST DATE  -->
@@ -80,13 +83,24 @@
                             <TextBlock Margin="3,0" Text="Kg." />
                         </StackPanel>
                     </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="10, 0">
+                        <TextBlock Text="" Height="18"/>
+                        <Button x:Name="cmdClear" Content="Clear" Style="{StaticResource InlineButton}" 
+                                FontSize="18"
+                                Width="120"
+                                Height="30"
+                                Click="cmdClear_Click"/>
+                    </StackPanel>
                 </StackPanel>
                 <Grid />
             </DockPanel>
             <!-- Property Grid  -->
+            <!--
             <DockPanel LastChildFill="True" DockPanel.Dock="Right">
                 <xctk:PropertyGrid x:Name="pgrid" Width="250" />
             </DockPanel>
+            -->
             <!--  WORK AREA  -->
             <TabControl TabStripPlacement="Left" Margin="0,5">
                 <TabItem Header="Tensile Strength">
