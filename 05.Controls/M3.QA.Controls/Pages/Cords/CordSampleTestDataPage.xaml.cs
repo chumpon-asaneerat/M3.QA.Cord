@@ -55,7 +55,7 @@ namespace M3.QA.Pages
 
         private void cmdSave_Click(object sender, RoutedEventArgs e)
         {
-
+            Save();
         }
 
         #endregion
@@ -117,6 +117,21 @@ namespace M3.QA.Pages
             this.DataContext = item;
 
             pgrid.SelectedObject = item;
+        }
+
+        private void Save()
+        {
+            if (null != item)
+            {
+                // Set current user
+                var user = M3QAApp.Current.User;
+                NDbResult ret;
+                ret = CordSampleTestData.Save(item, user);
+                if (null == ret || !ret.Ok) 
+                { 
+                    // error.
+                }
+            }
         }
 
         #endregion

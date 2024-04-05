@@ -22,8 +22,9 @@ M3 QA Cord #44
 M3 QA Cord #43
 - 
 
+[commit]
 M3 QA Cord #42
-- 
+- Implements Cord Test Data #12
 
 [commit]
 M3 QA Cord #41

@@ -515,13 +515,18 @@ namespace M3.QA.Models
         /// </summary>
         /// <param name="maxSP"></param>
         /// <returns></returns>
-        internal static List<CordTensileStrengthProperty> Create(int maxSP, int noOfSample)
+        internal static List<CordTensileStrengthProperty> Create(string lotNo, int maxSP, int noOfSample)
         {
             List<CordTensileStrengthProperty> results = new List<CordTensileStrengthProperty>();
             for (int i = 1; i <= maxSP; i++)
             {
                 if (i > 7) continue;
-                var inst = new CordTensileStrengthProperty() { NoOfSample = noOfSample };
+
+                var inst = new CordTensileStrengthProperty() 
+                { 
+                    LotNo = lotNo, 
+                    NoOfSample = noOfSample 
+                };
 
                 results.Add(inst);
             }
@@ -540,7 +545,6 @@ namespace M3.QA.Models
             dst.LotNo = src.LotNo;
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
-
 
             dst.EditBy = src.EditBy;
             dst.EditDate = src.EditDate;
@@ -736,29 +740,28 @@ namespace M3.QA.Models
 
         #region Private Methods
 
-        private void InitTensileStrengths(int masterId, int totalSP)
+        private void InitTensileStrengths(string lotNo, int masterId, int totalSP)
         {
             // For Tensile Strength Proepty No = 1
             var total = Utils.M_GetPropertyTotalNByItem.GetByItem(masterId, 1).Value();
             int noOfSample = (null != total) ? total.NoSample : 0;
 
-            TensileStrengths = CordTensileStrengthProperty.Create(totalSP, noOfSample);
+            TensileStrengths = CordTensileStrengthProperty.Create(lotNo, totalSP, noOfSample);
 
-            if (this.MasterId.HasValue)
+            var existItems = CordTensileStrengthProperty.GetsByLotNo(
+                lotNo, masterId).Value();
+            if (null != existItems && null != TensileStrengths)
             {
-                var existItems = CordTensileStrengthProperty.GetsByLotNo(
-                    this.LotNo, this.MasterId.Value).Value();
-                if (null != existItems && null != TensileStrengths)
+                int idx = 0;
+                foreach (var item in existItems)
                 {
-                    int idx;
-                    foreach (var item in existItems)
+                    item.NoOfSample = noOfSample; // need to set because not return from db.
+
+                    if (idx < TensileStrengths.Count)
                     {
-                        idx = TensileStrengths.FindIndex((src) => { return src.SPNo == item.SPNo; });
-                        if (idx != -1)
-                        {
-                            CordTensileStrengthProperty.Clone(item, TensileStrengths[idx]);
-                        }
+                        CordTensileStrengthProperty.Clone(item, TensileStrengths[idx]);
                     }
+                    idx++;
                 }
             }
         }
@@ -767,7 +770,7 @@ namespace M3.QA.Models
         {
             if (TotalSP.HasValue && MasterId.HasValue)
             {
-                InitTensileStrengths(MasterId.Value, TotalSP.Value);
+                InitTensileStrengths(LotNo, MasterId.Value, TotalSP.Value);
             }
         }
 
@@ -821,6 +824,59 @@ namespace M3.QA.Models
                 }
 
                 ret.Success(data);
+                // Set error number/message
+                ret.ErrNum = 0;
+                ret.ErrMsg = "Success";
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+        public static NDbResult<CordSampleTestData> Save(CordSampleTestData value, 
+            UserInfo user)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordSampleTestData> ret = new NDbResult<CordSampleTestData>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            try
+            {
+                //cnn.Execute("M_CheckLotReceive", p, commandType: CommandType.StoredProcedure);
+                value.TensileStrengths.ForEach(x => 
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    CordTensileStrengthProperty.Save(x);
+                });
+
+                ret.Success(value);
                 // Set error number/message
                 ret.ErrNum = 0;
                 ret.ErrMsg = "Success";
