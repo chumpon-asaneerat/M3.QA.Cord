@@ -23,12 +23,16 @@ namespace M3.QA.Models
     /// </summary>
     public class CordElongationSubProperty : CordTestProperty
     {
+        #region Public Properties
+
         /// <summary>Gets is show Eload.</summary>
         public virtual Visibility ShowEload { get { return Visibility.Hidden; } set { } }
         /// <summary>Gets Property Text.</summary>
         public virtual string PropertyText { get { return "unknown"; } set { } }
         /// <summary>Gets or sets ELongLoadN.</summary>
         public string ELongLoadN { get; set; }
+
+        #endregion
     }
 
     #endregion
