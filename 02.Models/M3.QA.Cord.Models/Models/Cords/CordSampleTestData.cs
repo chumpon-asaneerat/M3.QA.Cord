@@ -2,24 +2,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Data;
 using System.Linq;
 using System.Reflection;
 
-using System.Windows.Media;
+using Dapper;
 
 using NLib;
 using NLib.Models;
 
-using Dapper;
-using Newtonsoft.Json;
-using System.Windows.Markup;
-using EPPlus.DataExtractor;
-using M3.QA.Models;
-using System.Windows.Media.Converters;
-
 #endregion
+
 namespace M3.QA.Models
 {
     #region Utils class
@@ -172,12 +165,12 @@ namespace M3.QA.Models
 
         #region Private Methods
 
-        protected virtual void CalcAvg()
+        private void CalcAvg()
         {
 
         }
 
-        protected internal void BuildItems(int noOfSample)
+        private void BuildItems(int noOfSample)
         {
             Items = new List<CordTestPropertyItem>();
             CordTestPropertyItem item;
@@ -201,14 +194,27 @@ namespace M3.QA.Models
 
         #region Public Properties
 
-        #region LotNo/SPNo
+        #region LotNo/SPNo/NoOfSample
 
         public string LotNo { get; set; }
         public int SPNo { get; set; }
         /// <summary>
         /// Gets Max No of Test/Retest/
         /// </summary>
-        public int NoOfSample { get; set; }
+        public int NoOfSample 
+        { 
+            get
+            {
+                return (null != Items) ? Items.Count : 0;
+            }
+            set 
+            {
+                BuildItems(value);
+                // Raise events
+                this.Raise(() => this.NoOfSample);
+                this.Raise(() => this.Items);
+            }
+        }
 
         #endregion
 
@@ -566,7 +572,7 @@ namespace M3.QA.Models
 
                     foreach (var item in items)
                     {
-                        item.BuildItems(noOfSample);
+                        item.NoOfSample = noOfSample;
                     }
                 }
                 ret.Success(items);
