@@ -20,7 +20,7 @@
                                 DockPanel.Dock="Left">
                             <StackPanel Orientation="Vertical" Width="100">
                                 <TextBlock Text="Spindle No" TextAlignment="Center" />
-                                <TextBox Text="{Binding SPNo, TargetNullValue=''}"
+                                <TextBox Text="{Binding SPNo, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
                                          TextAlignment="Center"
                                          Width="90"
                                          Style="{StaticResource CommonTextBox}" />
@@ -42,7 +42,8 @@
                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                 <StackPanel Orientation="Vertical">
                                                     <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
-                                                    <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
+                                                    <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                                             IsEnabled="{Binding EnableNormalTest}"
                                                              Width="90"
                                                              TextAlignment="Center"
                                                              Style="{StaticResource CommonTextBox}" />
@@ -51,7 +52,8 @@
                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                 <StackPanel Orientation="Vertical">
                                                     <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
-                                                    <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
+                                                    <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                                             IsEnabled="{Binding EnableReTest}"
                                                              Width="90"
                                                              TextAlignment="Center"
                                                              Style="{StaticResource CommonTextBox}" />

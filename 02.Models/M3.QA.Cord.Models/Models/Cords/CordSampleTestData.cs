@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-
 using Dapper;
 
 using NLib;
@@ -179,6 +178,8 @@ namespace M3.QA.Models
 
                 item = new CordTestPropertyItem();
                 item.No = i;
+                item.SPNo = SPNo; // assign SPNo
+
                 // Link get/set methods.
                 item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
                 item.SetN = (null != _SetNs) ? _SetNs[i - 1] : null;
@@ -213,6 +214,16 @@ namespace M3.QA.Models
                 this.Raise(() => this.NoOfSample);
                 this.Raise(() => this.Items);
             }
+        }
+
+        #endregion
+
+        #region Enable Test (Normal/Re Test)
+
+        public bool EnableTest
+        {
+            get { return SPNo.HasValue; }
+            set { }
         }
 
         #endregion
@@ -449,6 +460,23 @@ namespace M3.QA.Models
         #region Public Properties
 
         /// <summary>
+        /// Gets or sets SP No.
+        /// </summary>
+        public int? SPNo 
+        {
+            get { return Get<int?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    // Raise events
+                    Raise(() => this.EnableNormalTest);
+                    Raise(() => this.EnableReTest);
+                });
+            }
+        }
+
+        /// <summary>
         /// Gets or sets Test No. (N1, N2, N3)
         /// </summary>
         public int No { get; set; }
@@ -464,6 +492,9 @@ namespace M3.QA.Models
                 if (null != SetN)
                 {
                     SetN(value);
+                    // Raise events
+                    Raise(() => this.EnableNormalTest);
+                    Raise(() => this.EnableReTest);
                 }
             }
         }
@@ -482,10 +513,19 @@ namespace M3.QA.Models
             }
         }
 
+        public bool EnableNormalTest
+        {
+            get { return SPNo.HasValue; }
+            set { }
+        }
+        public bool EnableReTest
+        {
+            get { return SPNo.HasValue && N.HasValue; } 
+            set { } 
+        }
+
         public string NCaption { get { return "N" + No.ToString(); } set { } }
         public string RCaption { get { return "R" + No.ToString(); } set { } }
-
-        public bool EnableReTest { get; set; } = true;
 
         #endregion
     }
