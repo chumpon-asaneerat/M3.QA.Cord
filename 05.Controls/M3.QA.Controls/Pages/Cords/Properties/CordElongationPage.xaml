@@ -33,7 +33,31 @@
                             </Border>
                             <!--  BREAK/LOAD WITH ELONGNO  -->
                             <ItemsControl ItemsSource="{Binding SubProperties}" DockPanel.Dock="Left">
-                                
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Vertical"
+                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="2" Padding="3">
+                                            <DockPanel LastChildFill="True">
+                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                                                    <TextBlock TextAlignment="Right" Text="{Binding PropertyText}" />
+                                                    <TextBox Text="{Binding ELongLoadN, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                                             Margin="5,0"
+                                                             Visibility="{Binding ShowEload}"
+                                                             Width="90"
+                                                             TextAlignment="Center"
+                                                             Style="{StaticResource CommonTextBox}" />
+                                                </StackPanel>
+                                                <Grid />
+                                            </DockPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
                             </ItemsControl>
                             <!--  EACH N/R  -->
                             <!--
