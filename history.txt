@@ -7,11 +7,13 @@ M3 QA Cord #69
 M3 QA Cord #68
 - 
 
+[commit]
 M3 QA Cord #67
-- 
+- Implements Cord Test Data #37
 
 [commit]
 M3 QA Cord #66
+- Implements Cord Test Data #36
 - Update app build 66.
 
 [commit]

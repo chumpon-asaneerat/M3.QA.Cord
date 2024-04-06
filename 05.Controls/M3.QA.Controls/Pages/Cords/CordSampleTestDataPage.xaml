@@ -74,7 +74,9 @@
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <TextBlock Text="" />
                             <TextBox x:Name="txtSPNo"
+                                     Text="{Binding Spindle}"
                                      Width="150"
+                                     IsReadOnly="True"
                                      Style="{StaticResource CommonTextBox}" />
                         </StackPanel>
                     </StackPanel>
@@ -124,7 +126,7 @@
                 <TabItem Header="Shrinkage %" />
                 <TabItem Header="1st Twisting Number" />
                 <TabItem Header="2nd Twisting Number" />
-                <TabItem Header="Thickness" />
+                <TabItem Header="Thickness" Visibility="Collapsed" />
                 <TabItem>
                     <TabItem.Header>
                         <TextBlock TextAlignment="Center">
