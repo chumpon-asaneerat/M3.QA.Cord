@@ -47,6 +47,8 @@ namespace M3.QA.Pages
         private List<CordCode> cordCodes = null;
         private List<DIPMC> MCs = null;
 
+        public List<Models.Utils.P_SearchReceiveCord> searchs = null;
+
         #endregion
 
         #region Button Handlers
@@ -59,6 +61,16 @@ namespace M3.QA.Pages
         private void cmdSave_Click(object sender, RoutedEventArgs e)
         {
             Save();
+        }
+
+        private void cmdSeach_Click(object sender, RoutedEventArgs e)
+        {
+            Search();
+        }
+
+        private void cmdClear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearSearch();
         }
 
         #endregion
@@ -76,6 +88,29 @@ namespace M3.QA.Pages
         {
             var code = cbCodes.SelectedItem as CordCode;
             UpdateProductType(code);
+        }
+
+        #endregion
+
+        #region DateTimePicker Handlers
+
+        private void dtDateFrom_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            //Search();
+        }
+
+        private void dtDateTo_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            //Search();
+        }
+
+        #endregion
+
+        #region ListView Handlers
+
+        private void grid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
         #endregion
@@ -246,6 +281,24 @@ namespace M3.QA.Pages
             }
         }
 
+        private void Search()
+        {
+            DateTime? dateFrom = dtDateFrom.Value;
+            DateTime? dateTo = dtDateFrom.Value;
+
+            grid.ItemsSource = null;
+            searchs = Models.Utils.P_SearchReceiveCord.SearchByDate(dateFrom, dateTo).Value();
+            grid.ItemsSource = searchs;
+
+        }
+
+        private void ClearSearch()
+        {
+            grid.ItemsSource = null;
+            searchs = new List<Models.Utils.P_SearchReceiveCord>();
+            grid.ItemsSource = searchs;
+        }
+
         #endregion
 
         #region Public Methods
@@ -255,6 +308,11 @@ namespace M3.QA.Pages
             LoadMC();
             LoadCustomers();
             ClearInputs();
+
+            dtDateFrom.Value = DateTime.Today;
+            dtDateTo.Value = DateTime.Today;
+
+            ClearSearch();
         }
 
         #endregion

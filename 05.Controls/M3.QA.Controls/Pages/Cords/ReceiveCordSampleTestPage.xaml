@@ -213,7 +213,112 @@
                               VerticalContentAlignment="Stretch" />
                 <!--  SEARCH PANEL  -->
                 <DockPanel Grid.Column="2" LastChildFill="True">
-                    <ListView x:Name="grid" Style="{StaticResource BASEListView}" />
+                    <!--  SEARCH FILTER  -->
+                    <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                        <Grid DockPanel.Dock="Top" Height="5" />
+                        <StackPanel Orientation="Horizontal"
+                                    DockPanel.Dock="Top"
+                                    HorizontalAlignment="Center">
+                            <TextBlock Text="Receive Date: "
+                                       FontWeight="SemiBold"
+                                       Foreground="Red" />
+                            <!--  DATE FROM  -->
+                            <xctk:DateTimePicker x:Name="dtDateFrom"
+                                                 Margin="5,0"
+                                                 Format="Custom"
+                                                 FormatString="dd/MM/yyyy"
+                                                 TimePickerVisibility="Collapsed"
+                                                 TimePickerAllowSpin="False"
+                                                 TimePickerShowButtonSpinner="False"
+                                                 ShowButtonSpinner="False"
+                                                 AutoCloseCalendar="True"
+                                                 AutoCloseCalendarOnTimeSelection="True"
+                                                 Width="150"
+                                                 ValueChanged="dtDateFrom_ValueChanged" />
+                            <TextBlock Text=" - " FontWeight="SemiBold" />
+                            <!--  DATE TO  -->
+                            <xctk:DateTimePicker x:Name="dtDateTo"
+                                                 Margin="5,0"
+                                                 Format="Custom"
+                                                 FormatString="dd/MM/yyyy"
+                                                 TimePickerVisibility="Collapsed"
+                                                 TimePickerAllowSpin="False"
+                                                 TimePickerShowButtonSpinner="False"
+                                                 ShowButtonSpinner="False"
+                                                 AutoCloseCalendar="True"
+                                                 AutoCloseCalendarOnTimeSelection="True"
+                                                 Width="150"
+                                                 ValueChanged="dtDateTo_ValueChanged" />
+                        </StackPanel>
+                        <Grid DockPanel.Dock="Top" Height="10" />
+                        <StackPanel Orientation="Horizontal"
+                                    DockPanel.Dock="Top"
+                                    HorizontalAlignment="Center">
+                            <Button x:Name="cmdSeach"
+                                    Content="Search"
+                                    Style="{StaticResource InlineButton}"
+                                    Margin="5,0"
+                                    FontSize="18"
+                                    Height="30"
+                                    Width="120"
+                                    Click="cmdSeach_Click" />
+                            <Button x:Name="cmdClear"
+                                    Content="Clear"
+                                    Style="{StaticResource InlineButton}"
+                                    Margin="5,0"
+                                    FontSize="18"
+                                    Height="30"
+                                    Width="120"
+                                    Click="cmdClear_Click" />
+                        </StackPanel>
+                        <Grid Height="10" />
+                    </DockPanel>
+                    <ListView x:Name="grid"
+                              ItemContainerStyle="{StaticResource BASEListViewItemContainer}"
+                              Style="{StaticResource SingleSelectListView}"
+                              SelectionChanged="grid_SelectionChanged">
+                        <ListView.View>
+                            <GridView>
+                                <GridView.Columns>
+                                    <GridViewColumn Header="Lot No" Width="100">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding LotNo}" TextAlignment="Center" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Cord Code" Width="180">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ItemCode}" TextAlignment="Center" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Spindle No" Width="180">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding SpindleNo}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Receive Date" Width="180">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ReceiveDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Receive By" Width="200">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ReceiveBy}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </DockPanel>
             </Grid>
         </DockPanel>

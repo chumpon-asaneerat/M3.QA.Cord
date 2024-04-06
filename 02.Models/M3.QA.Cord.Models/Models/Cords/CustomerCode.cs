@@ -29,6 +29,9 @@ namespace M3.QA.Models
         public string ProductName { get; set; }
         public string YarnType { get; set; }
 
+        public string ELongLoadN { get; set; }
+        public string NoTestCH { get; set; }
+
         #endregion
 
         #region Static Methods
