@@ -26,7 +26,7 @@
                                 <Border Margin="0,0,5,0" DockPanel.Dock="Left">
                                     <StackPanel Orientation="Vertical" Width="100">
                                         <TextBlock Text="Spindle No" TextAlignment="Center" />
-                                        <TextBox Text="{Binding SPNo, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                        <TextBox Text="{Binding SPNo, TargetNullValue='', UpdateSourceTrigger=LostFocus}"
                                                  IsReadOnly="True"
                                                  TextAlignment="Center"
                                                  Width="90"
@@ -53,7 +53,7 @@
                                                                        Margin="0,0,5,0"
                                                                        Text="{Binding PropertyText}"
                                                                        Width="100" />
-                                                            <TextBox Text="{Binding ELongLoadN, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                                            <TextBox Text="{Binding ELongLoadN, TargetNullValue='', UpdateSourceTrigger=LostFocus}"
                                                                      Margin="5,0"
                                                                      Visibility="{Binding ShowEload}"
                                                                      Width="90"
@@ -78,7 +78,7 @@
                                                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                                 <StackPanel Orientation="Vertical">
                                                                                     <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
-                                                                                    <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                                                                    <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=LostFocus}"
                                                                                              IsEnabled="{Binding EnableNormalTest}"
                                                                                              Width="90"
                                                                                              TextAlignment="Center"
@@ -88,7 +88,7 @@
                                                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                                 <StackPanel Orientation="Vertical">
                                                                                     <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
-                                                                                    <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                                                                    <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=LostFocus}"
                                                                                              IsEnabled="{Binding EnableReTest}"
                                                                                              Width="90"
                                                                                              TextAlignment="Center"

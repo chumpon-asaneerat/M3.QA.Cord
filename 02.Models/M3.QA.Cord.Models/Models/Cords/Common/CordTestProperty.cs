@@ -96,7 +96,85 @@ namespace M3.QA.Models
 
         private void CalcAvg()
         {
+            decimal total = decimal.Zero;
 
+            int iCnt = 0;
+            if (N1.HasValue && !R1.HasValue) 
+            {
+                total += N1.Value;
+                ++iCnt;
+            }
+            if (N2.HasValue && !R2.HasValue)
+            {
+                total += N2.Value;
+                ++iCnt;
+            }
+            if (N3.HasValue && !R3.HasValue)
+            {
+                total += N3.Value;
+                ++iCnt;
+            }
+            if (N4.HasValue && !R4.HasValue)
+            {
+                total += N4.Value;
+                ++iCnt;
+            }
+            if (N5.HasValue && !R5.HasValue)
+            {
+                total += N5.Value;
+                ++iCnt;
+            }
+            if (N6.HasValue && !R6.HasValue)
+            {
+                total += N6.Value;
+                ++iCnt;
+            }
+            if (N7.HasValue && !R7.HasValue)
+            {
+                total += N7.Value;
+                ++iCnt;
+            }
+
+            if (R1.HasValue)
+            {
+                total += R1.Value;
+                ++iCnt;
+            }
+            if (R2.HasValue)
+            {
+                total += R2.Value;
+                ++iCnt;
+            }
+            if (R3.HasValue)
+            {
+                total += R3.Value;
+                ++iCnt;
+            }
+            if (R4.HasValue)
+            {
+                total += R4.Value;
+                ++iCnt;
+            }
+            if (R5.HasValue)
+            {
+                total += R5.Value;
+                ++iCnt;
+            }
+            if (R6.HasValue)
+            {
+                total += R6.Value;
+                ++iCnt;
+            }
+            if (R7.HasValue)
+            {
+                total += R7.Value;
+                ++iCnt;
+            }
+
+            decimal avg = (iCnt > 0) ? (total / iCnt) : 0;
+            this.Avg = avg;
+            // Raise events
+            this.Raise(() => this.Avg);
         }
 
         protected internal void BuildItems(int noOfSample)
