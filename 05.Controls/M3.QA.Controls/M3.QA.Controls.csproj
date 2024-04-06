@@ -97,6 +97,9 @@
     <Compile Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml.cs">
       <DependentUpon>OperatorInfoElement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CordAdhesionForcePage.xaml.cs">
+      <DependentUpon>CordAdhesionForcePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Cords\Properties\CordElongationPage.xaml.cs">
       <DependentUpon>CordElongationPage.xaml</DependentUpon>
     </Compile>
@@ -246,6 +249,10 @@
     <Page Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\CordAdhesionForcePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Cords\Properties\CordElongationPage.xaml">
       <SubType>Designer</SubType>

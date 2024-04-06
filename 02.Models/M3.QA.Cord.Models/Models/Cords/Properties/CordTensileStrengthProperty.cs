@@ -60,7 +60,7 @@ namespace M3.QA.Models
                 var inst = new CordTensileStrengthProperty()
                 {
                     LotNo = value.LotNo,
-                    PropertyNo = 1, // TensileStrength = 1
+                    PropertyNo = 1, // Tensile Strength = 1
                     SPNo = SP,
                     NeedSP = true,
                     NoOfSample = noOfSample

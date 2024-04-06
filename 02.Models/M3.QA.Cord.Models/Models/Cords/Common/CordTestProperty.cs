@@ -204,7 +204,7 @@ namespace M3.QA.Models
 
         #region Public Properties
 
-        #region LotNo/SPNo/NoOfSample
+        #region LotNo/PropertyNo/SPNo/NoOfSample
 
         /// <summary>Gets or sets Lot No.</summary>
         public string LotNo { get; set; }
