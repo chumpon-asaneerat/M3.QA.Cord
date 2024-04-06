@@ -11,6 +11,7 @@ using Dapper;
 
 using NLib;
 using NLib.Models;
+using NLib.Reflection;
 
 #endregion
 
@@ -25,12 +26,18 @@ namespace M3.QA.Models
     {
         #region Public Properties
 
+        /// <summary>Gets is Need Eload.</summary>
+        public virtual bool NeedEload { get; set; } = true;
         /// <summary>Gets is show Eload.</summary>
-        public virtual Visibility ShowEload { get { return Visibility.Hidden; } set { } }
+        public Visibility ShowEload 
+        {
+            get { return NeedEload ? Visibility.Visible : Visibility.Hidden; }
+            set { } 
+        }
         /// <summary>Gets Property Text.</summary>
         public virtual string PropertyText { get { return "unknown"; } set { } }
-        /// <summary>Gets or sets ELongLoadN.</summary>
-        public string ELongLoadN { get; set; }
+        /// <summary>Gets or sets LoadN.</summary>
+        public string LoadN { get; set; }
 
         #endregion
 
@@ -50,7 +57,7 @@ namespace M3.QA.Models
             dst.PropertyNo = src.PropertyNo;
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
-            dst.ELongLoadN = src.ELongLoadN;
+            dst.LoadN = src.LoadN;
 
             dst.EditBy = src.EditBy;
             dst.EditDate = src.EditDate;
@@ -181,7 +188,7 @@ namespace M3.QA.Models
             p.Add("@propertyno", value.PropertyNo);
             p.Add("@spno", value.SPNo);
 
-            p.Add("@loadn", value.ELongLoadN);
+            p.Add("@loadn", value.LoadN);
 
             p.Add("@n1", value.N1);
             p.Add("@n2", value.N2);
@@ -229,7 +236,12 @@ namespace M3.QA.Models
     {
         #region Public Properties
 
-        public override Visibility ShowEload { get { return Visibility.Hidden; } set { } }
+        /// <summary>Gets is Need Eload.</summary>
+        public override bool NeedEload 
+        {
+            get { return false; }
+            set { } 
+        }
         /// <summary>Gets Property Text.</summary>
         public override string PropertyText { get { return "at Break"; } set { } }
 
@@ -265,12 +277,13 @@ namespace M3.QA.Models
                 LotNo = value.LotNo,
                 PropertyNo = 2, // Elongation Break = 2
                 SPNo = elongItem.SPNo,
-                NeedSP = false, // Elongation Break not requred SP No
+                NeedSP = true,
+                NeedEload = false, // Elongation Break not requred SP No
                 NoOfSample = noOfSample
             };
 
             results.Add(inst);
-
+            /*
             // Check Exists data
             var existBreaks = (value.MasterId.HasValue) ? CordElongationSubProperty.GetsByLotNo(
                 value.LotNo).Value() : null;
@@ -290,10 +303,9 @@ namespace M3.QA.Models
                     {
                         Clone(item, results[idx]);
                     }
-                    idx++;
                 }
             }
-
+            */
             return results;
         }
 
@@ -311,7 +323,11 @@ namespace M3.QA.Models
     {
         #region Public Properties
 
-        public override Visibility ShowEload { get { return Visibility.Visible; } set { } }
+        public override bool NeedEload
+        {
+            get { return true; }
+            set { }
+        }
         /// <summary>Gets Property Text.</summary>
         public override string PropertyText { get { return "at Load"; } set { } }
 
@@ -353,15 +369,16 @@ namespace M3.QA.Models
                         LotNo = value.LotNo,
                         PropertyNo = 3, // Elongation Load = 3
                         SPNo = elongItem.SPNo,
-                        NeedSP = true, // Elongation Load requred SP No
+                        NeedSP = true, 
+                        NeedEload = true, // Elongation Load requred SP No
                         NoOfSample = noOfSample,
-                        ELongLoadN = elongId
+                        LoadN = elongId
                     };
 
                     results.Add(inst);
                 }
             }
-
+            /*
             // Check Exists data
             var existLoads = (value.MasterId.HasValue) ? CordElongationSubProperty.GetsByLotNo(
                 value.LotNo).Value() : null;
@@ -383,10 +400,9 @@ namespace M3.QA.Models
                     {
                         Clone(item, results[idx]);
                     }
-                    idx++;
                 }
             }
-
+            */
             return results;
         }
 
@@ -435,8 +451,8 @@ namespace M3.QA.Models
             if (null != eBreaks) results.AddRange(eBreaks);
             if (null != eLoads) results.AddRange(eLoads);
 
-            // Sort by SP No/PropetyNo/ELongLoadN.
-            return results.OrderBy(o => o.SPNo).ThenBy(o => o.PropertyNo).ThenBy(o => o.ELongLoadN).ToList();
+            // Sort by SP No/PropetyNo/LoadN.
+            return results.OrderBy(o => o.SPNo).ThenBy(o => o.PropertyNo).ThenBy(o => o.LoadN).ToList();
         }
         /// <summary>
         /// Create.
@@ -480,7 +496,47 @@ namespace M3.QA.Models
                 results.Add(inst);
             }
 
-            return results.OrderBy(o => o.SPNo).ToList();
+            var allItems = results.OrderBy(o => o.SPNo).ToList();
+
+            // Check Exists data
+            var exists = (value.MasterId.HasValue) ? CordElongationSubProperty.GetsByLotNo(
+                value.LotNo).Value() : null;
+
+            if (null != exists && null != allItems)
+            {
+                int idx = -1;
+                foreach (var item in exists)
+                {
+                    foreach (var elong in allItems) 
+                    {
+                        if (null == elong.SubProperties || elong.SubProperties.Count <= 0)
+                            continue;
+                        idx = elong.SubProperties.FindIndex((x) =>
+                        {
+                            if (x.PropertyNo == 2)
+                            {
+                                return x.SPNo == item.SPNo &&
+                                    x.PropertyNo == item.PropertyNo;
+                            }
+                            else
+                            {
+                                return x.SPNo == item.SPNo &&
+                                    x.PropertyNo == item.PropertyNo &&
+                                    x.LoadN == item.LoadN;
+                            }
+                        });
+                        if (idx != -1)
+                        {
+                            // need to set because not return from db.
+                            item.NoOfSample = elong.SubProperties[idx].NoOfSample;
+                            // Clone anther properties
+                            CordElongationSubProperty.Clone(item, elong.SubProperties[idx]);
+                        }
+                    };
+                }
+            }
+
+            return allItems;
         }
 
         #endregion

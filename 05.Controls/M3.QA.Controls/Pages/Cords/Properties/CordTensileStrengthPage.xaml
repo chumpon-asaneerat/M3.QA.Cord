@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
+             xmlns:util="clr-namespace:NLib.Wpf.Controls.Utils;assembly=NLib.Wpf.Controls"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -12,6 +13,7 @@
                 HeaderBorderBrush="ForestGreen">
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ItemsControl MinHeight="100"
+                          Focusable="False"
                           VirtualizingPanel.IsVirtualizing="True"
                           VirtualizingPanel.VirtualizationMode="Recycling"
                           ItemsSource="{Binding TensileStrengths}">
@@ -27,6 +29,11 @@
                                     <StackPanel Orientation="Vertical" Width="100">
                                         <TextBlock Text="Spindle No" TextAlignment="Center" />
                                         <TextBox Text="{Binding SPNo, TargetNullValue='', UpdateSourceTrigger=LostFocus}"
+                                                 util:FocusOptions.SelectAll="True"
+                                                 util:KeyboardOptions.Enabled="True"
+                                                 util:KeyboardOptions.EnterAsTab="True"
+                                                 util:KeyboardOptions.LeftRightNavigation="True"
+                                                 util:KeyboardOptions.UpDownNavigation="True"
                                                  IsReadOnly="True"
                                                  TextAlignment="Center"
                                                  Width="90"
@@ -35,6 +42,7 @@
                                 </Border>
                                 <!--  EACH N/R  -->
                                 <ItemsControl ItemsSource="{Binding Items}"
+                                              Focusable="False"
                                               DockPanel.Dock="Left"
                                               IsEnabled="{Binding EnableTest}">
                                     <ItemsControl.ItemsPanel>
@@ -52,6 +60,11 @@
                                                         <StackPanel Orientation="Vertical">
                                                             <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
                                                             <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=LostFocus}"
+                                                                     util:FocusOptions.SelectAll="True"
+                                                                     util:KeyboardOptions.Enabled="True"
+                                                                     util:KeyboardOptions.EnterAsTab="True"
+                                                                     util:KeyboardOptions.LeftRightNavigation="True"
+                                                                     util:KeyboardOptions.UpDownNavigation="True"
                                                                      IsEnabled="{Binding EnableNormalTest}"
                                                                      Width="90"
                                                                      TextAlignment="Center"
@@ -62,6 +75,11 @@
                                                         <StackPanel Orientation="Vertical">
                                                             <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
                                                             <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=LostFocus}"
+                                                                     util:FocusOptions.SelectAll="True"
+                                                                     util:KeyboardOptions.Enabled="True"
+                                                                     util:KeyboardOptions.EnterAsTab="True"
+                                                                     util:KeyboardOptions.LeftRightNavigation="True"
+                                                                     util:KeyboardOptions.UpDownNavigation="True"
                                                                      IsEnabled="{Binding EnableReTest}"
                                                                      Width="90"
                                                                      TextAlignment="Center"
@@ -79,6 +97,11 @@
                                     <StackPanel Orientation="Vertical" Width="100">
                                         <TextBlock Text="AVG" TextAlignment="Center" />
                                         <TextBox Text="{Binding Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
+                                                 util:FocusOptions.SelectAll="True"
+                                                 util:KeyboardOptions.Enabled="True"
+                                                 util:KeyboardOptions.EnterAsTab="True"
+                                                 util:KeyboardOptions.LeftRightNavigation="True"
+                                                 util:KeyboardOptions.UpDownNavigation="True"
                                                  TextAlignment="Center"
                                                  IsReadOnly="True"
                                                  Width="90"

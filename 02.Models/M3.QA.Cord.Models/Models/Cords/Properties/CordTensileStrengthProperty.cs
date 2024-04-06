@@ -69,21 +69,20 @@ namespace M3.QA.Models
                 results.Add(inst);
             }
 
-            var existItems = (value.MasterId.HasValue) ? 
-                GetsByLotNo(value.LotNo, value.MasterId.Value).Value() : null;
+            var existItems = (value.MasterId.HasValue) ? GetsByLotNo(value.LotNo).Value() : null;
             if (null != existItems && null != results)
             {
                 int idx = -1;
                 foreach (var item in existItems)
                 {
-                    item.NoOfSample = noOfSample; // need to set because not return from db.
-
                     idx = results.FindIndex((x) => { return x.SPNo == item.SPNo; });
                     if (idx != -1)
                     {
+                        // need to set because not return from db.
+                        item.NoOfSample = results[idx].NoOfSample;
+                        // Clone anther properties
                         Clone(item, results[idx]);
                     }
-                    idx++;
                 }
             }
 
@@ -151,9 +150,8 @@ namespace M3.QA.Models
         /// Gets CordTensileStrengthProperty by Lot No.
         /// </summary>
         /// <param name="lotNo">The Lot No.</param>
-        /// <param name="masterId">The MasterId.</param>
         /// <returns></returns>
-        public static NDbResult<List<CordTensileStrengthProperty>> GetsByLotNo(string lotNo, int masterId)
+        public static NDbResult<List<CordTensileStrengthProperty>> GetsByLotNo(string lotNo)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 

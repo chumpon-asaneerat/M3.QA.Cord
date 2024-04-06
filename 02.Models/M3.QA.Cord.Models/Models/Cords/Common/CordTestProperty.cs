@@ -570,7 +570,7 @@ namespace M3.QA.Models
         /// </summary>
         public bool EnableReTest
         {
-            get { return (NeedSP) ? SPNo.HasValue && N.HasValue : N.HasValue; }
+            get { return (NeedSP) ? SPNo.HasValue : true; }
             set { }
         }
         /// <summary>Gets N Display Caption.</summary>

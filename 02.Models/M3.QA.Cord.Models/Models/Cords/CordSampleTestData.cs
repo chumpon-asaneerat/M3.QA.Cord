@@ -168,12 +168,21 @@ namespace M3.QA.Models
 
             try
             {
-                //cnn.Execute("M_CheckLotReceive", p, commandType: CommandType.StoredProcedure);
                 value.TensileStrengths.ForEach(x => 
                 {
                     x.EditBy = (null != user) ? user.FullName : null;
                     x.EditDate = DateTime.Now;
                     CordTensileStrengthProperty.Save(x);
+                });
+
+                value.Elongations.ForEach(x =>
+                {
+                    foreach (var item in x.SubProperties)
+                    {
+                        item.EditBy = (null != user) ? user.FullName : null;
+                        item.EditDate = DateTime.Now;
+                        CordElongationSubProperty.Save(item);
+                    }
                 });
 
                 ret.Success(value);
