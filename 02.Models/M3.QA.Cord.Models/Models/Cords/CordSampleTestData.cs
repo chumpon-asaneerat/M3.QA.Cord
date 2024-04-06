@@ -50,6 +50,8 @@ namespace M3.QA.Models
         public List<CordTensileStrengthProperty> TensileStrengths { get; set; }
         /// <summary>The Elongations Items.</summary>
         public List<CordElongationProperty> Elongations { get; set; }
+        /// <summary>The AdhesionForces Items.</summary>
+        public List<CordAdhesionForceProperty> AdhesionForces { get; set; }
 
         #endregion
 
@@ -65,12 +67,18 @@ namespace M3.QA.Models
             Elongations = CordElongationProperty.Create(this);
         }
 
+        private void InitAdhesionForces()
+        {
+            AdhesionForces = CordAdhesionForceProperty.Create(this);
+        }
+
         private void InitTestProperties()
         {
             if (TotalSP.HasValue && MasterId.HasValue)
             {
                 InitTensileStrengths();
                 InitElongations();
+                InitAdhesionForces();
             }
         }
 
@@ -164,8 +172,6 @@ namespace M3.QA.Models
                 return ret;
             }
 
-            var p = new DynamicParameters();
-
             try
             {
                 value.TensileStrengths.ForEach(x => 
@@ -185,7 +191,15 @@ namespace M3.QA.Models
                     }
                 });
 
+                value.AdhesionForces.ForEach(x => 
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    CordAdhesionForceProperty.Save(x);
+                });
+
                 ret.Success(value);
+
                 // Set error number/message
                 ret.ErrNum = 0;
                 ret.ErrMsg = "Success";

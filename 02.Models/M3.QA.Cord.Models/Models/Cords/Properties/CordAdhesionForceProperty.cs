@@ -16,6 +16,11 @@ using NLib.Reflection;
 
 namespace M3.QA.Models
 {
+    #region CordAdhesionForceSubProperty
+
+    /// <summary>
+    /// The CordAdhesionForceSubProperty class.
+    /// </summary>
     public class CordAdhesionForceSubProperty : NInpc
     {
         #region Internal Variables
@@ -101,13 +106,27 @@ namespace M3.QA.Models
             this.Avg = avg;
             // Raise events
             this.Raise(() => this.Avg);
+
+            if (null != ValueChanges) ValueChanges(); // call parent object to calucate related formula
+        }
+
+        private void NotifyItemEvents(int idx)
+        {
+            if (idx < 0 || idx >= this.Items.Count) 
+                return;
+
+            try
+            {
+                this.Items[idx].RaisePropertyChanges();
+            }
+            catch { }
         }
 
         protected internal void BuildItems(int noOfSample)
         {
             Items = new List<CordAdhesionForceSubProperyItem>();
 
-            for (int i = 1; i < 2; i++)
+            for (int i = 1; i <= 2; i++)
             {
                 if (i > noOfSample) continue; // skip if more than allow no of sample.
 
@@ -125,6 +144,12 @@ namespace M3.QA.Models
                 Items.Add(item);
             }
         }
+
+        #endregion
+
+        #region Internal Properties
+
+        internal Action ValueChanges { get; set; }
 
         #endregion
 
@@ -186,7 +211,7 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region Normal Test (1-7)
+        #region Normal Test (1-2)
 
         public decimal? N1
         {
@@ -196,6 +221,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(0);
                 });
             }
         }
@@ -207,13 +233,14 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(1);
                 });
             }
         }
 
         #endregion
 
-        #region Re Test (1-7)
+        #region Re Test (1-2)
 
         public decimal? R1
         {
@@ -223,6 +250,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(0);
                 });
             }
         }
@@ -234,6 +262,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(1);
                 });
             }
         }
@@ -318,6 +347,13 @@ namespace M3.QA.Models
         #endregion
     }
 
+    #endregion
+
+    #region CordAdhesionForceSubProperyItem
+
+    /// <summary>
+    /// The CordAdhesionForceSubProperyItem class.
+    /// </summary>
     public class CordAdhesionForceSubProperyItem : NInpc
     {
         #region Constructor
@@ -332,6 +368,12 @@ namespace M3.QA.Models
         #region virtual methods
 
         protected virtual void CheckRange() { }
+
+        protected internal void RaisePropertyChanges()
+        {
+            Raise(() => this.N);
+            Raise(() => this.R);
+        }
 
         #endregion
 
@@ -375,7 +417,8 @@ namespace M3.QA.Models
         {
             get
             {
-                return (null != GetN) ? GetN() : new decimal?();
+                var val = (null != GetN) ? GetN() : new decimal?();
+                return val;
             }
             set
             {
@@ -385,6 +428,7 @@ namespace M3.QA.Models
                     // Raise events
                     Raise(() => this.EnableNormalTest);
                     Raise(() => this.EnableReTest);
+                    Raise(() => this.N);
                 }
             }
         }
@@ -402,6 +446,8 @@ namespace M3.QA.Models
                 if (null != SetR)
                 {
                     SetR(value);
+                    // Raise events
+                    Raise(() => this.R);
                 }
             }
         }
@@ -431,6 +477,8 @@ namespace M3.QA.Models
         #endregion
     }
 
+    #endregion
+
     #region CordAdhesionForceProperty
 
     /// <summary>
@@ -446,6 +494,9 @@ namespace M3.QA.Models
         public CordAdhesionForceProperty() : base() 
         {
             PeakPoint = new CordAdhesionForceSubProperty();
+            // only PeakPoint change need to calc formula for AdhesionForce
+            PeakPoint.ValueChanges = CalculateFormula;
+
             AdhesionForce = new CordAdhesionForceSubProperty();
         }
 
@@ -453,9 +504,23 @@ namespace M3.QA.Models
 
         #region Private Methods
 
-        public void UpdateProperties()
+        private void CalculateFormula()
+        {
+            if (null != PeakPoint && null != AdhesionForce)
+            {
+                AdhesionForce.N1 = (PeakPoint.N1.HasValue) ? PeakPoint.N1.Value / 5 : new decimal?();
+                AdhesionForce.N2 = (PeakPoint.N2.HasValue) ? PeakPoint.N2.Value / 5 : new decimal?();
+                AdhesionForce.R1 = (PeakPoint.R1.HasValue) ? PeakPoint.R1.Value / 5 : new decimal?();
+                AdhesionForce.R2 = (PeakPoint.R2.HasValue) ? PeakPoint.R2.Value / 5 : new decimal?();
+                // Raise events
+                Raise(() => this.AdhesionForce);
+            }
+        }
+
+        private void UpdateProperties()
         {
             if (null == PeakPoint) PeakPoint = new CordAdhesionForceSubProperty();
+
             PeakPoint.LotNo = LotNo;
             PeakPoint.PropertyNo = PropertyNo;
             PeakPoint.SPNo = SPNo;
@@ -483,6 +548,14 @@ namespace M3.QA.Models
                     item.NeedSP = NeedSP;
                 }
             }
+
+            // Check calculate action
+            if (null == PeakPoint.ValueChanges)
+            {
+                PeakPoint.ValueChanges = CalculateFormula;
+            }
+
+            CalculateFormula(); // calculate
 
             this.Raise(() => this.EnableTest);
         }

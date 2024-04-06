@@ -28,7 +28,7 @@
                                 <Border Margin="0,0,5,0" DockPanel.Dock="Left">
                                     <StackPanel Orientation="Vertical" Width="100">
                                         <TextBlock Text="Spindle No" TextAlignment="Center" />
-                                        <TextBox Text="{Binding SPNo, TargetNullValue='', UpdateSourceTrigger=LostFocus}"
+                                        <TextBox Text="{Binding SPNo, TargetNullValue=''}"
                                                  util:FocusOptions.SelectAll="True"
                                                  util:KeyboardOptions.Enabled="True"
                                                  util:KeyboardOptions.EnterAsTab="True"
@@ -62,7 +62,7 @@
                                                                        Margin="0,0,5,0"
                                                                        Text="{Binding PropertyText}"
                                                                        Width="100" />
-                                                            <TextBox Text="{Binding LoadN, TargetNullValue='', UpdateSourceTrigger=LostFocus}"
+                                                            <TextBox Text="{Binding LoadN, TargetNullValue=''}"
                                                                      util:FocusOptions.SelectAll="True"
                                                                      util:KeyboardOptions.Enabled="True"
                                                                      util:KeyboardOptions.EnterAsTab="True"
@@ -94,7 +94,7 @@
                                                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                                 <StackPanel Orientation="Vertical">
                                                                                     <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
-                                                                                    <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=LostFocus}"
+                                                                                    <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
                                                                                              util:FocusOptions.SelectAll="True"
                                                                                              util:KeyboardOptions.Enabled="True"
                                                                                              util:KeyboardOptions.EnterAsTab="True"
@@ -109,7 +109,7 @@
                                                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                                 <StackPanel Orientation="Vertical">
                                                                                     <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
-                                                                                    <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=LostFocus}"
+                                                                                    <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
                                                                                              util:FocusOptions.SelectAll="True"
                                                                                              util:KeyboardOptions.Enabled="True"
                                                                                              util:KeyboardOptions.EnterAsTab="True"

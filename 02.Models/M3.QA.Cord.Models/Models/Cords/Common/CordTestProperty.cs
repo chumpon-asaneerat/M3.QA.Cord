@@ -177,11 +177,23 @@ namespace M3.QA.Models
             this.Raise(() => this.Avg);
         }
 
+        private void NotifyItemEvents(int idx)
+        {
+            if (idx < 0 || idx >= this.Items.Count)
+                return;
+
+            try
+            {
+                this.Items[idx].RaisePropertyChanges();
+            }
+            catch { }
+        }
+
         protected internal void BuildItems(int noOfSample)
         {
             Items = new List<CordTestPropertyItem>();
             CordTestPropertyItem item;
-            for (int i = 1; i < 7; i++)
+            for (int i = 1; i <= 7; i++)
             {
                 if (i > noOfSample) continue; // skip if more than allow no of sample.
 
@@ -270,6 +282,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(0);
                 });
             }
         }
@@ -281,6 +294,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(1);
                 });
             }
         }
@@ -292,6 +306,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(2);
                 });
             }
         }
@@ -303,6 +318,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(3);
                 });
             }
         }
@@ -314,6 +330,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(4);
                 });
             }
         }
@@ -325,6 +342,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(5);
                 });
             }
         }
@@ -336,6 +354,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(6);
                 });
             }
         }
@@ -352,6 +371,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(0);
                 });
             }
         }
@@ -363,6 +383,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(1);
                 });
             }
         }
@@ -374,6 +395,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(2);
                 });
             }
         }
@@ -385,6 +407,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(3);
                 });
             }
         }
@@ -396,6 +419,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(4);
                 });
             }
         }
@@ -407,6 +431,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(5);
                 });
             }
         }
@@ -418,6 +443,7 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     CalcAvg();
+                    NotifyItemEvents(6);
                 });
             }
         }
@@ -483,6 +509,12 @@ namespace M3.QA.Models
 
         protected virtual void CheckRange() { }
 
+        protected internal void RaisePropertyChanges()
+        {
+            Raise(() => this.N);
+            Raise(() => this.R);
+        }
+
         #endregion
 
         #region Protected Properties
@@ -535,6 +567,7 @@ namespace M3.QA.Models
                     // Raise events
                     Raise(() => this.EnableNormalTest);
                     Raise(() => this.EnableReTest);
+                    Raise(() => this.N);
                 }
             }
         }
@@ -552,6 +585,8 @@ namespace M3.QA.Models
                 if (null != SetR)
                 {
                     SetR(value);
+                    // Raise events
+                    Raise(() => this.R);
                 }
             }
         }

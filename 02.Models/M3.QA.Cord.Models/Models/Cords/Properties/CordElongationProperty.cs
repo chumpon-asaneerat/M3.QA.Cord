@@ -283,29 +283,7 @@ namespace M3.QA.Models
             };
 
             results.Add(inst);
-            /*
-            // Check Exists data
-            var existBreaks = (value.MasterId.HasValue) ? CordElongationSubProperty.GetsByLotNo(
-                value.LotNo).Value() : null;
 
-            if (null != existBreaks && null != results)
-            {
-                int idx = -1;
-                foreach (var item in existBreaks)
-                {
-                    item.NoOfSample = noOfSample; // need to set because not return from db.
-
-                    idx = results.FindIndex((x) => 
-                    { 
-                        return x.SPNo == item.SPNo && x.PropertyNo == item.PropertyNo; 
-                    });
-                    if (idx != -1)
-                    {
-                        Clone(item, results[idx]);
-                    }
-                }
-            }
-            */
             return results;
         }
 
@@ -378,31 +356,7 @@ namespace M3.QA.Models
                     results.Add(inst);
                 }
             }
-            /*
-            // Check Exists data
-            var existLoads = (value.MasterId.HasValue) ? CordElongationSubProperty.GetsByLotNo(
-                value.LotNo).Value() : null;
 
-            if (null != existLoads && null != results)
-            {
-                int idx = -1;
-                foreach (var item in existLoads)
-                {
-                    item.NoOfSample = noOfSample; // need to set because not return from db.
-
-                    idx = results.FindIndex((x) => 
-                    { 
-                        return x.SPNo == item.SPNo && 
-                            x.PropertyNo == item.PropertyNo &&
-                            x.ELongLoadN == item.ELongLoadN; 
-                    });
-                    if (idx != -1)
-                    {
-                        Clone(item, results[idx]);
-                    }
-                }
-            }
-            */
             return results;
         }
 

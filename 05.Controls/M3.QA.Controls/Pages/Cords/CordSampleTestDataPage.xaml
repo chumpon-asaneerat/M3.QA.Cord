@@ -117,7 +117,9 @@
                 <TabItem Header="Elongation">
                     <prop:CordElongationPage />
                 </TabItem>
-                <TabItem Header="Adhesion Force (Peel)" />
+                <TabItem Header="Adhesion Force (Peel)">
+                    <prop:CordAdhesionForcePage />
+                </TabItem>
                 <TabItem Header="Shrinkage force(N)" />
                 <TabItem Header="Shrinkage %" />
                 <TabItem Header="1st Twisting Number" />
