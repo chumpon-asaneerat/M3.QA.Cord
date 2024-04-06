@@ -174,11 +174,13 @@ namespace M3.QA.Models
 
             try
             {
+                NDbResult res = null;
                 value.TensileStrengths.ForEach(x => 
                 {
                     x.EditBy = (null != user) ? user.FullName : null;
                     x.EditDate = DateTime.Now;
-                    CordTensileStrengthProperty.Save(x);
+                    res = CordTensileStrengthProperty.Save(x);
+                    if (null == res || !res.Ok) return;
                 });
 
                 value.Elongations.ForEach(x =>
@@ -187,7 +189,8 @@ namespace M3.QA.Models
                     {
                         item.EditBy = (null != user) ? user.FullName : null;
                         item.EditDate = DateTime.Now;
-                        CordElongationSubProperty.Save(item);
+                        res = CordElongationSubProperty.Save(item);
+                        if (null == res || !res.Ok) return;
                     }
                 });
 
@@ -195,14 +198,34 @@ namespace M3.QA.Models
                 {
                     x.EditBy = (null != user) ? user.FullName : null;
                     x.EditDate = DateTime.Now;
-                    CordAdhesionForceProperty.Save(x);
+                    res = CordAdhesionForceProperty.Save(x);
+                    if (null == res || !res.Ok) return;
                 });
 
-                ret.Success(value);
 
-                // Set error number/message
-                ret.ErrNum = 0;
-                ret.ErrMsg = "Success";
+                if (null == res || !res.Ok)
+                {
+                    if (null == res)
+                    {
+                        ret.ErrNum = -1;
+                        ret.ErrMsg = "Unknown Error.";
+                        ret.data = value;
+                    }
+                    else
+                    {
+                        ret.ErrNum = res.ErrNum;
+                        ret.ErrMsg = res.ErrMsg;
+                        ret.data = value;
+                    }
+                }
+                else
+                {
+                    ret.Success(value);
+
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
             }
             catch (Exception ex)
             {
