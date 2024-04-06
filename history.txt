@@ -10,8 +10,9 @@ M3 QA Cord #68
 M3 QA Cord #67
 - 
 
+[commit]
 M3 QA Cord #66
-- 
+- Update app build 66.
 
 [commit]
 M3 QA Cord #65
