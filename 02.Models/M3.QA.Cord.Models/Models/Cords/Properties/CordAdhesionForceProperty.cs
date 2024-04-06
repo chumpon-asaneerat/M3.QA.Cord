@@ -11,6 +11,7 @@ using Dapper;
 using NLib;
 using NLib.Models;
 using NLib.Reflection;
+using OfficeOpenXml.FormulaParsing.ExpressionGraph.FunctionCompilers;
 
 #endregion
 
@@ -102,8 +103,9 @@ namespace M3.QA.Models
                 ++iCnt;
             }
 
-            decimal avg = (iCnt > 0) ? (total / iCnt) : 0;
+            decimal? avg = (iCnt > 0) ? (total / iCnt) : new decimal?();
             this.Avg = avg;
+
             // Raise events
             this.Raise(() => this.Avg);
 
@@ -795,6 +797,21 @@ namespace M3.QA.Models
 
                         inst.NeedSP = true;
                         //inst.NoOfSample = 2; // ???
+
+                        if (null != inst.PeakPoint)
+                        {
+                            inst.PeakPoint.N1 = item.PeakN1;
+                            inst.PeakPoint.N2 = item.PeakN2;
+                            inst.PeakPoint.R1 = item.PeakR1;
+                            inst.PeakPoint.R2 = item.PeakR2;
+                        }
+                        if (null != inst.AdhesionForce)
+                        {
+                            inst.AdhesionForce.N1 = item.AdhesionN1;
+                            inst.AdhesionForce.N2 = item.AdhesionN2;
+                            inst.AdhesionForce.R1 = item.AdhesionR1;
+                            inst.AdhesionForce.R2 = item.AdhesionR2;
+                        }
 
                         inst.InputBy = item.InputBy;
                         inst.InputDate = item.InputDate;

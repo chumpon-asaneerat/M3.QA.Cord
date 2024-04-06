@@ -119,6 +119,7 @@
                                             </Border>
                                             <Grid />
                                         </DockPanel>
+                                        <Grid Height="10" />
                                         <DockPanel LastChildFill="True">
                                             <TextBlock Text="Adhesin force"
                                                        TextAlignment="Right"
