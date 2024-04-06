@@ -147,49 +147,49 @@
                             <WrapPanel Orientation="Horizontal"
                                        DockPanel.Dock="Top"
                                        MinWidth="400">
-                                <StackPanel Orientation="Vertical" Margin="0,3">
+                                <StackPanel x:Name="p1" Orientation="Vertical">
                                     <TextBlock Text="SP 1"
                                                Margin="5,0"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center" />
                                     <TextBox Text="{Binding SP1, TargetNullValue=''}" Style="{StaticResource SPStyle}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel x:Name="p2" Orientation="Vertical">
                                     <TextBlock Text="SP 2"
                                                Margin="5,0"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center" />
                                     <TextBox Text="{Binding SP2, TargetNullValue=''}" Style="{StaticResource SPStyle}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel x:Name="p3" Orientation="Vertical">
                                     <TextBlock Text="SP 3"
                                                Margin="5,0"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center" />
                                     <TextBox Text="{Binding SP3, TargetNullValue=''}" Style="{StaticResource SPStyle}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel x:Name="p4" Orientation="Vertical">
                                     <TextBlock Text="SP 4"
                                                Margin="5,0"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center" />
                                     <TextBox Text="{Binding SP4, TargetNullValue=''}" Style="{StaticResource SPStyle}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel x:Name="p5" Orientation="Vertical">
                                     <TextBlock Text="SP 5"
                                                Margin="5,0"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center" />
                                     <TextBox Text="{Binding SP5, TargetNullValue=''}" Style="{StaticResource SPStyle}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel x:Name="p6" Orientation="Vertical">
                                     <TextBlock Text="SP 6"
                                                Margin="5,0"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center" />
                                     <TextBox Text="{Binding SP6, TargetNullValue=''}" Style="{StaticResource SPStyle}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel x:Name="p7" Orientation="Vertical">
                                     <TextBlock Text="SP 7"
                                                Margin="5,0"
                                                FontWeight="SemiBold"
@@ -280,38 +280,53 @@
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
+                                    <!--  LOT NO  -->
                                     <GridViewColumn Header="Lot No" Width="100">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding LotNo}" TextAlignment="Center" />
+                                                <TextBlock Text="{Binding LotNo}"
+                                                           TextAlignment="Center"
+                                                           FontWeight="SemiBold" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
+                                    <!--  CORD CODE  -->
                                     <GridViewColumn Header="Cord Code" Width="180">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding ItemCode}" TextAlignment="Center" />
+                                                <TextBlock Text="{Binding ItemCode}"
+                                                           TextAlignment="Center"
+                                                           FontWeight="SemiBold" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
+                                    <!--  SPINDLE NO  -->
                                     <GridViewColumn Header="Spindle No" Width="180">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding SpindleNo}" />
+                                                <TextBlock Text="{Binding SpindleNo}"
+                                                           TextAlignment="Left"
+                                                           FontWeight="SemiBold" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
+                                    <!--  RECEIVE DATE  -->
                                     <GridViewColumn Header="Receive Date" Width="180">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding ReceiveDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}" />
+                                                <TextBlock Text="{Binding ReceiveDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}"
+                                                           TextAlignment="Center"
+                                                           FontWeight="SemiBold" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
+                                    <!--  RECEIVE BY  -->
                                     <GridViewColumn Header="Receive By" Width="200">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding ReceiveBy}" />
+                                                <TextBlock Text="{Binding ReceiveBy}"
+                                                           TextAlignment="Left"
+                                                           FontWeight="SemiBold" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

@@ -30,7 +30,7 @@ namespace M3.QA.Models
         public string YarnType { get; set; }
 
         public string ELongLoadN { get; set; }
-        public string NoTestCH { get; set; }
+        public int NoTestCH { get; set; }
 
         #endregion
 

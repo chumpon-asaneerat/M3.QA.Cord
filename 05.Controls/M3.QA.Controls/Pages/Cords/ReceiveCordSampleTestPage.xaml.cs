@@ -127,6 +127,7 @@ namespace M3.QA.Pages
         private void LoadCustomers()
         {
             cbCustomers.ItemsSource = null;
+
             // get cord customers
             customers = MCustomer.Gets("Cord").Value();
             cbCustomers.ItemsSource = customers;
@@ -137,11 +138,17 @@ namespace M3.QA.Pages
                     cbCustomers.SelectedIndex = 0;
                 });
             }
+            else
+            {
+                LoadCordCodes(null);
+            }
         }
 
         private void LoadCordCodes(MCustomer customer)
         {
             cbCodes.ItemsSource = null;
+            CheckSPPanels(null);
+
             if (null == customer) return;
             // get cord code by customer
             cordCodes = CordCode.Gets(customer.Customer).Value();
@@ -153,6 +160,10 @@ namespace M3.QA.Pages
                     cbCodes.SelectedIndex = 0;
                 });
             }
+            else
+            {
+                UpdateProductType(null);
+            }
         }
 
         private void UpdateProductType(CordCode code)
@@ -161,8 +172,11 @@ namespace M3.QA.Pages
             rbDIP.IsChecked = false;
             cbDIPMC.IsEnabled = false;
             cbDIPMC.SelectedIndex = -1;
+            CheckSPPanels(code);
+
             if (null == code) 
                 return;
+
             if (code.ProductType == "Twist")
             {
                 // Twist
@@ -181,6 +195,28 @@ namespace M3.QA.Pages
                     });
                 }
             }
+        }
+
+        private void CheckSPPanels(CordCode code)
+        {
+            var state = Visibility.Collapsed;
+
+            p1.Visibility = state;
+            p2.Visibility = state;
+            p3.Visibility = state;
+            p4.Visibility = state;
+            p5.Visibility = state;
+            p6.Visibility = state;
+            p7.Visibility = state;
+
+            if (null == code) return;
+            if (code.NoTestCH >= 1) p1.Visibility = Visibility.Visible;
+            if (code.NoTestCH >= 2) p2.Visibility = Visibility.Visible;
+            if (code.NoTestCH >= 3) p3.Visibility = Visibility.Visible;
+            if (code.NoTestCH >= 4) p4.Visibility = Visibility.Visible;
+            if (code.NoTestCH >= 5) p5.Visibility = Visibility.Visible;
+            if (code.NoTestCH >= 6) p6.Visibility = Visibility.Visible;
+            if (code.NoTestCH >= 7) p7.Visibility = Visibility.Visible;
         }
 
         private void ClearInputs()
