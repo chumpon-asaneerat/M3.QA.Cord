@@ -217,7 +217,15 @@ namespace M3.QA.Models
             this.Avg = avg;
             // Raise events
             this.Raise(() => this.Avg);
+
+            if (null != ValueChanges) ValueChanges();
         }
+
+        #endregion
+
+        #region Callback Actions
+
+        internal Action ValueChanges { get; set; }
 
         #endregion
 
@@ -476,6 +484,42 @@ namespace M3.QA.Models
         public List<NRTestPropertyItem> Items { get; set; }
 
         #endregion
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// Clone.
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="dst"></param>
+        public static void Clone(NRTestProperty src, NRTestProperty dst)
+        {
+            if (null == src || null == dst)
+                return;
+
+            dst.LotNo = src.LotNo;
+            dst.PropertyNo = src.PropertyNo;
+            dst.SPNo = src.SPNo;
+            dst.NoOfSample = src.NoOfSample;
+
+            dst.N1 = src.N1;
+            dst.N2 = src.N2;
+            dst.N3 = src.N3;
+            dst.N4 = src.N4;
+            dst.N5 = src.N5;
+            dst.N6 = src.N6;
+            dst.N7 = src.N7;
+
+            dst.R1 = src.R1;
+            dst.R2 = src.R2;
+            dst.R3 = src.R3;
+            dst.R4 = src.R4;
+            dst.R5 = src.R5;
+            dst.R6 = src.R6;
+            dst.R7 = src.R7;
+        }
 
         #endregion
     }
