@@ -47,7 +47,8 @@ namespace M3.QA.Models
 
         /// <summary>The Tensile Strengths Items.</summary>
         public List<CordTensileStrength> TensileStrengths { get; set; }
-
+        /// <summary>The Elongations Items.</summary>
+        public List<CordElongation> Elongations { get; set; }
         /// <summary>The AdhesionForces Items.</summary>
         public List<CordAdhesionForce> AdhesionForces { get; set; }
 
@@ -58,6 +59,7 @@ namespace M3.QA.Models
         private void InitTestProperties()
         {
             TensileStrengths = CordTensileStrength.Create(this);
+            Elongations = CordElongation.Create(this);
             AdhesionForces = CordAdhesionForce.Create(this);
         }
 
@@ -162,7 +164,6 @@ namespace M3.QA.Models
                     if (null == res || !res.Ok) return;
                 });
 
-                /*
                 value.Elongations.ForEach(x =>
                 {
                     foreach (var item in x.SubProperties)
@@ -173,7 +174,6 @@ namespace M3.QA.Models
                         if (null == res || !res.Ok) return;
                     }
                 });
-                */
 
                 value.AdhesionForces.ForEach(x =>
                 {
