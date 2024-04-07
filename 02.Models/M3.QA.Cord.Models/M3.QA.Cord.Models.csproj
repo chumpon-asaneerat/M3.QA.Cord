@@ -88,9 +88,11 @@
     <Compile Include="Models\Solutions\DIPSolutionSampleRecv.cs" />
     <Compile Include="Models\Users\UserInfo.cs" />
     <Compile Include="Models\Users\UserRole.cs" />
-    <Compile Include="Models\__V2\Commons.cs" />
-    <Compile Include="Models\__V2\NRTestProperty.cs" />
-    <Compile Include="Models\__V2\NRTestPropertyItem.cs" />
+    <Compile Include="Models\__V2\Utils.cs" />
+    <Compile Include="Models\__V2\CordSampleTestData.cs" />
+    <Compile Include="Models\__V2\CordTensileStrength\CordTensileStrength.cs" />
+    <Compile Include="Models\__V2\NRProperty\NRTestProperty.cs" />
+    <Compile Include="Models\__V2\NRProperty\NRTestPropertyItem.cs" />
     <Compile Include="MsSqlDbServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
