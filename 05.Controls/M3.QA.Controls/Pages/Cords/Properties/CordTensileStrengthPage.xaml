@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
              xmlns:util="clr-namespace:NLib.Wpf.Controls.Utils;assembly=NLib.Wpf.Controls"
+             xmlns:conv="clr-namespace:NLib.Wpf.Controls.Converters;assembly=NLib.Wpf.Controls"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:StringToNumberConverter x:Key="NumberConvertor" />
+    </UserControl.Resources>
     <page:NPage HeaderText="Tensile Strength"
                 HeaderBackground="ForestGreen"
                 HeaderBorderBrush="ForestGreen">
@@ -35,6 +39,7 @@
                                                  util:KeyboardOptions.LeftRightNavigation="True"
                                                  util:KeyboardOptions.UpDownNavigation="True"
                                                  IsReadOnly="True"
+                                                 IsTabStop="False"
                                                  TextAlignment="Center"
                                                  Width="90"
                                                  Style="{StaticResource CommonTextBox}" />
@@ -59,13 +64,14 @@
                                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                         <StackPanel Orientation="Vertical">
                                                             <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
-                                                            <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
+                                                            <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
                                                                      util:FocusOptions.SelectAll="True"
                                                                      util:KeyboardOptions.Enabled="True"
                                                                      util:KeyboardOptions.EnterAsTab="True"
                                                                      util:KeyboardOptions.LeftRightNavigation="True"
                                                                      util:KeyboardOptions.UpDownNavigation="True"
                                                                      IsEnabled="{Binding EnableN}"
+                                                                     Visibility="{Binding VisibleN}"
                                                                      Width="90"
                                                                      TextAlignment="Center"
                                                                      Style="{StaticResource CommonTextBox}" />
@@ -74,13 +80,14 @@
                                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                         <StackPanel Orientation="Vertical">
                                                             <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
-                                                            <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
+                                                            <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
                                                                      util:FocusOptions.SelectAll="True"
                                                                      util:KeyboardOptions.Enabled="True"
                                                                      util:KeyboardOptions.EnterAsTab="True"
                                                                      util:KeyboardOptions.LeftRightNavigation="True"
                                                                      util:KeyboardOptions.UpDownNavigation="True"
                                                                      IsEnabled="{Binding EnableR}"
+                                                                     Visibility="{Binding VisibleR}"
                                                                      Width="90"
                                                                      TextAlignment="Center"
                                                                      Style="{StaticResource CommonTextBox}" />
@@ -104,6 +111,7 @@
                                                  util:KeyboardOptions.UpDownNavigation="True"
                                                  TextAlignment="Center"
                                                  IsReadOnly="True"
+                                                 IsTabStop="False"
                                                  Width="90"
                                                  Style="{StaticResource CommonTextBox}" />
                                     </StackPanel>

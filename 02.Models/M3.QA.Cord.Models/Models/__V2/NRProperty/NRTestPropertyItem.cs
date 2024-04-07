@@ -41,6 +41,8 @@ namespace M3.QA.Models
             Raise(() => this.SPNo);
             Raise(() => this.EnableN);
             Raise(() => this.EnableR);
+            Raise(() => this.VisibleN);
+            Raise(() => this.VisibleR);
         }
 
         protected internal void RaiseNeedSPChanges()
@@ -49,6 +51,8 @@ namespace M3.QA.Models
             Raise(() => this.NeedSP);
             Raise(() => this.EnableN);
             Raise(() => this.EnableR);
+            Raise(() => this.VisibleN);
+            Raise(() => this.VisibleR);
         }
 
         protected internal void RaiseNChanges()
@@ -57,6 +61,8 @@ namespace M3.QA.Models
             Raise(() => this.N);
             Raise(() => this.EnableN);
             Raise(() => this.EnableR);
+            Raise(() => this.VisibleN);
+            Raise(() => this.VisibleR);
         }
 
         protected internal void RaiseRChanges()
@@ -65,6 +71,8 @@ namespace M3.QA.Models
             Raise(() => this.R);
             Raise(() => this.EnableN);
             Raise(() => this.EnableR);
+            Raise(() => this.VisibleN);
+            Raise(() => this.VisibleR);
         }
 
         #endregion
@@ -145,9 +153,12 @@ namespace M3.QA.Models
         #region EnableN/EnableR/CaptionN/CaptionR (For Runtime binding)
 
         /// <summary>Check is Enable Normal Test.</summary>
-        public bool EnableN { get { return (NeedSP) ? SPNo.HasValue : true; } set { } }
+        public bool EnableN { get { return (NeedSP) ? SPNo.HasValue && !R.HasValue : R.HasValue; } set { } }
         /// <summary>Check is Enable Re Test (requird N value first).</summary>
-        public bool EnableR { get { return (NeedSP) ? SPNo.HasValue : N.HasValue; } set { } }
+        public bool EnableR { get { return (NeedSP) ? SPNo.HasValue && N.HasValue : N.HasValue; } set { } }
+
+        public Visibility VisibleN { get { return Visibility.Visible; } set { } }
+        public Visibility VisibleR { get { return (EnableR) ? Visibility.Visible : Visibility.Collapsed; } set { } }
 
         /// <summary>Gets N Display Caption.</summary>
         public string CaptionN { get { return "N" + No.ToString(); } set { } }

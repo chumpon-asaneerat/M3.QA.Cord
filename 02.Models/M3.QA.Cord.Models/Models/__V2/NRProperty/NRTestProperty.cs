@@ -103,26 +103,29 @@ namespace M3.QA.Models
 
         private void BuildItems(int noOfSample)
         {
-            Items = new List<NRTestPropertyItem>();
-            NRTestPropertyItem item;
-            for (int i = 1; i <= 7; i++)
+            lock (this)
             {
-                if (i > noOfSample) continue; // skip if more than allow no of sample.
+                Items = new List<NRTestPropertyItem>();
+                NRTestPropertyItem item;
+                for (int i = 1; i <= 7; i++)
+                {
+                    if (i > noOfSample) continue; // skip if more than allow no of sample.
 
-                item = new NRTestPropertyItem();
-                // set Sample No.
-                item.No = i;
-                // assign method pointer to Get SPNo/Need SP
-                item.GetSPNo = (null != _GetSPNo) ? _GetSPNo : null;
-                item.GetNeedSP = (null != _GetNeedSP) ? _GetNeedSP : null;
-                // assign method pointer to Get/Set N
-                item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
-                item.SetN = (null != _SetNs) ? _SetNs[i - 1] : null;
-                // assign method pointer to Get/Set R
-                item.GetR = (null != _GetRs) ? _GetRs[i - 1] : null;
-                item.SetR = (null != _SetRs) ? _SetRs[i - 1] : null;
+                    item = new NRTestPropertyItem();
+                    // set Sample No.
+                    item.No = i;
+                    // assign method pointer to Get SPNo/Need SP
+                    item.GetSPNo = (null != _GetSPNo) ? _GetSPNo : null;
+                    item.GetNeedSP = (null != _GetNeedSP) ? _GetNeedSP : null;
+                    // assign method pointer to Get/Set N
+                    item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
+                    item.SetN = (null != _SetNs) ? _SetNs[i - 1] : null;
+                    // assign method pointer to Get/Set R
+                    item.GetR = (null != _GetRs) ? _GetRs[i - 1] : null;
+                    item.SetR = (null != _SetRs) ? _SetRs[i - 1] : null;
 
-                Items.Add(item);
+                    Items.Add(item);
+                }
             }
         }
 
@@ -163,17 +166,23 @@ namespace M3.QA.Models
             }
             else if (propertyName.StartsWith("SPNo")) 
             {
-                foreach (var item in Items)
+                lock (this)
                 {
-                    item.RaiseSPNoChanges();
+                    foreach (var item in Items)
+                    {
+                        item.RaiseSPNoChanges();
+                    }
                 }
             }
             else if (propertyName.StartsWith("NeedSP"))
             {
                 this.Raise(() => this.EnableTest);
-                foreach (var item in Items)
+                lock (this)
                 {
-                    item.RaiseNeedSPChanges();
+                    foreach (var item in Items)
+                    {
+                        item.RaiseNeedSPChanges();
+                    }
                 }
             }
         }
@@ -182,21 +191,24 @@ namespace M3.QA.Models
         {
             decimal total = decimal.Zero;
             int iCnt = 0;
-            if (null != this.Items) 
+            lock (this)
             {
-                foreach (var item in this.Items) 
-                { 
-                    if (item.N.HasValue && !item.R.HasValue)
+                if (null != this.Items)
+                {
+                    foreach (var item in this.Items)
                     {
-                        // Has N value and no R value so use N to calc avg
-                        total += item.N.Value;
-                        ++iCnt;
-                    }
-                    if (item.R.HasValue)
-                    {
-                        // Either N has value or not but when R value exists so use R to calc avg
-                        total += item.R.Value;
-                        ++iCnt;
+                        if (item.N.HasValue && !item.R.HasValue)
+                        {
+                            // Has N value and no R value so use N to calc avg
+                            total += item.N.Value;
+                            ++iCnt;
+                        }
+                        if (item.R.HasValue)
+                        {
+                            // Either N has value or not but when R value exists so use R to calc avg
+                            total += item.R.Value;
+                            ++iCnt;
+                        }
                     }
                 }
             }

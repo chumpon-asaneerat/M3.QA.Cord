@@ -49,6 +49,14 @@ namespace NLib.Wpf.Controls.Converters
                             return decimal.Zero;
                         }
                     }
+                    if (targetType == typeof(decimal))
+                    {
+                        decimal ret;
+                        if (!decimal.TryParse(str.Trim(), out ret))
+                        {
+                            return decimal.Zero;
+                        }
+                    }
                     else if (targetType == typeof(int))
                     {
                         int ret;

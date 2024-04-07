@@ -98,6 +98,9 @@ namespace M3.QA
             // Start log manager
             LogManager.Instance.Start();
 
+            // For allow decimal binding work propery with UpdateTrigger=PropertyChanged
+            FrameworkCompatibilityPreferences.KeepTextBoxDisplaySynchronizedWithTextProperty = false;
+
             Window window = null;
             window = new MainWindow();
 
