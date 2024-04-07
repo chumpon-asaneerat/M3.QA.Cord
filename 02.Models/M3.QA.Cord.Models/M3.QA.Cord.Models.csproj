@@ -74,15 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Common\ModelConsts.cs" />
-    <Compile Include="Models\__V1\Common\CordTestProperty.cs" />
     <Compile Include="Models\Cords\CordMC.cs" />
-    <Compile Include="Models\__V1\CordSampleTestData.cs" />
     <Compile Include="Models\Cords\CordTestSampleRecv.cs" />
     <Compile Include="Models\Cords\CustomerCode.cs" />
-    <Compile Include="Models\__V1\Common\Utils.cs" />
-    <Compile Include="Models\__V1\Properties\CordAdhesionForceProperty.cs" />
-    <Compile Include="Models\__V1\Properties\CordElongationProperty.cs" />
-    <Compile Include="Models\__V1\Properties\CordTensileStrengthProperty.cs" />
     <Compile Include="Models\Excels\ExcelModels.cs" />
     <Compile Include="Models\Masters\Customer.cs" />
     <Compile Include="Models\Solutions\DIPSolutionSampleRecv.cs" />
