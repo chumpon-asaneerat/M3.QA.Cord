@@ -43,6 +43,8 @@ namespace M3.QA.Models
             Raise(() => this.EnableR);
             Raise(() => this.VisibleN);
             Raise(() => this.VisibleR);
+            Raise(() => this.ReadOnlyN);
+            Raise(() => this.ReadOnlyR);
         }
 
         protected internal void RaiseNeedSPChanges()
@@ -53,6 +55,8 @@ namespace M3.QA.Models
             Raise(() => this.EnableR);
             Raise(() => this.VisibleN);
             Raise(() => this.VisibleR);
+            Raise(() => this.ReadOnlyN);
+            Raise(() => this.ReadOnlyR);
         }
 
         protected internal void RaiseNChanges()
@@ -63,6 +67,8 @@ namespace M3.QA.Models
             Raise(() => this.EnableR);
             Raise(() => this.VisibleN);
             Raise(() => this.VisibleR);
+            Raise(() => this.ReadOnlyN);
+            Raise(() => this.ReadOnlyR);
         }
 
         protected internal void RaiseRChanges()
@@ -73,6 +79,8 @@ namespace M3.QA.Models
             Raise(() => this.EnableR);
             Raise(() => this.VisibleN);
             Raise(() => this.VisibleR);
+            Raise(() => this.ReadOnlyN);
+            Raise(() => this.ReadOnlyR);
         }
 
         #endregion
@@ -153,17 +161,66 @@ namespace M3.QA.Models
         #region EnableN/EnableR/CaptionN/CaptionR (For Runtime binding)
 
         /// <summary>Check is Enable Normal Test.</summary>
-        public bool EnableN { get { return (NeedSP) ? SPNo.HasValue && !R.HasValue : R.HasValue; } set { } }
+        public bool EnableN 
+        { 
+            get 
+            {
+                // Note: In some case some row has only R data so need to enable it.
+                return (NeedSP) ? (SPNo.HasValue && !R.HasValue) : !R.HasValue;
+            } 
+            set { }  
+        }
         /// <summary>Check is Enable Re Test (requird N value first).</summary>
-        public bool EnableR { get { return (NeedSP) ? SPNo.HasValue && N.HasValue : N.HasValue; } set { } }
+        public bool EnableR 
+        { 
+            get { return (NeedSP) ? SPNo.HasValue && (N.HasValue || R.HasValue) : (N.HasValue || R.HasValue); } 
+            set { } 
+        }
 
-        public Visibility VisibleN { get { return Visibility.Visible; } set { } }
-        public Visibility VisibleR { get { return (EnableR) ? Visibility.Visible : Visibility.Collapsed; } set { } }
+        /// <summary>Check is ReadOnly Normal Test.</summary>
+        public bool ReadOnlyN 
+        { 
+            get { return (NeedSP) ? !SPNo.HasValue || R.HasValue: R.HasValue; } 
+            set { } 
+        }
+        /// <summary>Check is ReadOnly Re Test (requird N value first).</summary>
+        public bool ReadOnlyR 
+        { 
+            get { return (NeedSP) ? !SPNo.HasValue && N.HasValue : N.HasValue; } 
+            set { } 
+        }
+
+        /// <summary>Gets Visibility of Normal Test.</summary>
+        public Visibility VisibleN 
+        { 
+            get { return Visibility.Visible; } 
+            set { } 
+        }
+        /// <summary>Gets Visibility of Re Test.</summary>
+        public Visibility VisibleR 
+        { 
+            get 
+            {
+                //return (EnableR || R.HasValue) ? Visibility.Visible : Visibility.Collapsed;
+
+                // Note: In some case some row has only R data so need to display it.
+                return (EnableR || R.HasValue) ? Visibility.Visible : Visibility.Collapsed; 
+            } 
+            set { } 
+        }
 
         /// <summary>Gets N Display Caption.</summary>
-        public string CaptionN { get { return "N" + No.ToString(); } set { } }
+        public string CaptionN 
+        { 
+            get { return "N" + No.ToString(); } 
+            set { } 
+        }
         /// <summary>Gets R Display Caption.</summary>
-        public string CaptionR { get { return "R" + No.ToString(); } set { } }
+        public string CaptionR 
+        { 
+            get { return "R" + No.ToString(); } 
+            set { } 
+        }
 
         #endregion
 
