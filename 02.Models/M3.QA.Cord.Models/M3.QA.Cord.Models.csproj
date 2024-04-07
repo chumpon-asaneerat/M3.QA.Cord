@@ -82,13 +82,13 @@
     <Compile Include="Models\Solutions\DIPSolutionSampleRecv.cs" />
     <Compile Include="Models\Users\UserInfo.cs" />
     <Compile Include="Models\Users\UserRole.cs" />
-    <Compile Include="Models\__V2\CordProperties\CordAdhesionForce.cs" />
-    <Compile Include="Models\__V2\CordProperties\CordElongation.cs" />
-    <Compile Include="Models\__V2\Utils.cs" />
-    <Compile Include="Models\__V2\CordSampleTestData.cs" />
-    <Compile Include="Models\__V2\CordProperties\CordTensileStrength.cs" />
-    <Compile Include="Models\__V2\NRProperty\NRTestProperty.cs" />
-    <Compile Include="Models\__V2\NRProperty\NRTestPropertyItem.cs" />
+    <Compile Include="Models\Cords\CordProperties\CordAdhesionForce.cs" />
+    <Compile Include="Models\Cords\CordProperties\CordElongation.cs" />
+    <Compile Include="Models\Common\Utils.cs" />
+    <Compile Include="Models\Cords\CordSampleTestData.cs" />
+    <Compile Include="Models\Cords\CordProperties\CordTensileStrength.cs" />
+    <Compile Include="Models\Common\NRProperty\NRTestProperty.cs" />
+    <Compile Include="Models\Common\NRProperty\NRTestPropertyItem.cs" />
     <Compile Include="MsSqlDbServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
