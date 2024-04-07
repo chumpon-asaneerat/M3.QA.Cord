@@ -48,6 +48,9 @@ namespace M3.QA.Models
         /// <summary>The Tensile Strengths Items.</summary>
         public List<CordTensileStrength> TensileStrengths { get; set; }
 
+        /// <summary>The AdhesionForces Items.</summary>
+        public List<CordAdhesionForce> AdhesionForces { get; set; }
+
         #endregion
 
         #region Private Methods
@@ -55,6 +58,7 @@ namespace M3.QA.Models
         private void InitTestProperties()
         {
             TensileStrengths = CordTensileStrength.Create(this);
+            AdhesionForces = CordAdhesionForce.Create(this);
         }
 
         #endregion
@@ -169,15 +173,15 @@ namespace M3.QA.Models
                         if (null == res || !res.Ok) return;
                     }
                 });
+                */
 
                 value.AdhesionForces.ForEach(x =>
                 {
                     x.EditBy = (null != user) ? user.FullName : null;
                     x.EditDate = DateTime.Now;
-                    res = CordAdhesionForceProperty.Save(x);
+                    res = CordAdhesionForce.Save(x);
                     if (null == res || !res.Ok) return;
                 });
-                */
 
                 if (null == res || !res.Ok)
                 {

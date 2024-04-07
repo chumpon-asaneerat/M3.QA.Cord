@@ -8,6 +8,72 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <UserControl.Resources>
+        <!--  SPNo  -->
+        <Style x:Key="SPNo"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <Setter Property="Text" Value="{Binding SPNo, TargetNullValue=''}" />
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  N INPUT  -->
+        <Style x:Key="NInput"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyN}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  R INPUT  -->
+        <Style x:Key="RInput"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  AVG  -->
+        <Style x:Key="AVG"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding AdhesionForce.Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
     <page:NPage HeaderText="Adhesion Force"
                 HeaderBackground="Violet"
                 HeaderBorderBrush="Violet">
@@ -28,16 +94,7 @@
                                 <Border Margin="0,0,5,0" DockPanel.Dock="Left">
                                     <StackPanel Orientation="Vertical" Width="100">
                                         <TextBlock Text="Spindle No" TextAlignment="Center" />
-                                        <TextBox Text="{Binding SPNo, TargetNullValue=''}"
-                                                 util:FocusOptions.SelectAll="True"
-                                                 util:KeyboardOptions.Enabled="True"
-                                                 util:KeyboardOptions.EnterAsTab="True"
-                                                 util:KeyboardOptions.LeftRightNavigation="True"
-                                                 util:KeyboardOptions.UpDownNavigation="True"
-                                                 IsReadOnly="True"
-                                                 TextAlignment="Center"
-                                                 Width="90"
-                                                 Style="{StaticResource CommonTextBox}" />
+                                        <TextBox Style="{StaticResource SPNo}" />
                                     </StackPanel>
                                 </Border>
                                 <Border Margin="0,0,5,0" DockPanel.Dock="Left">
@@ -66,33 +123,15 @@
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                                    <StackPanel Orientation="Vertical">
-                                                                        <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
-                                                                        <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
-                                                                                 util:FocusOptions.SelectAll="True"
-                                                                                 util:KeyboardOptions.Enabled="True"
-                                                                                 util:KeyboardOptions.EnterAsTab="True"
-                                                                                 util:KeyboardOptions.LeftRightNavigation="True"
-                                                                                 util:KeyboardOptions.UpDownNavigation="True"
-                                                                                 IsEnabled="{Binding EnableNormalTest}"
-                                                                                 Width="90"
-                                                                                 TextAlignment="Center"
-                                                                                 Style="{StaticResource CommonTextBox}" />
+                                                                    <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                                    <StackPanel Orientation="Vertical">
-                                                                        <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
-                                                                        <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
-                                                                                 util:FocusOptions.SelectAll="True"
-                                                                                 util:KeyboardOptions.Enabled="True"
-                                                                                 util:KeyboardOptions.EnterAsTab="True"
-                                                                                 util:KeyboardOptions.LeftRightNavigation="True"
-                                                                                 util:KeyboardOptions.UpDownNavigation="True"
-                                                                                 IsEnabled="{Binding EnableReTest}"
-                                                                                 Width="90"
-                                                                                 TextAlignment="Center"
-                                                                                 Style="{StaticResource CommonTextBox}" />
+                                                                    <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBox Style="{StaticResource RInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
@@ -128,35 +167,15 @@
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                                    <StackPanel Orientation="Vertical">
-                                                                        <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
-                                                                        <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', NotifyOnSourceUpdated=True}"
-                                                                                 util:FocusOptions.SelectAll="True"
-                                                                                 util:KeyboardOptions.Enabled="True"
-                                                                                 util:KeyboardOptions.EnterAsTab="True"
-                                                                                 util:KeyboardOptions.LeftRightNavigation="True"
-                                                                                 util:KeyboardOptions.UpDownNavigation="True"
-                                                                                 IsEnabled="{Binding EnableNormalTest}"
-                                                                                 IsReadOnly="True"
-                                                                                 Width="90"
-                                                                                 TextAlignment="Center"
-                                                                                 Style="{StaticResource CommonTextBox}" />
+                                                                    <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                                    <StackPanel Orientation="Vertical">
-                                                                        <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
-                                                                        <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', NotifyOnSourceUpdated=True}"
-                                                                                 util:FocusOptions.SelectAll="True"
-                                                                                 util:KeyboardOptions.Enabled="True"
-                                                                                 util:KeyboardOptions.EnterAsTab="True"
-                                                                                 util:KeyboardOptions.LeftRightNavigation="True"
-                                                                                 util:KeyboardOptions.UpDownNavigation="True"
-                                                                                 IsEnabled="{Binding EnableReTest}"
-                                                                                 IsReadOnly="True"
-                                                                                 Width="90"
-                                                                                 TextAlignment="Center"
-                                                                                 Style="{StaticResource CommonTextBox}" />
+                                                                    <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBox Style="{StaticResource RInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
@@ -169,16 +188,7 @@
                                             <Border Margin="0,0,5,0" DockPanel.Dock="Left">
                                                 <StackPanel Orientation="Vertical" Width="100">
                                                     <TextBlock Text="AVG" TextAlignment="Center" />
-                                                    <TextBox Text="{Binding AdhesionForce.Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
-                                                             util:FocusOptions.SelectAll="True"
-                                                             util:KeyboardOptions.Enabled="True"
-                                                             util:KeyboardOptions.EnterAsTab="True"
-                                                             util:KeyboardOptions.LeftRightNavigation="True"
-                                                             util:KeyboardOptions.UpDownNavigation="True"
-                                                             TextAlignment="Center"
-                                                             IsReadOnly="True"
-                                                             Width="90"
-                                                             Style="{StaticResource CommonTextBox}" />
+                                                    <TextBox Style="{StaticResource AVG}" />
                                                 </StackPanel>
                                             </Border>
                                             <Grid />
