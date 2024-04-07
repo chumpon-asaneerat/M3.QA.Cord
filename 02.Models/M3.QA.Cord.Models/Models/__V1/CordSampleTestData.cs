@@ -13,7 +13,7 @@ using NLib.Models;
 
 #endregion
 
-namespace M3.QA.Models
+namespace M3.QA.V1.Models
 {
     #region CordSampleTestData
 
@@ -148,7 +148,7 @@ namespace M3.QA.Models
         }
 
         public static NDbResult<CordSampleTestData> Save(CordSampleTestData value, 
-            UserInfo user)
+            QA.Models.UserInfo user)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 

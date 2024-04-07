@@ -14,7 +14,7 @@ using NLib.Models;
 
 #endregion
 
-namespace M3.QA.V2.Models
+namespace M3.QA.Models
 {
     #region NRTestProperty
 
@@ -139,6 +139,9 @@ namespace M3.QA.V2.Models
                 int idx;
                 if (int.TryParse(sIdx, out idx))
                 {
+                    // Note: N1 -> index must be 0, N2  -> index must be 1 so need decrease index by 1.
+                    idx--; // remove by 1 for zero based
+
                     if (idx < 0 || idx >= this.Items.Count) return;
                     this.Items[idx].RaiseNChanges();
                     CalcAvg();
@@ -150,6 +153,9 @@ namespace M3.QA.V2.Models
                 int idx;
                 if (int.TryParse(sIdx, out idx))
                 {
+                    // Note: R1 -> index must be 0, R2  -> index must be 1 so need decrease index by 1.
+                    idx--; // remove by 1 for zero based
+
                     if (idx < 0 || idx >= this.Items.Count) return;
                     this.Items[idx].RaiseRChanges();
                     CalcAvg();
@@ -186,7 +192,7 @@ namespace M3.QA.V2.Models
                         total += item.N.Value;
                         ++iCnt;
                     }
-                    if (R1.HasValue)
+                    if (item.R.HasValue)
                     {
                         // Either N has value or not but when R value exists so use R to calc avg
                         total += item.R.Value;

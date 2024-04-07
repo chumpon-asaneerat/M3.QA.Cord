@@ -13,7 +13,7 @@ using NLib.Models;
 
 #endregion
 
-namespace M3.QA.V2.Models
+namespace M3.QA.Models
 {
     #region Utils class
 

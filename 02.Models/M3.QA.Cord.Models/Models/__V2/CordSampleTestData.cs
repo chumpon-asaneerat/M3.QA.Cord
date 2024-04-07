@@ -13,7 +13,7 @@ using NLib.Models;
 
 #endregion
 
-namespace M3.QA.V2.Models
+namespace M3.QA.Models
 {
     #region CordSampleTestData
 
@@ -55,6 +55,163 @@ namespace M3.QA.V2.Models
         private void InitTestProperties()
         {
             TensileStrengths = CordTensileStrength.Create(this);
+        }
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// Gets CordSampleTestData by Lot No.
+        /// </summary>
+        /// <param name="value">The CordSampleTestData item to save.</param>
+        /// <returns></returns>
+        public static NDbResult<CordSampleTestData> GetByLotNo(string lotNo)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordSampleTestData> ret = new NDbResult<CordSampleTestData>();
+
+            if (string.IsNullOrWhiteSpace(lotNo))
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@LotNo", lotNo);
+
+            try
+            {
+                var items = cnn.Query<CordSampleTestData>("M_CheckLotReceive", p, commandType: CommandType.StoredProcedure);
+                var data = (null != items) ? items.ToList().FirstOrDefault() : null;
+
+                if (null != data)
+                {
+                    // already has date so cannot edit.
+                    data.CanEditStartDate = (data.StartTestDate.HasValue) ? false : true;
+                    data.InitTestProperties();
+                }
+
+                ret.Success(data);
+                // Set error number/message
+                ret.ErrNum = 0;
+                ret.ErrMsg = "Success";
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+        public static NDbResult<CordSampleTestData> Save(CordSampleTestData value,
+            QA.Models.UserInfo user)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordSampleTestData> ret = new NDbResult<CordSampleTestData>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            try
+            {
+                NDbResult res = null;
+                value.TensileStrengths.ForEach(x =>
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    res = CordTensileStrength.Save(x);
+                    if (null == res || !res.Ok) return;
+                });
+
+                /*
+                value.Elongations.ForEach(x =>
+                {
+                    foreach (var item in x.SubProperties)
+                    {
+                        item.EditBy = (null != user) ? user.FullName : null;
+                        item.EditDate = DateTime.Now;
+                        res = CordElongationSubProperty.Save(item);
+                        if (null == res || !res.Ok) return;
+                    }
+                });
+
+                value.AdhesionForces.ForEach(x =>
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    res = CordAdhesionForceProperty.Save(x);
+                    if (null == res || !res.Ok) return;
+                });
+                */
+
+                if (null == res || !res.Ok)
+                {
+                    if (null == res)
+                    {
+                        ret.ErrNum = -1;
+                        ret.ErrMsg = "Unknown Error.";
+                        ret.data = value;
+                    }
+                    else
+                    {
+                        ret.ErrNum = res.ErrNum;
+                        ret.ErrMsg = res.ErrMsg;
+                        ret.data = value;
+                    }
+                }
+                else
+                {
+                    ret.Success(value);
+
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
         }
 
         #endregion

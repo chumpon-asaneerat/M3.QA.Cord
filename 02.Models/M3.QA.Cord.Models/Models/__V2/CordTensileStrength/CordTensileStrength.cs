@@ -13,7 +13,7 @@ using NLib.Models;
 
 #endregion
 
-namespace M3.QA.V2.Models
+namespace M3.QA.Models
 {
     /// <summary>
     /// The Cord Tensile Strength
@@ -90,11 +90,14 @@ namespace M3.QA.V2.Models
             var total = (value.MasterId.HasValue) ?
                 Utils.M_GetPropertyTotalNByItem.GetByItem(value.MasterId.Value, 1).Value() : null;
             int noOfSample = (null != total) ? total.NoSample : 0;
-            int maxSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
+            int alllowSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
 
-            for (int i = 1; i <= maxSP; i++)
+            int i = 1;
+            int iMaxLimitSP = 7;
+            while (i <= iMaxLimitSP)
             {
-                if (i > 7) continue;
+                if (results.Count >= alllowSP)
+                    break; // already reach max allow SP
 
                 int? SP;
                 switch (i)
@@ -109,7 +112,11 @@ namespace M3.QA.V2.Models
                     default: SP = new int?(); break;
                 }
                 // Skip SP is null
-                if (!SP.HasValue) continue;
+                if (!SP.HasValue)
+                {
+                    i++; // increase index and skip to next loop.
+                    continue;
+                }
 
                 var inst = new CordTensileStrength()
                 {
@@ -121,21 +128,24 @@ namespace M3.QA.V2.Models
                 };
 
                 results.Add(inst);
+
+                i++; // increase index
             }
 
             var existItems = (value.MasterId.HasValue) ? GetsByLotNo(value.LotNo).Value() : null;
             if (null != existItems && null != results)
             {
                 int idx = -1;
-                foreach (var item in existItems)
+                // loop trought all initial results and fill data with the exists on database
+                foreach (var item in results)
                 {
-                    idx = results.FindIndex((x) => { return x.SPNo == item.SPNo; });
-                    if (idx != -1)
+                    idx = existItems.FindIndex((x) => { return x.SPNo == item.SPNo; });
+                    if (idx != -1) 
                     {
                         // need to set because not return from db.
-                        item.NoOfSample = results[idx].NoOfSample;
+                        existItems[idx].NoOfSample = item.NoOfSample;
                         // Clone anther properties
-                        Clone(item, results[idx]);
+                        Clone(existItems[idx], item);
                     }
                 }
             }

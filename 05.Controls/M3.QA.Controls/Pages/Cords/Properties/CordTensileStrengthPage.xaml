@@ -58,14 +58,14 @@
                                                 <DockPanel LastChildFill="True">
                                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                         <StackPanel Orientation="Vertical">
-                                                            <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
+                                                            <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
                                                             <TextBox Text="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
                                                                      util:FocusOptions.SelectAll="True"
                                                                      util:KeyboardOptions.Enabled="True"
                                                                      util:KeyboardOptions.EnterAsTab="True"
                                                                      util:KeyboardOptions.LeftRightNavigation="True"
                                                                      util:KeyboardOptions.UpDownNavigation="True"
-                                                                     IsEnabled="{Binding EnableNormalTest}"
+                                                                     IsEnabled="{Binding EnableN}"
                                                                      Width="90"
                                                                      TextAlignment="Center"
                                                                      Style="{StaticResource CommonTextBox}" />
@@ -73,14 +73,14 @@
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                         <StackPanel Orientation="Vertical">
-                                                            <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
+                                                            <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
                                                             <TextBox Text="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
                                                                      util:FocusOptions.SelectAll="True"
                                                                      util:KeyboardOptions.Enabled="True"
                                                                      util:KeyboardOptions.EnterAsTab="True"
                                                                      util:KeyboardOptions.LeftRightNavigation="True"
                                                                      util:KeyboardOptions.UpDownNavigation="True"
-                                                                     IsEnabled="{Binding EnableReTest}"
+                                                                     IsEnabled="{Binding EnableR}"
                                                                      Width="90"
                                                                      TextAlignment="Center"
                                                                      Style="{StaticResource CommonTextBox}" />

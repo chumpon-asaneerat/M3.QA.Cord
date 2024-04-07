@@ -13,7 +13,7 @@ using NLib.Models;
 
 #endregion
 
-namespace M3.QA.Models
+namespace M3.QA.V1.Models
 {
     #region CordTensileStrengthProperty
 
