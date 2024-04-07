@@ -25,6 +25,8 @@ namespace M3.QA.V2.Models
     {
         #region Internal Variables
 
+        private Func<int?> _GetSPNo;
+        private Func<bool> _GetNeedSP;
         private List<Func<decimal?>> _GetNs;
         private List<Action<decimal?>> _SetNs;
         private List<Func<decimal?>> _GetRs;
@@ -41,6 +43,10 @@ namespace M3.QA.V2.Models
         {
             #region Init Get/Set link methods
 
+            // Get SPNo
+            _GetSPNo = () => { return this.SPNo; };
+            // Get NeedSP
+            _GetNeedSP = () => { return this.NeedSP; };
             // Get N
             _GetNs = new List<Func<decimal?>>()
             {
@@ -96,14 +102,36 @@ namespace M3.QA.V2.Models
         #region Private Methods
 
         private void BuildItems(int noOfSample)
-        { 
+        {
+            Items = new List<NRTestPropertyItem>();
+            NRTestPropertyItem item;
+            for (int i = 1; i <= 7; i++)
+            {
+                if (i > noOfSample) continue; // skip if more than allow no of sample.
 
+                item = new NRTestPropertyItem();
+                // set Sample No.
+                item.No = i;
+                // assign method pointer to Get SPNo/Need SP
+                item.GetSPNo = (null != _GetSPNo) ? _GetSPNo : null;
+                item.GetNeedSP = (null != _GetNeedSP) ? _GetNeedSP : null;
+                // assign method pointer to Get/Set N
+                item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
+                item.SetN = (null != _SetNs) ? _SetNs[i - 1] : null;
+                // assign method pointer to Get/Set R
+                item.GetR = (null != _GetRs) ? _GetRs[i - 1] : null;
+                item.SetR = (null != _SetRs) ? _SetRs[i - 1] : null;
+
+                Items.Add(item);
+            }
         }
 
         private void ValueChange([CallerMemberName] string propertyName = "")
         {
             if (string.IsNullOrWhiteSpace(propertyName))
                 return;
+            if (null == this.Items)
+                return; // No items.
 
             if (propertyName.StartsWith("N")) 
             {
@@ -111,6 +139,7 @@ namespace M3.QA.V2.Models
                 int idx;
                 if (int.TryParse(sIdx, out idx))
                 {
+                    if (idx < 0 || idx >= this.Items.Count) return;
                     this.Items[idx].RaiseNChanges();
                     CalcAvg();
                 }
@@ -121,36 +150,55 @@ namespace M3.QA.V2.Models
                 int idx;
                 if (int.TryParse(sIdx, out idx))
                 {
+                    if (idx < 0 || idx >= this.Items.Count) return;
                     this.Items[idx].RaiseRChanges();
                     CalcAvg();
                 }
             }
             else if (propertyName.StartsWith("SPNo")) 
             {
-                if (null != Items)
+                foreach (var item in Items)
                 {
-                    foreach (var item in Items)
-                    {
-                        item.RaiseSPNoChanges();
-                    }
+                    item.RaiseSPNoChanges();
                 }
             }
             else if (propertyName.StartsWith("NeedSP"))
             {
                 this.Raise(() => this.EnableTest);
-                if (null != Items)
+                foreach (var item in Items)
                 {
-                    foreach (var item in Items)
-                    {
-                        item.RaiseNeedSPChanges();
-                    }
+                    item.RaiseNeedSPChanges();
                 }
             }
         }
 
         private void CalcAvg()
         {
-
+            decimal total = decimal.Zero;
+            int iCnt = 0;
+            if (null != this.Items) 
+            {
+                foreach (var item in this.Items) 
+                { 
+                    if (item.N.HasValue && !item.R.HasValue)
+                    {
+                        // Has N value and no R value so use N to calc avg
+                        total += item.N.Value;
+                        ++iCnt;
+                    }
+                    if (R1.HasValue)
+                    {
+                        // Either N has value or not but when R value exists so use R to calc avg
+                        total += item.R.Value;
+                        ++iCnt;
+                    }
+                }
+            }
+            // Calc average value.
+            decimal avg = (iCnt > 0) ? (total / iCnt) : 0;
+            this.Avg = avg;
+            // Raise events
+            this.Raise(() => this.Avg);
         }
 
         #endregion
@@ -198,6 +246,17 @@ namespace M3.QA.V2.Models
                     ValueChange();
                 });
             }
+        }
+
+        #endregion
+
+        #region Enable Test (Normal/Re Test)
+
+        /// <summary>Gets or sets is enable to enter test data.</summary>
+        public bool EnableTest
+        {
+            get { return (NeedSP) ? SPNo.HasValue : true; }
+            set { }
         }
 
         #endregion
@@ -386,13 +445,7 @@ namespace M3.QA.V2.Models
         public decimal? Avg
         {
             get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () =>
-                {
-
-                });
-            }
+            set { Set(value, () => { }); }
         }
 
         #endregion
