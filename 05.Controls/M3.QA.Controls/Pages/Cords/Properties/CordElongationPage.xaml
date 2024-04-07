@@ -155,13 +155,13 @@
                                                                         <DockPanel LastChildFill="True">
                                                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                                 <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
-                                                                                    <TextBlock TextAlignment="Center" Text="{Binding NCaption}" />
+                                                                                    <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
                                                                                     <TextBox Style="{StaticResource NInput}" />
                                                                                 </StackPanel>
                                                                             </StackPanel>
                                                                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                                 <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
-                                                                                    <TextBlock TextAlignment="Center" Text="{Binding RCaption}" />
+                                                                                    <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
                                                                                     <TextBox Style="{StaticResource RInput}" />
                                                                                 </StackPanel>
                                                                             </StackPanel>
