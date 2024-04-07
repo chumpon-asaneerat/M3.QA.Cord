@@ -15,6 +15,8 @@ using NLib.Models;
 
 namespace M3.QA.Models
 {
+    #region CordTensileStrength
+
     /// <summary>
     /// The Cord Tensile Strength
     /// </summary>
@@ -284,4 +286,6 @@ namespace M3.QA.Models
 
         #endregion
     }
+
+    #endregion
 }

@@ -15,6 +15,11 @@ using NLib.Models;
 
 namespace M3.QA.Models
 {
+    #region CordAdhesionForce
+
+    /// <summary>
+    /// The Cord Adhesion Force
+    /// </summary>
     public class CordAdhesionForce : NInpc
     {
         #region Constructor
@@ -452,4 +457,6 @@ namespace M3.QA.Models
 
         #endregion
     }
+
+    #endregion
 }

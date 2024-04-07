@@ -89,6 +89,7 @@
     <Compile Include="Models\Users\UserInfo.cs" />
     <Compile Include="Models\Users\UserRole.cs" />
     <Compile Include="Models\__V2\CordProperties\CordAdhesionForce.cs" />
+    <Compile Include="Models\__V2\CordProperties\CordElongation.cs" />
     <Compile Include="Models\__V2\Utils.cs" />
     <Compile Include="Models\__V2\CordSampleTestData.cs" />
     <Compile Include="Models\__V2\CordProperties\CordTensileStrength.cs" />
