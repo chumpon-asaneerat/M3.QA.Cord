@@ -189,17 +189,17 @@ namespace M3.QA.Models
         /// Create
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="totalN"></param>
         /// <returns></returns>
-        internal static List<CordAdhesionForce> Create(CordSampleTestData value)
+        internal static List<CordAdhesionForce> Create(CordSampleTestData value,
+            Utils.M_GetPropertyTotalNByItem totalN)
         {
             List<CordAdhesionForce> results = new List<CordAdhesionForce>();
             if (null == value)
                 return results;
 
             // For Adhesion Force Proepty No = 4
-            var total = (value.MasterId.HasValue) ?
-                Utils.M_GetPropertyTotalNByItem.GetByItem(value.MasterId.Value, 4).Value() : null;
-            int noOfSample = (null != total) ? total.NoSample : 0;
+            int noOfSample = (null != totalN) ? totalN.NoSample : 0;
             int alllowSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
 
             int i = 1;

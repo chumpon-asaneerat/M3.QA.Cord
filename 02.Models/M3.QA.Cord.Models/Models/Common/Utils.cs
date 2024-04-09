@@ -77,7 +77,7 @@ namespace M3.QA.Models
                 return ret;
             }
 
-            public static NDbResult<M_GetPropertyTotalNByItem> GetByItem(int masterId, int propertyNo)
+            public static NDbResult<M_GetPropertyTotalNByItem> GetByPropertyNo(int masterId, int propertyNo)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
 

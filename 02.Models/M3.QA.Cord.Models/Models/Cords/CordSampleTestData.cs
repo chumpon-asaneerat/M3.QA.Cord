@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Navigation;
 using Dapper;
 
 using NLib;
@@ -45,12 +46,16 @@ namespace M3.QA.Models
 
         public bool CanEditStartDate { get; set; }
 
+        public List<Utils.M_GetPropertyTotalNByItem> TotalNs { get; set; }
+
         /// <summary>The Tensile Strengths Items.</summary>
         public List<CordTensileStrength> TensileStrengths { get; set; }
         /// <summary>The Elongations Items.</summary>
         public List<CordElongation> Elongations { get; set; }
         /// <summary>The AdhesionForces Items.</summary>
         public List<CordAdhesionForce> AdhesionForces { get; set; }
+        /// <summary>The ShrinkageForce Items.</summary>
+        public List<CordShrinkageForce> ShrinkageForces { get; set; }
 
         #endregion
 
@@ -58,9 +63,35 @@ namespace M3.QA.Models
 
         private void InitTestProperties()
         {
-            TensileStrengths = CordTensileStrength.Create(this);
-            Elongations = CordElongation.Create(this);
-            AdhesionForces = CordAdhesionForce.Create(this);
+            // Get Total N(s)
+            if (MasterId.HasValue)
+            {
+                TotalNs = Utils.M_GetPropertyTotalNByItem.Gets(MasterId.Value).Value();
+                if (null != TotalNs && TotalNs.Count > 0)
+                {
+                    // Tensile Strengths PropertyNo = 1
+                    {
+                        var item = TotalNs.Find((x) => { return x.PropertyNo == 1; });
+                        TensileStrengths = CordTensileStrength.Create(this, item);
+                    }
+                    // Elongation PropertyNo = 2 (break), 3 (load)
+                    {
+                        var breakItem = TotalNs.Find((x) => { return x.PropertyNo == 2; });
+                        var loadItem = TotalNs.Find((x) => { return x.PropertyNo == 3; });
+                        Elongations = CordElongation.Create(this, breakItem, loadItem);
+                    }
+                    // Adhesion Force PropertyNo = 4
+                    {
+                        var item = TotalNs.Find((x) => { return x.PropertyNo == 4; });
+                        AdhesionForces = CordAdhesionForce.Create(this, item);
+                    }
+                    // Shrinkage Force PropertyNo = 5
+                    {
+                        var item = TotalNs.Find((x) => { return x.PropertyNo == 5; });
+                        ShrinkageForces = CordShrinkageForce.Create(this, item);
+                    }
+                }
+            }
         }
 
         #endregion
@@ -109,6 +140,7 @@ namespace M3.QA.Models
                 {
                     // already has date so cannot edit.
                     data.CanEditStartDate = (data.StartTestDate.HasValue) ? false : true;
+                    // Init relatedd properties
                     data.InitTestProperties();
                 }
 

@@ -257,10 +257,11 @@ namespace M3.QA.Models
         /// Create
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="totalN"></param>
         /// <param name="elongItem"></param>
         /// <returns></returns>
         internal static List<CordElongationBreakProperty> Create(CordSampleTestData value,
-            CordElongation elongItem)
+            Utils.M_GetPropertyTotalNByItem totalN, CordElongation elongItem)
         {
             List<CordElongationBreakProperty> results = new List<CordElongationBreakProperty>();
 
@@ -269,12 +270,9 @@ namespace M3.QA.Models
 
             int noOfSample;
             CordElongationBreakProperty inst;
-            Utils.M_GetPropertyTotalNByItem total;
 
             // For Elongation Break Proepty No = 2
-            total = (value.MasterId.HasValue) ?
-                Utils.M_GetPropertyTotalNByItem.GetByItem(value.MasterId.Value, 2).Value() : null;
-            noOfSample = (null != total) ? total.NoSample : 0;
+            noOfSample = (null != totalN) ? totalN.NoSample : 0;
 
             inst = new CordElongationBreakProperty()
             {
@@ -321,10 +319,11 @@ namespace M3.QA.Models
         /// Create
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="totalN"></param>
         /// <param name="elongItem"></param>
         /// <returns></returns>
         internal static List<CordElongationLoadProperty> Create(CordSampleTestData value,
-            CordElongation elongItem)
+            Utils.M_GetPropertyTotalNByItem totalN, CordElongation elongItem)
         {
             List<CordElongationLoadProperty> results = new List<CordElongationLoadProperty>();
 
@@ -333,12 +332,9 @@ namespace M3.QA.Models
 
             int noOfSample;
             CordElongationLoadProperty inst;
-            Utils.M_GetPropertyTotalNByItem total;
 
             // For Elongation Load Proepty No = 3
-            total = (value.MasterId.HasValue) ?
-                Utils.M_GetPropertyTotalNByItem.GetByItem(value.MasterId.Value, 3).Value() : null;
-            noOfSample = (null != total) ? total.NoSample : 0;
+            noOfSample = (null != totalN) ? totalN.NoSample : 0;
 
             string[] elongIds = !string.IsNullOrWhiteSpace(value.ELongLoadN) ?
                 value.ELongLoadN.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries) : null;
@@ -395,9 +391,13 @@ namespace M3.QA.Models
         /// Creat Sub Properties.
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="breakTotalN"></param>
+        /// <param name="loadTotalN"></param>
         /// <param name="elongItem"></param>
         /// <returns></returns>
         private static List<CordElongationSubProperty> CreateSubProperties(CordSampleTestData value,
+            Utils.M_GetPropertyTotalNByItem breakTotalN,
+            Utils.M_GetPropertyTotalNByItem loadTotalN,
             CordElongation elongItem)
         {
             List<CordElongationSubProperty> results = new List<CordElongationSubProperty>();
@@ -405,8 +405,8 @@ namespace M3.QA.Models
             if (null == value || null == elongItem)
                 return results;
 
-            var eBreaks = CordElongationBreakProperty.Create(value, elongItem);
-            var eLoads = CordElongationLoadProperty.Create(value, elongItem);
+            var eBreaks = CordElongationBreakProperty.Create(value, breakTotalN, elongItem);
+            var eLoads = CordElongationLoadProperty.Create(value, loadTotalN, elongItem);
 
             if (null != eBreaks) results.AddRange(eBreaks);
             if (null != eLoads) results.AddRange(eLoads);
@@ -423,8 +423,12 @@ namespace M3.QA.Models
         /// Create.
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="breakTotalN"></param>
+        /// <param name="loadTotalN"></param>
         /// <returns></returns>
-        internal static List<CordElongation> Create(CordSampleTestData value)
+        internal static List<CordElongation> Create(CordSampleTestData value,
+            Utils.M_GetPropertyTotalNByItem breakTotalN,
+            Utils.M_GetPropertyTotalNByItem loadTotalN)
         {
             List<CordElongation> results = new List<CordElongation>();
 
@@ -467,7 +471,7 @@ namespace M3.QA.Models
                     ELongLoadN = value.ELongLoadN
                 };
                 // load break/load sub properties.
-                inst.SubProperties = CreateSubProperties(value, inst);
+                inst.SubProperties = CreateSubProperties(value, breakTotalN, loadTotalN, inst);
 
                 results.Add(inst);
 
