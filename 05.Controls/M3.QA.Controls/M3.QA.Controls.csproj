@@ -97,16 +97,16 @@
     <Compile Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml.cs">
       <DependentUpon>OperatorInfoElement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Cord1stTwistingNumberPage.xaml.cs">
+    <Compile Include="Pages\Cords\Properties\Cord1stTwistingNumberPage.xaml.cs">
       <DependentUpon>Cord1stTwistingNumberPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Cord2ndTwistingNumberPage.xaml.cs">
+    <Compile Include="Pages\Cords\Properties\Cord2ndTwistingNumberPage.xaml.cs">
       <DependentUpon>Cord2ndTwistingNumberPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CordRPUPage.xaml.cs">
+    <Compile Include="Pages\Cords\Properties\CordRPUPage.xaml.cs">
       <DependentUpon>CordRPUPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CordShrinkageForcePage.xaml.cs">
+    <Compile Include="Pages\Cords\Properties\CordShrinkageForcePage.xaml.cs">
       <DependentUpon>CordShrinkageForcePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Cords\Properties\CordAdhesionForcePage.xaml.cs">
@@ -124,7 +124,7 @@
     <Compile Include="Pages\Cords\ReceiveCordSampleTestPage.xaml.cs">
       <DependentUpon>ReceiveCordSampleTestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CordThicknessPage.xaml.cs">
+    <Compile Include="Pages\Cords\Properties\CordThicknessPage.xaml.cs">
       <DependentUpon>CordThicknessPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Solutions\ReceiveDIPSolutionTestSamplePage.xaml.cs">
@@ -265,19 +265,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Cord1stTwistingNumberPage.xaml">
+    <Page Include="Pages\Cords\Properties\Cord1stTwistingNumberPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Cord2ndTwistingNumberPage.xaml">
+    <Page Include="Pages\Cords\Properties\Cord2ndTwistingNumberPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\CordRPUPage.xaml">
+    <Page Include="Pages\Cords\Properties\CordRPUPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\CordShrinkageForcePage.xaml">
+    <Page Include="Pages\Cords\Properties\CordShrinkageForcePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -301,7 +301,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\CordThicknessPage.xaml">
+    <Page Include="Pages\Cords\Properties\CordThicknessPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

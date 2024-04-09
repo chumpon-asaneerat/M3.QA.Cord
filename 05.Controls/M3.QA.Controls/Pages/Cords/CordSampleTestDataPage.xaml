@@ -122,11 +122,15 @@
                 <TabItem Header="Adhesion Force (Peel)">
                     <prop:CordAdhesionForcePage />
                 </TabItem>
-                <TabItem Header="Shrinkage force(N)" />
+                <TabItem Header="Shrinkage force(N)">
+                    <prop:CordShrinkageForcePage />
+                </TabItem>
                 <TabItem Header="Shrinkage %" />
                 <TabItem Header="1st Twisting Number" />
                 <TabItem Header="2nd Twisting Number" />
-                <TabItem Header="Thickness" />
+                <TabItem Header="Thickness">
+                    <prop:CordThicknessPage />
+                </TabItem>
                 <TabItem>
                     <TabItem.Header>
                         <TextBlock TextAlignment="Center">

@@ -222,6 +222,22 @@ namespace M3.QA.Models
                     if (null == res || !res.Ok) return;
                 });
 
+                value.ShrinkageForces.ForEach(x =>
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    res = CordShrinkageForce.Save(x);
+                    if (null == res || !res.Ok) return;
+                });
+
+                value.Thicknesses.ForEach(x =>
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    res = CordThickness.Save(x);
+                    if (null == res || !res.Ok) return;
+                });
+
                 if (null == res || !res.Ok)
                 {
                     if (null == res)
