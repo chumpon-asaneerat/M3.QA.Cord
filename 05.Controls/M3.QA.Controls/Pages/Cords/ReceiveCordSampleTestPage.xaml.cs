@@ -320,7 +320,7 @@ namespace M3.QA.Pages
         private void Search()
         {
             DateTime? dateFrom = dtDateFrom.Value;
-            DateTime? dateTo = dtDateFrom.Value;
+            DateTime? dateTo = dtDateTo.Value;
 
             grid.ItemsSource = null;
             searchs = Models.Utils.P_SearchReceiveCord.SearchByDate(dateFrom, dateTo).Value();
