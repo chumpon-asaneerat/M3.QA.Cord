@@ -124,7 +124,7 @@
                                                        TextAlignment="Right"
                                                        VerticalAlignment="Center"
                                                        Margin="3,0,10,0"
-                                                       Width="120"
+                                                       Width="80"
                                                        Visibility="Hidden"
                                                        DockPanel.Dock="Left" />
                                             <!--  EACH Item N/R  -->
@@ -170,11 +170,11 @@
                                         <Grid Height="10" />
                                         <!--  T/M  -->
                                         <DockPanel LastChildFill="True">
-                                            <TextBlock Text="T/M"
+                                            <TextBlock Text="t/m"
                                                        TextAlignment="Right"
                                                        VerticalAlignment="Center"
                                                        Margin="3,0,10,0"
-                                                       Width="120"
+                                                       Width="80"
                                                        DockPanel.Dock="Left" />
                                             <!--  EACH TM N/R  -->
                                             <ItemsControl ItemsSource="{Binding TM.Items}"
@@ -226,11 +226,11 @@
                                         <Grid Height="10" />
                                         <!--  T/M 10 cm  -->
                                         <DockPanel LastChildFill="True">
-                                            <TextBlock Text="T/M"
+                                            <TextBlock Text="t/10cm"
                                                        TextAlignment="Right"
                                                        VerticalAlignment="Center"
                                                        Margin="3,0,10,0"
-                                                       Width="120"
+                                                       Width="80"
                                                        DockPanel.Dock="Left" />
                                             <!--  EACH TM 10 cm N/R  -->
                                             <ItemsControl ItemsSource="{Binding TM10cm.Items}"
