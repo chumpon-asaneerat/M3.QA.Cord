@@ -59,6 +59,11 @@ namespace M3.QA.Models
         /// <summary>The Thickness Items.</summary>
         public List<CordThickness> Thicknesses { get; set; }
 
+        /// <summary>The 1st Twisting Number Items.</summary>
+        public List<Cord1stTwistingNumber> Cord1stTwistingNumbers { get; set; }
+        /// <summary>The 2nd Twisting Number Items.</summary>
+        public List<Cord2ndTwistingNumber> Cord2ndTwistingNumbers { get; set; }
+
         #endregion
 
         #region Private Methods
@@ -97,6 +102,16 @@ namespace M3.QA.Models
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 9; });
                         Thicknesses = CordThickness.Create(this, item);
                     }
+                    // 1st Twisting Number PropertyNo = 7
+                    {
+                        var item = TotalNs.Find((x) => { return x.PropertyNo == 7; });
+                        Cord1stTwistingNumbers = Cord1stTwistingNumber.Create(this, item);
+                    }
+                    // 2nd Twisting Number PropertyNo = 8
+                    {
+                        var item = TotalNs.Find((x) => { return x.PropertyNo == 8; });
+                        Cord2ndTwistingNumbers = Cord2ndTwistingNumber.Create(this, item);
+                    }
                 }
             }
         }
@@ -104,6 +119,8 @@ namespace M3.QA.Models
         #endregion
 
         #region Static Methods
+
+        #region GetByLotNo
 
         /// <summary>
         /// Gets CordSampleTestData by Lot No.
@@ -166,6 +183,10 @@ namespace M3.QA.Models
 
             return ret;
         }
+
+        #endregion
+
+        #region Save
 
         public static NDbResult<CordSampleTestData> Save(CordSampleTestData value,
             QA.Models.UserInfo user)
@@ -238,6 +259,22 @@ namespace M3.QA.Models
                     if (null == res || !res.Ok) return;
                 });
 
+                value.Cord1stTwistingNumbers.ForEach(x =>
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    res = Cord1stTwistingNumber.Save(x);
+                    if (null == res || !res.Ok) return;
+                });
+
+                value.Cord2ndTwistingNumbers.ForEach(x =>
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    res = Cord2ndTwistingNumber.Save(x);
+                    if (null == res || !res.Ok) return;
+                });
+
                 if (null == res || !res.Ok)
                 {
                     if (null == res)
@@ -272,6 +309,8 @@ namespace M3.QA.Models
 
             return ret;
         }
+
+        #endregion
 
         #endregion
     }
