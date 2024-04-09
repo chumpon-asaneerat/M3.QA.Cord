@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media;
 using Dapper;
 
 using NLib;
@@ -220,6 +221,47 @@ namespace M3.QA.Models
         { 
             get { return "R" + No.ToString(); } 
             set { } 
+        }
+
+        #endregion
+
+        #region Colors Border/Foreground/Background (For Runtime binding)
+
+        /// <summary>Gets N Border Color.</summary>
+        public SolidColorBrush BorderColorN 
+        { 
+            get { return ModelConsts.CornflowerBlueColor; }
+            set { }
+        }
+        /// <summary>Gets N Foreground Color.</summary>
+        public SolidColorBrush ForegroundColorN
+        {
+            get { return ModelConsts.BlackColor; }
+            set { }
+        }
+        /// <summary>Gets N Background Color.</summary>
+        public SolidColorBrush BackgroundColorN
+        {
+            get { return ModelConsts.CornflowerBlueColor; }
+            set { }
+        }
+        /// <summary>Gets R Border Color.</summary>
+        public SolidColorBrush BorderColorR
+        {
+            get { return ModelConsts.RedColor; }
+            set { }
+        }
+        /// <summary>Gets R Foreground Color.</summary>
+        public SolidColorBrush ForegroundColorR
+        {
+            get { return ModelConsts.WhiteSmokeColor; }
+            set { }
+        }
+        /// <summary>Gets R Background Color.</summary>
+        public SolidColorBrush BackgroundColorR
+        {
+            get { return ModelConsts.OrangeRedColor; }
+            set { }
         }
 
         #endregion
