@@ -208,6 +208,102 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region P_GetTwistNumberByLot
+
+        public class P_GetTwistNumberByLot
+        {
+            #region Public Properties
+
+            public string LotNo { get; set; }
+            public int PropertyNo { get; set; }
+            public int? SPNo { get; set; }
+
+            public decimal? N1 { get; set; }
+            public decimal? N2 { get; set; }
+            public decimal? N3 { get; set; }
+            public decimal? R1 { get; set; }
+            public decimal? R2 { get; set; }
+            public decimal? R3 { get; set; }
+
+            public decimal? TMN1 { get; set; }
+            public decimal? TMN2 { get; set; }
+            public decimal? TMN3 { get; set; }
+            public decimal? TMR1 { get; set; }
+            public decimal? TMR2 { get; set; }
+            public decimal? TMR3 { get; set; }
+
+            public decimal? TCMN1 { get; set; }
+            public decimal? TCMN2 { get; set; }
+            public decimal? TCMN3 { get; set; }
+            public decimal? TCMR1 { get; set; }
+            public decimal? TCMR2 { get; set; }
+            public decimal? TCMR3 { get; set; }
+
+            public string InputBy { get; set; }
+            public DateTime? InputDate { get; set; }
+
+            public string EditBy { get; set; }
+            public DateTime? EditDate { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<P_GetTwistNumberByLot>> GetByLot(string lotNo, int propertyNo)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<P_GetTwistNumberByLot>> ret = new NDbResult<List<P_GetTwistNumberByLot>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                if (string.IsNullOrEmpty(lotNo))
+                {
+                    ret.ParameterIsNull();
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@lotNo", lotNo);
+                p.Add("@propertyno", propertyNo);
+
+                try
+                {
+                    var items = cnn.Query<P_GetTwistNumberByLot>("P_GetTwistNumberByLot", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
+
         #region P_SearchReceiveCord
 
         public class P_SearchReceiveCord
