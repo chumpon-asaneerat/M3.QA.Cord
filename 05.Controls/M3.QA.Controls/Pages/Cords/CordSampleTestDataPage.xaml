@@ -126,7 +126,9 @@
                     <prop:CordShrinkageForcePage />
                 </TabItem>
                 <TabItem Header="Shrinkage %" />
-                <TabItem Header="1st Twisting Number" />
+                <TabItem Header="1st Twisting Number">
+                    <prop:Cord1stTwistingNumberPage />
+                </TabItem>
                 <TabItem Header="2nd Twisting Number" />
                 <TabItem Header="Thickness">
                     <prop:CordThicknessPage />

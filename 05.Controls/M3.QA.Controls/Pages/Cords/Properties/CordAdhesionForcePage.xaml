@@ -100,6 +100,7 @@
                                 </Border>
                                 <Border Margin="0,0,5,0" DockPanel.Dock="Left">
                                     <StackPanel Orientation="Vertical">
+                                        <!--  Peak Point  -->
                                         <DockPanel LastChildFill="True">
                                             <TextBlock Text="Peak point"
                                                        TextAlignment="Right"
@@ -107,7 +108,7 @@
                                                        Margin="3,0,10,0"
                                                        Width="120"
                                                        DockPanel.Dock="Left" />
-                                            <!--  EACH PeakPoint N/R  -->
+                                            <!--  EACH Peak Point N/R  -->
                                             <ItemsControl ItemsSource="{Binding PeakPoint.Items}"
                                                           Focusable="False"
                                                           DockPanel.Dock="Left"
@@ -148,6 +149,7 @@
                                             <Grid />
                                         </DockPanel>
                                         <Grid Height="10" />
+                                        <!--  Adhesion Force  -->
                                         <DockPanel LastChildFill="True">
                                             <TextBlock Text="Adhesin force"
                                                        TextAlignment="Right"
@@ -172,13 +174,17 @@
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                                    <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleN}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
                                                                         <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                                    <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
                                                                         <TextBox Style="{StaticResource RInput}" />
                                                                     </StackPanel>

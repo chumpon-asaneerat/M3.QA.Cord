@@ -58,7 +58,6 @@ namespace M3.QA.Models
         public List<CordShrinkageForce> ShrinkageForces { get; set; }
         /// <summary>The Thickness Items.</summary>
         public List<CordThickness> Thicknesses { get; set; }
-
         /// <summary>The 1st Twisting Number Items.</summary>
         public List<Cord1stTwistingNumber> Cord1stTwistingNumbers { get; set; }
         /// <summary>The 2nd Twisting Number Items.</summary>
