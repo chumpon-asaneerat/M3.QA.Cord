@@ -225,42 +225,21 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region Colors Border/Foreground/Background (For Runtime binding)
+        #region Colors Foreground (For Runtime binding)
 
-        /// <summary>Gets N Border Color.</summary>
-        public SolidColorBrush BorderColorN 
-        { 
-            get { return ModelConsts.CornflowerBlueColor; }
-            set { }
-        }
         /// <summary>Gets N Foreground Color.</summary>
         public SolidColorBrush ForegroundColorN
         {
-            get { return ModelConsts.BlackColor; }
-            set { }
-        }
-        /// <summary>Gets N Background Color.</summary>
-        public SolidColorBrush BackgroundColorN
-        {
-            get { return ModelConsts.CornflowerBlueColor; }
-            set { }
-        }
-        /// <summary>Gets R Border Color.</summary>
-        public SolidColorBrush BorderColorR
-        {
-            get { return ModelConsts.RedColor; }
+            get 
+            { 
+                return (R.HasValue) ? ModelConsts.DimGrayColor : ModelConsts.BlackColor; 
+            }
             set { }
         }
         /// <summary>Gets R Foreground Color.</summary>
         public SolidColorBrush ForegroundColorR
         {
-            get { return ModelConsts.WhiteSmokeColor; }
-            set { }
-        }
-        /// <summary>Gets R Background Color.</summary>
-        public SolidColorBrush BackgroundColorR
-        {
-            get { return ModelConsts.OrangeRedColor; }
+            get { return ModelConsts.BlackColor; }
             set { }
         }
 

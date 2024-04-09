@@ -12,6 +12,8 @@ namespace M3.QA.Models
 
         public static readonly SolidColorBrush RedColor = new SolidColorBrush(Colors.Red);
         public static readonly SolidColorBrush BlackColor = new SolidColorBrush(Colors.Black);
+        public static readonly SolidColorBrush DimGrayColor = new SolidColorBrush(Colors.DimGray);
+        public static readonly SolidColorBrush SilverColor = new SolidColorBrush(Colors.Silver);
 
         public static readonly SolidColorBrush WhiteColor = new SolidColorBrush(Colors.White);
         public static readonly SolidColorBrush WhiteSmokeColor = new SolidColorBrush(Colors.WhiteSmoke);
