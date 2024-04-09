@@ -33,6 +33,50 @@ namespace M3.QA.Models
 
             #region Static Methods
 
+            public static NDbResult<List<M_GetPropertyTotalNByItem>> Gets(int masterId)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<M_GetPropertyTotalNByItem>> ret = new NDbResult<List<M_GetPropertyTotalNByItem>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@MasterId", masterId);
+                p.Add("@PropertyNo", null);
+
+                try
+                {
+                    var items = cnn.Query<M_GetPropertyTotalNByItem>("M_GetPropertyTotalNByItem", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
             public static NDbResult<M_GetPropertyTotalNByItem> GetByItem(int masterId, int propertyNo)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
