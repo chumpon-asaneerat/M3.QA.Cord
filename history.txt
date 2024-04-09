@@ -22,8 +22,9 @@ M3 QA Cord #104
 M3 QA Cord #103
 - 
 
+[commit]
 M3 QA Cord #102
-- 
+- Implements Cord Test Data #72
 
 [commit]
 M3 QA Cord #101
