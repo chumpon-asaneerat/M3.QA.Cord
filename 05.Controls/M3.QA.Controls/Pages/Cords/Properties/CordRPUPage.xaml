@@ -58,12 +58,12 @@
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
-        <!--  AVG  -->
-        <Style x:Key="AVG"
+        <!--  RPU  -->
+        <Style x:Key="RPU"
                TargetType="TextBox"
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
-            <Setter Property="Text" Value="{Binding Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}" />
+            <Setter Property="Text" Value="{Binding RPU, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
             <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
@@ -84,7 +84,7 @@
                           Focusable="False"
                           VirtualizingPanel.IsVirtualizing="True"
                           VirtualizingPanel.VirtualizationMode="Recycling"
-                          ItemsSource="{Binding TensileStrengths}">
+                          ItemsSource="{Binding Cord1stTwistingNumbers}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Margin="5"
@@ -99,49 +99,113 @@
                                         <TextBox Style="{StaticResource SPNo}" />
                                     </StackPanel>
                                 </Border>
-                                <!--  EACH N/R  -->
-                                <ItemsControl ItemsSource="{Binding Items}"
-                                              Focusable="False"
-                                              DockPanel.Dock="Left"
-                                              IsEnabled="{Binding EnableTest}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel Orientation="Horizontal"
-                                                                    VirtualizingPanel.IsVirtualizing="True"
-                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Margin="0,0,5,0">
-                                                <DockPanel LastChildFill="True">
-                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical"
-                                                                    ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
-                                                                    Visibility="{Binding VisibleN}">
-                                                            <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
-                                                            <TextBox Style="{StaticResource NInput}" />
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical"
-                                                                    ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
-                                                                    Visibility="{Binding VisibleR}">
-                                                            <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
-                                                            <TextBox Style="{StaticResource RInput}" />
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                    <Grid />
-                                                </DockPanel>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                                <!--  AVG.  -->
+                                <Border Margin="0,0,5,0" DockPanel.Dock="Left">
+                                    <StackPanel Orientation="Vertical">
+                                        <!--  BEFORE HEAT  -->
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="Wt.before heat (g)"
+                                                       TextAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3,0,10,0"
+                                                       Width="120"
+                                                       DockPanel.Dock="Left" />
+                                            <!--  EACH Item N/R  -->
+                                            <ItemsControl ItemsSource="{Binding BeforeHeat.Items}"
+                                                          Focusable="False"
+                                                          DockPanel.Dock="Left"
+                                                          IsEnabled="{Binding EnableTest}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Margin="0,0,5,0">
+                                                            <DockPanel LastChildFill="True">
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleN}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBox Style="{StaticResource RInput}" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <Grid />
+                                        </DockPanel>
+                                        <Grid Height="10" />
+                                        <!--  AFTER HEAT  -->
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="Wt.after heat (g)"
+                                                       TextAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3,0,10,0"
+                                                       Width="120"
+                                                       DockPanel.Dock="Left" />
+                                            <!--  EACH TM N/R  -->
+                                            <ItemsControl ItemsSource="{Binding AfterHeat.Items}"
+                                                          Focusable="False"
+                                                          DockPanel.Dock="Left"
+                                                          IsEnabled="{Binding EnableTest}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Margin="0,0,5,0">
+                                                            <DockPanel LastChildFill="True">
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleN}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBox Style="{StaticResource RInput}" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <Grid />
+                                        </DockPanel>
+                                        <Grid Height="10" />
+                                    </StackPanel>
+                                </Border>
+                                <!--  RPU.  -->
                                 <Border Margin="0,0,5,0" DockPanel.Dock="Left">
                                     <StackPanel Orientation="Vertical" Width="100">
                                         <TextBlock Text="AVG" TextAlignment="Center" />
-                                        <TextBox Style="{StaticResource AVG}" />
+                                        <TextBox Style="{StaticResource RPU}" />
                                     </StackPanel>
                                 </Border>
                                 <Grid />

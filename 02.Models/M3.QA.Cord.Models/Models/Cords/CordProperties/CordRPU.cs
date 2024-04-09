@@ -258,7 +258,7 @@ namespace M3.QA.Models
             }
 
             // For RPU Proepty No = 12
-            var existItems = (value.MasterId.HasValue) ? GetsByLotNo(value.LotNo, 12).Value() : null;
+            var existItems = (value.MasterId.HasValue) ? GetsByLotNo(value.LotNo).Value() : null;
             if (null != existItems && null != results)
             {
                 int idx = -1;
