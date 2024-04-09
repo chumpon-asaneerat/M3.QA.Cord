@@ -62,7 +62,8 @@ namespace M3.QA.Models
         public List<Cord1stTwistingNumber> Cord1stTwistingNumbers { get; set; }
         /// <summary>The 2nd Twisting Number Items.</summary>
         public List<Cord2ndTwistingNumber> Cord2ndTwistingNumbers { get; set; }
-
+        /// <summary>The RPU Items.</summary>
+        public List<CordRPU> RPUs { get; set; }
         #endregion
 
         #region Private Methods
@@ -110,6 +111,11 @@ namespace M3.QA.Models
                     {
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 8; });
                         Cord2ndTwistingNumbers = Cord2ndTwistingNumber.Create(this, item);
+                    }
+                    // RPU PropertyNo = 12
+                    {
+                        var item = TotalNs.Find((x) => { return x.PropertyNo == 12; });
+                        RPUs = CordRPU.Create(this, item);
                     }
                 }
             }
@@ -271,6 +277,14 @@ namespace M3.QA.Models
                     x.EditBy = (null != user) ? user.FullName : null;
                     x.EditDate = DateTime.Now;
                     res = Cord2ndTwistingNumber.Save(x);
+                    if (null == res || !res.Ok) return;
+                });
+
+                value.RPUs.ForEach(x =>
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    res = CordRPU.Save(x);
                     if (null == res || !res.Ok) return;
                 });
 

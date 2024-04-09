@@ -37,7 +37,7 @@ namespace M3.QA.Models
             // AfterHeat change need to calc formula for RPU
             AfterHeat.ValueChanges = CalculateFormula;
 
-            RPU = new NRTestProperty();
+            RPU = new decimal?();
         }
 
         #endregion
@@ -50,18 +50,15 @@ namespace M3.QA.Models
             {
                 // RPU = ( (BF Heat – AF Heat) / AF Heat )*100
 
-                decimal? N1;
-                decimal? R1;
+                decimal? BF;
+                decimal? AF;
+                decimal? diff;
 
-                N1 = (BeforeHeat.N1.HasValue) ? 
-                    (AfterHeat.N1.HasValue) ? BeforeHeat.N1.Value - AfterHeat.N1.Value :  BeforeHeat.N1.Value : new decimal?();
-                R1 = (BeforeHeat.R1.HasValue) ?
-                    (AfterHeat.R1.HasValue) ? BeforeHeat.R1.Value - AfterHeat.R1.Value : BeforeHeat.R1.Value : new decimal?();
+                BF = (BeforeHeat.R1.HasValue) ? BeforeHeat.R1.Value : (BeforeHeat.N1.HasValue) ? BeforeHeat.N1.Value : new decimal?();
+                AF = (AfterHeat.R1.HasValue) ? AfterHeat.R1.Value : (AfterHeat.N1.HasValue) ? AfterHeat.N1.Value : new decimal?();
 
-                RPU.N1 = (N1.HasValue && N1.Value >= 0 &&
-                    AfterHeat.N1.HasValue && AfterHeat.N1.Value > 0) ? (N1.Value / AfterHeat.N1.Value) * 100 : new decimal?();
-                RPU.R1 = (R1.HasValue && R1.Value >= 0 &&
-                    AfterHeat.R1.HasValue && AfterHeat.R1.Value > 0) ? (R1.Value / AfterHeat.R1.Value) * 100 : new decimal?();
+                diff = (BF.HasValue && AF.HasValue && (BF.Value - AF.Value > 0)) ? BF.Value - AF.Value : new decimal?();
+                RPU = (diff.HasValue && AF.HasValue && AF.Value > 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
 
                 // Raise events
                 Raise(() => this.RPU);
@@ -85,14 +82,6 @@ namespace M3.QA.Models
             AfterHeat.SPNo = SPNo;
             AfterHeat.NoOfSample = NoOfSample;
             AfterHeat.NeedSP = NeedSP;
-
-            if (null == RPU) RPU = new NRTestProperty();
-            RPU.SPNo = SPNo;
-            RPU.LotNo = LotNo;
-            RPU.PropertyNo = PropertyNo;
-            RPU.SPNo = SPNo;
-            RPU.NoOfSample = NoOfSample;
-            RPU.NeedSP = NeedSP;
 
             // Check calculate action
             if (null == BeforeHeat.ValueChanges)
@@ -197,17 +186,292 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region Item/TM/TM10cm
+        #region BeforeHeat/AfterHear/RPU
 
         public NRTestProperty BeforeHeat { get; set; }
         public NRTestProperty AfterHeat { get; set; }
-        public NRTestProperty RPU { get; set; }
+        public decimal? RPU { get; set; }
 
         #endregion
 
         #endregion
 
         #region Static Methods
+
+        #region Create
+
+        /// <summary>
+        /// Create
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="totalN"></param>
+        /// <returns></returns>
+        internal static List<CordRPU> Create(CordSampleTestData value,
+            Utils.M_GetPropertyTotalNByItem totalN)
+        {
+            List<CordRPU> results = new List<CordRPU>();
+            if (null == value)
+                return results;
+
+            // For RPU Proepty No = 12
+            int noOfSample = (null != totalN) ? totalN.NoSample : 0;
+            int alllowSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
+
+            int i = 1;
+            int iMaxLimitSP = 7;
+            while (i <= iMaxLimitSP)
+            {
+                if (results.Count >= alllowSP)
+                    break; // already reach max allow SP
+
+                int? SP;
+                switch (i)
+                {
+                    case 1: SP = value.SP1; break;
+                    case 2: SP = value.SP2; break;
+                    case 3: SP = value.SP3; break;
+                    case 4: SP = value.SP4; break;
+                    case 5: SP = value.SP5; break;
+                    case 6: SP = value.SP6; break;
+                    case 7: SP = value.SP7; break;
+                    default: SP = new int?(); break;
+                }
+                // Skip SP is null
+                if (!SP.HasValue)
+                {
+                    i++; // increase index and skip to next loop.
+                    continue;
+                }
+
+                var inst = new CordRPU()
+                {
+                    LotNo = value.LotNo,
+                    PropertyNo = 12, // RPU Proepty No = 12
+                    SPNo = SP,
+                    NeedSP = true,
+                    NoOfSample = noOfSample
+                };
+
+                results.Add(inst);
+
+                i++; // increase index
+            }
+
+            // For RPU Proepty No = 12
+            var existItems = (value.MasterId.HasValue) ? GetsByLotNo(value.LotNo, 12).Value() : null;
+            if (null != existItems && null != results)
+            {
+                int idx = -1;
+                // loop trought all initial results and fill data with the exists on database
+                foreach (var item in results)
+                {
+                    idx = existItems.FindIndex((x) =>
+                    {
+                        return x.SPNo == item.SPNo && x.PropertyNo == item.PropertyNo;
+                    });
+                    if (idx != -1)
+                    {
+                        // need to set because not return from db.
+                        existItems[idx].NoOfSample = item.NoOfSample;
+                        // Clone anther properties
+                        Clone(existItems[idx], item);
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        #endregion
+
+        #region Clone
+
+        /// <summary>
+        /// Clone.
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="dst"></param>
+        public static void Clone(CordRPU src, CordRPU dst)
+        {
+            if (null == src || null == dst)
+                return;
+
+            dst.LotNo = src.LotNo;
+            dst.PropertyNo = src.PropertyNo;
+            dst.SPNo = src.SPNo;
+            dst.NoOfSample = src.NoOfSample;
+
+            dst.EditBy = src.EditBy;
+            dst.EditDate = src.EditDate;
+            dst.InputBy = src.InputBy;
+            dst.InputDate = src.InputDate;
+
+            NRTestProperty.Clone(src.BeforeHeat, dst.BeforeHeat);
+            NRTestProperty.Clone(src.AfterHeat, dst.AfterHeat);
+
+            dst.RPU = src.RPU;
+        }
+
+        #endregion
+
+        #region GetsByLotNo
+
+        /// <summary>
+        /// Gets CordRPU by Lot No.
+        /// </summary>
+        /// <param name="lotNo">The Lot No.</param>
+        /// <returns></returns>
+        public static NDbResult<List<CordRPU>> GetsByLotNo(string lotNo)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<List<CordRPU>> ret = new NDbResult<List<CordRPU>>();
+
+            if (string.IsNullOrWhiteSpace(lotNo))
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            try
+            {
+                List<CordRPU> results = new List<CordRPU>();
+
+                var items = Utils.P_GetRPUByLot.GetByLot(lotNo).Value();
+                if (null != items)
+                {
+                    foreach (var item in items)
+                    {
+                        var inst = new CordRPU();
+                        inst.LotNo = item.LotNo;
+                        inst.PropertyNo = 12; // RPU Proepty No = 12
+                        inst.SPNo = item.SPNo;
+
+                        inst.NeedSP = true;
+                        //inst.NoOfSample = 1; // ???
+
+                        if (null != inst.BeforeHeat)
+                        {
+                            inst.BeforeHeat.N1 = item.BFN1;
+                            inst.BeforeHeat.R1 = item.BFR1;
+                        }
+                        if (null != inst.AfterHeat)
+                        {
+                            inst.AfterHeat.N1 = item.AFN1;
+                            inst.AfterHeat.R1 = item.AFR1;
+                        }
+
+                        inst.RPU = item.RPU;
+
+                        inst.InputBy = item.InputBy;
+                        inst.InputDate = item.InputDate;
+                        inst.EditBy = item.EditBy;
+                        inst.EditDate = item.EditDate;
+
+                        results.Add(inst);
+                    }
+                }
+
+                ret.Success(results);
+                // Set error number/message
+                ret.ErrNum = 0;
+                ret.ErrMsg = "Success";
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+        #endregion
+
+        #region Save
+
+        /// <summary>
+        /// Save.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static NDbResult<CordRPU> Save(CordRPU value)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordRPU> ret = new NDbResult<CordRPU>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@LotNo", value.LotNo);
+            p.Add("@spno", value.SPNo);
+
+            p.Add("@bfn1", (null != value.BeforeHeat) ? value.BeforeHeat.N1 : new decimal?());
+            p.Add("@bfr1", (null != value.BeforeHeat) ? value.BeforeHeat.R1 : new decimal?());
+
+            p.Add("@afn1", (null != value.AfterHeat) ? value.AfterHeat.N1 : new decimal?());
+            p.Add("@afr1", (null != value.AfterHeat) ? value.AfterHeat.R1 : new decimal?());
+
+            p.Add("@rpu", value.RPU);
+
+            p.Add("@user", value.EditBy);
+            p.Add("@savedate", value.EditDate);
+
+            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+            try
+            {
+                cnn.Execute("P_SaveRPU", p, commandType: CommandType.StoredProcedure);
+                ret.Success(value);
+                // Set error number/message
+                ret.ErrNum = p.Get<int>("@errNum");
+                ret.ErrMsg = p.Get<string>("@errMsg");
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+        #endregion
 
         #endregion
     }
