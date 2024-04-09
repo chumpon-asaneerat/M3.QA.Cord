@@ -146,7 +146,9 @@
                         </TextBlock>
                     </TabItem.Header>
                 </TabItem>
-                <TabItem Header="RPU" />
+                <TabItem Header="RPU">
+                    <prop:CordRPUPage />
+                </TabItem>
             </TabControl>
         </DockPanel>
     </page:NPage>
