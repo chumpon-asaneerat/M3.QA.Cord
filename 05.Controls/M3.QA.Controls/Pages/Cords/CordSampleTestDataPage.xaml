@@ -126,7 +126,7 @@
                 <TabItem Header="Shrinkage %" />
                 <TabItem Header="1st Twisting Number" />
                 <TabItem Header="2nd Twisting Number" />
-                <TabItem Header="Thickness" Visibility="Collapsed" />
+                <TabItem Header="Thickness" />
                 <TabItem>
                     <TabItem.Header>
                         <TextBlock TextAlignment="Center">
