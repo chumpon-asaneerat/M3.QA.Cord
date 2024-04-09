@@ -56,6 +56,8 @@ namespace M3.QA.Models
         public List<CordAdhesionForce> AdhesionForces { get; set; }
         /// <summary>The ShrinkageForce Items.</summary>
         public List<CordShrinkageForce> ShrinkageForces { get; set; }
+        /// <summary>The Thickness Items.</summary>
+        public List<CordThickness> Thicknesses { get; set; }
 
         #endregion
 
@@ -89,6 +91,11 @@ namespace M3.QA.Models
                     {
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 5; });
                         ShrinkageForces = CordShrinkageForce.Create(this, item);
+                    }
+                    // Thickness PropertyNo = 9
+                    {
+                        var item = TotalNs.Find((x) => { return x.PropertyNo == 9; });
+                        Thicknesses = CordThickness.Create(this, item);
                     }
                 }
             }
