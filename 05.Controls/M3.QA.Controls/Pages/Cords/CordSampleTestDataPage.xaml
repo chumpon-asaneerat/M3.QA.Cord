@@ -129,7 +129,9 @@
                 <TabItem Header="1st Twisting Number">
                     <prop:Cord1stTwistingNumberPage />
                 </TabItem>
-                <TabItem Header="2nd Twisting Number" />
+                <TabItem Header="2nd Twisting Number">
+                    <prop:Cord2ndTwistingNumberPage />
+                </TabItem>
                 <TabItem Header="Thickness">
                     <prop:CordThicknessPage />
                 </TabItem>
