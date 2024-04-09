@@ -75,7 +75,7 @@
                             <TextBlock Text="" />
                             <TextBox x:Name="txtSPNo"
                                      Text="{Binding Spindle}"
-                                     Width="150"
+                                     Width="200"
                                      IsReadOnly="True"
                                      Style="{StaticResource CommonTextBox}" />
                         </StackPanel>
@@ -112,27 +112,31 @@
             </DockPanel>
             -->
             <!--  WORK AREA  -->
-            <TabControl TabStripPlacement="Left" Margin="0,5">
-                <TabItem Header="Tensile Strength">
+            <TabControl x:Name="tabs"
+                        TabStripPlacement="Left"
+                        Margin="0,5">
+                <TabItem Header="Tensile Strength" Visibility="{Binding VisibleTensileStrengths}">
                     <prop:CordTensileStrengthPage />
                 </TabItem>
-                <TabItem Header="Elongation">
+                <TabItem Header="Elongation" Visibility="{Binding VisibleElongations}">
                     <prop:CordElongationPage />
                 </TabItem>
-                <TabItem Header="Adhesion Force (Peel)">
+                <TabItem Header="Adhesion Force (Peel)" Visibility="{Binding VisibleAdhesionForces}">
                     <prop:CordAdhesionForcePage />
                 </TabItem>
-                <TabItem Header="Shrinkage force(N)">
+                <TabItem Header="Shrinkage force(N)" Visibility="{Binding VisibleShrinkageForces}">
                     <prop:CordShrinkageForcePage />
                 </TabItem>
-                <TabItem Header="Shrinkage %" />
-                <TabItem Header="1st Twisting Number">
+                <TabItem Header="Shrinkage %">
+                    <Grid />
+                </TabItem>
+                <TabItem Header="1st Twisting Number" Visibility="{Binding VisibleCord1stTwistingNumbers}">
                     <prop:Cord1stTwistingNumberPage />
                 </TabItem>
-                <TabItem Header="2nd Twisting Number">
+                <TabItem Header="2nd Twisting Number" Visibility="{Binding VisibleCord2ndTwistingNumbers}">
                     <prop:Cord2ndTwistingNumberPage />
                 </TabItem>
-                <TabItem Header="Thickness">
+                <TabItem Header="Thickness" Visibility="{Binding VisibleThicknesses}">
                     <prop:CordThicknessPage />
                 </TabItem>
                 <TabItem>
@@ -146,7 +150,7 @@
                         </TextBlock>
                     </TabItem.Header>
                 </TabItem>
-                <TabItem Header="RPU">
+                <TabItem Header="RPU" Visibility="{Binding VisibleRPUs}">
                     <prop:CordRPUPage />
                 </TabItem>
             </TabControl>

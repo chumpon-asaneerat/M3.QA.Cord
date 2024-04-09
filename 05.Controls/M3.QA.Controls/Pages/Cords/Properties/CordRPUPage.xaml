@@ -84,7 +84,7 @@
                           Focusable="False"
                           VirtualizingPanel.IsVirtualizing="True"
                           VirtualizingPanel.VirtualizationMode="Recycling"
-                          ItemsSource="{Binding Cord1stTwistingNumbers}">
+                          ItemsSource="{Binding RPUs}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Margin="5"
@@ -107,7 +107,7 @@
                                                        TextAlignment="Right"
                                                        VerticalAlignment="Center"
                                                        Margin="3,0,10,0"
-                                                       Width="120"
+                                                       Width="150"
                                                        DockPanel.Dock="Left" />
                                             <!--  EACH Item N/R  -->
                                             <ItemsControl ItemsSource="{Binding BeforeHeat.Items}"
@@ -156,7 +156,7 @@
                                                        TextAlignment="Right"
                                                        VerticalAlignment="Center"
                                                        Margin="3,0,10,0"
-                                                       Width="120"
+                                                       Width="150"
                                                        DockPanel.Dock="Left" />
                                             <!--  EACH TM N/R  -->
                                             <ItemsControl ItemsSource="{Binding AfterHeat.Items}"
@@ -204,7 +204,7 @@
                                 <!--  RPU.  -->
                                 <Border Margin="0,0,5,0" DockPanel.Dock="Left">
                                     <StackPanel Orientation="Vertical" Width="100">
-                                        <TextBlock Text="AVG" TextAlignment="Center" />
+                                        <TextBlock Text="RPU" TextAlignment="Center" />
                                         <TextBox Style="{StaticResource RPU}" />
                                     </StackPanel>
                                 </Border>

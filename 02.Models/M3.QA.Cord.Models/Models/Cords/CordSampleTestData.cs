@@ -24,7 +24,28 @@ namespace M3.QA.Models
     /// </summary>
     public class CordSampleTestData : NInpc
     {
+        #region Constructor
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public CordSampleTestData() : base()
+        {
+            ShowTensileStrengths = false;
+            ShowElongations = false;
+            ShowAdhesionForces = false;
+            ShowShrinkageForces = false;
+            ShowThicknesses = false;
+            ShowCord1stTwistingNumbers = false;
+            ShowCord2ndTwistingNumbers = false;
+            ShowRPUs = false;
+        }
+
+        #endregion
+
         #region Public Properties
+
+        #region Common
 
         public string LotNo { get; set; }
         public string ItemCode { get; set; }
@@ -47,7 +68,9 @@ namespace M3.QA.Models
 
         public bool CanEditStartDate { get; set; }
 
-        public List<Utils.M_GetPropertyTotalNByItem> TotalNs { get; set; }
+        #endregion
+
+        #region Test Tab Visibility
 
         public bool ShowTensileStrengths 
         {
@@ -100,9 +123,15 @@ namespace M3.QA.Models
 
         public bool ShowRPUs {
             get { return Get<bool>(); }
-            set { Set(value, () => { Raise(() => this.VisibleRPU); }); }
+            set { Set(value, () => { Raise(() => this.VisibleRPUs); }); }
         }
-        public Visibility VisibleRPU { get { return (ShowRPUs) ? Visibility.Visible : Visibility.Collapsed; } set { } }
+        public Visibility VisibleRPUs { get { return (ShowRPUs) ? Visibility.Visible : Visibility.Collapsed; } set { } }
+
+        #endregion
+
+        #region Test Properties
+
+        public List<Utils.M_GetPropertyTotalNByItem> TotalNs { get; set; }
 
         /// <summary>The Tensile Strengths Items.</summary>
         public List<CordTensileStrength> TensileStrengths { get; set; }
@@ -120,6 +149,8 @@ namespace M3.QA.Models
         public List<Cord2ndTwistingNumber> Cord2ndTwistingNumbers { get; set; }
         /// <summary>The RPU Items.</summary>
         public List<CordRPU> RPUs { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -147,7 +178,7 @@ namespace M3.QA.Models
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 1; });
                         TensileStrengths = CordTensileStrength.Create(this, item);
 
-                        ShowTensileStrengths = true;
+                        ShowTensileStrengths = (null != item && item.NoSample > 0);
                     }
                     // Elongation PropertyNo = 2 (break), 3 (load)
                     {
@@ -155,49 +186,50 @@ namespace M3.QA.Models
                         var loadItem = TotalNs.Find((x) => { return x.PropertyNo == 3; });
                         Elongations = CordElongation.Create(this, breakItem, loadItem);
 
-                        ShowElongations = true;
+                        ShowElongations = ((null != breakItem && breakItem.NoSample > 0) || 
+                            (null != loadItem && loadItem.NoSample > 0));
                     }
                     // Adhesion Force PropertyNo = 4
                     {
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 4; });
                         AdhesionForces = CordAdhesionForce.Create(this, item);
 
-                        ShowAdhesionForces = true;
+                        ShowAdhesionForces = (null != item && item.NoSample > 0);
                     }
                     // Shrinkage Force PropertyNo = 5
                     {
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 5; });
                         ShrinkageForces = CordShrinkageForce.Create(this, item);
 
-                        ShowShrinkageForces = true;
+                        ShowShrinkageForces = (null != item && item.NoSample > 0);
                     }
                     // Thickness PropertyNo = 9
                     {
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 9; });
                         Thicknesses = CordThickness.Create(this, item);
 
-                        ShowThicknesses = true;
+                        ShowThicknesses = (null != item && item.NoSample > 0);
                     }
                     // 1st Twisting Number PropertyNo = 7
                     {
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 7; });
                         Cord1stTwistingNumbers = Cord1stTwistingNumber.Create(this, item);
 
-                        ShowCord1stTwistingNumbers = true;
+                        ShowCord1stTwistingNumbers = (null != item && item.NoSample > 0);
                     }
                     // 2nd Twisting Number PropertyNo = 8
                     {
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 8; });
                         Cord2ndTwistingNumbers = Cord2ndTwistingNumber.Create(this, item);
 
-                        ShowCord2ndTwistingNumbers = true;
+                        ShowCord2ndTwistingNumbers = (null != item && item.NoSample > 0);
                     }
                     // RPU PropertyNo = 12
                     {
                         var item = TotalNs.Find((x) => { return x.PropertyNo == 12; });
                         RPUs = CordRPU.Create(this, item);
 
-                        ShowRPUs = true;
+                        ShowRPUs = (null != item && item.NoSample > 0);
                     }
                 }
             }

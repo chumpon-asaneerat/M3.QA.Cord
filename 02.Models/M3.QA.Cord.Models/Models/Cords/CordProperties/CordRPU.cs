@@ -46,7 +46,7 @@ namespace M3.QA.Models
 
         private void CalculateFormula()
         {
-            if (null != BeforeHeat && null != AfterHeat && null != RPU)
+            if (null != BeforeHeat && null != AfterHeat)
             {
                 // RPU = ( (BF Heat – AF Heat) / AF Heat )*100
 

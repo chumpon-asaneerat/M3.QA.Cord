@@ -113,6 +113,8 @@ namespace M3.QA.Pages
             item = ret.Value();
             this.DataContext = item;
 
+            UpdateTabItem();
+
             //pgrid.SelectedObject = item;
         }
 
@@ -124,6 +126,8 @@ namespace M3.QA.Pages
             item = new CordSampleTestData();
             
             this.DataContext = item;
+
+            UpdateTabItem();
 
             //pgrid.SelectedObject = item;
             this.InvokeAction(() =>
@@ -159,6 +163,35 @@ namespace M3.QA.Pages
 
                 Clear();
             }
+        }
+
+        private void UpdateTabItem()
+        {
+            tabs.SelectedIndex = -1; // Reset Tab index
+            tabs.Visibility = Visibility.Hidden;
+
+            if (null != item)
+            {
+                if (item.ShowTensileStrengths)
+                    tabs.SelectedIndex = 0;
+                else if (item.ShowElongations)
+                    tabs.SelectedIndex = 1;
+                else if (item.ShowAdhesionForces)
+                    tabs.SelectedIndex = 2;
+                else if (item.ShowShrinkageForces)
+                    tabs.SelectedIndex = 3;
+                else if (item.ShowCord1stTwistingNumbers)
+                    tabs.SelectedIndex = 5;
+                else if (item.ShowCord2ndTwistingNumbers)
+                    tabs.SelectedIndex = 6;
+                else if (item.ShowThicknesses)
+                    tabs.SelectedIndex = 7;
+                else if (item.ShowRPUs)
+                    tabs.SelectedIndex = 9;
+            }
+
+            if (tabs.SelectedIndex >= 0) 
+                tabs.Visibility = Visibility.Visible;
         }
 
         #endregion
