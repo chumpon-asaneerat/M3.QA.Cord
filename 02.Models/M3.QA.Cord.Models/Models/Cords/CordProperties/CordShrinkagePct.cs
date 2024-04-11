@@ -196,7 +196,7 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region BeforeHeat/AfterHear/RPU
+        #region LengthBeforeHeat/LengthAfterHear/Shrinkage%
 
         public NRTestProperty LengthBeforeHeat { get; set; }
         public NRTestProperty LengthAfterHeat { get; set; }
