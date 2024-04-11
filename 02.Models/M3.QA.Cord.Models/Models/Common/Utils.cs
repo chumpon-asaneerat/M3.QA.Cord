@@ -385,6 +385,102 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region P_GetShrinkageByLot
+
+        public class P_GetShrinkageByLot
+        {
+            #region Public Properties
+
+            public string LotNo { get; set; }
+            public int? SPNo { get; set; }
+
+            public decimal? LBHN1 { get; set; }
+            public decimal? LBHN2 { get; set; }
+            public decimal? LBHN3 { get; set; }
+
+            public decimal? LBHR1 { get; set; }
+            public decimal? LBHR2 { get; set; }
+            public decimal? LBHR3 { get; set; }
+
+            public decimal? LAHN1 { get; set; }
+            public decimal? LAHN2 { get; set; }
+            public decimal? LAHN3 { get; set; }
+
+            public decimal? LAHR1 { get; set; }
+            public decimal? LAHR2 { get; set; }
+            public decimal? LAHR3 { get; set; }
+
+            public decimal? SKN1 { get; set; }
+            public decimal? SKN2 { get; set; }
+            public decimal? SKN3 { get; set; }
+            public decimal? SKR1 { get; set; }
+            public decimal? SKR2 { get; set; }
+            public decimal? SKR3 { get; set; }
+
+            public string InputBy { get; set; }
+            public DateTime? InputDate { get; set; }
+
+            public string EditBy { get; set; }
+            public DateTime? EditDate { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<P_GetShrinkageByLot>> GetByLot(string lotNo)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<P_GetShrinkageByLot>> ret = new NDbResult<List<P_GetShrinkageByLot>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                if (string.IsNullOrEmpty(lotNo))
+                {
+                    ret.ParameterIsNull();
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@lotNo", lotNo);
+
+                try
+                {
+                    var items = cnn.Query<P_GetShrinkageByLot>("P_GetShrinkageByLot", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
+
         #region P_SearchReceiveCord
 
         public class P_SearchReceiveCord

@@ -77,8 +77,10 @@
     <Compile Include="Models\Cords\CordMC.cs" />
     <Compile Include="Models\Cords\CordProperties\Cord1stTwistingNumber.cs" />
     <Compile Include="Models\Cords\CordProperties\Cord2ndTwistingNumber.cs" />
+    <Compile Include="Models\Cords\CordProperties\CordDenierMoistureWeight.cs" />
     <Compile Include="Models\Cords\CordProperties\CordRPU.cs" />
     <Compile Include="Models\Cords\CordProperties\CordShrinkageForce.cs" />
+    <Compile Include="Models\Cords\CordProperties\CordShrinkagePct.cs" />
     <Compile Include="Models\Cords\CordProperties\CordThickness.cs" />
     <Compile Include="Models\Cords\CordTestSampleRecv.cs" />
     <Compile Include="Models\Cords\CustomerCode.cs" />

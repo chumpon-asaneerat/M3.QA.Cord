@@ -66,6 +66,8 @@ namespace M3.QA.Models
         public string Spindle { get; set; }
         public string ELongLoadN { get; set; }
 
+        public string YarnType { get; set; } // Polyester, Nylon
+
         public bool CanEditStartDate { get; set; }
 
         #endregion
