@@ -300,6 +300,94 @@ namespace M3.QA.Models
 
         #region Static Methods
 
+        #region Create
+
+        /// <summary>
+        /// Create
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="totalN"></param>
+        /// <returns></returns>
+        internal static List<CordDenierMoistureWeight> Create(CordSampleTestData value,
+            Utils.M_GetPropertyTotalNByItem totalN)
+        {
+            List<CordDenierMoistureWeight> results = new List<CordDenierMoistureWeight>();
+            if (null == value)
+                return results;
+
+            // For Denier (PropertyNo = 10), Moisture regain (PropertyNo = 11), Weight (PropertyNo = 14)
+            int noOfSample = (null != totalN) ? totalN.NoSample : 0;
+            int alllowSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
+
+            int i = 1;
+            int iMaxLimitSP = 7;
+            while (i <= iMaxLimitSP)
+            {
+                if (results.Count >= alllowSP)
+                    break; // already reach max allow SP
+
+                int? SP;
+                switch (i)
+                {
+                    case 1: SP = value.SP1; break;
+                    case 2: SP = value.SP2; break;
+                    case 3: SP = value.SP3; break;
+                    case 4: SP = value.SP4; break;
+                    case 5: SP = value.SP5; break;
+                    case 6: SP = value.SP6; break;
+                    case 7: SP = value.SP7; break;
+                    default: SP = new int?(); break;
+                }
+                // Skip SP is null
+                if (!SP.HasValue)
+                {
+                    i++; // increase index and skip to next loop.
+                    continue;
+                }
+
+                var inst = new CordDenierMoistureWeight()
+                {
+                    LotNo = value.LotNo,
+                    PropertyNo = 12, // Denier (PropertyNo = 10), Moisture regain (PropertyNo = 11), Weight (PropertyNo = 14)
+                    SPNo = SP,
+                    NeedSP = true,
+                    YarnType = value.YarnType,
+                    NoOfSample = noOfSample
+                };
+
+                results.Add(inst);
+
+                i++; // increase index
+            }
+
+            // For Denier (PropertyNo = 10), Moisture regain (PropertyNo = 11), Weight (PropertyNo = 14)
+            var existItems = (value.MasterId.HasValue) ? GetsByLotNo(value.LotNo).Value() : null;
+            if (null != existItems && null != results)
+            {
+                int idx = -1;
+                // loop trought all initial results and fill data with the exists on database
+                foreach (var item in results)
+                {
+                    idx = existItems.FindIndex((x) =>
+                    {
+                        return x.SPNo == item.SPNo && x.PropertyNo == item.PropertyNo;
+                    });
+                    if (idx != -1)
+                    {
+                        // need to set because not return from db.
+                        existItems[idx].NoOfSample = item.NoOfSample;
+                        existItems[idx].YarnType = item.YarnType;
+                        // Clone anther properties
+                        Clone(existItems[idx], item);
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        #endregion
+
         #region Clone
 
         /// <summary>
@@ -380,7 +468,7 @@ namespace M3.QA.Models
                     {
                         var inst = new CordDenierMoistureWeight();
                         inst.LotNo = item.LotNo;
-                        inst.PropertyNo = 12; // RPU Proepty No = 12
+                        inst.PropertyNo = 12; // Denier (PropertyNo = 10), Moisture regain (PropertyNo = 11), Weight (PropertyNo = 14)
                         inst.SPNo = item.SPNo;
 
                         inst.NeedSP = true;
