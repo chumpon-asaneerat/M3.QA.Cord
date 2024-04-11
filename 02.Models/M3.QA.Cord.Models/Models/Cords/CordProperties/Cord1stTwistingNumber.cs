@@ -31,27 +31,38 @@ namespace M3.QA.Models
         {
             Item = new NRTestProperty();
             // only Item change need to calc formula for TM and TM10cm
-            Item.ValueChanges = CalculateFormula;
+            Item.ValueChanges = CalculateFormulaFromItem;
 
             TM = new NRTestProperty();
+            // only TM change need to calc formula for Item and TM10cm
+            TM.ValueChanges = CalculateFormulaFromTM;
+
             TM10cm = new NRTestProperty();
+            // only TCM change need to calc formula for Item and TM
+            TM10cm.ValueChanges = CalculateFormulaFromTCM;
         }
 
         #endregion
 
         #region Private Methods
 
-        private void CalculateFormula()
+        private bool onCalc = false;
+
+        private void CalculateFormulaFromItem()
         {
+            if (onCalc) return; // lock circular reference dead lock
+            onCalc = true;
+
             if (null != Item && null != TM && null != TM10cm)
             {
+                // TM = Item / 2
                 TM.N1 = (Item.N1.HasValue) ? Item.N1.Value * 2 : new decimal?();
                 TM.N2 = (Item.N2.HasValue) ? Item.N2.Value * 2 : new decimal?();
                 TM.N3 = (Item.N3.HasValue) ? Item.N3.Value * 2 : new decimal?();
                 TM.R1 = (Item.R1.HasValue) ? Item.R1.Value * 2 : new decimal?();
                 TM.R2 = (Item.R2.HasValue) ? Item.R2.Value * 2 : new decimal?();
                 TM.R3 = (Item.R3.HasValue) ? Item.R3.Value * 2 : new decimal?();
-
+                // TCM = TM / 10
                 TM10cm.N1 = (TM.N1.HasValue) ? TM.N1.Value / 10 : new decimal?();
                 TM10cm.N2 = (TM.N2.HasValue) ? TM.N2.Value / 10 : new decimal?();
                 TM10cm.N3 = (TM.N3.HasValue) ? TM.N3.Value / 10 : new decimal?();
@@ -63,6 +74,68 @@ namespace M3.QA.Models
                 Raise(() => this.TM);
                 Raise(() => this.TM10cm);
             }
+
+            onCalc = false;
+        }
+
+        private void CalculateFormulaFromTM()
+        {
+            if (onCalc) return; // lock circular reference dead lock
+            onCalc = true;
+
+            if (null != Item && null != TM && null != TM10cm)
+            {
+                // Item = TM / 2
+                Item.N1 = (TM.N1.HasValue) ? TM.N1.Value / 2 : new decimal?();
+                Item.N2 = (TM.N2.HasValue) ? TM.N2.Value / 2 : new decimal?();
+                Item.N3 = (TM.N3.HasValue) ? TM.N3.Value / 2 : new decimal?();
+                Item.R1 = (TM.R1.HasValue) ? TM.R1.Value / 2 : new decimal?();
+                Item.R2 = (TM.R2.HasValue) ? TM.R2.Value / 2 : new decimal?();
+                Item.R3 = (TM.R3.HasValue) ? TM.R3.Value / 2 : new decimal?();
+                // TCM = TM / 10
+                TM10cm.N1 = (TM.N1.HasValue) ? TM.N1.Value / 10 : new decimal?();
+                TM10cm.N2 = (TM.N2.HasValue) ? TM.N2.Value / 10 : new decimal?();
+                TM10cm.N3 = (TM.N3.HasValue) ? TM.N3.Value / 10 : new decimal?();
+                TM10cm.R1 = (TM.R1.HasValue) ? TM.R1.Value / 10 : new decimal?();
+                TM10cm.R2 = (TM.R2.HasValue) ? TM.R2.Value / 10 : new decimal?();
+                TM10cm.R3 = (TM.R3.HasValue) ? TM.R3.Value / 10 : new decimal?();
+
+                // Raise events
+                Raise(() => this.Item);
+                Raise(() => this.TM10cm);
+            }
+
+            onCalc = false;
+        }
+
+        private void CalculateFormulaFromTCM()
+        {
+            if (onCalc) return; // lock circular reference dead lock
+            onCalc = true;
+
+            if (null != Item && null != TM && null != TM10cm)
+            {
+                // TM = TCM 8 10
+                TM.N1 = (TM10cm.N1.HasValue) ? TM10cm.N1.Value * 10 : new decimal?();
+                TM.N2 = (TM10cm.N2.HasValue) ? TM10cm.N2.Value * 10 : new decimal?();
+                TM.N3 = (TM10cm.N3.HasValue) ? TM10cm.N3.Value * 10 : new decimal?();
+                TM.R1 = (TM10cm.R1.HasValue) ? TM10cm.R1.Value * 10 : new decimal?();
+                TM.R2 = (TM10cm.R2.HasValue) ? TM10cm.R2.Value * 10 : new decimal?();
+                TM.R3 = (TM10cm.R3.HasValue) ? TM10cm.R3.Value * 10 : new decimal?();
+                // Item = TM / 2
+                Item.N1 = (TM.N1.HasValue) ? TM.N1.Value / 2 : new decimal?();
+                Item.N2 = (TM.N2.HasValue) ? TM.N2.Value / 2 : new decimal?();
+                Item.N3 = (TM.N3.HasValue) ? TM.N3.Value / 2 : new decimal?();
+                Item.R1 = (TM.R1.HasValue) ? TM.R1.Value / 2 : new decimal?();
+                Item.R2 = (TM.R2.HasValue) ? TM.R2.Value / 2 : new decimal?();
+                Item.R3 = (TM.R3.HasValue) ? TM.R3.Value / 2 : new decimal?();
+
+                // Raise events
+                Raise(() => this.Item);
+                Raise(() => this.TM);
+            }
+
+            onCalc = false;
         }
 
         private void UpdateProperties()
@@ -74,6 +147,11 @@ namespace M3.QA.Models
             Item.SPNo = SPNo;
             Item.NoOfSample = NoOfSample;
             Item.NeedSP = NeedSP;
+            // Check calculate action
+            if (null == Item.ValueChanges)
+            {
+                Item.ValueChanges = CalculateFormulaFromItem;
+            }
 
             if (null == TM) TM = new NRTestProperty();
             TM.SPNo = SPNo;
@@ -82,6 +160,11 @@ namespace M3.QA.Models
             TM.SPNo = SPNo;
             TM.NoOfSample = NoOfSample;
             TM.NeedSP = NeedSP;
+            // Check calculate action
+            if (null == TM.ValueChanges)
+            {
+                TM.ValueChanges = CalculateFormulaFromTM;
+            }
 
             if (null == TM10cm) TM10cm = new NRTestProperty();
             TM10cm.SPNo = SPNo;
@@ -90,14 +173,13 @@ namespace M3.QA.Models
             TM10cm.SPNo = SPNo;
             TM10cm.NoOfSample = NoOfSample;
             TM10cm.NeedSP = NeedSP;
-
             // Check calculate action
-            if (null == Item.ValueChanges)
+            if (null == TM10cm.ValueChanges)
             {
-                Item.ValueChanges = CalculateFormula;
+                TM10cm.ValueChanges = CalculateFormulaFromTCM;
             }
 
-            CalculateFormula(); // calculate
+            CalculateFormulaFromItem(); // calculate
 
             this.Raise(() => this.EnableTest);
         }
