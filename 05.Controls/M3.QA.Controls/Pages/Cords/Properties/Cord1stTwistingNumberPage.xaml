@@ -197,7 +197,7 @@
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
-                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                        <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
@@ -205,7 +205,7 @@
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleR}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
-                                                                        <TextBox Style="{StaticResource RInput}" IsReadOnly="True" />
+                                                                        <TextBox Style="{StaticResource RInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
@@ -253,7 +253,7 @@
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
-                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                        <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
@@ -261,7 +261,7 @@
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleR}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
-                                                                        <TextBox Style="{StaticResource RInput}" IsReadOnly="True" />
+                                                                        <TextBox Style="{StaticResource RInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
