@@ -149,6 +149,7 @@
                             <Run Text="Weight" />
                         </TextBlock>
                     </TabItem.Header>
+                    <prop:CordDenierMoistureWeightPage />
                 </TabItem>
                 <TabItem Header="RPU" Visibility="{Binding VisibleRPUs}">
                     <prop:CordRPUPage />
