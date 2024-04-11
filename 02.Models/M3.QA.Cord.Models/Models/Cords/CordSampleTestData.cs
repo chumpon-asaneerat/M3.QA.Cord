@@ -450,6 +450,14 @@ namespace M3.QA.Models
                     if (null == res || !res.Ok) return;
                 });
 
+                value.ShrinkagePcts.ForEach(x =>
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    res = CordShrinkagePct.Save(x);
+                    if (null == res || !res.Ok) return;
+                });
+
                 if (null == res || !res.Ok)
                 {
                     if (null == res)
