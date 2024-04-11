@@ -281,6 +281,7 @@ namespace M3.QA.Models
                 SPNo = elongItem.SPNo,
                 NeedSP = true,
                 NeedEload = false, // Elongation Break not requred SP No
+                YarnType = value.YarnType,
                 NoOfSample = noOfSample
             };
 
@@ -350,6 +351,7 @@ namespace M3.QA.Models
                         NeedSP = true,
                         NeedEload = true, // Elongation Load requred SP No
                         NoOfSample = noOfSample,
+                        YarnType = value.YarnType,
                         LoadN = elongId
                     };
 
@@ -378,6 +380,7 @@ namespace M3.QA.Models
         public int? MasterId { get; set; }
         public int? SPNo { get; set; }
         public string ELongLoadN { get; set; }
+        public string YarnType { get; set; }
 
         public List<CordElongationSubProperty> SubProperties { get; set; }
 
@@ -468,7 +471,8 @@ namespace M3.QA.Models
                     LotNo = value.LotNo,
                     MasterId = value.MasterId.Value,
                     SPNo = SP,
-                    ELongLoadN = value.ELongLoadN
+                    ELongLoadN = value.ELongLoadN,
+                    YarnType = value.YarnType
                 };
                 // load break/load sub properties.
                 inst.SubProperties = CreateSubProperties(value, breakTotalN, loadTotalN, inst);
@@ -511,6 +515,7 @@ namespace M3.QA.Models
                         {
                             // need to set because not return from db.
                             item.NoOfSample = elong.SubProperties[idx].NoOfSample;
+                            item.YarnType = elong.SubProperties[idx].YarnType;
                             // Clone anther properties
                             CordElongationSubProperty.Clone(item, elong.SubProperties[idx]);
                         }

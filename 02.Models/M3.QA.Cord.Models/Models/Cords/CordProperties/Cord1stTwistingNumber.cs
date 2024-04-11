@@ -147,6 +147,7 @@ namespace M3.QA.Models
             Item.SPNo = SPNo;
             Item.NoOfSample = NoOfSample;
             Item.NeedSP = NeedSP;
+            Item.YarnType = YarnType;
             // Check calculate action
             if (null == Item.ValueChanges)
             {
@@ -160,6 +161,7 @@ namespace M3.QA.Models
             TM.SPNo = SPNo;
             TM.NoOfSample = NoOfSample;
             TM.NeedSP = NeedSP;
+            TM.YarnType = YarnType;
             // Check calculate action
             if (null == TM.ValueChanges)
             {
@@ -173,6 +175,7 @@ namespace M3.QA.Models
             TM10cm.SPNo = SPNo;
             TM10cm.NoOfSample = NoOfSample;
             TM10cm.NeedSP = NeedSP;
+            TM10cm.YarnType = YarnType;
             // Check calculate action
             if (null == TM10cm.ValueChanges)
             {
@@ -188,7 +191,7 @@ namespace M3.QA.Models
 
         #region Public Properties
 
-        #region LotNo/PropertyNo/SPNo/NoOfSample
+        #region LotNo/PropertyNo/SPNo/NoOfSample/YarnType
 
         /// <summary>Gets or sets Lot No.</summary>
         public string LotNo
@@ -242,6 +245,18 @@ namespace M3.QA.Models
         public bool NeedSP
         {
             get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    UpdateProperties();
+                });
+            }
+        }
+        /// <summary>Gets or sets Yarn Type.</summary>
+        public string YarnType
+        {
+            get { return Get<string>(); }
             set
             {
                 Set(value, () =>
@@ -335,6 +350,7 @@ namespace M3.QA.Models
                     PropertyNo = 7, // 1st Twisting Number = 7
                     SPNo = SP,
                     NeedSP = true,
+                    YarnType = value.YarnType,
                     NoOfSample = noOfSample
                 };
 
@@ -359,6 +375,7 @@ namespace M3.QA.Models
                     {
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
+                        existItems[idx].YarnType = item.YarnType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }
@@ -386,6 +403,7 @@ namespace M3.QA.Models
             dst.PropertyNo = src.PropertyNo;
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
+            dst.YarnType = src.YarnType;
 
             dst.EditBy = src.EditBy;
             dst.EditDate = src.EditDate;

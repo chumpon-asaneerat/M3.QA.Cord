@@ -54,6 +54,7 @@ namespace M3.QA.Models
             BeforeHeat.SPNo = SPNo;
             BeforeHeat.NoOfSample = NoOfSample;
             BeforeHeat.NeedSP = NeedSP;
+            BeforeHeat.YarnType = YarnType;
 
             if (null == AfterHeat) AfterHeat = new NRTestProperty();
             AfterHeat.SPNo = SPNo;
@@ -62,6 +63,7 @@ namespace M3.QA.Models
             AfterHeat.SPNo = SPNo;
             AfterHeat.NoOfSample = NoOfSample;
             AfterHeat.NeedSP = NeedSP;
+            AfterHeat.YarnType = YarnType;
 
             // Check calculate action
             if (null == BeforeHeat.ValueChanges)
@@ -136,6 +138,18 @@ namespace M3.QA.Models
         public bool NeedSP
         {
             get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    UpdateProperties();
+                });
+            }
+        }
+        /// <summary>Gets or sets Yarn Type.</summary>
+        public string YarnType
+        {
+            get { return Get<string>(); }
             set
             {
                 Set(value, () =>

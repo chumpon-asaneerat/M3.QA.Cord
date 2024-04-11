@@ -86,7 +86,7 @@ namespace M3.QA.Models
 
         #region Public Properties
 
-        #region LotNo/PropertyNo/SPNo/NoOfSample
+        #region LotNo/PropertyNo/SPNo/NoOfSample/YarnType
 
         /// <summary>Gets or sets Lot No.</summary>
         public string LotNo
@@ -140,6 +140,18 @@ namespace M3.QA.Models
         public bool NeedSP
         {
             get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    UpdateProperties();
+                });
+            }
+        }
+        /// <summary>Gets or sets Yarn Type.</summary>
+        public string YarnType
+        {
+            get { return Get<string>(); }
             set
             {
                 Set(value, () =>
@@ -234,6 +246,7 @@ namespace M3.QA.Models
                     PropertyNo = 4, // Adhesion Force = 4
                     SPNo = SP,
                     NeedSP = true,
+                    YarnType = value.YarnType,
                     NoOfSample = noOfSample
                 };
 
@@ -254,6 +267,7 @@ namespace M3.QA.Models
                     {
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
+                        existItems[idx].YarnType = item.YarnType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }
@@ -281,6 +295,7 @@ namespace M3.QA.Models
             dst.PropertyNo = src.PropertyNo;
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
+            dst.YarnType = src.YarnType;
 
             dst.EditBy = src.EditBy;
             dst.EditDate = src.EditDate;

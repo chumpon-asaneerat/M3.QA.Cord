@@ -99,7 +99,7 @@
     <Compile Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml.cs">
       <DependentUpon>OperatorInfoElement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CordShrinkagePctPage.xaml.cs">
+    <Compile Include="Pages\Cords\Properties\CordShrinkagePctPage.xaml.cs">
       <DependentUpon>CordShrinkagePctPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Cords\Properties\Cord1stTwistingNumberPage.xaml.cs">
@@ -270,7 +270,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\CordShrinkagePctPage.xaml">
+    <Page Include="Pages\Cords\Properties\CordShrinkagePctPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

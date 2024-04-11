@@ -53,6 +53,7 @@ namespace M3.QA.Models
             dst.PropertyNo = src.PropertyNo;
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
+            dst.YarnType = src.YarnType;
 
             dst.EditBy = src.EditBy;
             dst.EditDate = src.EditDate;
@@ -126,6 +127,7 @@ namespace M3.QA.Models
                     PropertyNo = 9, // Thickness = 9
                     SPNo = SP,
                     NeedSP = true,
+                    YarnType = value.YarnType,
                     NoOfSample = noOfSample
                 };
 
@@ -146,6 +148,7 @@ namespace M3.QA.Models
                     {
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
+                        existItems[idx].YarnType = item.YarnType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }
