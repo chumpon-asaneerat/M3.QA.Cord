@@ -338,6 +338,94 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region GetsByLotNo
+
+        /// <summary>
+        /// Gets CordDenierMoistureWeight by Lot No.
+        /// </summary>
+        /// <param name="lotNo">The Lot No.</param>
+        /// <returns></returns>
+        public static NDbResult<List<CordDenierMoistureWeight>> GetsByLotNo(string lotNo)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<List<CordDenierMoistureWeight>> ret = new NDbResult<List<CordDenierMoistureWeight>>();
+
+            if (string.IsNullOrWhiteSpace(lotNo))
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            try
+            {
+                List<CordDenierMoistureWeight> results = new List<CordDenierMoistureWeight>();
+
+                var items = Utils.P_GetDenierMoistureWByLot.GetByLot(lotNo).Value();
+                if (null != items)
+                {
+                    foreach (var item in items)
+                    {
+                        var inst = new CordDenierMoistureWeight();
+                        inst.LotNo = item.LotNo;
+                        inst.PropertyNo = 12; // RPU Proepty No = 12
+                        inst.SPNo = item.SPNo;
+
+                        inst.NeedSP = true;
+                        //inst.NoOfSample = 1; // ???
+
+                        if (null != inst.BeforeHeat)
+                        {
+                            inst.BeforeHeat.N1 = item.BFN1;
+                            inst.BeforeHeat.R1 = item.BFR1;
+                        }
+                        if (null != inst.AfterHeat)
+                        {
+                            inst.AfterHeat.N1 = item.AFN1;
+                            inst.AfterHeat.R1 = item.AFR1;
+                        }
+
+                        inst.RPU = item.RPU;
+
+                        inst.InputBy = item.InputBy;
+                        inst.InputDate = item.InputDate;
+                        inst.EditBy = item.EditBy;
+                        inst.EditDate = item.EditDate;
+
+                        results.Add(inst);
+                    }
+                }
+
+                ret.Success(results);
+                // Set error number/message
+                ret.ErrNum = 0;
+                ret.ErrMsg = "Success";
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+        #endregion
+
         #endregion
     }
 
