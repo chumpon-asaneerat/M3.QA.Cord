@@ -300,6 +300,44 @@ namespace M3.QA.Models
 
         #region Static Methods
 
+        #region Clone
+
+        /// <summary>
+        /// Clone.
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="dst"></param>
+        public static void Clone(CordDenierMoistureWeight src, CordDenierMoistureWeight dst)
+        {
+            if (null == src || null == dst)
+                return;
+
+            dst.LotNo = src.LotNo;
+            dst.PropertyNo = src.PropertyNo;
+            dst.SPNo = src.SPNo;
+            dst.NoOfSample = src.NoOfSample;
+            dst.YarnType = src.YarnType;
+
+            dst.EditBy = src.EditBy;
+            dst.EditDate = src.EditDate;
+            dst.InputBy = src.InputBy;
+            dst.InputDate = src.InputDate;
+
+            NRTestProperty.Clone(src.YarnWeightBeforeDying, dst.YarnWeightBeforeDying);
+            NRTestProperty.Clone(src.ContentWeight, dst.ContentWeight);
+            NRTestProperty.Clone(src.YarnAndContentWeightAfterDying, dst.YarnAndContentWeightAfterDying);
+
+            NRTestProperty.Clone(src.YarnWeightAfterDying, dst.YarnWeightAfterDying);
+
+            NRTestProperty.Clone(src.StandardDenierD, dst.StandardDenierD);
+            NRTestProperty.Clone(src.StandardDenierDtex, dst.StandardDenierDtex);
+
+            NRTestProperty.Clone(src.EquilibriumMoistureContent, dst.EquilibriumMoistureContent);
+            NRTestProperty.Clone(src.Weight, dst.Weight);
+        }
+
+        #endregion
+
         #endregion
     }
 
