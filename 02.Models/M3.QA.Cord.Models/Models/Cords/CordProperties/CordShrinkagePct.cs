@@ -70,6 +70,14 @@ namespace M3.QA.Models
                     LengthBeforeHeat.R3 - (LengthAfterHeat.R3.HasValue ? LengthAfterHeat.R3.Value : decimal.Zero) :
                     new decimal?());
 
+                // Recheck if less than zero not allow
+                if (PctShrinkage.N1.HasValue && PctShrinkage.N1.Value < 0) PctShrinkage.N1 = new decimal?();
+                if (PctShrinkage.N2.HasValue && PctShrinkage.N2.Value < 0) PctShrinkage.N2 = new decimal?();
+                if (PctShrinkage.N3.HasValue && PctShrinkage.N3.Value < 0) PctShrinkage.N3 = new decimal?();
+                if (PctShrinkage.R1.HasValue && PctShrinkage.R1.Value < 0) PctShrinkage.R1 = new decimal?();
+                if (PctShrinkage.R2.HasValue && PctShrinkage.R2.Value < 0) PctShrinkage.R2 = new decimal?();
+                if (PctShrinkage.R3.HasValue && PctShrinkage.R3.Value < 0) PctShrinkage.R3 = new decimal?();
+
                 // Raise events
                 Raise(() => this.PctShrinkage);
             }
@@ -102,6 +110,14 @@ namespace M3.QA.Models
             {
                 LengthAfterHeat.ValueChanges = CalculateFormula;
             }
+
+            if (null == PctShrinkage) PctShrinkage = new NRTestProperty();
+            PctShrinkage.SPNo = SPNo;
+            PctShrinkage.LotNo = LotNo;
+            PctShrinkage.PropertyNo = PropertyNo;
+            PctShrinkage.SPNo = SPNo;
+            PctShrinkage.NoOfSample = NoOfSample;
+            PctShrinkage.NeedSP = NeedSP;
 
             CalculateFormula(); // calculate
 

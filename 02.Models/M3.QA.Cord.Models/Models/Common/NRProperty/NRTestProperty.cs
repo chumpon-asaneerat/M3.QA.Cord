@@ -213,10 +213,7 @@ namespace M3.QA.Models
                 }
             }
             // Calc average value.
-            decimal avg = (iCnt > 0) ? (total / iCnt) : 0;
-            this.Avg = avg;
-            // Raise events
-            this.Raise(() => this.Avg);
+            this.Avg = (iCnt > 0) ? (total / iCnt) : new decimal?();
 
             if (null != ValueChanges) ValueChanges();
         }

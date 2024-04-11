@@ -127,8 +127,8 @@
                 <TabItem Header="Shrinkage force(N)" Visibility="{Binding VisibleShrinkageForces}">
                     <prop:CordShrinkageForcePage />
                 </TabItem>
-                <TabItem Header="Shrinkage %">
-                    <Grid />
+                <TabItem Header="Shrinkage %" Visibility="{Binding VisibleShrinkagePcts}">
+                    <prop:CordShrinkagePctPage />
                 </TabItem>
                 <TabItem Header="1st Twisting Number" Visibility="{Binding VisibleCord1stTwistingNumbers}">
                     <prop:Cord1stTwistingNumberPage />
@@ -139,7 +139,7 @@
                 <TabItem Header="Thickness" Visibility="{Binding VisibleThicknesses}">
                     <prop:CordThicknessPage />
                 </TabItem>
-                <TabItem>
+                <TabItem Visibility="{Binding VisibleDenierMoistureWeights}">
                     <TabItem.Header>
                         <TextBlock TextAlignment="Center">
                             <Run Text="Denier ," />

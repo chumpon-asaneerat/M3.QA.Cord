@@ -76,7 +76,7 @@
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
     </UserControl.Resources>
-    <page:NPage HeaderText="RPU"
+    <page:NPage HeaderText="Shrinkage %"
                 HeaderBackground="DarkGoldenrod"
                 HeaderBorderBrush="DarkGoldenrod">
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -103,7 +103,7 @@
                                     <StackPanel Orientation="Vertical">
                                         <!--  LENGTH BEFORE HEAT  -->
                                         <DockPanel LastChildFill="True">
-                                            <TextBlock Text="Length.Before Heat"
+                                            <TextBlock Text="Length Before Heat"
                                                        TextAlignment="Right"
                                                        VerticalAlignment="Center"
                                                        Margin="3,0,10,0"
@@ -228,7 +228,7 @@
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
-                                                                        <TextBox Style="{StaticResource NInput}" />
+                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
@@ -236,7 +236,7 @@
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleR}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
-                                                                        <TextBox Style="{StaticResource RInput}" />
+                                                                        <TextBox Style="{StaticResource RInput}" IsReadOnly="True" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
@@ -245,16 +245,16 @@
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
+                                            <!--  AVG  -->
+                                            <Border Margin="0,0,5,0" DockPanel.Dock="Left">
+                                                <StackPanel Orientation="Vertical" Width="100">
+                                                    <TextBlock Text="AVG" TextAlignment="Center" />
+                                                    <TextBox Style="{StaticResource AVG}" />
+                                                </StackPanel>
+                                            </Border>
                                             <Grid />
                                         </DockPanel>
                                         <Grid Height="10" />
-                                    </StackPanel>
-                                </Border>
-                                <!--  AVG  -->
-                                <Border Margin="0,0,5,0" DockPanel.Dock="Left">
-                                    <StackPanel Orientation="Vertical" Width="100">
-                                        <TextBlock Text="RPU" TextAlignment="Center" />
-                                        <TextBox Style="{StaticResource AVG}" />
                                     </StackPanel>
                                 </Border>
                                 <Grid />

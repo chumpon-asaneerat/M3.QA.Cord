@@ -39,6 +39,8 @@ namespace M3.QA.Models
             ShowCord1stTwistingNumbers = false;
             ShowCord2ndTwistingNumbers = false;
             ShowRPUs = false;
+            ShowShrinkagePcts = false;
+            ShowDenierMoistureWeights = false;
         }
 
         #endregion
@@ -129,6 +131,20 @@ namespace M3.QA.Models
         }
         public Visibility VisibleRPUs { get { return (ShowRPUs) ? Visibility.Visible : Visibility.Collapsed; } set { } }
 
+        public bool ShowShrinkagePcts
+        {
+            get { return Get<bool>(); }
+            set { Set(value, () => { Raise(() => this.VisibleShrinkagePcts); }); }
+        }
+        public Visibility VisibleShrinkagePcts { get { return (ShowShrinkagePcts) ? Visibility.Visible : Visibility.Collapsed; } set { } }
+
+        public bool ShowDenierMoistureWeights
+        {
+            get { return Get<bool>(); }
+            set { Set(value, () => { Raise(() => this.VisibleDenierMoistureWeights); }); }
+        }
+        public Visibility VisibleDenierMoistureWeights { get { return (ShowDenierMoistureWeights) ? Visibility.Visible : Visibility.Collapsed; } set { } }
+
         #endregion
 
         #region Test Properties
@@ -151,6 +167,11 @@ namespace M3.QA.Models
         public List<Cord2ndTwistingNumber> Cord2ndTwistingNumbers { get; set; }
         /// <summary>The RPU Items.</summary>
         public List<CordRPU> RPUs { get; set; }
+        /// <summary>The Shrinkage % Items.</summary>
+        public List<CordShrinkagePct> ShrinkagePcts { get; set; }
+
+        /// <summary>The Denier, Moisture regain, Weight Items.</summary>
+        //public List<CordDenierMoistureWeight> DenierMoistureWeights { get; set; }
 
         #endregion
 
@@ -168,6 +189,8 @@ namespace M3.QA.Models
             ShowCord1stTwistingNumbers = false;
             ShowCord2ndTwistingNumbers = false;
             ShowRPUs = false;
+            ShowShrinkagePcts = false;
+            ShowDenierMoistureWeights = false;
 
             // Get Total N(s)
             if (MasterId.HasValue)
@@ -232,6 +255,29 @@ namespace M3.QA.Models
                         RPUs = CordRPU.Create(this, item);
 
                         ShowRPUs = (null != item && item.NoSample > 0);
+                    }
+                    // Shrinkage% PropertyNo = 6
+                    {
+                        var item = TotalNs.Find((x) => { return x.PropertyNo == 6; });
+                        ShrinkagePcts = CordShrinkagePct.Create(this, item);
+
+                        ShowShrinkagePcts = (null != item && item.NoSample > 0);
+                    }
+                    // DenierMoistureWeight
+                    // - Denier PropertyNo = 10
+                    // - Moisture regain PropertyNo = 11
+                    // - Weight PropertyNo = 14
+                    {
+                        var itemDenier = TotalNs.Find((x) => { return x.PropertyNo == 10; });
+                        var itemMoisture = TotalNs.Find((x) => { return x.PropertyNo == 11; });
+                        var itemWeight = TotalNs.Find((x) => { return x.PropertyNo == 14; });
+                        /*
+                        DenierMoistureWeights = CordDenierMoistureWeight.Create(this, 
+                            itemDenier, itemMoisture, itemWeight);
+                        */
+                        ShowDenierMoistureWeights = ((null != itemDenier && itemDenier.NoSample > 0) ||
+                            (null != itemMoisture && itemMoisture.NoSample > 0) || 
+                            (null != itemWeight && itemWeight.NoSample > 0));
                     }
                 }
             }
