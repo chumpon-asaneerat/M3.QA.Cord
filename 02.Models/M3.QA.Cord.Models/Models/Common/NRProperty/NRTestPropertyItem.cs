@@ -60,6 +60,18 @@ namespace M3.QA.Models
             Raise(() => this.ReadOnlyR);
         }
 
+        protected internal void RaiseYarnTypeChanges()
+        {
+            // Raise relelated events
+            Raise(() => this.YarnType);
+            Raise(() => this.EnableN);
+            Raise(() => this.EnableR);
+            Raise(() => this.VisibleN);
+            Raise(() => this.VisibleR);
+            Raise(() => this.ReadOnlyN);
+            Raise(() => this.ReadOnlyR);
+        }
+
         protected internal void RaiseNChanges()
         {
             // Raise relelated events
@@ -92,6 +104,8 @@ namespace M3.QA.Models
         protected internal Func<int?> GetSPNo { get; set; }
         // Need SP Gets
         protected internal Func<bool> GetNeedSP { get; set; }
+        // YarnType Gets
+        protected internal Func<string> GetYarnType { get; set; }
         // N Gets/Sets
         protected internal Func<decimal?> GetN { get; set; }
         protected internal Action<decimal?> SetN { get; set; }
@@ -117,6 +131,12 @@ namespace M3.QA.Models
         public bool NeedSP
         {
             get { return (null != GetNeedSP) ? GetNeedSP() : true; }
+            set { }
+        }
+        /// <summary>Gets or sets Yarn Type.</summary>
+        public string YarnType
+        {
+            get { return (null != GetYarnType) ? GetYarnType() : null; }
             set { }
         }
         /// <summary>Gets or sets Test No. (N1, N2, N3)</summary>

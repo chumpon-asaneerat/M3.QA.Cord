@@ -27,6 +27,7 @@ namespace M3.QA.Models
 
         private Func<int?> _GetSPNo;
         private Func<bool> _GetNeedSP;
+        private Func<string> _GetYarnType;
         private List<Func<decimal?>> _GetNs;
         private List<Action<decimal?>> _SetNs;
         private List<Func<decimal?>> _GetRs;
@@ -47,6 +48,8 @@ namespace M3.QA.Models
             _GetSPNo = () => { return this.SPNo; };
             // Get NeedSP
             _GetNeedSP = () => { return this.NeedSP; };
+            // Get Yarn Type
+            _GetYarnType = () => { return this.YarnType; };
             // Get N
             _GetNs = new List<Func<decimal?>>()
             {
@@ -117,6 +120,7 @@ namespace M3.QA.Models
                     // assign method pointer to Get SPNo/Need SP
                     item.GetSPNo = (null != _GetSPNo) ? _GetSPNo : null;
                     item.GetNeedSP = (null != _GetNeedSP) ? _GetNeedSP : null;
+                    item.GetYarnType = (null != _GetYarnType) ? _GetYarnType : null;
                     // assign method pointer to Get/Set N
                     item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
                     item.SetN = (null != _SetNs) ? _SetNs[i - 1] : null;
@@ -182,6 +186,17 @@ namespace M3.QA.Models
                     foreach (var item in Items)
                     {
                         item.RaiseNeedSPChanges();
+                    }
+                }
+            }
+            else if (propertyName.StartsWith("YarnType"))
+            {
+                this.Raise(() => this.EnableTest);
+                lock (this)
+                {
+                    foreach (var item in Items)
+                    {
+                        item.RaiseYarnTypeChanges();
                     }
                 }
             }
@@ -262,6 +277,18 @@ namespace M3.QA.Models
         public bool NeedSP
         {
             get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Yarn Type.</summary>
+        public string YarnType
+        {
+            get { return Get<string>(); }
             set
             {
                 Set(value, () =>
