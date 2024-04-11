@@ -26,6 +26,7 @@ namespace M3.QA.Models
 
         private void CalculateFormula()
         {
+            /*
             if (null != BeforeHeat && null != AfterHeat)
             {
                 // RPU = ( (BF Heat – AF Heat) / AF Heat )*100
@@ -43,28 +44,84 @@ namespace M3.QA.Models
                 // Raise events
                 Raise(() => this.RPU);
             }
+            */
         }
 
         private void UpdateProperties()
         {
-            if (null == BeforeHeat) BeforeHeat = new NRTestProperty();
+            if (null == YarnWeightBeforeDying) YarnWeightBeforeDying = new NRTestProperty();
 
-            BeforeHeat.LotNo = LotNo;
-            BeforeHeat.PropertyNo = PropertyNo;
-            BeforeHeat.SPNo = SPNo;
-            BeforeHeat.NoOfSample = NoOfSample;
-            BeforeHeat.NeedSP = NeedSP;
-            BeforeHeat.YarnType = YarnType;
+            YarnWeightBeforeDying.LotNo = LotNo;
+            YarnWeightBeforeDying.PropertyNo = PropertyNo;
+            YarnWeightBeforeDying.SPNo = SPNo;
+            YarnWeightBeforeDying.NoOfSample = NoOfSample;
+            YarnWeightBeforeDying.NeedSP = NeedSP;
+            YarnWeightBeforeDying.YarnType = YarnType;
 
-            if (null == AfterHeat) AfterHeat = new NRTestProperty();
-            AfterHeat.SPNo = SPNo;
-            AfterHeat.LotNo = LotNo;
-            AfterHeat.PropertyNo = PropertyNo;
-            AfterHeat.SPNo = SPNo;
-            AfterHeat.NoOfSample = NoOfSample;
-            AfterHeat.NeedSP = NeedSP;
-            AfterHeat.YarnType = YarnType;
+            if (null == ContentWeight) ContentWeight = new NRTestProperty();
+            ContentWeight.SPNo = SPNo;
+            ContentWeight.LotNo = LotNo;
+            ContentWeight.PropertyNo = PropertyNo;
+            ContentWeight.SPNo = SPNo;
+            ContentWeight.NoOfSample = NoOfSample;
+            ContentWeight.NeedSP = NeedSP;
+            ContentWeight.YarnType = YarnType;
 
+            if (null == YarnAndContentWeightAfterDying) YarnAndContentWeightAfterDying = new NRTestProperty();
+            YarnAndContentWeightAfterDying.SPNo = SPNo;
+            YarnAndContentWeightAfterDying.LotNo = LotNo;
+            YarnAndContentWeightAfterDying.PropertyNo = PropertyNo;
+            YarnAndContentWeightAfterDying.SPNo = SPNo;
+            YarnAndContentWeightAfterDying.NoOfSample = NoOfSample;
+            YarnAndContentWeightAfterDying.NeedSP = NeedSP;
+            YarnAndContentWeightAfterDying.YarnType = YarnType;
+
+            if (null == YarnWeightAfterDying) YarnWeightAfterDying = new NRTestProperty();
+            YarnWeightAfterDying.SPNo = SPNo;
+            YarnWeightAfterDying.LotNo = LotNo;
+            YarnWeightAfterDying.PropertyNo = PropertyNo;
+            YarnWeightAfterDying.SPNo = SPNo;
+            YarnWeightAfterDying.NoOfSample = NoOfSample;
+            YarnWeightAfterDying.NeedSP = NeedSP;
+            YarnWeightAfterDying.YarnType = YarnType;
+
+            if (null == StandardDenierD) StandardDenierD = new NRTestProperty();
+            StandardDenierD.SPNo = SPNo;
+            StandardDenierD.LotNo = LotNo;
+            StandardDenierD.PropertyNo = PropertyNo;
+            StandardDenierD.SPNo = SPNo;
+            StandardDenierD.NoOfSample = NoOfSample;
+            StandardDenierD.NeedSP = NeedSP;
+            StandardDenierD.YarnType = YarnType;
+
+            if (null == StandardDenierDtex) StandardDenierDtex = new NRTestProperty();
+            StandardDenierDtex.SPNo = SPNo;
+            StandardDenierDtex.LotNo = LotNo;
+            StandardDenierDtex.PropertyNo = PropertyNo;
+            StandardDenierDtex.SPNo = SPNo;
+            StandardDenierDtex.NoOfSample = NoOfSample;
+            StandardDenierDtex.NeedSP = NeedSP;
+            StandardDenierDtex.YarnType = YarnType;
+
+            if (null == EquilibriumMoistureContent) EquilibriumMoistureContent = new NRTestProperty();
+            EquilibriumMoistureContent.SPNo = SPNo;
+            EquilibriumMoistureContent.LotNo = LotNo;
+            EquilibriumMoistureContent.PropertyNo = PropertyNo;
+            EquilibriumMoistureContent.SPNo = SPNo;
+            EquilibriumMoistureContent.NoOfSample = NoOfSample;
+            EquilibriumMoistureContent.NeedSP = NeedSP;
+            EquilibriumMoistureContent.YarnType = YarnType;
+
+            if (null == Weight) Weight = new NRTestProperty();
+            Weight.SPNo = SPNo;
+            Weight.LotNo = LotNo;
+            Weight.PropertyNo = PropertyNo;
+            Weight.SPNo = SPNo;
+            Weight.NoOfSample = NoOfSample;
+            Weight.NeedSP = NeedSP;
+            Weight.YarnType = YarnType;
+
+            /*
             // Check calculate action
             if (null == BeforeHeat.ValueChanges)
             {
@@ -78,6 +135,7 @@ namespace M3.QA.Models
             CalculateFormula(); // calculate
 
             this.Raise(() => this.EnableTest);
+            */
         }
 
         #endregion
@@ -180,7 +238,19 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region BeforeHeat/AfterHear/RPU
+        #region YarnWeightBeforeDying/ContentWeight/YarnAndContentWeightAfterDying/YarnWeightAfterDying/StandardDenierD/StandardDenierDtex/EquilibriumMoistureContent/Weight
+
+        public NRTestProperty YarnWeightBeforeDying { get; set; }
+        public NRTestProperty ContentWeight { get; set; }
+        public NRTestProperty YarnAndContentWeightAfterDying { get; set; }
+
+        public NRTestProperty YarnWeightAfterDying { get; set; }
+
+        public NRTestProperty StandardDenierD { get; set; }
+        public NRTestProperty StandardDenierDtex { get; set; }
+
+        public NRTestProperty EquilibriumMoistureContent { get; set; }
+        public NRTestProperty Weight { get; set; }
 
         #endregion
 
