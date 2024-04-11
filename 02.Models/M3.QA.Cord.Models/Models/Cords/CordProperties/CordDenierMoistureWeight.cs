@@ -22,6 +22,48 @@ namespace M3.QA.Models
     /// </summary>
     public class CordDenierMoistureWeight : NInpc
     {
+        #region Constructor
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public CordDenierMoistureWeight() : base()
+        {
+            YarnWeightBeforeDying = new NRTestProperty();
+            // BeforeHeat change need to calc formula for Yarn Weight
+            //YarnWeightBeforeDying.ValueChanges = CalculateFormula;
+
+            ContentWeight = new NRTestProperty();
+            // AfterHeat change need to calc formula for Yarn Weight
+            ContentWeight.ValueChanges = CalculateFormula;
+
+            YarnAndContentWeightAfterDying = new NRTestProperty();
+            // AfterHeat change need to calc formula for Yarn Weight
+            YarnAndContentWeightAfterDying.ValueChanges = CalculateFormula;
+
+            YarnWeightAfterDying = new NRTestProperty();
+            // AfterHeat change need to calc formula for Yarn Weight
+            //YarnWeightAfterDying.ValueChanges = CalculateFormula;
+
+            StandardDenierD = new NRTestProperty();
+            // AfterHeat change need to calc formula for Yarn Weight
+            //StandardDenierD.ValueChanges = CalculateFormula;
+
+            StandardDenierDtex = new NRTestProperty();
+            // AfterHeat change need to calc formula for Yarn Weight
+            //StandardDenierDtex.ValueChanges = CalculateFormula;
+
+            EquilibriumMoistureContent = new NRTestProperty();
+            // AfterHeat change need to calc formula for Yarn Weight
+            //EquilibriumMoistureContent.ValueChanges = CalculateFormula;
+
+            Weight = new NRTestProperty();
+            // AfterHeat change need to calc formula for Yarn Weight
+            //Weight.ValueChanges = CalculateFormula;
+        }
+
+        #endregion
+
         #region Private Methods
 
         private void CalculateFormula()
