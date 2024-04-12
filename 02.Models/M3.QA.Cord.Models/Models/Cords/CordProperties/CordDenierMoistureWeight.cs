@@ -9,6 +9,7 @@ using System.Windows;
 using Dapper;
 
 using NLib;
+using NLib.Controls;
 using NLib.Models;
 
 #endregion
@@ -42,24 +43,13 @@ namespace M3.QA.Models
             YarnAndContentWeightAfterDying.ValueChanges = CalculateFormula;
 
             YarnWeightAfterDying = new NRTestProperty();
-            // AfterHeat change need to calc formula for Yarn Weight
-            //YarnWeightAfterDying.ValueChanges = CalculateFormula;
+            // AfterHeat change need to calc formula for Yarn Type
+            YarnWeightAfterDying.ValueChanges = CalculateDenierFormula;
 
             StandardDenierD = new NRTestProperty();
-            // AfterHeat change need to calc formula for Yarn Weight
-            //StandardDenierD.ValueChanges = CalculateFormula;
-
             StandardDenierDtex = new NRTestProperty();
-            // AfterHeat change need to calc formula for Yarn Weight
-            //StandardDenierDtex.ValueChanges = CalculateFormula;
-
             EquilibriumMoistureContent = new NRTestProperty();
-            // AfterHeat change need to calc formula for Yarn Weight
-            //EquilibriumMoistureContent.ValueChanges = CalculateFormula;
-
             Weight = new NRTestProperty();
-            // AfterHeat change need to calc formula for Yarn Weight
-            //Weight.ValueChanges = CalculateFormula;
         }
 
         #endregion
@@ -68,33 +58,122 @@ namespace M3.QA.Models
 
         private void CalculateFormula()
         {
-            /*
-            if (null != BeforeHeat && null != AfterHeat)
+            if (null != YarnAndContentWeightAfterDying && null != ContentWeight && null != YarnWeightAfterDying)
             {
-                // RPU = ( (BF Heat – AF Heat) / AF Heat )*100
+                // YarnWeightAfterDying = YarnAndContentWeightAfterDying – ContentWeight
+                YarnWeightAfterDying.N1 = (YarnAndContentWeightAfterDying.N1.HasValue ?
+                    YarnAndContentWeightAfterDying.N1 - (ContentWeight.N1.HasValue ? ContentWeight.N1.Value : decimal.Zero) :
+                    new decimal?());
 
-                decimal? BF;
-                decimal? AF;
-                decimal? diff;
+                YarnWeightAfterDying.R1 = (YarnAndContentWeightAfterDying.R1.HasValue ?
+                    YarnAndContentWeightAfterDying.R1 - (ContentWeight.R1.HasValue ? ContentWeight.R1.Value : decimal.Zero) :
+                    new decimal?());
 
-                BF = (BeforeHeat.R1.HasValue) ? BeforeHeat.R1.Value : (BeforeHeat.N1.HasValue) ? BeforeHeat.N1.Value : new decimal?();
-                AF = (AfterHeat.R1.HasValue) ? AfterHeat.R1.Value : (AfterHeat.N1.HasValue) ? AfterHeat.N1.Value : new decimal?();
-
-                diff = (BF.HasValue && AF.HasValue && (BF.Value - AF.Value > 0)) ? BF.Value - AF.Value : new decimal?();
-                RPU = (diff.HasValue && AF.HasValue && AF.Value > 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
-
-                // Raise events
-                Raise(() => this.RPU);
+                Raise(() => this.YarnWeightAfterDying);
             }
-            */
+
+            CalculateDenierFormula();
+            CalculateMoistureFormula();
+            CalculateWeightFormula();
+        }
+
+        private void CalculateDenierFormula()
+        {
+            if (null != YarnWeightAfterDying && null != StandardDenierD && null != StandardDenierDtex)
+            {
+                if (!string.IsNullOrWhiteSpace(YarnType) && string.Compare(YarnType, "Polyester", true) == 0)
+                {
+                    // Polyester : StandardDenierD = YarnWeightAfterDying * 400.16
+                    decimal dFactor = (decimal)400.16;
+                    StandardDenierD.N1 = (YarnWeightAfterDying.N1.HasValue) ? 
+                        YarnWeightAfterDying.N1.Value * dFactor : new decimal?();
+                    StandardDenierD.R1 = (YarnWeightAfterDying.R1.HasValue) ?
+                        YarnWeightAfterDying.R1.Value * dFactor : new decimal?();
+
+                    // Polyester: StandardDenierDtex = YarnWeightAfterDying * 418
+                    decimal dtexFactor = (decimal)418;
+                    StandardDenierDtex.N1 = (YarnWeightAfterDying.N1.HasValue) ?
+                        YarnWeightAfterDying.N1.Value * dtexFactor : new decimal?();
+                    StandardDenierDtex.R1 = (YarnWeightAfterDying.R1.HasValue) ?
+                        YarnWeightAfterDying.R1.Value * dtexFactor : new decimal?();
+
+                    // Raise events
+                    Raise(() => this.StandardDenierD);
+                    Raise(() => this.StandardDenierDtex);
+                }
+                else if (!string.IsNullOrWhiteSpace(YarnType) && string.Compare(YarnType, "Nylon", true) == 0)
+                {
+                    // Nylon: StandardDenierD = YarnWeightAfterDying * 444.18
+                    decimal dFactor = (decimal)444.18;
+                    StandardDenierD.N1 = (YarnWeightAfterDying.N1.HasValue) ?
+                        YarnWeightAfterDying.N1.Value * dFactor : new decimal?();
+                    StandardDenierD.R1 = (YarnWeightAfterDying.R1.HasValue) ?
+                        YarnWeightAfterDying.R1.Value * dFactor : new decimal?();
+
+                    // Nylon: StandardDenierDtex = YarnWeightAfterDying * 463.98
+                    decimal dtexFactor = (decimal)463.98;
+                    StandardDenierDtex.N1 = (YarnWeightAfterDying.N1.HasValue) ?
+                        YarnWeightAfterDying.N1.Value * dtexFactor : new decimal?();
+                    StandardDenierDtex.R1 = (YarnWeightAfterDying.R1.HasValue) ?
+                        YarnWeightAfterDying.R1.Value * dtexFactor : new decimal?();
+
+                    // Raise events
+                    Raise(() => this.StandardDenierD);
+                    Raise(() => this.StandardDenierDtex);
+                }
+            }
+        }
+
+        private void CalculateMoistureFormula()
+        {
+            if (null != YarnWeightBeforeDying && null != YarnWeightAfterDying && null != EquilibriumMoistureContent)
+            {
+                // Moisture = ((YarnWeightBeforeDying - YarnWeightAfterDying) / 4) * 100
+                EquilibriumMoistureContent.N1 = (YarnWeightBeforeDying.N1.HasValue) ?
+                    (YarnWeightBeforeDying.N1 - ((YarnWeightAfterDying.N1.HasValue) ? YarnWeightAfterDying.N1.Value : decimal.Zero) / 4) * 100 : new decimal?();
+                EquilibriumMoistureContent.R1 = (YarnWeightBeforeDying.R1.HasValue) ?
+                    (YarnWeightBeforeDying.R1 - ((YarnWeightAfterDying.R1.HasValue) ? YarnWeightAfterDying.R1.Value : decimal.Zero) / 4) * 100 : new decimal?();
+            }
+        }
+
+        private void CalculateWeightFormula()
+        {
+            // Weight = YarnWeightAfterDying  / 22.5
+            if (null != YarnWeightAfterDying && null != Weight)
+            {
+                decimal wFactor = (decimal)22.5;
+                Weight.N1 = (YarnWeightAfterDying.N1.HasValue) ? YarnWeightAfterDying.N1.Value / wFactor : new decimal?();
+                Weight.R1 = (YarnWeightAfterDying.R1.HasValue) ? YarnWeightAfterDying.R1.Value / wFactor : new decimal?();
+            }
         }
 
         private void UpdateProperties()
         {
+            // Check calculate action
+            if (null == ContentWeight.ValueChanges)
+            {
+                ContentWeight.ValueChanges = CalculateFormula;
+            }
+            if (null == YarnAndContentWeightAfterDying.ValueChanges)
+            {
+                YarnAndContentWeightAfterDying.ValueChanges = CalculateFormula;
+            }
+
+            UpdateDenierProperties();
+            UpdateMoistureProperties();
+            UpdateWeightProperties();
+
+            CalculateFormula(); // calculate
+
+            this.Raise(() => this.EnableTest);
+        }
+
+        private void UpdateDenierProperties()
+        {
             if (null == YarnWeightBeforeDying) YarnWeightBeforeDying = new NRTestProperty();
 
             YarnWeightBeforeDying.LotNo = LotNo;
-            YarnWeightBeforeDying.PropertyNo = PropertyNo;
+            YarnWeightBeforeDying.PropertyNo = PropertyNo1; // Denier Property No = 10
             YarnWeightBeforeDying.SPNo = SPNo;
             YarnWeightBeforeDying.NoOfSample = NoOfSample;
             YarnWeightBeforeDying.NeedSP = NeedSP;
@@ -103,7 +182,7 @@ namespace M3.QA.Models
             if (null == ContentWeight) ContentWeight = new NRTestProperty();
             ContentWeight.SPNo = SPNo;
             ContentWeight.LotNo = LotNo;
-            ContentWeight.PropertyNo = PropertyNo;
+            ContentWeight.PropertyNo = PropertyNo1; // Denier Property No = 10
             ContentWeight.SPNo = SPNo;
             ContentWeight.NoOfSample = NoOfSample;
             ContentWeight.NeedSP = NeedSP;
@@ -112,7 +191,7 @@ namespace M3.QA.Models
             if (null == YarnAndContentWeightAfterDying) YarnAndContentWeightAfterDying = new NRTestProperty();
             YarnAndContentWeightAfterDying.SPNo = SPNo;
             YarnAndContentWeightAfterDying.LotNo = LotNo;
-            YarnAndContentWeightAfterDying.PropertyNo = PropertyNo;
+            YarnAndContentWeightAfterDying.PropertyNo = PropertyNo1; // Denier Property No = 10
             YarnAndContentWeightAfterDying.SPNo = SPNo;
             YarnAndContentWeightAfterDying.NoOfSample = NoOfSample;
             YarnAndContentWeightAfterDying.NeedSP = NeedSP;
@@ -121,7 +200,7 @@ namespace M3.QA.Models
             if (null == YarnWeightAfterDying) YarnWeightAfterDying = new NRTestProperty();
             YarnWeightAfterDying.SPNo = SPNo;
             YarnWeightAfterDying.LotNo = LotNo;
-            YarnWeightAfterDying.PropertyNo = PropertyNo;
+            YarnWeightAfterDying.PropertyNo = PropertyNo1; // Denier Property No = 10
             YarnWeightAfterDying.SPNo = SPNo;
             YarnWeightAfterDying.NoOfSample = NoOfSample;
             YarnWeightAfterDying.NeedSP = NeedSP;
@@ -130,7 +209,7 @@ namespace M3.QA.Models
             if (null == StandardDenierD) StandardDenierD = new NRTestProperty();
             StandardDenierD.SPNo = SPNo;
             StandardDenierD.LotNo = LotNo;
-            StandardDenierD.PropertyNo = PropertyNo;
+            StandardDenierD.PropertyNo = PropertyNo1; // Denier Property No = 10
             StandardDenierD.SPNo = SPNo;
             StandardDenierD.NoOfSample = NoOfSample;
             StandardDenierD.NeedSP = NeedSP;
@@ -139,45 +218,35 @@ namespace M3.QA.Models
             if (null == StandardDenierDtex) StandardDenierDtex = new NRTestProperty();
             StandardDenierDtex.SPNo = SPNo;
             StandardDenierDtex.LotNo = LotNo;
-            StandardDenierDtex.PropertyNo = PropertyNo;
+            StandardDenierDtex.PropertyNo = PropertyNo1; // Denier Property No = 10
             StandardDenierDtex.SPNo = SPNo;
             StandardDenierDtex.NoOfSample = NoOfSample;
             StandardDenierDtex.NeedSP = NeedSP;
             StandardDenierDtex.YarnType = YarnType;
+        }
 
+        private void UpdateMoistureProperties()
+        {
             if (null == EquilibriumMoistureContent) EquilibriumMoistureContent = new NRTestProperty();
             EquilibriumMoistureContent.SPNo = SPNo;
             EquilibriumMoistureContent.LotNo = LotNo;
-            EquilibriumMoistureContent.PropertyNo = PropertyNo;
+            EquilibriumMoistureContent.PropertyNo = PropertyNo2; // Moisture Property No = 11
             EquilibriumMoistureContent.SPNo = SPNo;
             EquilibriumMoistureContent.NoOfSample = NoOfSample;
             EquilibriumMoistureContent.NeedSP = NeedSP;
             EquilibriumMoistureContent.YarnType = YarnType;
+        }
 
+        private void UpdateWeightProperties()
+        {
             if (null == Weight) Weight = new NRTestProperty();
             Weight.SPNo = SPNo;
             Weight.LotNo = LotNo;
-            Weight.PropertyNo = PropertyNo;
+            Weight.PropertyNo = PropertyNo3; // Weight Property No = 14
             Weight.SPNo = SPNo;
             Weight.NoOfSample = NoOfSample;
             Weight.NeedSP = NeedSP;
             Weight.YarnType = YarnType;
-
-            /*
-            // Check calculate action
-            if (null == BeforeHeat.ValueChanges)
-            {
-                BeforeHeat.ValueChanges = CalculateFormula;
-            }
-            if (null == AfterHeat.ValueChanges)
-            {
-                AfterHeat.ValueChanges = CalculateFormula;
-            }
-
-            CalculateFormula(); // calculate
-
-            this.Raise(() => this.EnableTest);
-            */
         }
 
         #endregion
@@ -198,15 +267,39 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Property No.</summary>
-        public int PropertyNo
+        /// <summary>Gets or sets Property No 1.</summary>
+        public int PropertyNo1
         {
             get { return Get<int>(); }
             set
             {
                 Set(value, () =>
                 {
-                    UpdateProperties();
+                    UpdateDenierProperties();
+                });
+            }
+        }
+        /// <summary>Gets or sets Property No 2.</summary>
+        public int PropertyNo2
+        {
+            get { return Get<int>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    UpdateMoistureProperties();
+                });
+            }
+        }
+        /// <summary>Gets or sets Property No 3.</summary>
+        public int PropertyNo3
+        {
+            get { return Get<int>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    UpdateWeightProperties();
                 });
             }
         }
@@ -348,7 +441,9 @@ namespace M3.QA.Models
                 var inst = new CordDenierMoistureWeight()
                 {
                     LotNo = value.LotNo,
-                    PropertyNo = 12, // Denier (PropertyNo = 10), Moisture regain (PropertyNo = 11), Weight (PropertyNo = 14)
+                    PropertyNo1 = 10, // Denier (PropertyNo = 10)
+                    PropertyNo2 = 11, // Moisture regain (PropertyNo = 11)
+                    PropertyNo3 = 14, // Weight (PropertyNo = 14)
                     SPNo = SP,
                     NeedSP = true,
                     YarnType = value.YarnType,
@@ -370,7 +465,7 @@ namespace M3.QA.Models
                 {
                     idx = existItems.FindIndex((x) =>
                     {
-                        return x.SPNo == item.SPNo && x.PropertyNo == item.PropertyNo;
+                        return x.SPNo == item.SPNo;
                     });
                     if (idx != -1)
                     {
@@ -401,7 +496,9 @@ namespace M3.QA.Models
                 return;
 
             dst.LotNo = src.LotNo;
-            dst.PropertyNo = src.PropertyNo;
+            dst.PropertyNo1 = src.PropertyNo1;
+            dst.PropertyNo2 = src.PropertyNo2;
+            dst.PropertyNo3 = src.PropertyNo3;
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
             dst.YarnType = src.YarnType;
@@ -468,7 +565,9 @@ namespace M3.QA.Models
                     {
                         var inst = new CordDenierMoistureWeight();
                         inst.LotNo = item.LotNo;
-                        inst.PropertyNo = 12; // Denier (PropertyNo = 10), Moisture regain (PropertyNo = 11), Weight (PropertyNo = 14)
+                        inst.PropertyNo1 = 10; // Denier PropertyNo = 10
+                        inst.PropertyNo2 = 11; // Moisture regain PropertyNo = 11
+                        inst.PropertyNo3 = 14; // Weight PropertyNo = 14
                         inst.SPNo = item.SPNo;
 
                         inst.NeedSP = true;
@@ -476,41 +575,49 @@ namespace M3.QA.Models
 
                         if (null != inst.YarnWeightBeforeDying)
                         {
+                            inst.YarnWeightBeforeDying.PropertyNo = 10; // Denier PropertyNo = 10
                             inst.YarnWeightBeforeDying.N1 = item.YWBDN1;
                             inst.YarnWeightBeforeDying.R1 = item.YWBDR1;
                         }
                         if (null != inst.ContentWeight)
                         {
+                            inst.ContentWeight.PropertyNo = 10; // Denier PropertyNo = 10
                             inst.ContentWeight.N1 = item.CWN1;
                             inst.ContentWeight.R1 = item.CWR1;
                         }
                         if (null != inst.YarnAndContentWeightAfterDying)
                         {
+                            inst.YarnAndContentWeightAfterDying.PropertyNo = 10; // Denier PropertyNo = 10
                             inst.YarnAndContentWeightAfterDying.N1 = item.YCWADN1;
                             inst.YarnAndContentWeightAfterDying.R1 = item.YCWADR1;
                         }
                         if (null != inst.YarnWeightAfterDying)
                         {
+                            inst.YarnWeightAfterDying.PropertyNo = 10; // Denier PropertyNo = 10
                             inst.YarnWeightAfterDying.N1 = item.YWADN1;
                             inst.YarnWeightAfterDying.R1 = item.YWADR1;
                         }
                         if (null != inst.StandardDenierD)
                         {
+                            inst.StandardDenierD.PropertyNo = 10; // Denier PropertyNo = 10
                             inst.StandardDenierD.N1 = item.DENIER_D_N1;
                             inst.StandardDenierD.R1 = item.DENIER_D_R1;
                         }
                         if (null != inst.StandardDenierDtex)
                         {
+                            inst.StandardDenierD.PropertyNo = 10; // Denier PropertyNo = 10
                             inst.StandardDenierDtex.N1 = item.DENIER_Dtex_N1;
                             inst.StandardDenierDtex.R1 = item.DENIER_Dtex_R1;
                         }
                         if (null != inst.EquilibriumMoistureContent)
                         {
+                            inst.EquilibriumMoistureContent.PropertyNo = 11; // Moisture regain PropertyNo = 11
                             inst.EquilibriumMoistureContent.N1 = item.MOISTURE_N1;
                             inst.EquilibriumMoistureContent.R1 = item.MOISTURE_R1;
                         }
                         if (null != inst.Weight)
                         {
+                            inst.Weight.PropertyNo = 14; // Weight PropertyNo = 14
                             inst.Weight.N1 = item.WEIGHT_N1;
                             inst.Weight.R1 = item.WEIGHT_R1;
                         }
