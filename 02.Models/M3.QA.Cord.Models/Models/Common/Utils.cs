@@ -10,6 +10,7 @@ using Dapper;
 
 using NLib;
 using NLib.Models;
+using static M3.QA.Models.Utils;
 
 #endregion
 
@@ -481,9 +482,9 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region P_GetDenierMoistureWByLot
+        #region P_GetDenierMoistureWLot
 
-        public class P_GetDenierMoistureWByLot
+        public class P_GetDenierMoistureWLot
         {
             #region Public Properties
 
@@ -524,11 +525,11 @@ namespace M3.QA.Models
 
             #region Static Methods
 
-            public static NDbResult<List<P_GetDenierMoistureWByLot>> GetByLot(string lotNo)
+            public static NDbResult<List<P_GetDenierMoistureWLot>> GetByLot(string lotNo)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
 
-                NDbResult<List<P_GetDenierMoistureWByLot>> ret = new NDbResult<List<P_GetDenierMoistureWByLot>>();
+                NDbResult<List<P_GetDenierMoistureWLot>> ret = new NDbResult<List<P_GetDenierMoistureWLot>>();
 
                 IDbConnection cnn = DbServer.Instance.Db;
                 if (null == cnn || !DbServer.Instance.Connected)
@@ -554,7 +555,7 @@ namespace M3.QA.Models
 
                 try
                 {
-                    var items = cnn.Query<P_GetDenierMoistureWByLot>("P_GetDenierMoistureWByLot", p, commandType: CommandType.StoredProcedure);
+                    var items = cnn.Query<P_GetDenierMoistureWLot>("P_GetDenierMoistureWLot", p, commandType: CommandType.StoredProcedure);
                     var data = (null != items) ? items.ToList() : null;
 
                     ret.Success(data);

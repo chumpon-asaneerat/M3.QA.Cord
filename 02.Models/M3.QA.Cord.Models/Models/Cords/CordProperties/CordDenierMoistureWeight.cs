@@ -578,7 +578,7 @@ namespace M3.QA.Models
             {
                 List<CordDenierMoistureWeight> results = new List<CordDenierMoistureWeight>();
 
-                var items = Utils.P_GetDenierMoistureWByLot.GetByLot(lotNo).Value();
+                var items = Utils.P_GetDenierMoistureWLot.GetByLot(lotNo).Value();
                 if (null != items)
                 {
                     foreach (var item in items)

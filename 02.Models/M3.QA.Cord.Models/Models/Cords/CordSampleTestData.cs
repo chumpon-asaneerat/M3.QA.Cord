@@ -458,6 +458,14 @@ namespace M3.QA.Models
                     if (null == res || !res.Ok) return;
                 });
 
+                value.DenierMoistureWeights.ForEach(x =>
+                {
+                    x.EditBy = (null != user) ? user.FullName : null;
+                    x.EditDate = DateTime.Now;
+                    res = CordDenierMoistureWeight.Save(x);
+                    if (null == res || !res.Ok) return;
+                });
+
                 if (null == res || !res.Ok)
                 {
                     if (null == res)
