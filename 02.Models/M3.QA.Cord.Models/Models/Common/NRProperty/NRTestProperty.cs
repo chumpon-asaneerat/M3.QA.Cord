@@ -527,6 +527,7 @@ namespace M3.QA.Models
             dst.PropertyNo = src.PropertyNo;
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
+            dst.YarnType = src.YarnType;
 
             dst.N1 = src.N1;
             dst.N2 = src.N2;
