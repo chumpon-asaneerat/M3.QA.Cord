@@ -31,7 +31,7 @@
                TargetType="TextBox"
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
-            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.###}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
             <Setter Property="IsReadOnly" Value="{Binding ReadOnlyN}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
@@ -47,7 +47,7 @@
                TargetType="TextBox"
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
-            <Setter Property="Text" Value="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="Text" Value="{Binding R, StringFormat='{}{0:#,##0.###}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
             <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
@@ -55,23 +55,6 @@
             <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
             <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
             <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
-            <Setter Property="Width" Value="90" />
-            <Setter Property="TextAlignment" Value="Center" />
-        </Style>
-        <!--  AVG  -->
-        <Style x:Key="AVG"
-               TargetType="TextBox"
-               BasedOn="{StaticResource CommonTextBox}">
-            <!--  BINDING  -->
-            <Setter Property="Text" Value="{Binding PctShrinkage.Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}" />
-            <!--  COMMON  -->
-            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
-            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
-            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
-            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
-            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
-            <Setter Property="IsReadOnly" Value="True" />
-            <Setter Property="IsTabStop" Value="False" />
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
@@ -84,7 +67,7 @@
                           Focusable="False"
                           VirtualizingPanel.IsVirtualizing="True"
                           VirtualizingPanel.VirtualizationMode="Recycling"
-                          ItemsSource="{Binding ShrinkagePcts}">
+                          ItemsSource="{Binding DenierMoistureWeights}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Margin="5"
@@ -101,16 +84,16 @@
                                 </Border>
                                 <Border Margin="0,0,5,0" DockPanel.Dock="Left">
                                     <StackPanel Orientation="Vertical">
-                                        <!--  LENGTH BEFORE HEAT  -->
+                                        <!--  YARN WEIGHT BEFORE DRYING  -->
                                         <DockPanel LastChildFill="True">
-                                            <TextBlock Text="Length Before Heat"
+                                            <TextBlock Text="Yarn Weight (g) (before drying)"
                                                        TextAlignment="Right"
                                                        VerticalAlignment="Center"
                                                        Margin="3,0,10,0"
-                                                       Width="250"
+                                                       Width="300"
                                                        DockPanel.Dock="Left" />
                                             <!--  EACH Item N/R  -->
-                                            <ItemsControl ItemsSource="{Binding LengthBeforeHeat.Items}"
+                                            <ItemsControl ItemsSource="{Binding YarnWeightBeforeDrying.Items}"
                                                           Focusable="False"
                                                           DockPanel.Dock="Left"
                                                           IsEnabled="{Binding EnableTest}">
@@ -150,16 +133,16 @@
                                             <Grid />
                                         </DockPanel>
                                         <Grid Height="10" />
-                                        <!--  LENGTH AFTER HEAT  -->
+                                        <!--  CONTENT WEIGHT  -->
                                         <DockPanel LastChildFill="True">
-                                            <TextBlock Text="Length After Heat"
+                                            <TextBlock Text="Content Weight (g)"
                                                        TextAlignment="Right"
                                                        VerticalAlignment="Center"
                                                        Margin="3,0,10,0"
-                                                       Width="250"
+                                                       Width="300"
                                                        DockPanel.Dock="Left" />
                                             <!--  EACH TM N/R  -->
-                                            <ItemsControl ItemsSource="{Binding LengthAfterHeat.Items}"
+                                            <ItemsControl ItemsSource="{Binding ContentWeight.Items}"
                                                           Focusable="False"
                                                           DockPanel.Dock="Left"
                                                           IsEnabled="{Binding EnableTest}">
@@ -199,16 +182,65 @@
                                             <Grid />
                                         </DockPanel>
                                         <Grid Height="10" />
-                                        <!--  SHRINKAGE %  -->
+                                        <!--  YARN AND CONTENT WEIGHT AFTER DRYING  -->
                                         <DockPanel LastChildFill="True">
-                                            <TextBlock Text="% Shrinkage"
+                                            <TextBlock Text="Yarn and Content Weight (g) (after drying)"
                                                        TextAlignment="Right"
                                                        VerticalAlignment="Center"
                                                        Margin="3,0,10,0"
-                                                       Width="250"
+                                                       Width="300"
                                                        DockPanel.Dock="Left" />
                                             <!--  EACH TM N/R  -->
-                                            <ItemsControl ItemsSource="{Binding PctShrinkage.Items}"
+                                            <ItemsControl ItemsSource="{Binding YarnAndContentWeightAfterDrying.Items}"
+                                                          Focusable="False"
+                                                          DockPanel.Dock="Left"
+                                                          IsEnabled="{Binding EnableTest}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Margin="0,0,5,0">
+                                                            <DockPanel LastChildFill="True">
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleN}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBox Style="{StaticResource RInput}" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <Grid />
+                                        </DockPanel>
+                                        <Grid Height="10" />
+                                        <!--  YARN WEIGHT AFTER DRYING  -->
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="Yarn Weight (g) (after drying)"
+                                                       TextAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3,0,10,0"
+                                                       Width="300"
+                                                       DockPanel.Dock="Left" />
+                                            <!--  EACH TM N/R  -->
+                                            <ItemsControl ItemsSource="{Binding YarnWeightAfterDrying.Items}"
                                                           Focusable="False"
                                                           DockPanel.Dock="Left"
                                                           IsEnabled="{Binding EnableTest}">
@@ -245,13 +277,202 @@
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
-                                            <!--  AVG  -->
-                                            <Border Margin="0,0,5,0" DockPanel.Dock="Left">
-                                                <StackPanel Orientation="Vertical" Width="100">
-                                                    <TextBlock Text="AVG" TextAlignment="Center" />
-                                                    <TextBox Style="{StaticResource AVG}" />
-                                                </StackPanel>
-                                            </Border>
+                                            <Grid />
+                                        </DockPanel>
+                                        <Grid Height="10" />
+                                        <!--  STANDARD DENIER (D)  -->
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="Standard Denier (D)"
+                                                       TextAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3,0,10,0"
+                                                       Width="300"
+                                                       DockPanel.Dock="Left" />
+                                            <!--  EACH TM N/R  -->
+                                            <ItemsControl ItemsSource="{Binding StandardDenierD.Items}"
+                                                          Focusable="False"
+                                                          DockPanel.Dock="Left"
+                                                          IsEnabled="{Binding EnableTest}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Margin="0,0,5,0">
+                                                            <DockPanel LastChildFill="True">
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleN}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBox Style="{StaticResource RInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <Grid />
+                                        </DockPanel>
+                                        <Grid Height="10" />
+                                        <!--  STANDARD DENIER (DTEX)  -->
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="Standard Denier (dtex)"
+                                                       TextAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3,0,10,0"
+                                                       Width="300"
+                                                       DockPanel.Dock="Left" />
+                                            <!--  EACH TM N/R  -->
+                                            <ItemsControl ItemsSource="{Binding StandardDenierDtex.Items}"
+                                                          Focusable="False"
+                                                          DockPanel.Dock="Left"
+                                                          IsEnabled="{Binding EnableTest}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Margin="0,0,5,0">
+                                                            <DockPanel LastChildFill="True">
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleN}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBox Style="{StaticResource RInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <Grid />
+                                        </DockPanel>
+                                        <Grid Height="10" />
+                                        <!--  EQUILIBRIUM MOISTURE CONTENT %  -->
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="Equilibrium Moisture Content (%)"
+                                                       TextAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3,0,10,0"
+                                                       Width="300"
+                                                       DockPanel.Dock="Left" />
+                                            <!--  EACH TM N/R  -->
+                                            <ItemsControl ItemsSource="{Binding EquilibriumMoistureContent.Items}"
+                                                          Focusable="False"
+                                                          DockPanel.Dock="Left"
+                                                          IsEnabled="{Binding EnableTest}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Margin="0,0,5,0">
+                                                            <DockPanel LastChildFill="True">
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleN}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBox Style="{StaticResource RInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <Grid />
+                                        </DockPanel>
+                                        <Grid Height="10" />
+                                        <!--  WEIGHT  -->
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="Weight (g/m)"
+                                                       TextAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3,0,10,0"
+                                                       Width="300"
+                                                       DockPanel.Dock="Left" />
+                                            <!--  EACH TM N/R  -->
+                                            <ItemsControl ItemsSource="{Binding Weight.Items}"
+                                                          Focusable="False"
+                                                          DockPanel.Dock="Left"
+                                                          IsEnabled="{Binding EnableTest}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Margin="0,0,5,0">
+                                                            <DockPanel LastChildFill="True">
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleN}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR}">
+                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBox Style="{StaticResource RInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
                                             <Grid />
                                         </DockPanel>
                                         <Grid Height="10" />

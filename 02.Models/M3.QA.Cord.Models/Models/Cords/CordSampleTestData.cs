@@ -171,7 +171,7 @@ namespace M3.QA.Models
         public List<CordShrinkagePct> ShrinkagePcts { get; set; }
 
         /// <summary>The Denier, Moisture regain, Weight Items.</summary>
-        //public List<CordDenierMoistureWeight> DenierMoistureWeights { get; set; }
+        public List<CordDenierMoistureWeight> DenierMoistureWeights { get; set; }
 
         #endregion
 
@@ -271,10 +271,10 @@ namespace M3.QA.Models
                         var itemDenier = TotalNs.Find((x) => { return x.PropertyNo == 10; });
                         var itemMoisture = TotalNs.Find((x) => { return x.PropertyNo == 11; });
                         var itemWeight = TotalNs.Find((x) => { return x.PropertyNo == 14; });
-                        /*
+
                         DenierMoistureWeights = CordDenierMoistureWeight.Create(this, 
                             itemDenier, itemMoisture, itemWeight);
-                        */
+
                         ShowDenierMoistureWeights = ((null != itemDenier && itemDenier.NoSample > 0) ||
                             (null != itemMoisture && itemMoisture.NoSample > 0) || 
                             (null != itemWeight && itemWeight.NoSample > 0));
