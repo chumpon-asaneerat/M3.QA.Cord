@@ -542,6 +542,94 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Save
+
+        /// <summary>
+        /// Save.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static NDbResult<CordDenierMoistureWeight> Save(CordDenierMoistureWeight value)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordDenierMoistureWeight> ret = new NDbResult<CordDenierMoistureWeight>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@LotNo", value.LotNo);
+            p.Add("@spno", value.SPNo);
+
+            p.Add("@ywbdn1", (null != value.YarnWeightBeforeDying) ? value.YarnWeightBeforeDying.N1 : new decimal?());
+            p.Add("@ywbdr1", (null != value.YarnWeightBeforeDying) ? value.YarnWeightBeforeDying.R1 : new decimal?());
+
+            p.Add("@cwn1", (null != value.ContentWeight) ? value.ContentWeight.N1 : new decimal?());
+            p.Add("@cwr1", (null != value.ContentWeight) ? value.ContentWeight.R1 : new decimal?());
+
+            p.Add("@ycwadn1", (null != value.YarnAndContentWeightAfterDying) ? value.YarnAndContentWeightAfterDying.N1 : new decimal?());
+            p.Add("@ycwadr1", (null != value.YarnAndContentWeightAfterDying) ? value.YarnAndContentWeightAfterDying.R1 : new decimal?());
+
+            p.Add("@ywadn1", (null != value.YarnWeightAfterDying) ? value.YarnWeightAfterDying.N1 : new decimal?());
+            p.Add("@ywadr1", (null != value.YarnWeightAfterDying) ? value.YarnWeightAfterDying.R1 : new decimal?());
+
+            p.Add("@denierdn1", (null != value.StandardDenierD) ? value.StandardDenierD.N1 : new decimal?());
+            p.Add("@denierdr1", (null != value.StandardDenierD) ? value.StandardDenierD.R1 : new decimal?());
+
+            p.Add("@denierdtexn1", (null != value.StandardDenierDtex) ? value.StandardDenierDtex.N1 : new decimal?());
+            p.Add("@denierdtexr1", (null != value.StandardDenierDtex) ? value.StandardDenierDtex.R1 : new decimal?());
+
+            p.Add("@moisturen1", (null != value.EquilibriumMoistureContent) ? value.EquilibriumMoistureContent.N1 : new decimal?());
+            p.Add("@moisturer1", (null != value.EquilibriumMoistureContent) ? value.EquilibriumMoistureContent.R1 : new decimal?());
+
+            p.Add("@weightn1", (null != value.Weight) ? value.Weight.N1 : new decimal?());
+            p.Add("@weightr1", (null != value.Weight) ? value.Weight.R1 : new decimal?());
+
+
+            p.Add("@user", value.EditBy);
+            p.Add("@savedate", value.EditDate);
+
+            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+            try
+            {
+                cnn.Execute("P_SaveDenierMoistureW", p, commandType: CommandType.StoredProcedure);
+                ret.Success(value);
+                // Set error number/message
+                ret.ErrNum = p.Get<int>("@errNum");
+                ret.ErrMsg = p.Get<string>("@errMsg");
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+        #endregion
+
         #endregion
     }
 
