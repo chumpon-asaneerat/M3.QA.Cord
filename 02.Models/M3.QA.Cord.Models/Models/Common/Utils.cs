@@ -481,6 +481,103 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region P_GetDenierMoistureWByLot
+
+        public class P_GetDenierMoistureWByLot
+        {
+            #region Public Properties
+
+            public string LotNo { get; set; }
+            public int? SPNo { get; set; }
+
+            public decimal? YWBDN1 { get; set; }
+            public decimal? YWBDR1 { get; set; }
+
+            public decimal? CWN1 { get; set; }
+            public decimal? CWR1 { get; set; }
+
+            public decimal? YCWADN1 { get; set; }
+            public decimal? YCWADR1 { get; set; }
+
+            public decimal? YWADN1 { get; set; }
+            public decimal? YWADR1 { get; set; }
+
+            public decimal? DENIER_D_N1 { get; set; }
+            public decimal? DENIER_D_R1 { get; set; }
+
+            public decimal? DENIER_Dtex_N1 { get; set; }
+            public decimal? DENIER_Dtex_R1 { get; set; }
+
+            public decimal? MOISTURE_N1 { get; set; }
+            public decimal? MOISTURE_R1 { get; set; }
+
+            public decimal? WEIGHT_N1 { get; set; }
+            public decimal? WEIGHT_R1 { get; set; }
+
+            public string InputBy { get; set; }
+            public DateTime? InputDate { get; set; }
+
+            public string EditBy { get; set; }
+            public DateTime? EditDate { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<P_GetDenierMoistureWByLot>> GetByLot(string lotNo)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<P_GetDenierMoistureWByLot>> ret = new NDbResult<List<P_GetDenierMoistureWByLot>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                if (string.IsNullOrEmpty(lotNo))
+                {
+                    ret.ParameterIsNull();
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@lotNo", lotNo);
+
+                try
+                {
+                    var items = cnn.Query<P_GetDenierMoistureWByLot>("P_GetDenierMoistureWByLot", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
+
         #region P_SearchReceiveCord
 
         public class P_SearchReceiveCord

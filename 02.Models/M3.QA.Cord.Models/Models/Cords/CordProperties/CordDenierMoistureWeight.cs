@@ -474,18 +474,46 @@ namespace M3.QA.Models
                         inst.NeedSP = true;
                         //inst.NoOfSample = 1; // ???
 
-                        if (null != inst.BeforeHeat)
+                        if (null != inst.YarnWeightBeforeDying)
                         {
-                            inst.BeforeHeat.N1 = item.BFN1;
-                            inst.BeforeHeat.R1 = item.BFR1;
+                            inst.YarnWeightBeforeDying.N1 = item.YWBDN1;
+                            inst.YarnWeightBeforeDying.R1 = item.YWBDR1;
                         }
-                        if (null != inst.AfterHeat)
+                        if (null != inst.ContentWeight)
                         {
-                            inst.AfterHeat.N1 = item.AFN1;
-                            inst.AfterHeat.R1 = item.AFR1;
+                            inst.ContentWeight.N1 = item.CWN1;
+                            inst.ContentWeight.R1 = item.CWR1;
                         }
-
-                        inst.RPU = item.RPU;
+                        if (null != inst.YarnAndContentWeightAfterDying)
+                        {
+                            inst.YarnAndContentWeightAfterDying.N1 = item.YCWADN1;
+                            inst.YarnAndContentWeightAfterDying.R1 = item.YCWADR1;
+                        }
+                        if (null != inst.YarnWeightAfterDying)
+                        {
+                            inst.YarnWeightAfterDying.N1 = item.YWADN1;
+                            inst.YarnWeightAfterDying.R1 = item.YWADR1;
+                        }
+                        if (null != inst.StandardDenierD)
+                        {
+                            inst.StandardDenierD.N1 = item.DENIER_D_N1;
+                            inst.StandardDenierD.R1 = item.DENIER_D_R1;
+                        }
+                        if (null != inst.StandardDenierDtex)
+                        {
+                            inst.StandardDenierDtex.N1 = item.DENIER_Dtex_N1;
+                            inst.StandardDenierDtex.R1 = item.DENIER_Dtex_R1;
+                        }
+                        if (null != inst.EquilibriumMoistureContent)
+                        {
+                            inst.EquilibriumMoistureContent.N1 = item.MOISTURE_N1;
+                            inst.EquilibriumMoistureContent.R1 = item.MOISTURE_R1;
+                        }
+                        if (null != inst.Weight)
+                        {
+                            inst.Weight.N1 = item.WEIGHT_N1;
+                            inst.Weight.R1 = item.WEIGHT_R1;
+                        }
 
                         inst.InputBy = item.InputBy;
                         inst.InputDate = item.InputDate;
