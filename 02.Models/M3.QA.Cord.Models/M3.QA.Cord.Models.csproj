@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Common\ModelConsts.cs" />
+    <Compile Include="Models\Cords\CordTestSpec.cs" />
     <Compile Include="Models\Cords\CordMC.cs" />
     <Compile Include="Models\Cords\CordProperties\Cord1stTwistingNumber.cs" />
     <Compile Include="Models\Cords\CordProperties\Cord2ndTwistingNumber.cs" />
