@@ -113,6 +113,11 @@ namespace M3.QA.Models
 
                         break;
                     }
+                default: 
+                    {
+                        ret = true; // not found SpecId so assume value is valid.
+                        break;
+                    }
             }
 
             return ret;
