@@ -83,6 +83,39 @@ namespace M3.QA.Models
             set { Set(value, () => { }); }
         }
 
+        /// <summary>Gets or sets Option.</summary>
+        public int Option
+        {
+            get { return Get<int>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets Option description.</summary>
+        public string OptionDesc
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
+
+        /// <summary>Gets or sets VCenter.</summary>
+        public decimal? VCenter
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets VMin.</summary>
+        public decimal? VMin
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets VMax.</summary>
+        public decimal? VMax
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
+
+
         #endregion
     }
 
