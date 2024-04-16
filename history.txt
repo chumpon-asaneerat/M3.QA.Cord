@@ -7,8 +7,10 @@ M3 QA Cord #139
 M3 QA Cord #138
 - 
 
+[commit]
 M3 QA Cord #137
-- 
+- Implements Cord Test Data #107
+  - Update CordTestSpec class #5.
 
 [commit]
 M3 QA Cord #136

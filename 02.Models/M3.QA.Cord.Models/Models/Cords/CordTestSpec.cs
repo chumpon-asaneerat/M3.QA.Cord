@@ -63,6 +63,9 @@ namespace M3.QA.Models
                     }
                 case 1: // Plus-Minus
                     {
+                        bool checkMin = VMin.HasValue;
+                        bool checkMax = VMax.HasValue;
+
                         decimal vMin, vMax;
                         if (VCenter.HasValue)
                         {
@@ -75,7 +78,14 @@ namespace M3.QA.Models
                             vMax = (VMax.HasValue ? VMax.Value : decimal.Zero);
                         }
 
-                        bool inRange = dVal >= vMin && dVal <= vMax;
+                        bool inRange;
+                        if (checkMin && checkMax)
+                            inRange = dVal >= vMin && dVal <= vMax; // Check Min-Max
+                        else if (checkMin && !checkMax)
+                            inRange = dVal >= vMin; // Check Min Only
+                        else if (!checkMin && checkMax)
+                            inRange = dVal <= vMax; // Check Max Only
+                        else inRange = true; // No Min-Max
 
                         ret = !inRange;
 
@@ -83,6 +93,24 @@ namespace M3.QA.Models
                     }
                 case 2: // Min-Max
                     {
+                        bool checkMin = VMin.HasValue;
+                        bool checkMax = VMax.HasValue;
+
+                        decimal vMin, vMax;
+                        vMin = VMin.HasValue ? VMin.Value : decimal.Zero;
+                        vMax = VMax.HasValue ? VMax.Value : decimal.Zero;
+
+                        bool inRange;
+                        if (checkMin && checkMax)
+                            inRange = dVal >= vMin && dVal <= vMax; // Check Min-Max
+                        else if (checkMin && !checkMax)
+                            inRange = dVal >= vMin; // Check Min Only
+                        else if (!checkMin && checkMax)
+                            inRange = dVal <= vMax; // Check Max Only
+                        else inRange = true; // No Min-Max
+
+                        ret = !inRange;
+
                         break;
                     }
             }
