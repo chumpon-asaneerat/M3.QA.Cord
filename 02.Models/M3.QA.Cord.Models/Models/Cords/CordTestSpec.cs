@@ -35,6 +35,63 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Check is out of spec.
+        /// </summary>
+        /// <param name="value">The value to check.</param>
+        /// <returns></returns>
+        public bool IsOutOfSpec(decimal? value)
+        {
+            bool ret = false;
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            if (!value.HasValue) 
+            {
+                //med.Info("Value is null.");
+                return ret;
+            }
+
+            var dVal = value.Value;
+            switch (SpecId)
+            {
+                case 0: // No Checking
+                    {
+                        ret = true;
+                        break;
+                    }
+                case 1: // Plus-Minus
+                    {
+                        decimal vMin, vMax;
+                        if (VCenter.HasValue)
+                        {
+                            vMin = VCenter.Value + (VMin.HasValue ? VMin.Value : decimal.Zero);
+                            vMax = VCenter.Value + (VMax.HasValue ? VMax.Value : decimal.Zero);
+                        }
+                        else
+                        {
+                            vMin = (VMin.HasValue ? VMin.Value : decimal.Zero);
+                            vMax = (VMax.HasValue ? VMax.Value : decimal.Zero);
+                        }
+
+                        bool inRange = dVal >= vMin && dVal <= vMax;
+
+                        ret = !inRange;
+
+                        break;
+                    }
+                case 2: // Min-Max
+                    {
+                        break;
+                    }
+            }
+
+            return ret;
+        }
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>Gets or sets Product Code.</summary>
