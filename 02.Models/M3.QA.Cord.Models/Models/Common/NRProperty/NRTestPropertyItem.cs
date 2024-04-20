@@ -34,8 +34,6 @@ namespace M3.QA.Models
 
         #region virtual methods
 
-        protected virtual void CheckRange() { }
-
         protected internal void RaiseSPNoChanges()
         {
             // Raise relelated events
@@ -82,6 +80,9 @@ namespace M3.QA.Models
             Raise(() => this.VisibleR);
             Raise(() => this.ReadOnlyN);
             Raise(() => this.ReadOnlyR);
+
+            Raise(() => this.ForegroundColorN);
+            Raise(() => this.ForegroundColorR);
         }
 
         protected internal void RaiseRChanges()
@@ -94,6 +95,24 @@ namespace M3.QA.Models
             Raise(() => this.VisibleR);
             Raise(() => this.ReadOnlyN);
             Raise(() => this.ReadOnlyR);
+
+            Raise(() => this.ForegroundColorN);
+            Raise(() => this.ForegroundColorR);
+        }
+
+        protected internal void RaiseOChanges()
+        {
+            // Raise relelated events
+            Raise(() => this.O);
+            Raise(() => this.EnableN);
+            Raise(() => this.EnableR);
+            Raise(() => this.VisibleN);
+            Raise(() => this.VisibleR);
+            Raise(() => this.ReadOnlyN);
+            Raise(() => this.ReadOnlyR);
+
+            Raise(() => this.ForegroundColorN);
+            Raise(() => this.ForegroundColorR);
         }
 
         #endregion
@@ -112,6 +131,9 @@ namespace M3.QA.Models
         // R Gets/Sets
         protected internal Func<decimal?> GetR { get; set; }
         protected internal Action<decimal?> SetR { get; set; }
+        // O Gets/Sets
+        protected internal Func<bool> GetO { get; set; }
+        protected internal Action<bool> SetO { get; set; }
 
         #endregion
 
@@ -179,6 +201,25 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region O
+
+        /// <summary>Gets or sets Out of spec Value.</summary>
+        public bool O
+        {
+            get { return (null != GetO) ? GetO() : false; }
+            set
+            {
+                if (null != SetO)
+                {
+                    SetO(value);
+                    // Raise events
+                    Raise(() => this.O);
+                }
+            }
+        }
+
+        #endregion
+
         #region EnableN/EnableR/CaptionN/CaptionR (For Runtime binding)
 
         /// <summary>Check is Enable Normal Test.</summary>
@@ -194,7 +235,7 @@ namespace M3.QA.Models
         /// <summary>Check is Enable Re Test (requird N value first).</summary>
         public bool EnableR 
         { 
-            get { return (NeedSP) ? SPNo.HasValue && (N.HasValue || R.HasValue) : (N.HasValue || R.HasValue); } 
+            get { return (NeedSP) ? SPNo.HasValue && ((N.HasValue && !O) || R.HasValue) : ((N.HasValue && !O) || R.HasValue); } 
             set { } 
         }
 
@@ -251,7 +292,9 @@ namespace M3.QA.Models
         public SolidColorBrush ForegroundColorN
         {
             get 
-            { 
+            {
+                if (O)
+                    return ModelConsts.RedColor; // Out of spec.
                 return (R.HasValue) ? ModelConsts.DimGrayColor : ModelConsts.BlackColor; 
             }
             set { }

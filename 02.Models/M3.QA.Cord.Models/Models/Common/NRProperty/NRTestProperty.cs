@@ -32,6 +32,8 @@ namespace M3.QA.Models
         private List<Action<decimal?>> _SetNs;
         private List<Func<decimal?>> _GetRs;
         private List<Action<decimal?>> _SetRs;
+        private List<Func<bool>> _GetOs;
+        private List<Action<bool>> _SetOs;
 
         #endregion
 
@@ -94,6 +96,28 @@ namespace M3.QA.Models
                 (value) => { this.R6 = value; },
                 (value) => { this.R7 = value; }
             };
+            // Get O
+            _GetOs = new List<Func<bool>>()
+            {
+                () => { return this.O1; },
+                () => { return this.O2; },
+                () => { return this.O3; },
+                () => { return this.O4; },
+                () => { return this.O5; },
+                () => { return this.O6; },
+                () => { return this.O7; }
+            };
+            // Set O
+            _SetOs = new List<Action<bool>>()
+            {
+                (value) => { this.O1 = value; },
+                (value) => { this.O2 = value; },
+                (value) => { this.O3 = value; },
+                (value) => { this.O4 = value; },
+                (value) => { this.O5 = value; },
+                (value) => { this.O6 = value; },
+                (value) => { this.O7 = value; }
+            };
 
             #endregion
 
@@ -127,6 +151,9 @@ namespace M3.QA.Models
                     // assign method pointer to Get/Set R
                     item.GetR = (null != _GetRs) ? _GetRs[i - 1] : null;
                     item.SetR = (null != _SetRs) ? _SetRs[i - 1] : null;
+                    // assign method pointer to Get/Set O
+                    item.GetO = (null != _GetOs) ? _GetOs[i - 1] : null;
+                    item.SetO = (null != _SetOs) ? _SetOs[i - 1] : null;
 
                     Items.Add(item);
                 }
@@ -151,6 +178,7 @@ namespace M3.QA.Models
 
                     if (idx < 0 || idx >= this.Items.Count) return;
                     this.Items[idx].RaiseNChanges();
+                    CheckSpec();
                     CalcAvg();
                 }
             }
@@ -165,7 +193,21 @@ namespace M3.QA.Models
 
                     if (idx < 0 || idx >= this.Items.Count) return;
                     this.Items[idx].RaiseRChanges();
+                    CheckSpec();
                     CalcAvg();
+                }
+            }
+            else if (propertyName.StartsWith("O"))
+            {
+                string sIdx = propertyName.Replace("O", string.Empty);
+                int idx;
+                if (int.TryParse(sIdx, out idx))
+                {
+                    // Note: O1 -> index must be 0, O2  -> index must be 1 so need decrease index by 1.
+                    idx--; // remove by 1 for zero based
+
+                    if (idx < 0 || idx >= this.Items.Count) return;
+                    this.Items[idx].RaiseOChanges();
                 }
             }
             else if (propertyName.StartsWith("SPNo")) 
@@ -235,6 +277,18 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Protected Methods
+
+        /// <summary>
+        /// Check Spec.
+        /// </summary>
+        protected virtual void CheckSpec()
+        {
+
+        }
+
+        #endregion
+
         #region Callback Actions
 
         internal Action ValueChanges { get; set; }
@@ -297,6 +351,13 @@ namespace M3.QA.Models
                 });
             }
         }
+
+        #endregion
+
+        #region Spec
+
+        /// <summary>Gets or sets CordTestSpec.</summary>
+        public CordTestSpec Spec { get; set; }
 
         #endregion
 
@@ -478,6 +539,95 @@ namespace M3.QA.Models
         public decimal? R7
         {
             get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+
+        #endregion
+
+        #region OutSpec (1-7)
+
+        /// <summary>Gets or sets OutSpec1 value.</summary>
+        public bool O1
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets OutSpec2 value.</summary>
+        public bool O2
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets OutSpec3 value.</summary>
+        public bool O3
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets OutSpec4 value.</summary>
+        public bool O4
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets OutSpec5 value.</summary>
+        public bool O5
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets OutSpec6 value.</summary>
+        public bool O6
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets OutSpec7 value.</summary>
+        public bool O7
+        {
+            get { return Get<bool>(); }
             set
             {
                 Set(value, () =>

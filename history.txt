@@ -10,8 +10,11 @@ M3 QA Cord #148
 M3 QA Cord #147
 - 
 
+[commit]
 M3 QA Cord #146
-- 
+- Implements Cord Test Data #116
+  - Implements Cord Spec #7.
+    - TensileStrength implemented.
 
 [commit]
 M3 QA Cord #145
