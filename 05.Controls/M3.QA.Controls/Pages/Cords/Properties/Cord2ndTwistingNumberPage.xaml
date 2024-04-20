@@ -110,7 +110,9 @@
                                 Padding="5">
                             <DockPanel LastChildFill="True">
                                 <!--  Spec  -->
-                                <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                                <DockPanel DockPanel.Dock="Top"
+                                           LastChildFill="True"
+                                           Visibility="{Binding Spec.SpecVisibility}">
                                     <Border DockPanel.Dock="Left"
                                             CornerRadius="5"
                                             Background="DimGray"
