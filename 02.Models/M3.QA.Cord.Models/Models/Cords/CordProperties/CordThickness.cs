@@ -24,6 +24,13 @@ namespace M3.QA.Models
     {
         #region Public Properties
 
+        #region Spec
+
+        /// <summary>Gets or sets CordTestSpec.</summary>
+        public CordTestSpec Spec { get; set; }
+
+        #endregion
+
         #region User/EditDate
 
         public string InputBy { get; set; }
@@ -91,9 +98,12 @@ namespace M3.QA.Models
             if (null == value)
                 return results;
 
-            // For Tensile Strength Proepty No = 1
+            // For Thickness = 9
             int noOfSample = (null != totalN) ? totalN.NoSample : 0;
             int alllowSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
+
+            // Thickness = 9
+            var spec = value.Specs.FindByPropertyNo(9);
 
             int i = 1;
             int iMaxLimitSP = 7;
@@ -127,6 +137,7 @@ namespace M3.QA.Models
                     PropertyNo = 9, // Thickness = 9
                     SPNo = SP,
                     NeedSP = true,
+                    Spec = spec,
                     YarnType = value.YarnType,
                     NoOfSample = noOfSample
                 };

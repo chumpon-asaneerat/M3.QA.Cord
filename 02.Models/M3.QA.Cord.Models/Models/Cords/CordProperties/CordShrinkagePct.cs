@@ -209,6 +209,13 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Spec
+
+        /// <summary>Gets or sets CordTestSpec.</summary>
+        public CordTestSpec Spec { get; set; }
+
+        #endregion
+
         #region User/EditDate
 
         public string InputBy { get; set; }
@@ -259,6 +266,9 @@ namespace M3.QA.Models
             int noOfSample = (null != totalN) ? totalN.NoSample : 0;
             int alllowSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
 
+            // Shrinkage% Proepty No = 6
+            var spec = value.Specs.FindByPropertyNo(6);
+
             int i = 1;
             int iMaxLimitSP = 7;
             while (i <= iMaxLimitSP)
@@ -291,6 +301,7 @@ namespace M3.QA.Models
                     PropertyNo = 6, // Shrinkage% Proepty No = 6
                     SPNo = SP,
                     NeedSP = true,
+                    Spec = spec,
                     YarnType = value.YarnType,
                     NoOfSample = noOfSample
                 };

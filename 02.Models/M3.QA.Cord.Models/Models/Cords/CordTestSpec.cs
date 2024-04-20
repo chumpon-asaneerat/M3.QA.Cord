@@ -12,6 +12,7 @@ using Dapper;
 
 using NLib;
 using NLib.Models;
+using static M3.QA.Models.Utils;
 
 #endregion
 
@@ -127,8 +128,14 @@ namespace M3.QA.Models
 
         #region Public Properties
 
-        /// <summary>Gets or sets Product Code.</summary>
-        public string ProductCode 
+        /// <summary>Gets or sets Item Code.</summary>
+        public string ItemCode 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets Product Name.</summary>
+        public string ProductName
         {
             get { return Get<string>(); }
             set { Set(value, () => { }); }
@@ -173,8 +180,8 @@ namespace M3.QA.Models
             set { Set(value, () => { }); }
         }
 
-        /// <summary>Gets or sets Option.</summary>
-        public int Option
+        /// <summary>Gets or sets OptionId.</summary>
+        public int OptionId
         {
             get { return Get<int>(); }
             set { Set(value, () => { }); }
@@ -205,6 +212,93 @@ namespace M3.QA.Models
             set { Set(value, () => { }); }
         }
 
+        /// <summary>Gets or sets Unit Report.</summary>
+        public string UnitReport
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// Gets Specification.
+        /// </summary>
+        /// <param name="masterId"></param>
+        /// <param name="propertyNo"></param>
+        /// <returns></returns>
+        public static NDbResult<List<CordTestSpec>> Gets(int? masterId = new int?(), 
+            int? propertyNo = new int?())
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<List<CordTestSpec>> ret = new NDbResult<List<CordTestSpec>>();
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@masterId", masterId);
+            p.Add("@propertyNo", propertyNo);
+
+            try
+            {
+                var items = cnn.Query<CordTestSpec>("M_GetTestSpecificationByItem", p, 
+                    commandType: CommandType.StoredProcedure);
+                var data = (null != items) ? items.ToList() : null;
+
+                ret.Success(data);
+                // Set error number/message
+                ret.ErrNum = 0;
+                ret.ErrMsg = "Success";
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region CordTestSpecExtensionMethods
+
+    public static class CordTestSpecExtensionMethods
+    {
+        #region Find By Property No
+
+        /// <summary>
+        /// Find By Property No.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="propertyNo"></param>
+        /// <returns></returns>
+        public static CordTestSpec FindByPropertyNo(this List<CordTestSpec> items,  int propertyNo)
+        {
+            if (null == items || items.Count <= 0)
+                return null;
+
+            return items.Find((x) => x.PropertyNo == propertyNo);
+        }
 
         #endregion
     }

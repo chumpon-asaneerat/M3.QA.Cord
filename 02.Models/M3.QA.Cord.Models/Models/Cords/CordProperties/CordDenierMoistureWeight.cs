@@ -365,6 +365,17 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Spec
+
+        /// <summary>Gets or sets CordTestSpec (Denier).</summary>
+        public CordTestSpec SpecDenier { get; set; }
+        /// <summary>Gets or sets CordTestSpec (Moisture).</summary>
+        public CordTestSpec SpecMoisture { get; set; }
+        /// <summary>Gets or sets CordTestSpec (Weight).</summary>
+        public CordTestSpec SpecWeight { get; set; }
+
+        #endregion
+
         #region User/EditDate
 
         public string InputBy { get; set; }
@@ -432,6 +443,13 @@ namespace M3.QA.Models
 
             int alllowSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
 
+            // Denier (PropertyNo = 10)
+            var spec1 = value.Specs.FindByPropertyNo(10);
+            // Moisture regain (PropertyNo = 11)
+            var spec2 = value.Specs.FindByPropertyNo(11);
+            // Weight (PropertyNo = 14)
+            var spec3 = value.Specs.FindByPropertyNo(14);
+
             int i = 1;
             int iMaxLimitSP = 7;
             while (i <= iMaxLimitSP)
@@ -466,6 +484,9 @@ namespace M3.QA.Models
                     PropertyNo3 = 14, // Weight (PropertyNo = 14)
                     SPNo = SP,
                     NeedSP = true,
+                    SpecDenier = spec1, // Denier
+                    SpecMoisture = spec2, // Moisture
+                    SpecWeight = spec3, // Weight
                     YarnType = value.YarnType,
                     NoOfSample = noOfSample
                 };

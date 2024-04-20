@@ -152,6 +152,13 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Spec
+
+        /// <summary>The Spec.</summary>
+        public List<CordTestSpec> Specs { get; set; }
+
+        #endregion
+
         #region Test Properties
 
         public List<Utils.M_GetPropertyTotalNByItem> TotalNs { get; set; }
@@ -183,6 +190,12 @@ namespace M3.QA.Models
         #endregion
 
         #region Private Methods
+
+        private void InitSpecs()
+        {
+            var specs = CordTestSpec.Gets(this.MasterId).Value();
+            Specs = (null != specs) ? specs : new List<CordTestSpec>();
+        }
 
         private void InitTestProperties()
         {
@@ -336,6 +349,8 @@ namespace M3.QA.Models
                 {
                     // already has date so cannot edit.
                     data.CanEditStartDate = (data.StartTestDate.HasValue) ? false : true;
+                    // Init spec
+                    data.InitSpecs();
                     // Init relatedd properties
                     data.InitTestProperties();
                 }

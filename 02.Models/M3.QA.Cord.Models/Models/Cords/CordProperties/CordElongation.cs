@@ -41,6 +41,13 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Spec
+
+        /// <summary>Gets or sets CordTestSpec.</summary>
+        public CordTestSpec Spec { get; set; }
+
+        #endregion
+
         #region User/EditDate
 
         public string InputBy { get; set; }
@@ -274,12 +281,16 @@ namespace M3.QA.Models
             // For Elongation Break Proepty No = 2
             noOfSample = (null != totalN) ? totalN.NoSample : 0;
 
+            // Elongation Break Proepty No = 2
+            var spec = value.Specs.FindByPropertyNo(2);
+
             inst = new CordElongationBreakProperty()
             {
                 LotNo = value.LotNo,
                 PropertyNo = 2, // Elongation Break = 2
                 SPNo = elongItem.SPNo,
                 NeedSP = true,
+                Spec = spec,
                 NeedEload = false, // Elongation Break not requred SP No
                 YarnType = value.YarnType,
                 NoOfSample = noOfSample
@@ -337,6 +348,9 @@ namespace M3.QA.Models
             // For Elongation Load Proepty No = 3
             noOfSample = (null != totalN) ? totalN.NoSample : 0;
 
+            // Elongation Load Proepty No = 3
+            var spec = value.Specs.FindByPropertyNo(3);
+
             string[] elongIds = !string.IsNullOrWhiteSpace(value.ELongLoadN) ?
                 value.ELongLoadN.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries) : null;
             if (null != value.ELongLoadN && value.ELongLoadN.Length > 0)
@@ -350,6 +364,7 @@ namespace M3.QA.Models
                         SPNo = elongItem.SPNo,
                         NeedSP = true,
                         NeedEload = true, // Elongation Load requred SP No
+                        Spec = spec,
                         NoOfSample = noOfSample,
                         YarnType = value.YarnType,
                         LoadN = elongId
