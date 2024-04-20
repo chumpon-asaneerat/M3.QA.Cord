@@ -59,7 +59,16 @@ namespace M3.QA.Models
             if (VMin.HasValue && VMax.HasValue)
             {
                 // has both min/max
-                part1 += string.Format("min: {0:#,##0.###}, max: {1:#,##0.###}", dCenter - VMin.Value, dCenter + VMax.Value);
+                if (VMin.Value == VMax.Value)
+                {
+                    part1 += string.Format("N: {0:#,##0.###} ± {1:#,##0.###}", dCenter,  VMin.Value);
+                }
+                else
+                {
+                    part1 += string.Format("N: {0:#,##0.###} + {1:#,##0.###}, {0:#,##0.###} - {2:#,##0.###}", 
+                        dCenter, VMax.Value, VMin.Value);
+                }
+
                 part2 += string.Format(" ( {0:#,##0.###} ≤ N ≤ {1:#,##0.###} ) ", dCenter - VMin.Value, dCenter + VMax.Value);
 
                 ret = part1 + part2;
@@ -67,7 +76,7 @@ namespace M3.QA.Models
             else if (VMin.HasValue && !VMax.HasValue)
             {
                 // has min only
-                part1 += string.Format("min: {0:#,##0.###}", dCenter - VMin.Value);
+                part1 += string.Format("N: {0:#,##0.###} - {1:#,##0.###}", dCenter, VMin.Value);
                 part2 += string.Format(" ( N ≥ {0:#,##0.###} )", dCenter - VMin.Value);
 
                 ret = part1 + part2;
@@ -75,7 +84,7 @@ namespace M3.QA.Models
             else if (!VMin.HasValue && VMax.HasValue)
             {
                 // has max only
-                part1 += string.Format("max: {0:#,##0.###}", dCenter + VMax.Value);
+                part1 += string.Format("N: {0:#,##0.###} + {1:#,##0.###}", dCenter, VMax.Value);
                 part2 += string.Format(" ( N ≤ {0:#,##0.###} )", dCenter + VMax.Value);
 
                 ret = part1 + part2;
@@ -312,6 +321,13 @@ namespace M3.QA.Models
                 else if (SpecId == 2) ret = GetMinMaxSpec();
                 return ret;
             }
+            set { }
+        }
+
+        /// <summary>Gets Spec Visibility.</summary>
+        public Visibility SpecVisibility
+        {
+            get { return (SpecId > 0) ? Visibility.Visible : Visibility.Collapsed; }
             set { }
         }
 
