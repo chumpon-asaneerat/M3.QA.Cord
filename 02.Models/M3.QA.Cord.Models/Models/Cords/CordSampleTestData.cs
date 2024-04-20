@@ -159,6 +159,40 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Specifications
+
+        /// <summary>The Tensile Strengths Specification.</summary>
+        public CordTestSpec TensileStrengthSpecification { get; set; }
+
+        /// <summary>The Elongations Specification.</summary>
+        public CordTestSpec ElongationSpecification { get; set; }
+
+        /// <summary>The AdhesionForces Specification.</summary>
+        public CordTestSpec AdhesionForceSpecification { get; set; }
+        /// <summary>The ShrinkageForce Specification.</summary>
+        public CordTestSpec ShrinkageForceSpecification { get; set; }
+        /// <summary>The Thickness Specification.</summary>
+        public CordTestSpec ThicknessSpecification { get; set; }
+
+        /// <summary>The 1st Twisting Number Specification.</summary>
+        public CordTestSpec Cord1stTwistingNumberSpecification { get; set; }
+        /// <summary>The 2nd Twisting Number Specification.</summary>
+        public CordTestSpec Cord2ndTwistingNumberSpecification { get; set; }
+
+        /// <summary>The RPU Specification.</summary>
+        public CordTestSpec RPUSpecification { get; set; }
+        /// <summary>The Shrinkage % Specification.</summary>
+        public CordTestSpec ShrinkagePctSpecification { get; set; }
+
+        /// <summary>The Denier Specification.</summary>
+        public CordTestSpec DenierSpecification { get; set; }
+        /// <summary>The Moisture Specification.</summary>
+        public CordTestSpec MoistureSpecification { get; set; }
+        /// <summary>The Weight Specification.</summary>
+        public CordTestSpec WeightSpecification { get; set; }
+
+        #endregion
+
         #region Test Properties
 
         public List<Utils.M_GetPropertyTotalNByItem> TotalNs { get; set; }
@@ -181,7 +215,6 @@ namespace M3.QA.Models
         public List<CordRPU> RPUs { get; set; }
         /// <summary>The Shrinkage % Items.</summary>
         public List<CordShrinkagePct> ShrinkagePcts { get; set; }
-
         /// <summary>The Denier, Moisture regain, Weight Items.</summary>
         public List<CordDenierMoistureWeight> DenierMoistureWeights { get; set; }
 

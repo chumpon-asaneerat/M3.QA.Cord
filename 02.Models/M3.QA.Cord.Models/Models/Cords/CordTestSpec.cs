@@ -168,9 +168,9 @@ namespace M3.QA.Models
         }
 
         /// <summary>Gets or sets UnitId.</summary>
-        public int UnitId
+        public string UnitId
         {
-            get { return Get<int>(); }
+            get { return Get<string>(); }
             set { Set(value, () => { }); }
         }
         /// <summary>Gets or sets Unit description.</summary>
@@ -181,9 +181,9 @@ namespace M3.QA.Models
         }
 
         /// <summary>Gets or sets OptionId.</summary>
-        public int OptionId
+        public string OptionId
         {
-            get { return Get<int>(); }
+            get { return Get<string>(); }
             set { Set(value, () => { }); }
         }
         /// <summary>Gets or sets Option description.</summary>
@@ -237,31 +237,31 @@ namespace M3.QA.Models
                         ret += " N = ";
                         if (VCenter.HasValue)
                         {
-                            ret += VCenter.Value.ToString("n") + " ";
+                            ret += VCenter.Value.ToString("#,##0.###") + " ";
                         }
                         if (VMin.HasValue && VMax.HasValue)
                         {
                             if (VMin.Value == VMax.Value)
                             {
-                                ret += " - " + VMin.Value.ToString("n") + " , ";
+                                ret += " - " + VMin.Value.ToString("#,##0.###") + " , ";
                                 if (VCenter.HasValue)
                                 {
-                                    ret += " " + VCenter.Value.ToString("n");
+                                    ret += " " + VCenter.Value.ToString("#,##0.###");
                                 }
-                                ret += " + " + VMax.Value.ToString("n");
+                                ret += " + " + VMax.Value.ToString("#,##0.###");
                             }
                             else
                             {
-                                ret += VCenter.Value.ToString("n") + " ";
+                                ret += VCenter.Value.ToString("#,##0.###") + " ";
                             }
                         }
                         else if (!VMin.HasValue && VMax.HasValue)
                         {
-                            ret += " + " + VMax.Value.ToString("n");
+                            ret += " + " + VMax.Value.ToString("#,##0.###");
                         }
                         else if (VMin.HasValue && !VMax.HasValue)
                         {
-                            ret += " - " + VMin.Value.ToString("n");
+                            ret += " - " + VMin.Value.ToString("#,##0.###");
                         }
                     }
                     else
@@ -277,13 +277,13 @@ namespace M3.QA.Models
                     {
                         if (VMin.HasValue)
                         {
-                            //ret += VMin.Value.ToString() + "≤";
-                            ret += VMin.Value.ToString() + "≥";
+                            //ret += VMin.Value.ToString() + "≥";
+                            ret += VMin.Value.ToString("#,##0.###") + " ≤ ";
                         }
                         ret += " N ";
                         if (VMax.HasValue)
                         {
-                            ret += VMax.Value.ToString() + "≥";
+                            ret += " ≤ " + VMax.Value.ToString("#,##0.###");
                         }
                     }
                     else
