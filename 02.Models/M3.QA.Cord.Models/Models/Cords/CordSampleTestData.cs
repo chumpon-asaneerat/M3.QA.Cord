@@ -54,6 +54,8 @@ namespace M3.QA.Models
 
         public int? MasterId { get; set; }
 
+        public decimal? PiNoSL { get; set; }
+
         public int? SP1 { get; set; }
         public int? SP2 { get; set; }
         public int? SP3 { get; set; }
@@ -64,6 +66,9 @@ namespace M3.QA.Models
 
         public int? TotalSP { get; set; }
         public DateTime? StartTestDate { get; set; }
+
+        public string EditBy { get; set; }
+        public DateTime? EditDate { get; set; }
 
         public string Spindle { get; set; }
         public string ELongLoadN { get; set; }
@@ -355,6 +360,67 @@ namespace M3.QA.Models
 
         #region Save
 
+        private static NDbResult<CordSampleTestData> SaveHead(CordSampleTestData value, QA.Models.UserInfo user)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordSampleTestData> ret = new NDbResult<CordSampleTestData>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            // set user
+            value.EditBy = (null != user) ? user.FullName : null;
+            value.EditDate = DateTime.Now;
+
+            var p = new DynamicParameters();
+
+            p.Add("@LotNo", value.LotNo);
+            p.Add("@masterid", value.MasterId);
+
+            p.Add("@pino", value.PiNoSL);
+            p.Add("@testdate", value.StartTestDate);
+
+            p.Add("@user", value.EditBy);
+            p.Add("@savedate", value.EditDate);
+
+            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+            try
+            {
+                cnn.Execute("P_SaveHeadTesingCord", p, commandType: CommandType.StoredProcedure);
+                ret.Success(value);
+                // Set error number/message
+                ret.ErrNum = p.Get<int>("@errNum");
+                ret.ErrMsg = p.Get<string>("@errMsg");
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
         public static NDbResult<CordSampleTestData> Save(CordSampleTestData value,
             QA.Models.UserInfo user)
         {
@@ -382,7 +448,15 @@ namespace M3.QA.Models
 
             try
             {
+                // Save head
+                var hres = SaveHead(value, user);
+                if (null == hres || !hres.Ok)
+                {
+                    return hres;
+                }
+
                 NDbResult res = null;
+
                 value.TensileStrengths.ForEach(x =>
                 {
                     x.EditBy = (null != user) ? user.FullName : null;

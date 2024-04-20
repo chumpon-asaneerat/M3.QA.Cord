@@ -87,6 +87,7 @@
                             <TextBlock Margin="3,0" Text="SL-" />
                             <TextBox x:Name="txtPINo"
                                      Width="150"
+                                     Text="{Binding PiNoSL, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}"
                                      Style="{StaticResource CommonTextBox}" />
                             <TextBlock Margin="3,0" Text="Kg." />
                         </StackPanel>
