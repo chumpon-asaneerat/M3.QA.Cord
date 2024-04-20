@@ -219,6 +219,84 @@ namespace M3.QA.Models
             set { Set(value, () => { }); }
         }
 
+        public string SpecInfo
+        {
+            get 
+            {
+                string ret = string.Empty;
+                if (SpecId == 0)
+                {
+                    // No Check.
+                    ret = "None";
+                }
+                else if (SpecId == 1)
+                {
+                    // Plus/Minus
+                    if (VMin.HasValue || VMax.HasValue)
+                    {
+                        ret += " N = ";
+                        if (VCenter.HasValue)
+                        {
+                            ret += VCenter.Value.ToString("n") + " ";
+                        }
+                        if (VMin.HasValue && VMax.HasValue)
+                        {
+                            if (VMin.Value == VMax.Value)
+                            {
+                                ret += " - " + VMin.Value.ToString("n") + " , ";
+                                if (VCenter.HasValue)
+                                {
+                                    ret += " " + VCenter.Value.ToString("n");
+                                }
+                                ret += " + " + VMax.Value.ToString("n");
+                            }
+                            else
+                            {
+                                ret += VCenter.Value.ToString("n") + " ";
+                            }
+                        }
+                        else if (!VMin.HasValue && VMax.HasValue)
+                        {
+                            ret += " + " + VMax.Value.ToString("n");
+                        }
+                        else if (VMin.HasValue && !VMax.HasValue)
+                        {
+                            ret += " - " + VMin.Value.ToString("n");
+                        }
+                    }
+                    else
+                    {
+                        // No plus-minus assign
+                        ret += "Plus/Minus Specification is not set.";
+                    }
+                }
+                else if (SpecId == 2)
+                {
+                    // Min/Max
+                    if (VMin.HasValue || VMax.HasValue)
+                    {
+                        if (VMin.HasValue)
+                        {
+                            //ret += VMin.Value.ToString() + "≤";
+                            ret += VMin.Value.ToString() + "≥";
+                        }
+                        ret += " N ";
+                        if (VMax.HasValue)
+                        {
+                            ret += VMax.Value.ToString() + "≥";
+                        }
+                    }
+                    else
+                    {
+                        // No min-max assign
+                        ret += "Min/Max Specification is not set.";
+                    }
+                }
+                return ret;
+            }
+            set { }
+        }
+
         #endregion
 
         #region Static Methods
