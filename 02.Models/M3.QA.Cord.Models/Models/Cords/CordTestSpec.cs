@@ -36,6 +36,89 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Private Methods
+
+        private string GetNoneSpec()
+        {
+            string ret = string.Empty;
+            // No Check.
+            ret += "None";
+            return ret;
+        }
+
+        private string GetPlusMinusSpec()
+        {
+            string ret = string.Empty;
+
+            string part1 = string.Empty;
+            string part2 = string.Empty;
+
+            // Plus/Minus
+            decimal dCenter = VCenter.HasValue ? VCenter.Value : 0;
+
+            if (VMin.HasValue && VMax.HasValue)
+            {
+                // has both min/max
+                part1 += string.Format("min: {0:#,##0.###}, max: {1:#,##0.###}", dCenter - VMin.Value, dCenter + VMax.Value);
+                part2 += string.Format(" ( {0:#,##0.###} ≤ N ≤ {1:#,##0.###} ) ", dCenter - VMin.Value, dCenter + VMax.Value);
+
+                ret = part1 + part2;
+            }
+            else if (VMin.HasValue && !VMax.HasValue)
+            {
+                // has min only
+                part1 += string.Format("min: {0:#,##0.###}", dCenter - VMin.Value);
+                part2 += string.Format(" ( N ≥ {0:#,##0.###} )", dCenter - VMin.Value);
+
+                ret = part1 + part2;
+            }
+            else if (!VMin.HasValue && VMax.HasValue)
+            {
+                // has max only
+                part1 += string.Format("max: {0:#,##0.###}", dCenter + VMax.Value);
+                part2 += string.Format(" ( N ≤ {0:#,##0.###} )", dCenter + VMax.Value);
+
+                ret = part1 + part2;
+            }
+            else
+            {
+                ret += "Plus/Minus Specification is not set.";
+            }
+
+            return ret;
+        }
+
+        private string GetMinMaxSpec()
+        {
+            string ret = string.Empty;
+
+            // Min/Max
+            if (VMin.HasValue && VMax.HasValue)
+            {
+                // Has both value
+                ret += string.Format("{0:#,##0.###} ≤ N ≤ {1:#,##0.###}", VMin.Value, VMax.Value);
+            }
+            else if (VMin.HasValue && !VMax.HasValue)
+            {
+                // Has Min value only
+                ret += string.Format("N ≥ {0:#,##0.###}", VMin.Value);
+            }
+            else if (!VMin.HasValue && VMax.HasValue)
+            {
+                // Has Max value only
+                ret += string.Format("N ≤ {0:#,##0.###}", VMax.Value);
+            }
+            else
+            {
+                // No min-max assign
+                ret += "Min/Max Specification is not set.";
+            }
+
+            return ret;
+        }
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>
@@ -224,74 +307,9 @@ namespace M3.QA.Models
             get 
             {
                 string ret = string.Empty;
-                if (SpecId == 0)
-                {
-                    // No Check.
-                    ret = "None";
-                }
-                else if (SpecId == 1)
-                {
-                    // Plus/Minus
-                    if (VMin.HasValue || VMax.HasValue)
-                    {
-                        ret += " N = ";
-                        if (VCenter.HasValue)
-                        {
-                            ret += VCenter.Value.ToString("#,##0.###") + " ";
-                        }
-                        if (VMin.HasValue && VMax.HasValue)
-                        {
-                            if (VMin.Value == VMax.Value)
-                            {
-                                ret += " - " + VMin.Value.ToString("#,##0.###") + " , ";
-                                if (VCenter.HasValue)
-                                {
-                                    ret += " " + VCenter.Value.ToString("#,##0.###");
-                                }
-                                ret += " + " + VMax.Value.ToString("#,##0.###");
-                            }
-                            else
-                            {
-                                ret += VCenter.Value.ToString("#,##0.###") + " ";
-                            }
-                        }
-                        else if (!VMin.HasValue && VMax.HasValue)
-                        {
-                            ret += " + " + VMax.Value.ToString("#,##0.###");
-                        }
-                        else if (VMin.HasValue && !VMax.HasValue)
-                        {
-                            ret += " - " + VMin.Value.ToString("#,##0.###");
-                        }
-                    }
-                    else
-                    {
-                        // No plus-minus assign
-                        ret += "Plus/Minus Specification is not set.";
-                    }
-                }
-                else if (SpecId == 2)
-                {
-                    // Min/Max
-                    if (VMin.HasValue || VMax.HasValue)
-                    {
-                        if (VMin.HasValue)
-                        {
-                            //ret += VMin.Value.ToString() + "≥";
-                            ret += VMin.Value.ToString("#,##0.###") + " ≤ ";
-                        }
-                        ret += " N ";
-                        if (VMax.HasValue)
-                        {
-                            ret += " ≤ " + VMax.Value.ToString("#,##0.###");
-                        }
-                    }
-                    else
-                    {
-                        // No min-max assign
-                        ret += "Min/Max Specification is not set.";
-                    }
-                }
+                if (SpecId == 0) ret = GetNoneSpec();
+                else if (SpecId == 1) ret = GetPlusMinusSpec();
+                else if (SpecId == 2) ret = GetMinMaxSpec();
                 return ret;
             }
             set { }
