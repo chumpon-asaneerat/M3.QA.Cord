@@ -22,6 +22,27 @@ namespace M3.QA.Models
     /// </summary>
     public class CordThickness : NRTestProperty
     {
+        #region Protected Methods
+
+        /// <summary>
+        /// Check Spec.
+        /// </summary>
+        protected override void CheckSpec()
+        {
+            if (null == Spec || Spec.SpecId <= 0)
+                return;
+
+            this.O1 = (N1.HasValue) ? Spec.IsOutOfSpec(N1.Value) : false;
+            this.O2 = (N2.HasValue) ? Spec.IsOutOfSpec(N2.Value) : false;
+            this.O3 = (N3.HasValue) ? Spec.IsOutOfSpec(N3.Value) : false;
+            this.O4 = (N4.HasValue) ? Spec.IsOutOfSpec(N4.Value) : false;
+            this.O5 = (N5.HasValue) ? Spec.IsOutOfSpec(N5.Value) : false;
+            this.O6 = (N6.HasValue) ? Spec.IsOutOfSpec(N6.Value) : false;
+            this.O7 = (N7.HasValue) ? Spec.IsOutOfSpec(N7.Value) : false;
+        }
+
+        #endregion
+
         #region Public Properties
 
         #region User/EditDate

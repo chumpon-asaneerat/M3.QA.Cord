@@ -7,8 +7,11 @@ M3 QA Cord #149
 M3 QA Cord #148
 - 
 
+[commit]
 M3 QA Cord #147
-- 
+- Implements Cord Test Data #117
+  - Implements Cord Spec #8.
+    - Thickness implemented.
 
 [commit]
 M3 QA Cord #146
