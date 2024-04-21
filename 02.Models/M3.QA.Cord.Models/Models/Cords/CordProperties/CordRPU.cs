@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media;
 using Dapper;
 
 using NLib;
@@ -44,6 +45,25 @@ namespace M3.QA.Models
 
         #region Private Methods
 
+        private void CheckSpec()
+        {
+            if (null != Spec && null != BeforeHeat && null != AfterHeat)
+            {
+                RPUO = (RPU.HasValue) ? Spec.IsOutOfSpec(RPU.Value) : false;
+
+                // set out of range flag to BeforeHeat, AfterHeat object
+                BeforeHeat.O1 = RPUO;
+                AfterHeat.O1 = RPUO;
+
+                // Raise events
+                Raise(() => this.BeforeHeat);
+                Raise(() => this.AfterHeat);
+
+                Raise(() => this.RPUO);
+                Raise(() => this.RPUForegroundColor);
+            }
+        }
+
         private void CalculateFormula()
         {
             if (null != BeforeHeat && null != AfterHeat)
@@ -62,6 +82,8 @@ namespace M3.QA.Models
 
                 // Raise events
                 Raise(() => this.RPU);
+
+                CheckSpec(); // Check Spec
             }
         }
 
@@ -211,7 +233,18 @@ namespace M3.QA.Models
 
         public NRTestProperty BeforeHeat { get; set; }
         public NRTestProperty AfterHeat { get; set; }
+
         public decimal? RPU { get; set; }
+        public bool RPUO { get; set; }
+        public SolidColorBrush RPUForegroundColor 
+        { 
+            get
+            {
+                return (RPUO) ? ModelConsts.RedColor : ModelConsts.BlackColor;
+            }
+            set { }
+        }
+
 
         #endregion
 
