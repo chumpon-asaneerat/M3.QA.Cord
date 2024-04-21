@@ -224,7 +224,9 @@
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
-                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBlock TextAlignment="Center"
+                                                                                   Foreground="{Binding ForegroundColorN}"
+                                                                                   Text="{Binding CaptionN}" />
                                                                         <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
@@ -232,7 +234,9 @@
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleR}">
-                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBlock TextAlignment="Center"
+                                                                                   Foreground="{Binding ForegroundColorR}"
+                                                                                   Text="{Binding CaptionR}" />
                                                                         <TextBox Style="{StaticResource RInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
@@ -280,7 +284,9 @@
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
-                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                        <TextBlock TextAlignment="Center"
+                                                                                   Foreground="{Binding ForegroundColorN}"
+                                                                                   Text="{Binding CaptionN}" />
                                                                         <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
                                                                     </StackPanel>
                                                                 </StackPanel>
@@ -288,7 +294,9 @@
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleR}">
-                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                                        <TextBlock TextAlignment="Center"
+                                                                                   Foreground="{Binding ForegroundColorR}"
+                                                                                   Text="{Binding CaptionR}" />
                                                                         <TextBox Style="{StaticResource RInput}" IsReadOnly="True" />
                                                                     </StackPanel>
                                                                 </StackPanel>

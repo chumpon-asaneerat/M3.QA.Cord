@@ -22,8 +22,11 @@ M3 QA Cord #154
 M3 QA Cord #153
 - 
 
+[commit]
 M3 QA Cord #152
-- 
+- Implements Cord Test Data #122
+  - Implements Cord Spec #13.
+    - 2nd Twist implemented.
 
 [commit]
 M3 QA Cord #151

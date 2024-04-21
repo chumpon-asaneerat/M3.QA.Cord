@@ -409,7 +409,25 @@ namespace M3.QA.Models
             if (null == items || items.Count <= 0)
                 return null;
 
-            return items.Find((x) => x.PropertyNo == propertyNo);
+            return items.Find((x) =>
+            {
+                bool ret = false;
+                if (!string.IsNullOrEmpty(x.UnitId))
+                {
+                    // Has UnitId then OptionId required
+                    if (!string.IsNullOrEmpty(x.OptionId))
+                    {
+                        // Has OptionId so return first OptionId = '1'
+                        ret = x.PropertyNo == propertyNo && x.OptionId == "1";
+                    }
+                }
+                else
+                {
+                    // No Unit id
+                    ret = x.PropertyNo == propertyNo;
+                }
+                return ret;
+            });
         }
 
         #endregion
