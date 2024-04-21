@@ -41,13 +41,6 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region Spec
-
-        /// <summary>Gets or sets CordTestSpec.</summary>
-        public CordTestSpec Spec { get; set; }
-
-        #endregion
-
         #region User/EditDate
 
         public string InputBy { get; set; }

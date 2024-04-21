@@ -1,8 +1,11 @@
 M3 QA Cord #150
 - 
 
+[commit]
 M3 QA Cord #149
-- 
+- Implements Cord Test Data #119
+  - Implements Cord Spec #10.
+    - AdhesionForce implemented.
 
 [commit]
 M3 QA Cord #148

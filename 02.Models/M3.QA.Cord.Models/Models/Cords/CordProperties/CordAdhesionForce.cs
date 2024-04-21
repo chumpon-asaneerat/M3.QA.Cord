@@ -41,6 +41,19 @@ namespace M3.QA.Models
 
         #region Private Methods
 
+        private void CheckSpec()
+        {
+            if (null != Spec && null != PeakPoint && null != AdhesionForce)
+            {
+                // Check AdhesionForce Range.
+                AdhesionForce.O1 = (AdhesionForce.N1.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N1.Value) : false;
+                AdhesionForce.O2 = (AdhesionForce.N2.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N2.Value) : false;
+                // set out of range flag to PeakPoint object
+                PeakPoint.O1 = AdhesionForce.O1;
+                PeakPoint.O2 = AdhesionForce.O2;
+            }
+        }
+
         private void CalculateFormula()
         {
             if (null != PeakPoint && null != AdhesionForce)
@@ -51,6 +64,8 @@ namespace M3.QA.Models
                 AdhesionForce.R2 = (PeakPoint.R2.HasValue) ? PeakPoint.R2.Value / 5 : new decimal?();
                 // Raise events
                 Raise(() => this.AdhesionForce);
+
+                CheckSpec(); // Check Spec
             }
         }
 
@@ -280,6 +295,7 @@ namespace M3.QA.Models
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
                         existItems[idx].YarnType = item.YarnType;
+                        existItems[idx].Spec = spec; // assign spec
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }

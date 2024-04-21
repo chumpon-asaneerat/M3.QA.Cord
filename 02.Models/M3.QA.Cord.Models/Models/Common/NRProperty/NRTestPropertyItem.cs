@@ -235,7 +235,7 @@ namespace M3.QA.Models
         /// <summary>Check is Enable Re Test (requird N value first).</summary>
         public bool EnableR 
         { 
-            get { return (NeedSP) ? SPNo.HasValue && ((N.HasValue && !O) || R.HasValue) : ((N.HasValue && !O) || R.HasValue); } 
+            get { return (NeedSP) ? SPNo.HasValue && ((N.HasValue && O) || R.HasValue) : ((N.HasValue && O) || R.HasValue); } 
             set { } 
         }
 
