@@ -34,7 +34,7 @@
                TargetType="TextBox"
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
-            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.###}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.####}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
             <Setter Property="IsReadOnly" Value="{Binding ReadOnlyN}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
@@ -50,7 +50,7 @@
                TargetType="TextBox"
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
-            <Setter Property="Text" Value="{Binding R, StringFormat='{}{0:#,##0.###}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="Text" Value="{Binding R, StringFormat='{}{0:#,##0.####}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
             <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
@@ -88,7 +88,7 @@
                                             Margin="3"
                                             Padding="5,2">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Test Specification : "
+                                            <TextBlock Text="Denier Specification : "
                                                        VerticalAlignment="Center"
                                                        Foreground="WhiteSmoke"
                                                        FontSize="16"
@@ -108,7 +108,7 @@
                                             Margin="3"
                                             Padding="5,2">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Test Specification : "
+                                            <TextBlock Text="Moisture Specification : "
                                                        VerticalAlignment="Center"
                                                        Foreground="WhiteSmoke"
                                                        FontSize="16"
@@ -128,7 +128,7 @@
                                             Margin="3"
                                             Padding="5,2">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Test Specification : "
+                                            <TextBlock Text="Weight Specification : "
                                                        VerticalAlignment="Center"
                                                        Foreground="WhiteSmoke"
                                                        FontSize="16"

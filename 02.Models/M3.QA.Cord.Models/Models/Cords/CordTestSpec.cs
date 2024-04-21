@@ -409,7 +409,9 @@ namespace M3.QA.Models
             if (null == items || items.Count <= 0)
                 return null;
 
-            return items.Find((x) =>
+
+            CordTestSpec spec;
+            spec = items.Find((x) =>
             {
                 bool ret = false;
                 if (!string.IsNullOrEmpty(x.UnitId))
@@ -428,6 +430,19 @@ namespace M3.QA.Models
                 }
                 return ret;
             });
+
+            if (null == spec)
+            {
+                spec = new CordTestSpec()
+                {
+                    PropertyNo = propertyNo,
+                    SpecId = 0,
+                    UnitId = null,
+                    OptionId = null
+                };
+            }
+
+            return spec;
         }
 
         #endregion

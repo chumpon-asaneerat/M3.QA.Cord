@@ -56,6 +56,48 @@ namespace M3.QA.Models
 
         #region Private Methods
 
+        private void CheckDenierSpec()
+        {
+            if (null != SpecDenier && null != YarnWeightAfterDrying && null != StandardDenierD && null != StandardDenierDtex)
+            {
+                if (!string.IsNullOrEmpty(SpecDenier.UnitId) && SpecDenier.UnitId.Trim().ToLower() == "dtex")
+                {
+                    StandardDenierDtex.O1 = (StandardDenierDtex.N1.HasValue) ? SpecDenier.IsOutOfSpec(StandardDenierDtex.N1.Value) : false;
+
+                    StandardDenierD.O1 = StandardDenierDtex.O1;
+                    YarnWeightAfterDrying.O1 = StandardDenierDtex.O1;
+                }
+                else if (!string.IsNullOrEmpty(SpecDenier.UnitId) && SpecDenier.UnitId.Trim().ToLower() == "D")
+                {
+                    StandardDenierD.O1 = (StandardDenierD.N1.HasValue) ? SpecDenier.IsOutOfSpec(StandardDenierD.N1.Value) : false;
+
+                    StandardDenierDtex.O1 = StandardDenierD.O1;
+                    YarnWeightAfterDrying.O1 = StandardDenierD.O1;
+                }
+            }
+        }
+
+        private void CheckMoistureSpec()
+        {
+            if (null != SpecMoisture && null != YarnWeightBeforeDrying && null != YarnWeightAfterDrying && null != EquilibriumMoistureContent)
+            {
+                EquilibriumMoistureContent.O1 = (EquilibriumMoistureContent.N1.HasValue) ? SpecWeight.IsOutOfSpec(EquilibriumMoistureContent.N1.Value) : false;
+
+                YarnWeightBeforeDrying.O1 = EquilibriumMoistureContent.O1;
+                YarnWeightAfterDrying.O1 = EquilibriumMoistureContent.O1;
+            }
+        }
+
+        private void CheckWeightSpec()
+        {
+            if (null != SpecWeight && null != YarnWeightAfterDrying && null != Weight)
+            {
+                Weight.O1 = (Weight.N1.HasValue) ? SpecWeight.IsOutOfSpec(Weight.N1.Value) : false;
+
+                YarnWeightAfterDrying.O1 = Weight.O1;
+            }
+        }
+
         private void CalculateFormula()
         {
             if (null != YarnAndContentWeightAfterDrying && null != ContentWeight && null != YarnWeightAfterDrying)
@@ -100,6 +142,8 @@ namespace M3.QA.Models
                     // Raise events
                     Raise(() => this.StandardDenierD);
                     Raise(() => this.StandardDenierDtex);
+
+                    CheckDenierSpec(); // Check Denier Spec
                 }
                 else if (!string.IsNullOrWhiteSpace(YarnType) && string.Compare(YarnType, "Nylon", true) == 0)
                 {
@@ -120,6 +164,8 @@ namespace M3.QA.Models
                     // Raise events
                     Raise(() => this.StandardDenierD);
                     Raise(() => this.StandardDenierDtex);
+
+                    CheckDenierSpec(); // Check Denier Spec
                 }
             }
         }
@@ -136,6 +182,8 @@ namespace M3.QA.Models
 
                 // Raise events
                 Raise(() => this.EquilibriumMoistureContent);
+
+                CheckMoistureSpec(); // Check Moisture Spec
             }
         }
 
@@ -150,6 +198,8 @@ namespace M3.QA.Models
 
                 // Raise events
                 Raise(() => this.Weight);
+
+                CheckWeightSpec(); // Check Weight Spec
             }
         }
 

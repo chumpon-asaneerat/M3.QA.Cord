@@ -92,11 +92,11 @@ namespace M3.QA.Models
         {
             if (null != Spec &&  null != Item && null != TM && null != TM10cm)
             {
-                if (Spec.UnitId.Trim().ToLower() == "t/m")
+                if (!string.IsNullOrEmpty(Spec.UnitId) && Spec.UnitId.Trim().ToLower() == "t/m")
                 {
                     CheckSpecTM();
                 }
-                else if (Spec.UnitId.Trim().ToLower() == "t/10cm")
+                else if (!string.IsNullOrEmpty(Spec.UnitId) && Spec.UnitId.Trim().ToLower() == "t/10cm")
                 {
                     CheckSpecT10cm();
                 }
