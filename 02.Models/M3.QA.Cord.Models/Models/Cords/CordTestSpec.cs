@@ -151,7 +151,7 @@ namespace M3.QA.Models
             {
                 case 0: // No Checking
                     {
-                        ret = true;
+                        ret = false;
                         break;
                     }
                 case 1: // Plus-Minus
@@ -162,7 +162,7 @@ namespace M3.QA.Models
                         decimal vMin, vMax;
                         if (VCenter.HasValue)
                         {
-                            vMin = VCenter.Value + (VMin.HasValue ? VMin.Value : decimal.Zero);
+                            vMin = VCenter.Value - (VMin.HasValue ? VMin.Value : decimal.Zero);
                             vMax = VCenter.Value + (VMax.HasValue ? VMax.Value : decimal.Zero);
                         }
                         else
@@ -208,7 +208,7 @@ namespace M3.QA.Models
                     }
                 default: 
                     {
-                        ret = true; // not found SpecId so assume value is valid.
+                        ret = false; // not found SpecId so assume value is valid.
                         break;
                     }
             }

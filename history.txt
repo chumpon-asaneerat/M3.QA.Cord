@@ -4,8 +4,11 @@ M3 QA Cord #150
 M3 QA Cord #149
 - 
 
+[commit]
 M3 QA Cord #148
-- 
+- Implements Cord Test Data #118
+  - Implements Cord Spec #9.
+    - ShrinkageForce implemented.
 
 [commit]
 M3 QA Cord #147
