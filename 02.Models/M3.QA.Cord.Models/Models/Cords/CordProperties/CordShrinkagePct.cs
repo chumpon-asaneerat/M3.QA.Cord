@@ -46,6 +46,26 @@ namespace M3.QA.Models
 
         #region Private Methods
 
+        private void CheckSpec()
+        {
+            if (null != Spec && null != LengthBeforeHeat && null != LengthAfterHeat && null != PctShrinkage)
+            {
+                // Check Shrinkage%.
+                PctShrinkage.O1 = (PctShrinkage.N1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N1.Value) : false;
+                PctShrinkage.O2 = (PctShrinkage.N2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N2.Value) : false;
+                PctShrinkage.O3 = (PctShrinkage.N3.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N3.Value) : false;
+
+                // set out of range flag to LengthBeforeHeat object
+                LengthBeforeHeat.O1 = PctShrinkage.O1;
+                LengthBeforeHeat.O2 = PctShrinkage.O2;
+                LengthBeforeHeat.O3 = PctShrinkage.O3;
+                // set out of range flag to LengthAfterHeat object
+                LengthAfterHeat.O1 = PctShrinkage.O1;
+                LengthAfterHeat.O2 = PctShrinkage.O2;
+                LengthAfterHeat.O3 = PctShrinkage.O3;
+            }
+        }
+
         private void CalculateFormula()
         {
             if (null != LengthBeforeHeat && null != LengthAfterHeat && null != PctShrinkage)
@@ -81,6 +101,8 @@ namespace M3.QA.Models
 
                 // Raise events
                 Raise(() => this.PctShrinkage);
+
+                CheckSpec(); // Check Spec
             }
         }
 

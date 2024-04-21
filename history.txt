@@ -1,5 +1,38 @@
-M3 QA Cord #150
+M3 QA Cord #160
 - 
+
+M3 QA Cord #159
+- 
+
+M3 QA Cord #158
+- 
+
+M3 QA Cord #157
+- 
+
+M3 QA Cord #156
+- 
+
+M3 QA Cord #155
+- 
+
+M3 QA Cord #154
+- 
+
+M3 QA Cord #153
+- 
+
+M3 QA Cord #152
+- 
+
+M3 QA Cord #151
+- 
+
+[commit]
+M3 QA Cord #150
+- Implements Cord Test Data #120
+  - Implements Cord Spec #11.
+    - Shrinkage% implemented.
 
 [commit]
 M3 QA Cord #149
