@@ -48,6 +48,61 @@ namespace M3.QA.Models
 
         private bool onCalc = false;
 
+        private void CheckSpecTM()
+        {
+            if (null != Spec && null != Item && null != TM && null != TM10cm)
+            {
+                // Check T/M.
+                TM.O1 = (TM.N1.HasValue) ? Spec.IsOutOfSpec(TM.N1.Value) : false;
+                TM.O2 = (TM.N2.HasValue) ? Spec.IsOutOfSpec(TM.N2.Value) : false;
+                TM.O3 = (TM.N3.HasValue) ? Spec.IsOutOfSpec(TM.N3.Value) : false;
+
+                // set out of range flag to Item object
+                Item.O1 = TM.O1;
+                Item.O2 = TM.O2;
+                Item.O3 = TM.O3;
+                // set out of range flag to TM10cm object
+                TM10cm.O1 = Item.O1;
+                TM10cm.O2 = Item.O2;
+                TM10cm.O3 = Item.O3;
+            }
+        }
+
+        private void CheckSpecT10cm()
+        {
+            if (null != Spec && null != Item && null != TM && null != TM10cm)
+            {
+                // Check T/10cm.
+                TM10cm.O1 = (TM10cm.N1.HasValue) ? Spec.IsOutOfSpec(TM10cm.N1.Value) : false;
+                TM10cm.O2 = (TM10cm.N2.HasValue) ? Spec.IsOutOfSpec(TM10cm.N2.Value) : false;
+                TM10cm.O3 = (TM10cm.N3.HasValue) ? Spec.IsOutOfSpec(TM10cm.N3.Value) : false;
+
+                // set out of range flag to Item object
+                Item.O1 = TM10cm.O1;
+                Item.O2 = TM10cm.O2;
+                Item.O3 = TM10cm.O3;
+                // set out of range flag to TM object
+                TM.O1 = Item.O1;
+                TM.O2 = Item.O2;
+                TM.O3 = Item.O3;
+            }
+        }
+
+        private void CheckSpec()
+        {
+            if (null != Spec &&  null != Item && null != TM && null != TM10cm)
+            {
+                if (Spec.UnitId.Trim().ToLower() == "t/m")
+                {
+                    CheckSpecTM();
+                }
+                else if (Spec.UnitId.Trim().ToLower() == "t/10cm")
+                {
+                    CheckSpecT10cm();
+                }
+            }
+        }
+
         private void CalculateFormulaFromItem()
         {
             if (onCalc) return; // lock circular reference dead lock
@@ -73,6 +128,8 @@ namespace M3.QA.Models
                 // Raise events
                 Raise(() => this.TM);
                 Raise(() => this.TM10cm);
+
+                CheckSpec(); // Check Spec
             }
 
             onCalc = false;
@@ -103,6 +160,8 @@ namespace M3.QA.Models
                 // Raise events
                 Raise(() => this.Item);
                 Raise(() => this.TM10cm);
+
+                CheckSpec(); // Check Spec
             }
 
             onCalc = false;
@@ -133,6 +192,8 @@ namespace M3.QA.Models
                 // Raise events
                 Raise(() => this.Item);
                 Raise(() => this.TM);
+
+                CheckSpec(); // Check Spec
             }
 
             onCalc = false;
