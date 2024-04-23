@@ -127,10 +127,35 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Border Margin="0,0,5,0">
+                                            <Border Margin="0,0,5,5">
                                                 <DockPanel LastChildFill="True">
                                                     <!--  BREAK/LOAD/ELONGNO  -->
                                                     <DockPanel LastChildFill="True">
+                                                        <!--  Spec  -->
+                                                        <DockPanel DockPanel.Dock="Top"
+                                                                   LastChildFill="True"
+                                                                   Visibility="{Binding Spec.SpecVisibility}">
+                                                            <Border DockPanel.Dock="Left"
+                                                                    CornerRadius="5"
+                                                                    Background="DimGray"
+                                                                    Margin="3"
+                                                                    Padding="5,2">
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Text="Test Specification : "
+                                                                               VerticalAlignment="Center"
+                                                                               Foreground="WhiteSmoke"
+                                                                               FontSize="16"
+                                                                               FontWeight="SemiBold" />
+                                                                    <TextBlock Text="{Binding Spec.SpecInfo}"
+                                                                               VerticalAlignment="Center"
+                                                                               Foreground="Yellow"
+                                                                               FontSize="16"
+                                                                               FontWeight="SemiBold" />
+                                                                </StackPanel>
+                                                            </Border>
+                                                            <Grid />
+                                                        </DockPanel>
+                                                        <!--  Load N  -->
                                                         <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
                                                             <TextBlock TextAlignment="Right"
                                                                        Margin="0,0,5,0"
