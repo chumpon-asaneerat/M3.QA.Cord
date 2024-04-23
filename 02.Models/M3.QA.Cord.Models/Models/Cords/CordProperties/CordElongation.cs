@@ -248,13 +248,21 @@ namespace M3.QA.Models
             if (null == Spec || Spec.SpecId <= 0)
                 return;
 
-            this.O1 = (N1.HasValue) ? Spec.IsOutOfSpec(N1.Value) : false;
-            this.O2 = (N2.HasValue) ? Spec.IsOutOfSpec(N2.Value) : false;
-            this.O3 = (N3.HasValue) ? Spec.IsOutOfSpec(N3.Value) : false;
-            this.O4 = (N4.HasValue) ? Spec.IsOutOfSpec(N4.Value) : false;
-            this.O5 = (N5.HasValue) ? Spec.IsOutOfSpec(N5.Value) : false;
-            this.O6 = (N6.HasValue) ? Spec.IsOutOfSpec(N6.Value) : false;
-            this.O7 = (N7.HasValue) ? Spec.IsOutOfSpec(N7.Value) : false;
+            this.NOut1 = (N1.HasValue) ? Spec.IsOutOfSpec(N1.Value) : false;
+            this.NOut2 = (N2.HasValue) ? Spec.IsOutOfSpec(N2.Value) : false;
+            this.NOut3 = (N3.HasValue) ? Spec.IsOutOfSpec(N3.Value) : false;
+            this.NOut4 = (N4.HasValue) ? Spec.IsOutOfSpec(N4.Value) : false;
+            this.NOut5 = (N5.HasValue) ? Spec.IsOutOfSpec(N5.Value) : false;
+            this.NOut6 = (N6.HasValue) ? Spec.IsOutOfSpec(N6.Value) : false;
+            this.NOut7 = (N7.HasValue) ? Spec.IsOutOfSpec(N7.Value) : false;
+
+            this.ROut1 = (R1.HasValue) ? Spec.IsOutOfSpec(R1.Value) : false;
+            this.ROut2 = (R2.HasValue) ? Spec.IsOutOfSpec(R2.Value) : false;
+            this.ROut3 = (R3.HasValue) ? Spec.IsOutOfSpec(R3.Value) : false;
+            this.ROut4 = (R4.HasValue) ? Spec.IsOutOfSpec(R4.Value) : false;
+            this.ROut5 = (R5.HasValue) ? Spec.IsOutOfSpec(R5.Value) : false;
+            this.ROut6 = (R6.HasValue) ? Spec.IsOutOfSpec(R6.Value) : false;
+            this.ROut7 = (R7.HasValue) ? Spec.IsOutOfSpec(R7.Value) : false;
         }
 
         #endregion
@@ -337,13 +345,21 @@ namespace M3.QA.Models
             if (null == Spec || Spec.SpecId <= 0)
                 return;
 
-            this.O1 = (N1.HasValue) ? Spec.IsOutOfSpec(N1.Value) : false;
-            this.O2 = (N2.HasValue) ? Spec.IsOutOfSpec(N2.Value) : false;
-            this.O3 = (N3.HasValue) ? Spec.IsOutOfSpec(N3.Value) : false;
-            this.O4 = (N4.HasValue) ? Spec.IsOutOfSpec(N4.Value) : false;
-            this.O5 = (N5.HasValue) ? Spec.IsOutOfSpec(N5.Value) : false;
-            this.O6 = (N6.HasValue) ? Spec.IsOutOfSpec(N6.Value) : false;
-            this.O7 = (N7.HasValue) ? Spec.IsOutOfSpec(N7.Value) : false;
+            this.NOut1 = (N1.HasValue) ? Spec.IsOutOfSpec(N1.Value) : false;
+            this.NOut2 = (N2.HasValue) ? Spec.IsOutOfSpec(N2.Value) : false;
+            this.NOut3 = (N3.HasValue) ? Spec.IsOutOfSpec(N3.Value) : false;
+            this.NOut4 = (N4.HasValue) ? Spec.IsOutOfSpec(N4.Value) : false;
+            this.NOut5 = (N5.HasValue) ? Spec.IsOutOfSpec(N5.Value) : false;
+            this.NOut6 = (N6.HasValue) ? Spec.IsOutOfSpec(N6.Value) : false;
+            this.NOut7 = (N7.HasValue) ? Spec.IsOutOfSpec(N7.Value) : false;
+
+            this.ROut1 = (R1.HasValue) ? Spec.IsOutOfSpec(R1.Value) : false;
+            this.ROut2 = (R2.HasValue) ? Spec.IsOutOfSpec(R2.Value) : false;
+            this.ROut3 = (R3.HasValue) ? Spec.IsOutOfSpec(R3.Value) : false;
+            this.ROut4 = (R4.HasValue) ? Spec.IsOutOfSpec(R4.Value) : false;
+            this.ROut5 = (R5.HasValue) ? Spec.IsOutOfSpec(R5.Value) : false;
+            this.ROut6 = (R6.HasValue) ? Spec.IsOutOfSpec(R6.Value) : false;
+            this.ROut7 = (R7.HasValue) ? Spec.IsOutOfSpec(R7.Value) : false;
         }
 
         #endregion

@@ -52,8 +52,11 @@ namespace M3.QA.Models
                 RPUO = (RPU.HasValue) ? Spec.IsOutOfSpec(RPU.Value) : false;
 
                 // set out of range flag to BeforeHeat, AfterHeat object
-                BeforeHeat.O1 = RPUO;
-                AfterHeat.O1 = RPUO;
+                BeforeHeat.NOut1 = RPUO;
+                BeforeHeat.ROut1 = RPUO;
+
+                AfterHeat.NOut1 = RPUO;
+                AfterHeat.ROut1 = RPUO;
 
                 // Raise events
                 Raise(() => this.BeforeHeat);
@@ -235,7 +238,9 @@ namespace M3.QA.Models
         public NRTestProperty AfterHeat { get; set; }
 
         public decimal? RPU { get; set; }
+
         public bool RPUO { get; set; }
+
         public SolidColorBrush RPUForegroundColor 
         { 
             get

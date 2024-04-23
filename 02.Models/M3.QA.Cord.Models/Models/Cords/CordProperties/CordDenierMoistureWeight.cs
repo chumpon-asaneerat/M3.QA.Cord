@@ -62,17 +62,23 @@ namespace M3.QA.Models
             {
                 if (!string.IsNullOrEmpty(SpecDenier.UnitId) && SpecDenier.UnitId.Trim().ToLower() == "dtex")
                 {
-                    StandardDenierDtex.O1 = (StandardDenierDtex.N1.HasValue) ? SpecDenier.IsOutOfSpec(StandardDenierDtex.N1.Value) : false;
+                    StandardDenierDtex.NOut1 = (StandardDenierDtex.N1.HasValue) ? SpecDenier.IsOutOfSpec(StandardDenierDtex.N1.Value) : false;
+                    StandardDenierDtex.ROut1 = (StandardDenierDtex.R1.HasValue) ? SpecDenier.IsOutOfSpec(StandardDenierDtex.R1.Value) : false;
 
-                    StandardDenierD.O1 = StandardDenierDtex.O1;
-                    YarnWeightAfterDrying.O1 = StandardDenierDtex.O1;
+                    StandardDenierD.NOut1 = StandardDenierDtex.NOut1;
+                    StandardDenierD.ROut1 = StandardDenierDtex.ROut1;
+                    YarnWeightAfterDrying.NOut1 = StandardDenierDtex.NOut1;
+                    YarnWeightAfterDrying.ROut1 = StandardDenierDtex.ROut1;
                 }
                 else if (!string.IsNullOrEmpty(SpecDenier.UnitId) && SpecDenier.UnitId.Trim().ToLower() == "D")
                 {
-                    StandardDenierD.O1 = (StandardDenierD.N1.HasValue) ? SpecDenier.IsOutOfSpec(StandardDenierD.N1.Value) : false;
+                    StandardDenierD.NOut1 = (StandardDenierD.N1.HasValue) ? SpecDenier.IsOutOfSpec(StandardDenierD.N1.Value) : false;
+                    StandardDenierD.ROut1 = (StandardDenierD.R1.HasValue) ? SpecDenier.IsOutOfSpec(StandardDenierD.R1.Value) : false;
 
-                    StandardDenierDtex.O1 = StandardDenierD.O1;
-                    YarnWeightAfterDrying.O1 = StandardDenierD.O1;
+                    StandardDenierDtex.NOut1 = StandardDenierD.NOut1;
+                    StandardDenierDtex.ROut1 = StandardDenierD.ROut1;
+                    YarnWeightAfterDrying.NOut1 = StandardDenierD.NOut1;
+                    YarnWeightAfterDrying.ROut1 = StandardDenierD.ROut1;
                 }
             }
         }
@@ -81,10 +87,13 @@ namespace M3.QA.Models
         {
             if (null != SpecMoisture && null != YarnWeightBeforeDrying && null != YarnWeightAfterDrying && null != EquilibriumMoistureContent)
             {
-                EquilibriumMoistureContent.O1 = (EquilibriumMoistureContent.N1.HasValue) ? SpecWeight.IsOutOfSpec(EquilibriumMoistureContent.N1.Value) : false;
+                EquilibriumMoistureContent.NOut1 = (EquilibriumMoistureContent.N1.HasValue) ? SpecWeight.IsOutOfSpec(EquilibriumMoistureContent.N1.Value) : false;
+                EquilibriumMoistureContent.ROut1 = (EquilibriumMoistureContent.R1.HasValue) ? SpecWeight.IsOutOfSpec(EquilibriumMoistureContent.R1.Value) : false;
 
-                YarnWeightBeforeDrying.O1 = EquilibriumMoistureContent.O1;
-                YarnWeightAfterDrying.O1 = EquilibriumMoistureContent.O1;
+                YarnWeightBeforeDrying.NOut1 = EquilibriumMoistureContent.NOut1;
+                YarnWeightBeforeDrying.ROut1 = EquilibriumMoistureContent.ROut1;
+                YarnWeightAfterDrying.NOut1 = EquilibriumMoistureContent.NOut1;
+                YarnWeightAfterDrying.ROut1 = EquilibriumMoistureContent.ROut1;
             }
         }
 
@@ -92,9 +101,11 @@ namespace M3.QA.Models
         {
             if (null != SpecWeight && null != YarnWeightAfterDrying && null != Weight)
             {
-                Weight.O1 = (Weight.N1.HasValue) ? SpecWeight.IsOutOfSpec(Weight.N1.Value) : false;
+                Weight.NOut1 = (Weight.N1.HasValue) ? SpecWeight.IsOutOfSpec(Weight.N1.Value) : false;
+                Weight.ROut1 = (Weight.R1.HasValue) ? SpecWeight.IsOutOfSpec(Weight.R1.Value) : false;
 
-                YarnWeightAfterDrying.O1 = Weight.O1;
+                YarnWeightAfterDrying.NOut1 = Weight.NOut1;
+                YarnWeightAfterDrying.ROut1 = Weight.ROut1;
             }
         }
 

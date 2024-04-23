@@ -46,11 +46,17 @@ namespace M3.QA.Models
             if (null != Spec && null != PeakPoint && null != AdhesionForce)
             {
                 // Check AdhesionForce Range.
-                AdhesionForce.O1 = (AdhesionForce.N1.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N1.Value) : false;
-                AdhesionForce.O2 = (AdhesionForce.N2.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N2.Value) : false;
+                AdhesionForce.NOut1 = (AdhesionForce.N1.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N1.Value) : false;
+                AdhesionForce.NOut2 = (AdhesionForce.N2.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N2.Value) : false;
+
+                AdhesionForce.ROut1 = (AdhesionForce.R1.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.R1.Value) : false;
+                AdhesionForce.ROut2 = (AdhesionForce.R2.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.R2.Value) : false;
                 // set out of range flag to PeakPoint object
-                PeakPoint.O1 = AdhesionForce.O1;
-                PeakPoint.O2 = AdhesionForce.O2;
+                PeakPoint.NOut1 = AdhesionForce.NOut1;
+                PeakPoint.NOut2 = AdhesionForce.NOut2;
+
+                PeakPoint.NOut1 = AdhesionForce.NOut1;
+                PeakPoint.NOut2 = AdhesionForce.NOut2;
             }
         }
 

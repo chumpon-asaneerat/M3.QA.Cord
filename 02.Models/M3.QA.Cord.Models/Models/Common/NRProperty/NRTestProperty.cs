@@ -32,8 +32,10 @@ namespace M3.QA.Models
         private List<Action<decimal?>> _SetNs;
         private List<Func<decimal?>> _GetRs;
         private List<Action<decimal?>> _SetRs;
-        private List<Func<bool>> _GetOs;
-        private List<Action<bool>> _SetOs;
+        private List<Func<bool>> _GetNOuts;
+        private List<Action<bool>> _SetNOuts;
+        private List<Func<bool>> _GetROuts;
+        private List<Action<bool>> _SetROuts;
 
         #endregion
 
@@ -96,27 +98,49 @@ namespace M3.QA.Models
                 (value) => { this.R6 = value; },
                 (value) => { this.R7 = value; }
             };
-            // Get O
-            _GetOs = new List<Func<bool>>()
+            // Get N Out
+            _GetNOuts = new List<Func<bool>>()
             {
-                () => { return this.O1; },
-                () => { return this.O2; },
-                () => { return this.O3; },
-                () => { return this.O4; },
-                () => { return this.O5; },
-                () => { return this.O6; },
-                () => { return this.O7; }
+                () => { return this.NOut1; },
+                () => { return this.NOut2; },
+                () => { return this.NOut3; },
+                () => { return this.NOut4; },
+                () => { return this.NOut5; },
+                () => { return this.NOut6; },
+                () => { return this.NOut7; }
             };
-            // Set O
-            _SetOs = new List<Action<bool>>()
+            // Set N Out
+            _SetNOuts = new List<Action<bool>>()
             {
-                (value) => { this.O1 = value; },
-                (value) => { this.O2 = value; },
-                (value) => { this.O3 = value; },
-                (value) => { this.O4 = value; },
-                (value) => { this.O5 = value; },
-                (value) => { this.O6 = value; },
-                (value) => { this.O7 = value; }
+                (value) => { this.NOut1 = value; },
+                (value) => { this.NOut2 = value; },
+                (value) => { this.NOut3 = value; },
+                (value) => { this.NOut4 = value; },
+                (value) => { this.NOut5 = value; },
+                (value) => { this.NOut6 = value; },
+                (value) => { this.NOut7 = value; }
+            };
+            // Get R Out
+            _GetROuts = new List<Func<bool>>()
+            {
+                () => { return this.ROut1; },
+                () => { return this.ROut2; },
+                () => { return this.ROut3; },
+                () => { return this.ROut4; },
+                () => { return this.ROut5; },
+                () => { return this.ROut6; },
+                () => { return this.ROut7; }
+            };
+            // Set R Out
+            _SetROuts = new List<Action<bool>>()
+            {
+                (value) => { this.ROut1 = value; },
+                (value) => { this.ROut2 = value; },
+                (value) => { this.ROut3 = value; },
+                (value) => { this.ROut4 = value; },
+                (value) => { this.ROut5 = value; },
+                (value) => { this.ROut6 = value; },
+                (value) => { this.ROut7 = value; }
             };
 
             #endregion
@@ -152,8 +176,11 @@ namespace M3.QA.Models
                     item.GetR = (null != _GetRs) ? _GetRs[i - 1] : null;
                     item.SetR = (null != _SetRs) ? _SetRs[i - 1] : null;
                     // assign method pointer to Get/Set O
-                    item.GetO = (null != _GetOs) ? _GetOs[i - 1] : null;
-                    item.SetO = (null != _SetOs) ? _SetOs[i - 1] : null;
+                    item.GetNOut = (null != _GetNOuts) ? _GetNOuts[i - 1] : null;
+                    item.SetNOut = (null != _SetNOuts) ? _SetNOuts[i - 1] : null;
+
+                    item.GetROut = (null != _GetROuts) ? _GetROuts[i - 1] : null;
+                    item.SetROut = (null != _SetROuts) ? _SetROuts[i - 1] : null;
 
                     Items.Add(item);
                 }
@@ -197,9 +224,9 @@ namespace M3.QA.Models
                     CalcAvg();
                 }
             }
-            else if (propertyName.StartsWith("O"))
+            else if (propertyName.StartsWith("NOut"))
             {
-                string sIdx = propertyName.Replace("O", string.Empty);
+                string sIdx = propertyName.Replace("NOut", string.Empty);
                 int idx;
                 if (int.TryParse(sIdx, out idx))
                 {
@@ -207,7 +234,20 @@ namespace M3.QA.Models
                     idx--; // remove by 1 for zero based
 
                     if (idx < 0 || idx >= this.Items.Count) return;
-                    this.Items[idx].RaiseOChanges();
+                    this.Items[idx].RaiseNOutChanges();
+                }
+            }
+            else if (propertyName.StartsWith("ROut"))
+            {
+                string sIdx = propertyName.Replace("ROut", string.Empty);
+                int idx;
+                if (int.TryParse(sIdx, out idx))
+                {
+                    // Note: O1 -> index must be 0, O2  -> index must be 1 so need decrease index by 1.
+                    idx--; // remove by 1 for zero based
+
+                    if (idx < 0 || idx >= this.Items.Count) return;
+                    this.Items[idx].RaiseROutChanges();
                 }
             }
             else if (propertyName.StartsWith("SPNo")) 
@@ -550,10 +590,10 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region OutSpec (1-7)
+        #region Normal OutSpec (1-7)
 
-        /// <summary>Gets or sets OutSpec1 value.</summary>
-        public bool O1
+        /// <summary>Gets or sets Normal OutSpec1 value.</summary>
+        public bool NOut1
         {
             get { return Get<bool>(); }
             set
@@ -564,8 +604,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets OutSpec2 value.</summary>
-        public bool O2
+        /// <summary>Gets or sets Normal OutSpec2 value.</summary>
+        public bool NOut2
         {
             get { return Get<bool>(); }
             set
@@ -576,8 +616,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets OutSpec3 value.</summary>
-        public bool O3
+        /// <summary>Gets or sets Normal OutSpec3 value.</summary>
+        public bool NOut3
         {
             get { return Get<bool>(); }
             set
@@ -588,8 +628,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets OutSpec4 value.</summary>
-        public bool O4
+        /// <summary>Gets or sets Normal OutSpec4 value.</summary>
+        public bool NOut4
         {
             get { return Get<bool>(); }
             set
@@ -600,8 +640,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets OutSpec5 value.</summary>
-        public bool O5
+        /// <summary>Gets or sets Normal OutSpec5 value.</summary>
+        public bool NOut5
         {
             get { return Get<bool>(); }
             set
@@ -612,8 +652,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets OutSpec6 value.</summary>
-        public bool O6
+        /// <summary>Gets or sets Normal OutSpec6 value.</summary>
+        public bool NOut6
         {
             get { return Get<bool>(); }
             set
@@ -624,8 +664,97 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets OutSpec7 value.</summary>
-        public bool O7
+        /// <summary>Gets or sets Normal OutSpec7 value.</summary>
+        public bool NOut7
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+
+        #endregion
+
+        #region Re-Test OutSpec (1-7)
+
+        /// <summary>Gets or sets Re-Test OutSpec1 value.</summary>
+        public bool ROut1
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test OutSpec2 value.</summary>
+        public bool ROut2
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test OutSpec3 value.</summary>
+        public bool ROut3
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test OutSpec4 value.</summary>
+        public bool ROut4
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test OutSpec5 value.</summary>
+        public bool ROut5
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test OutSpec6 value.</summary>
+        public bool ROut6
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test OutSpec7 value.</summary>
+        public bool ROut7
         {
             get { return Get<bool>(); }
             set

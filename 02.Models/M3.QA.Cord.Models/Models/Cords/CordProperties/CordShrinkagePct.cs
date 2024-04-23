@@ -51,18 +51,31 @@ namespace M3.QA.Models
             if (null != Spec && null != LengthBeforeHeat && null != LengthAfterHeat && null != PctShrinkage)
             {
                 // Check Shrinkage%.
-                PctShrinkage.O1 = (PctShrinkage.N1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N1.Value) : false;
-                PctShrinkage.O2 = (PctShrinkage.N2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N2.Value) : false;
-                PctShrinkage.O3 = (PctShrinkage.N3.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N3.Value) : false;
+                PctShrinkage.NOut1 = (PctShrinkage.N1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N1.Value) : false;
+                PctShrinkage.NOut2 = (PctShrinkage.N2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N2.Value) : false;
+                PctShrinkage.NOut3 = (PctShrinkage.N3.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N3.Value) : false;
+
+                PctShrinkage.ROut1 = (PctShrinkage.R1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.R1.Value) : false;
+                PctShrinkage.ROut2 = (PctShrinkage.R2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.R2.Value) : false;
+                PctShrinkage.ROut3 = (PctShrinkage.R3.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.R3.Value) : false;
 
                 // set out of range flag to LengthBeforeHeat object
-                LengthBeforeHeat.O1 = PctShrinkage.O1;
-                LengthBeforeHeat.O2 = PctShrinkage.O2;
-                LengthBeforeHeat.O3 = PctShrinkage.O3;
+                LengthBeforeHeat.NOut1 = PctShrinkage.NOut1;
+                LengthBeforeHeat.NOut2 = PctShrinkage.NOut2;
+                LengthBeforeHeat.NOut3 = PctShrinkage.NOut3;
+
+                LengthBeforeHeat.ROut1 = PctShrinkage.ROut1;
+                LengthBeforeHeat.ROut2 = PctShrinkage.ROut2;
+                LengthBeforeHeat.ROut3 = PctShrinkage.ROut3;
+
                 // set out of range flag to LengthAfterHeat object
-                LengthAfterHeat.O1 = PctShrinkage.O1;
-                LengthAfterHeat.O2 = PctShrinkage.O2;
-                LengthAfterHeat.O3 = PctShrinkage.O3;
+                LengthAfterHeat.NOut1 = PctShrinkage.NOut1;
+                LengthAfterHeat.NOut2 = PctShrinkage.NOut2;
+                LengthAfterHeat.NOut3 = PctShrinkage.NOut3;
+
+                LengthAfterHeat.ROut1 = PctShrinkage.ROut1;
+                LengthAfterHeat.ROut2 = PctShrinkage.ROut2;
+                LengthAfterHeat.ROut3 = PctShrinkage.ROut3;
             }
         }
 
@@ -95,6 +108,7 @@ namespace M3.QA.Models
                 if (PctShrinkage.N1.HasValue && PctShrinkage.N1.Value < 0) PctShrinkage.N1 = new decimal?();
                 if (PctShrinkage.N2.HasValue && PctShrinkage.N2.Value < 0) PctShrinkage.N2 = new decimal?();
                 if (PctShrinkage.N3.HasValue && PctShrinkage.N3.Value < 0) PctShrinkage.N3 = new decimal?();
+
                 if (PctShrinkage.R1.HasValue && PctShrinkage.R1.Value < 0) PctShrinkage.R1 = new decimal?();
                 if (PctShrinkage.R2.HasValue && PctShrinkage.R2.Value < 0) PctShrinkage.R2 = new decimal?();
                 if (PctShrinkage.R3.HasValue && PctShrinkage.R3.Value < 0) PctShrinkage.R3 = new decimal?();

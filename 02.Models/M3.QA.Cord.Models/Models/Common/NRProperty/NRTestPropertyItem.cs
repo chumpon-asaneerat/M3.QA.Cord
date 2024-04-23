@@ -100,10 +100,25 @@ namespace M3.QA.Models
             Raise(() => this.ForegroundColorR);
         }
 
-        protected internal void RaiseOChanges()
+        protected internal void RaiseNOutChanges()
         {
             // Raise relelated events
-            Raise(() => this.O);
+            Raise(() => this.NOut);
+            Raise(() => this.EnableN);
+            Raise(() => this.EnableR);
+            Raise(() => this.VisibleN);
+            Raise(() => this.VisibleR);
+            Raise(() => this.ReadOnlyN);
+            Raise(() => this.ReadOnlyR);
+
+            Raise(() => this.ForegroundColorN);
+            Raise(() => this.ForegroundColorR);
+        }
+
+        protected internal void RaiseROutChanges()
+        {
+            // Raise relelated events
+            Raise(() => this.ROut);
             Raise(() => this.EnableN);
             Raise(() => this.EnableR);
             Raise(() => this.VisibleN);
@@ -131,9 +146,12 @@ namespace M3.QA.Models
         // R Gets/Sets
         protected internal Func<decimal?> GetR { get; set; }
         protected internal Action<decimal?> SetR { get; set; }
-        // O Gets/Sets
-        protected internal Func<bool> GetO { get; set; }
-        protected internal Action<bool> SetO { get; set; }
+        // NOut Gets/Sets
+        protected internal Func<bool> GetNOut { get; set; }
+        protected internal Action<bool> SetNOut { get; set; }
+        // ROut Gets/Sets
+        protected internal Func<bool> GetROut { get; set; }
+        protected internal Action<bool> SetROut { get; set; }
 
         #endregion
 
@@ -201,19 +219,34 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region O
+        #region NOut/ROut
 
-        /// <summary>Gets or sets Out of spec Value.</summary>
-        public bool O
+        /// <summary>Gets or sets Normal Out of spec Value.</summary>
+        public bool NOut
         {
-            get { return (null != GetO) ? GetO() : false; }
+            get { return (null != GetNOut) ? GetNOut() : false; }
             set
             {
-                if (null != SetO)
+                if (null != SetNOut)
                 {
-                    SetO(value);
+                    SetNOut(value);
                     // Raise events
-                    Raise(() => this.O);
+                    Raise(() => this.NOut);
+                }
+            }
+        }
+
+        /// <summary>Gets or sets Re Test Out of spec Value.</summary>
+        public bool ROut
+        {
+            get { return (null != GetROut) ? GetROut() : false; }
+            set
+            {
+                if (null != SetROut)
+                {
+                    SetROut(value);
+                    // Raise events
+                    Raise(() => this.ROut);
                 }
             }
         }
@@ -235,7 +268,7 @@ namespace M3.QA.Models
         /// <summary>Check is Enable Re Test (requird N value first).</summary>
         public bool EnableR 
         { 
-            get { return (NeedSP) ? SPNo.HasValue && ((N.HasValue && O) || R.HasValue) : ((N.HasValue && O) || R.HasValue); } 
+            get { return (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R.HasValue) : ((N.HasValue && NOut) || R.HasValue); } 
             set { } 
         }
 
@@ -293,7 +326,7 @@ namespace M3.QA.Models
         {
             get 
             {
-                if (O)
+                if (NOut)
                     return ModelConsts.RedColor; // Out of spec.
                 return (R.HasValue) ? ModelConsts.DimGrayColor : ModelConsts.BlackColor; 
             }
@@ -302,7 +335,12 @@ namespace M3.QA.Models
         /// <summary>Gets R Foreground Color.</summary>
         public SolidColorBrush ForegroundColorR
         {
-            get { return ModelConsts.BlackColor; }
+            get 
+            {
+                if (ROut)
+                    return ModelConsts.RedColor; // Out of spec.
+                return ModelConsts.BlackColor;
+            }
             set { }
         }
 

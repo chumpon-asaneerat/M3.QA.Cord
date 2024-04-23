@@ -53,18 +53,31 @@ namespace M3.QA.Models
             if (null != Spec && null != Item && null != TM && null != TM10cm)
             {
                 // Check T/M.
-                TM.O1 = (TM.N1.HasValue) ? Spec.IsOutOfSpec(TM.N1.Value) : false;
-                TM.O2 = (TM.N2.HasValue) ? Spec.IsOutOfSpec(TM.N2.Value) : false;
-                TM.O3 = (TM.N3.HasValue) ? Spec.IsOutOfSpec(TM.N3.Value) : false;
+                TM.NOut1 = (TM.N1.HasValue) ? Spec.IsOutOfSpec(TM.N1.Value) : false;
+                TM.NOut2 = (TM.N2.HasValue) ? Spec.IsOutOfSpec(TM.N2.Value) : false;
+                TM.NOut3 = (TM.N3.HasValue) ? Spec.IsOutOfSpec(TM.N3.Value) : false;
+
+                TM.ROut1 = (TM.R1.HasValue) ? Spec.IsOutOfSpec(TM.R1.Value) : false;
+                TM.ROut2 = (TM.R2.HasValue) ? Spec.IsOutOfSpec(TM.R2.Value) : false;
+                TM.ROut3 = (TM.R3.HasValue) ? Spec.IsOutOfSpec(TM.R3.Value) : false;
 
                 // set out of range flag to Item object
-                Item.O1 = TM.O1;
-                Item.O2 = TM.O2;
-                Item.O3 = TM.O3;
+                Item.NOut1 = TM.NOut1;
+                Item.NOut2 = TM.NOut2;
+                Item.NOut3 = TM.NOut3;
+
+                Item.ROut1 = TM.ROut1;
+                Item.ROut2 = TM.ROut2;
+                Item.ROut3 = TM.ROut3;
+
                 // set out of range flag to TM10cm object
-                TM10cm.O1 = Item.O1;
-                TM10cm.O2 = Item.O2;
-                TM10cm.O3 = Item.O3;
+                TM10cm.NOut1 = Item.NOut1;
+                TM10cm.NOut2 = Item.NOut2;
+                TM10cm.NOut3 = Item.NOut3;
+
+                TM10cm.ROut1 = Item.ROut1;
+                TM10cm.ROut2 = Item.ROut2;
+                TM10cm.ROut3 = Item.ROut3;
             }
         }
 
@@ -73,18 +86,31 @@ namespace M3.QA.Models
             if (null != Spec && null != Item && null != TM && null != TM10cm)
             {
                 // Check T/10cm.
-                TM10cm.O1 = (TM10cm.N1.HasValue) ? Spec.IsOutOfSpec(TM10cm.N1.Value) : false;
-                TM10cm.O2 = (TM10cm.N2.HasValue) ? Spec.IsOutOfSpec(TM10cm.N2.Value) : false;
-                TM10cm.O3 = (TM10cm.N3.HasValue) ? Spec.IsOutOfSpec(TM10cm.N3.Value) : false;
+                TM10cm.NOut1 = (TM10cm.N1.HasValue) ? Spec.IsOutOfSpec(TM10cm.N1.Value) : false;
+                TM10cm.NOut2 = (TM10cm.N2.HasValue) ? Spec.IsOutOfSpec(TM10cm.N2.Value) : false;
+                TM10cm.NOut3 = (TM10cm.N3.HasValue) ? Spec.IsOutOfSpec(TM10cm.N3.Value) : false;
+
+                TM10cm.ROut1 = (TM10cm.R1.HasValue) ? Spec.IsOutOfSpec(TM10cm.R1.Value) : false;
+                TM10cm.ROut2 = (TM10cm.R2.HasValue) ? Spec.IsOutOfSpec(TM10cm.R2.Value) : false;
+                TM10cm.ROut3 = (TM10cm.R3.HasValue) ? Spec.IsOutOfSpec(TM10cm.R3.Value) : false;
 
                 // set out of range flag to Item object
-                Item.O1 = TM10cm.O1;
-                Item.O2 = TM10cm.O2;
-                Item.O3 = TM10cm.O3;
+                Item.NOut1 = TM10cm.NOut1;
+                Item.NOut2 = TM10cm.NOut2;
+                Item.NOut3 = TM10cm.NOut3;
+
+                Item.ROut1 = TM10cm.ROut1;
+                Item.ROut2 = TM10cm.ROut2;
+                Item.ROut3 = TM10cm.ROut3;
+
                 // set out of range flag to TM object
-                TM.O1 = Item.O1;
-                TM.O2 = Item.O2;
-                TM.O3 = Item.O3;
+                TM.NOut1 = Item.NOut1;
+                TM.NOut2 = Item.NOut2;
+                TM.NOut3 = Item.NOut3;
+
+                TM.ROut1 = Item.ROut1;
+                TM.ROut2 = Item.ROut2;
+                TM.ROut3 = Item.ROut3;
             }
         }
 
