@@ -50,6 +50,11 @@ namespace M3.QA.Models
         {
             string ret = string.Empty;
 
+            if (!string.IsNullOrWhiteSpace(UnitDesc))
+            {
+                ret += string.Format("[ {0} ] - ", UnitDesc);
+            }
+
             string part1 = string.Empty;
             string part2 = string.Empty;
 
@@ -71,7 +76,7 @@ namespace M3.QA.Models
 
                 part2 += string.Format(" ( {0:#,##0.###} ≤ N ≤ {1:#,##0.###} ) ", dCenter - VMin.Value, dCenter + VMax.Value);
 
-                ret = part1 + part2;
+                ret += part1 + part2;
             }
             else if (VMin.HasValue && !VMax.HasValue)
             {
@@ -79,7 +84,7 @@ namespace M3.QA.Models
                 part1 += string.Format("N: {0:#,##0.###} - {1:#,##0.###}", dCenter, VMin.Value);
                 part2 += string.Format(" ( N ≥ {0:#,##0.###} )", dCenter - VMin.Value);
 
-                ret = part1 + part2;
+                ret += part1 + part2;
             }
             else if (!VMin.HasValue && VMax.HasValue)
             {
@@ -87,7 +92,7 @@ namespace M3.QA.Models
                 part1 += string.Format("N: {0:#,##0.###} + {1:#,##0.###}", dCenter, VMax.Value);
                 part2 += string.Format(" ( N ≤ {0:#,##0.###} )", dCenter + VMax.Value);
 
-                ret = part1 + part2;
+                ret += part1 + part2;
             }
             else
             {
@@ -100,6 +105,11 @@ namespace M3.QA.Models
         private string GetMinMaxSpec()
         {
             string ret = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(UnitDesc))
+            {
+                ret += string.Format("[ {0} ] - ", UnitDesc);
+            }
 
             // Min/Max
             if (VMin.HasValue && VMax.HasValue)
@@ -427,11 +437,6 @@ namespace M3.QA.Models
                             // Has OptionId so return first OptionId = '1'
                             ret = x.PropertyNo == propertyNo && x.OptionId == "1";
                         }
-                        else
-                        {
-                            // Has Unit id but no Option Id
-                            ret = x.PropertyNo == propertyNo;
-                        }
                     }
                     else
                     {
@@ -451,12 +456,6 @@ namespace M3.QA.Models
                             ret = x.PropertyNo == propertyNo && 
                                 string.Compare(elongId, x.UnitId, true) == 0 && 
                                 x.OptionId == "1";
-                        }
-                        else
-                        {
-                            // Has Unit id but no Option Id
-                            ret = x.PropertyNo == propertyNo &&
-                                string.Compare(elongId, x.UnitId, true) == 0;
                         }
                     }
                     else
