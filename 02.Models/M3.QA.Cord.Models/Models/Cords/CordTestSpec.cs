@@ -403,15 +403,97 @@ namespace M3.QA.Models
         /// </summary>
         /// <param name="items"></param>
         /// <param name="propertyNo"></param>
+        /// <param name="elongId"></param>
         /// <returns></returns>
-        public static CordTestSpec FindByPropertyNo(this List<CordTestSpec> items,  int propertyNo)
+        public static CordTestSpec FindByPropertyNo(this List<CordTestSpec> items,  
+            int propertyNo, string elongId = null)
         {
             if (null == items || items.Count <= 0)
                 return null;
 
-
             CordTestSpec spec;
             spec = items.Find((x) =>
+            {
+                bool ret = false;
+
+                if (string.IsNullOrEmpty(elongId))
+                {
+                    // No Elong
+                    if (!string.IsNullOrEmpty(x.UnitId))
+                    {
+                        // Has UnitId then OptionId required
+                        if (!string.IsNullOrEmpty(x.OptionId))
+                        {
+                            // Has OptionId so return first OptionId = '1'
+                            ret = x.PropertyNo == propertyNo && x.OptionId == "1";
+                        }
+                        else
+                        {
+                            // Has Unit id but no Option Id
+                            ret = x.PropertyNo == propertyNo;
+                        }
+                    }
+                    else
+                    {
+                        // No Unit id
+                        ret = x.PropertyNo == propertyNo;
+                    }
+                }
+                else
+                {
+                    // Need Elong to check.
+                    if (!string.IsNullOrEmpty(x.UnitId))
+                    {
+                        // Has UnitId then OptionId required
+                        if (!string.IsNullOrEmpty(x.OptionId))
+                        {
+                            // Has OptionId so return first OptionId = '1'
+                            ret = x.PropertyNo == propertyNo && 
+                                string.Compare(elongId, x.UnitId, true) == 0 && 
+                                x.OptionId == "1";
+                        }
+                        else
+                        {
+                            // Has Unit id but no Option Id
+                            ret = x.PropertyNo == propertyNo &&
+                                string.Compare(elongId, x.UnitId, true) == 0;
+                        }
+                    }
+                    else
+                    {
+                        // No Unit id
+                        ret = x.PropertyNo == propertyNo;
+                    }
+                }
+                return ret;
+            });
+
+            if (null == spec)
+            {
+                spec = new CordTestSpec()
+                {
+                    PropertyNo = propertyNo,
+                    SpecId = 0,
+                    UnitId = null,
+                    OptionId = null
+                };
+            }
+
+            return spec;
+        }
+        /// <summary>
+        /// Find List By Property No.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="propertyNo"></param>
+        /// <returns></returns>
+        public static List<CordTestSpec> FindListByPropertyNo(this List<CordTestSpec> items, 
+            int propertyNo, string elongId = null)
+        {
+            if (null == items || items.Count <= 0)
+                return null;
+
+            var specs = items.FindAll((x) =>
             {
                 bool ret = false;
                 if (!string.IsNullOrEmpty(x.UnitId))
@@ -431,18 +513,7 @@ namespace M3.QA.Models
                 return ret;
             });
 
-            if (null == spec)
-            {
-                spec = new CordTestSpec()
-                {
-                    PropertyNo = propertyNo,
-                    SpecId = 0,
-                    UnitId = null,
-                    OptionId = null
-                };
-            }
-
-            return spec;
+            return specs;
         }
 
         #endregion

@@ -118,8 +118,6 @@ namespace M3.QA.Models
 
             // Tensile Strength = 1
             var spec = value.Specs.FindByPropertyNo(1);
-            // assign to parent
-            value.TensileStrengthSpecification = spec;
 
             int i = 1;
             int iMaxLimitSP = 7;

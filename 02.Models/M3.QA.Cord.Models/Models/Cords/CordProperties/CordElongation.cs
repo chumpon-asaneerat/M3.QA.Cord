@@ -341,15 +341,15 @@ namespace M3.QA.Models
             // For Elongation Load Proepty No = 3
             noOfSample = (null != totalN) ? totalN.NoSample : 0;
 
-            // Elongation Load Proepty No = 3
-            var spec = value.Specs.FindByPropertyNo(3);
-
             string[] elongIds = !string.IsNullOrWhiteSpace(value.ELongLoadN) ?
                 value.ELongLoadN.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries) : null;
             if (null != value.ELongLoadN && value.ELongLoadN.Length > 0)
             {
                 foreach (string elongId in elongIds)
                 {
+                    // Elongation Load Proepty No = 3
+                    var spec = value.Specs.FindByPropertyNo(3, elongId);
+
                     inst = new CordElongationLoadProperty()
                     {
                         LotNo = value.LotNo,
