@@ -74,6 +74,7 @@ namespace M3.QA.Models
         {
             // Raise relelated events
             Raise(() => this.N);
+            Raise(() => this.NOut);
             Raise(() => this.EnableN);
             Raise(() => this.EnableR);
             Raise(() => this.VisibleN);
@@ -89,6 +90,7 @@ namespace M3.QA.Models
         {
             // Raise relelated events
             Raise(() => this.R);
+            Raise(() => this.ROut);
             Raise(() => this.EnableN);
             Raise(() => this.EnableR);
             Raise(() => this.VisibleN);
@@ -199,6 +201,7 @@ namespace M3.QA.Models
                     Raise(() => this.EnableN);
                     Raise(() => this.EnableR);
                     Raise(() => this.N);
+                    Raise(() => this.ForegroundColorN);
                 }
             }
         }
@@ -213,6 +216,7 @@ namespace M3.QA.Models
                     SetR(value);
                     // Raise events
                     Raise(() => this.R);
+                    Raise(() => this.ForegroundColorR);
                 }
             }
         }
@@ -232,6 +236,7 @@ namespace M3.QA.Models
                     SetNOut(value);
                     // Raise events
                     Raise(() => this.NOut);
+                    Raise(() => this.ForegroundColorN);
                 }
             }
         }
@@ -247,6 +252,7 @@ namespace M3.QA.Models
                     SetROut(value);
                     // Raise events
                     Raise(() => this.ROut);
+                    Raise(() => this.ForegroundColorR);
                 }
             }
         }
