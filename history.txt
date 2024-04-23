@@ -7,8 +7,11 @@ M3 QA Cord #159
 M3 QA Cord #158
 - 
 
+[commit]
 M3 QA Cord #157
-- 
+- Implements Cord Test Data #127
+  - Implements Cord Spec #18.
+    - Elongation implements #3
 
 [commit]
 M3 QA Cord #156
