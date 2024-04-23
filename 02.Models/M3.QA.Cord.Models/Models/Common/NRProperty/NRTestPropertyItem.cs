@@ -200,6 +200,12 @@ namespace M3.QA.Models
                     // Raise events
                     Raise(() => this.EnableN);
                     Raise(() => this.EnableR);
+
+                    Raise(() => this.VisibleN);
+                    Raise(() => this.VisibleR);
+                    Raise(() => this.ReadOnlyN);
+                    Raise(() => this.ReadOnlyR);
+
                     Raise(() => this.N);
                     Raise(() => this.ForegroundColorN);
                 }
@@ -216,6 +222,10 @@ namespace M3.QA.Models
                     SetR(value);
                     // Raise events
                     Raise(() => this.R);
+
+                    Raise(() => this.VisibleR);
+                    Raise(() => this.ReadOnlyR);
+
                     Raise(() => this.ForegroundColorR);
                 }
             }
