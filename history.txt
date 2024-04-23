@@ -13,13 +13,15 @@ M3 QA Cord #167
 M3 QA Cord #166
 - 
 
+[commit]
 M3 QA Cord #165
-- 
+- Implements Cord Test Data #135
+- Update App build 165
 
 [commit]
 M3 QA Cord #164
 - Implements Cord Test Data #134
-- Update App build 163
+- Update App build 164
 
 [commit]
 M3 QA Cord #163
