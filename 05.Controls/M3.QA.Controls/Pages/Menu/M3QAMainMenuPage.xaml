@@ -191,6 +191,15 @@
                     <ctrl:NGroupMenuItem HeaderText="Master Data"
                                          HeaderBackground="{StaticResource OtherBG}"
                                          Style="{StaticResource CommonGroupItemStyle}">
+                        <Button x:Name="cmdCordCodeSetting"
+                                Style="{StaticResource OtherButtonStyle}"
+                                Click="cmdCordCodeSetting_Click">
+                            <TextBlock TextAlignment="Center">
+                                <Run Text="Cord" />
+                                <LineBreak />
+                                <Run Text="Code Setting" />
+                            </TextBlock>
+                        </Button>
                         <Button x:Name="cmdCordTestSpecification"
                                 Style="{StaticResource OtherButtonStyle}"
                                 Click="cmdCordTestSpecification_Click">

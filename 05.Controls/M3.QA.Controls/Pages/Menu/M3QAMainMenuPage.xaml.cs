@@ -160,6 +160,21 @@ namespace M3.QA.Pages
             }
         }
 
+        private void cmdCordCodeSetting_Click(object sender, RoutedEventArgs e)
+        {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
+
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
+        }
+
         private void cmdCordTestSpecification_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
