@@ -396,6 +396,54 @@ namespace M3.QA.Models
 
             return ret;
         }
+        /// <summary>
+        /// Gets Specification By MasterId.
+        /// </summary>
+        /// <param name="masterId"></param>
+        /// <returns></returns>
+        public static NDbResult<List<CordTestSpec>> GetsByMasterId(int? masterId = new int?())
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<List<CordTestSpec>> ret = new NDbResult<List<CordTestSpec>>();
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@masterId", masterId);
+
+            try
+            {
+                var items = cnn.Query<CordTestSpec>("M_GetTestSpecByMasterid", p,
+                    commandType: CommandType.StoredProcedure);
+                var data = (null != items) ? items.ToList() : null;
+
+                ret.Success(data);
+                // Set error number/message
+                ret.ErrNum = 0;
+                ret.ErrMsg = "Success";
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
 
         #endregion
     }
