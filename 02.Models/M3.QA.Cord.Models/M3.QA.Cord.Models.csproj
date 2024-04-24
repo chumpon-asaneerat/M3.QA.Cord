@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Common\ModelConsts.cs" />
+    <Compile Include="Models\Cords\CordCodeDetail.cs" />
     <Compile Include="Models\Cords\CordTestSpec.cs" />
     <Compile Include="Models\Cords\CordMC.cs" />
     <Compile Include="Models\Cords\CordProperties\Cord1stTwistingNumber.cs" />
@@ -84,11 +85,12 @@
     <Compile Include="Models\Cords\CordProperties\CordShrinkagePct.cs" />
     <Compile Include="Models\Cords\CordProperties\CordThickness.cs" />
     <Compile Include="Models\Cords\CordTestSampleRecv.cs" />
-    <Compile Include="Models\Cords\CustomerCode.cs" />
+    <Compile Include="Models\Cords\CordCode.cs" />
     <Compile Include="Models\Excels\ExcelModels.cs" />
     <Compile Include="Models\Masters\COAReportType.cs" />
     <Compile Include="Models\Masters\Customer.cs" />
     <Compile Include="Models\Masters\ProductType.cs" />
+    <Compile Include="Models\Masters\YarnType.cs" />
     <Compile Include="Models\Solutions\DIPSolutionSampleRecv.cs" />
     <Compile Include="Models\Users\UserInfo.cs" />
     <Compile Include="Models\Users\UserRole.cs" />
