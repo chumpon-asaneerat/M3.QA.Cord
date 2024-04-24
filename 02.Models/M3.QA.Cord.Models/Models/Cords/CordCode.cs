@@ -19,17 +19,36 @@ namespace M3.QA.Models
     {
         #region Public Properties
 
-        public int MasterId { get; set; }
-        public string Customer { get; set; }
+        /// <summary>Gets or set MasterId.</summary>
+        public int? MasterId { get; set; }
+        /// <summary>Gets or set CustomerName.</summary>
+        public string CustomerName { get; set; }
+        /// <summary>Gets or set ItemCode.</summary>
         public string ItemCode { get; set; }
+        /// <summary>Gets or set UserName.</summary>
         public string UserName { get; set; }
+
+        /// <summary>Gets or set CoaNo.</summary>
         public int CoaNo { get; set; }
+        /// <summary>Gets or set FMQC.</summary>
         public string FMQC { get; set; }
+        /// <summary>Gets Coa Report Code.</summary>
+        public string CoaReportCode
+        {
+            get { return string.Format("{0} ({1})", CoaNo, FMQC); }
+            set { }
+        }
+
+        /// <summary>Gets or set ProductType.</summary>
         public string ProductType { get; set; }
+        /// <summary>Gets or set ProductName.</summary>
         public string ProductName { get; set; }
+        /// <summary>Gets or set YarnType.</summary>
         public string YarnType { get; set; }
 
+        /// <summary>Gets or set ELongLoadN.</summary>
         public string ELongLoadN { get; set; }
+        /// <summary>Gets or set NoTestCH.</summary>
         public int NoTestCH { get; set; }
 
         #endregion

@@ -1,8 +1,9 @@
 M3 QA Cord #170
 - 
 
+[commit]
 M3 QA Cord #169
-- 
+- Implements Cord Test Data #139
 
 [commit]
 M3 QA Cord #168

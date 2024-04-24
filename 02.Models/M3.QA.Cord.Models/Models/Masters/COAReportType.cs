@@ -9,9 +9,9 @@ namespace M3.QA.Models
     #region COAReportType
 
     /// <summary>
-    /// The COA Report Type class.
+    /// The Coa Report Type class.
     /// </summary>
-    public class COAReportType
+    public class CoaReportType
     {
         #region Public Properties
 
@@ -19,8 +19,8 @@ namespace M3.QA.Models
         public int CoaNo { get; set; }
         /// <summary>Gets or sets FMQC.</summary>
         public string FMQC { get; set; }
-        /// <summary>Gets Text.</summary>
-        public string Text 
+        /// <summary>Gets Coa Report Code.</summary>
+        public string CoaReportCode
         {
             get { return string.Format("{0} ({1})", CoaNo, FMQC); }
             set { }
@@ -30,14 +30,14 @@ namespace M3.QA.Models
 
         #region Static Methods
 
-        public static List<COAReportType> Gets()
+        public static List<CoaReportType> Gets()
         {
-            var ret = new List<COAReportType>()
+            var ret = new List<CoaReportType>()
             {
-                new COAReportType() { CoaNo = 1, FMQC = "27-02" },
-                new COAReportType() { CoaNo = 2, FMQC = "27-02" },
-                new COAReportType() { CoaNo = 3, FMQC = "31-02" },
-                new COAReportType() { CoaNo = 4, FMQC = "29-02" }
+                new CoaReportType() { CoaNo = 1, FMQC = "27-02" },
+                new CoaReportType() { CoaNo = 2, FMQC = "27-02" },
+                new CoaReportType() { CoaNo = 3, FMQC = "31-02" },
+                new CoaReportType() { CoaNo = 4, FMQC = "29-02" }
             };
 
             return ret;
