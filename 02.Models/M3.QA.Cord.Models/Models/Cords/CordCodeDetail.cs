@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-
+using System.Runtime.Remoting;
 using Dapper;
 
 using NLib;
@@ -109,6 +109,73 @@ namespace M3.QA.Models
             }
 
             return rets;
+        }
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="value">The CordCodeDetail item to save.</param>
+        /// <returns></returns>
+        public static NDbResult<CordCodeDetail> Save(CordCodeDetail value, Models.UserInfo user)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordCodeDetail> ret = new NDbResult<CordCodeDetail>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@masterid", value.MasterId);
+
+            p.Add("@cordcode", value.ItemCode);
+            p.Add("@customer", value.CustomerName);
+            p.Add("@coano", value.CoaNo);
+            p.Add("@fmqc", value.FMQC);
+            p.Add("@producttype", value.ProductType);
+            p.Add("@productname", value.ProductName);
+            p.Add("@yarntype", value.YarnType);
+            p.Add("@elonglondn", value.ELongLoadN);
+            p.Add("@notestch", value.NoTestCH);
+            p.Add("@yarncode", value.YarnCode);
+
+            p.Add("@operator", (null != user) ? user.FullName : null);
+
+            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+            try
+            {
+                cnn.Execute("P_SaveReceiveCord", p, commandType: CommandType.StoredProcedure);
+                ret.Success(value);
+                // Set error number/message
+                ret.ErrNum = p.Get<int>("@errNum");
+                ret.ErrMsg = p.Get<string>("@errMsg");
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
         }
 
         #endregion
