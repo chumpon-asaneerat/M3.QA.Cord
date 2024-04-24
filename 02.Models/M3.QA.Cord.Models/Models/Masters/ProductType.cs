@@ -1,29 +1,23 @@
 ﻿#region Using
 
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Data;
-using System.Linq;
-using System.Reflection;
-
-using System.Windows.Media;
-
-using NLib;
-using NLib.Models;
-
-using Dapper;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace M3.QA.Models
 {
+    #region ProductType
+
+    /// <summary>
+    /// The Product Type class.
+    /// </summary>
     public class ProductType
     {
         #region Public Properties
 
+        /// <summary>Gets or set Id.</summary>
         public string Id { get; set; }
+        /// <summary>Gets or set Text.</summary>
         public string Text { get; set; }
 
         #endregion
@@ -43,4 +37,6 @@ namespace M3.QA.Models
 
         #endregion
     }
+
+    #endregion
 }

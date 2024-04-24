@@ -86,6 +86,7 @@
     <Compile Include="Models\Cords\CordTestSampleRecv.cs" />
     <Compile Include="Models\Cords\CustomerCode.cs" />
     <Compile Include="Models\Excels\ExcelModels.cs" />
+    <Compile Include="Models\Masters\COAReportType.cs" />
     <Compile Include="Models\Masters\Customer.cs" />
     <Compile Include="Models\Masters\ProductType.cs" />
     <Compile Include="Models\Solutions\DIPSolutionSampleRecv.cs" />
