@@ -173,6 +173,10 @@ namespace M3.QA.Pages
                 msgbox.ShowDialog();
                 return;
             }
+
+            var page = M3QAApp.Pages.CordCodeSetting;
+            page.Setup();
+            PageContentManager.Instance.Current = page;
         }
 
         private void cmdCordTestSpecification_Click(object sender, RoutedEventArgs e)

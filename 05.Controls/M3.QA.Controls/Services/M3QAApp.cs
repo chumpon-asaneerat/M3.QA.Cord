@@ -123,6 +123,11 @@ namespace M3.QA
 
             #region Master
 
+            /// <summary>Gets M3 Cord Code Setting Page.</summary>
+            public static CordCodeSettingPage CordCodeSetting
+            {
+                get { return GetPage<CordCodeSettingPage>(); }
+            }
             /// <summary>Gets M3 Cord User Manage Page.</summary>
             public static UserManagementPage UserManage
             {

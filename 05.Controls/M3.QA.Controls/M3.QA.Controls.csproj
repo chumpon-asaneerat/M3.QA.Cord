@@ -99,6 +99,9 @@
     <Compile Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml.cs">
       <DependentUpon>OperatorInfoElement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CordCodeSettingPage.xaml.cs">
+      <DependentUpon>CordCodeSettingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Cords\Properties\CordDenierMoistureWeightPage.xaml.cs">
       <DependentUpon>CordDenierMoistureWeightPage.xaml</DependentUpon>
     </Compile>
@@ -272,6 +275,10 @@
     <Page Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\CordCodeSettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Cords\Properties\CordDenierMoistureWeightPage.xaml">
       <SubType>Designer</SubType>

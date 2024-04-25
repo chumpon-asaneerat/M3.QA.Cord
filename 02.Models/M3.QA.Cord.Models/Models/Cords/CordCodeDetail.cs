@@ -26,8 +26,8 @@ namespace M3.QA.Models
 
         /// <summary>Gets or set MasterId.</summary>
         public int? MasterId { get; set; }
-        /// <summary>Gets or set CustomerName.</summary>
-        public string CustomerName { get; set; }
+        /// <summary>Gets or set Customer.</summary>
+        public string Customer { get; set; }
         /// <summary>Gets or set ItemCode.</summary>
         public string ItemCode { get; set; }
         /// <summary>Gets or set UserName.</summary>
@@ -65,8 +65,9 @@ namespace M3.QA.Models
         /// <summary>
         /// Gets
         /// </summary>
+        /// <param name="cordcode"></param>
         /// <returns></returns>
-        public static NDbResult<List<CordCodeDetail>> Gets(string customername)
+        public static NDbResult<List<CordCodeDetail>> Gets(string cordcode)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -85,7 +86,7 @@ namespace M3.QA.Models
             }
 
             var p = new DynamicParameters();
-            p.Add("@customername", customername);
+            p.Add("@cordcode", cordcode);
 
             try
             {
@@ -144,7 +145,7 @@ namespace M3.QA.Models
             p.Add("@masterid", value.MasterId);
 
             p.Add("@cordcode", value.ItemCode);
-            p.Add("@customer", value.CustomerName);
+            p.Add("@customer", value.Customer);
             p.Add("@coano", value.CoaNo);
             p.Add("@fmqc", value.FMQC);
             p.Add("@producttype", value.ProductType);
