@@ -35,7 +35,6 @@ namespace M3.QA.Pages
         private List<CordCode> cordCodes;
         private List<MCustomer> customers;
         private List<ProductType> productTypes;
-        private List<YarnType> yarnTypes;
         private List<CordCodeDetail> items;
 
         #endregion
@@ -76,11 +75,6 @@ namespace M3.QA.Pages
             Search();
         }
 
-        private void cbYarnTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Search();
-        }
-
         #endregion
 
         #region Private Methods
@@ -113,15 +107,6 @@ namespace M3.QA.Pages
                 cbProductTypes.SelectedIndex = (null != productTypes && productTypes.Count > 0) ? 0 : -1;
                 //cbProductTypes.SelectedIndex = -1;
             });
-
-            cbYarnTypes.ItemsSource = null;
-            yarnTypes = YarnType.Gets();
-            this.InvokeAction(() =>
-            {
-                cbYarnTypes.ItemsSource = yarnTypes;
-                //cbYarnTypes.SelectedIndex = (null != yarnTypes && yarnTypes.Count > 0) ? 0 : -1;
-                cbYarnTypes.SelectedIndex = -1;
-            });
         }
 
         private void Add()
@@ -140,10 +125,13 @@ namespace M3.QA.Pages
             
             var cordCode = cbCordCode.SelectedItem as CordCode;
             string code =  (null != cordCode) ? cordCode.ItemCode : null;
+            var cust = cbCustomers.SelectedItem as MCustomer;
+            string customer = (null != cust) ? cust.Customer : null;
 
+            var prod = cbProductTypes.SelectedItem as ProductType;
+            string ptype = (null != prod) ? prod.Text : null;
 
-
-            items = CordCodeDetail.Gets(code).Value();
+            items = CordCodeDetail.Search(code, customer, ptype).Value();
             this.InvokeAction(() =>
             {
                 grid.ItemsSource = items;

@@ -112,6 +112,60 @@ namespace M3.QA.Models
             return rets;
         }
         /// <summary>
+        /// Search
+        /// </summary>
+        /// <param name="cordcode"></param>
+        /// <param name="customer"></param>
+        /// <param name="producttype"></param>
+        /// <returns></returns>
+        public static NDbResult<List<CordCodeDetail>> Search(string cordcode, string customer, 
+            string producttype)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<List<CordCodeDetail>> rets = new NDbResult<List<CordCodeDetail>>();
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                rets.ErrNum = 8000;
+                rets.ErrMsg = msg;
+
+                return rets;
+            }
+
+            var p = new DynamicParameters();
+            p.Add("@cordcode", (string.IsNullOrEmpty(cordcode)) ? null : cordcode);
+            p.Add("@customer", (string.IsNullOrEmpty(customer)) ? null : customer);
+            p.Add("@producttype", (string.IsNullOrEmpty(producttype)) ? null : producttype);
+
+            try
+            {
+                var items = cnn.Query<CordCodeDetail>("M_SearchCordCodeDetail", p,
+                    commandType: CommandType.StoredProcedure);
+                var data = (null != items) ? items.ToList() : null;
+                rets.Success(data);
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                rets.ErrNum = 9999;
+                rets.ErrMsg = ex.Message;
+            }
+
+            if (null == rets.data)
+            {
+                // create empty list.
+                rets.data = new List<CordCodeDetail>();
+            }
+
+            return rets;
+        }
+        /// <summary>
         /// Save
         /// </summary>
         /// <param name="value">The CordCodeDetail item to save.</param>
