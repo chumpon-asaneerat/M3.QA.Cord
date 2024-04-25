@@ -57,6 +57,13 @@ namespace M3.QA.Models
 
                 PeakPoint.NOut1 = AdhesionForce.NOut1;
                 PeakPoint.NOut2 = AdhesionForce.NOut2;
+
+                // Raise items events
+                AdhesionForce.RaiseNOutChanges();
+                AdhesionForce.RaiseROutChanges();
+
+                PeakPoint.RaiseNOutChanges();
+                PeakPoint.RaiseROutChanges();
             }
         }
 

@@ -78,6 +78,16 @@ namespace M3.QA.Models
                 TM10cm.ROut1 = Item.ROut1;
                 TM10cm.ROut2 = Item.ROut2;
                 TM10cm.ROut3 = Item.ROut3;
+
+                // Raise items events
+                Item.RaiseNOutChanges();
+                Item.RaiseROutChanges();
+
+                TM.RaiseNOutChanges();
+                TM.RaiseROutChanges();
+
+                TM10cm.RaiseNOutChanges();
+                TM10cm.RaiseROutChanges();
             }
         }
 
@@ -111,6 +121,16 @@ namespace M3.QA.Models
                 TM.ROut1 = Item.ROut1;
                 TM.ROut2 = Item.ROut2;
                 TM.ROut3 = Item.ROut3;
+
+                // Raise items events
+                Item.RaiseNOutChanges();
+                Item.RaiseROutChanges();
+
+                TM.RaiseNOutChanges();
+                TM.RaiseROutChanges();
+
+                TM10cm.RaiseNOutChanges();
+                TM10cm.RaiseROutChanges();
             }
         }
 

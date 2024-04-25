@@ -59,8 +59,11 @@ namespace M3.QA.Models
                 AfterHeat.ROut1 = RPUO;
 
                 // Raise events
-                Raise(() => this.BeforeHeat);
-                Raise(() => this.AfterHeat);
+                BeforeHeat.RaiseNOutChanges();
+                BeforeHeat.RaiseROutChanges();
+
+                AfterHeat.RaiseNOutChanges();
+                AfterHeat.RaiseROutChanges();
 
                 Raise(() => this.RPUO);
                 Raise(() => this.RPUForegroundColor);

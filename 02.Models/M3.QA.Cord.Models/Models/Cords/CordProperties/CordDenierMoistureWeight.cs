@@ -69,6 +69,16 @@ namespace M3.QA.Models
                     StandardDenierD.ROut1 = StandardDenierDtex.ROut1;
                     YarnWeightAfterDrying.NOut1 = StandardDenierDtex.NOut1;
                     YarnWeightAfterDrying.ROut1 = StandardDenierDtex.ROut1;
+
+                    // Raise items events
+                    StandardDenierD.RaiseNOutChanges();
+                    StandardDenierD.RaiseROutChanges();
+
+                    StandardDenierDtex.RaiseNOutChanges();
+                    StandardDenierDtex.RaiseROutChanges();
+
+                    YarnWeightAfterDrying.RaiseNOutChanges();
+                    YarnWeightAfterDrying.RaiseROutChanges();
                 }
                 else if (!string.IsNullOrEmpty(SpecDenier.UnitId) && SpecDenier.UnitId.Trim().ToLower() == "D")
                 {
@@ -79,6 +89,16 @@ namespace M3.QA.Models
                     StandardDenierDtex.ROut1 = StandardDenierD.ROut1;
                     YarnWeightAfterDrying.NOut1 = StandardDenierD.NOut1;
                     YarnWeightAfterDrying.ROut1 = StandardDenierD.ROut1;
+
+                    // Raise items events
+                    StandardDenierD.RaiseNOutChanges();
+                    StandardDenierD.RaiseROutChanges();
+
+                    StandardDenierDtex.RaiseNOutChanges();
+                    StandardDenierDtex.RaiseROutChanges();
+
+                    YarnWeightAfterDrying.RaiseNOutChanges();
+                    YarnWeightAfterDrying.RaiseROutChanges();
                 }
             }
         }
@@ -94,6 +114,16 @@ namespace M3.QA.Models
                 YarnWeightBeforeDrying.ROut1 = EquilibriumMoistureContent.ROut1;
                 YarnWeightAfterDrying.NOut1 = EquilibriumMoistureContent.NOut1;
                 YarnWeightAfterDrying.ROut1 = EquilibriumMoistureContent.ROut1;
+
+                // Raise items events
+                EquilibriumMoistureContent.RaiseNOutChanges();
+                EquilibriumMoistureContent.RaiseROutChanges();
+
+                YarnWeightBeforeDrying.RaiseNOutChanges();
+                YarnWeightBeforeDrying.RaiseROutChanges();
+
+                YarnWeightAfterDrying.RaiseNOutChanges();
+                YarnWeightAfterDrying.RaiseROutChanges();
             }
         }
 
@@ -106,6 +136,13 @@ namespace M3.QA.Models
 
                 YarnWeightAfterDrying.NOut1 = Weight.NOut1;
                 YarnWeightAfterDrying.ROut1 = Weight.ROut1;
+
+                // Raise items events
+                Weight.RaiseNOutChanges();
+                Weight.RaiseROutChanges();
+
+                YarnWeightAfterDrying.RaiseNOutChanges();
+                YarnWeightAfterDrying.RaiseROutChanges();
             }
         }
 

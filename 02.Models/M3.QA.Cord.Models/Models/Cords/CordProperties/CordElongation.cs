@@ -263,6 +263,10 @@ namespace M3.QA.Models
             this.ROut5 = (R5.HasValue) ? Spec.IsOutOfSpec(R5.Value) : false;
             this.ROut6 = (R6.HasValue) ? Spec.IsOutOfSpec(R6.Value) : false;
             this.ROut7 = (R7.HasValue) ? Spec.IsOutOfSpec(R7.Value) : false;
+
+            // Raise items events
+            this.RaiseNOutChanges();
+            this.RaiseROutChanges();
         }
 
         #endregion

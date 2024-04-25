@@ -76,6 +76,16 @@ namespace M3.QA.Models
                 LengthAfterHeat.ROut1 = PctShrinkage.ROut1;
                 LengthAfterHeat.ROut2 = PctShrinkage.ROut2;
                 LengthAfterHeat.ROut3 = PctShrinkage.ROut3;
+
+                // Raise items events
+                PctShrinkage.RaiseNOutChanges();
+                PctShrinkage.RaiseROutChanges();
+
+                LengthBeforeHeat.RaiseNOutChanges();
+                LengthBeforeHeat.RaiseROutChanges();
+
+                LengthAfterHeat.RaiseNOutChanges();
+                LengthAfterHeat.RaiseROutChanges();
             }
         }
 

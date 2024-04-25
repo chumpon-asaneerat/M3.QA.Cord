@@ -327,6 +327,18 @@ namespace M3.QA.Models
 
         }
 
+        protected internal void RaiseNOutChanges()
+        {
+            foreach (var item in Items) 
+                item.RaiseNOutChanges();
+        }
+
+        protected internal void RaiseROutChanges()
+        {
+            foreach (var item in Items) 
+                item.RaiseROutChanges();
+        }
+
         #endregion
 
         #region Callback Actions
