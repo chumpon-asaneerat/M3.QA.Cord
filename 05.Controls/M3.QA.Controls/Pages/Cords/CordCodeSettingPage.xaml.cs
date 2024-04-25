@@ -33,9 +33,9 @@ namespace M3.QA.Pages
         #region Internal Variables
 
         private List<CordCode> cordCodes;
-        //private List<MCustomer> customers;
-        //private List<ProductType> productTypes;
-        //private List<YarnType> yarnTypes;
+        private List<MCustomer> customers;
+        private List<ProductType> productTypes;
+        private List<YarnType> yarnTypes;
         private List<CordCodeDetail> items;
 
         #endregion
@@ -92,10 +92,10 @@ namespace M3.QA.Pages
             this.InvokeAction(() =>
             {
                 cbCordCode.ItemsSource = cordCodes;
-                cbCordCode.SelectedIndex = (null != cordCodes && cordCodes.Count > 0) ? 0 : -1;
+                //cbCordCode.SelectedIndex = (null != cordCodes && cordCodes.Count > 0) ? 0 : -1;
+                cbCordCode.SelectedIndex = -1;
             });
 
-            /*
             cbCustomers.ItemsSource = null;
             customers = MCustomer.Gets(null).Value();
             this.InvokeAction(() =>
@@ -110,8 +110,8 @@ namespace M3.QA.Pages
             this.InvokeAction(() =>
             {
                 cbProductTypes.ItemsSource = productTypes;
-                //cbProductTypes.SelectedIndex = (null != productTypes && productTypes.Count > 0) ? 0 : -1;
-                cbProductTypes.SelectedIndex = -1;
+                cbProductTypes.SelectedIndex = (null != productTypes && productTypes.Count > 0) ? 0 : -1;
+                //cbProductTypes.SelectedIndex = -1;
             });
 
             cbYarnTypes.ItemsSource = null;
@@ -122,7 +122,6 @@ namespace M3.QA.Pages
                 //cbYarnTypes.SelectedIndex = (null != yarnTypes && yarnTypes.Count > 0) ? 0 : -1;
                 cbYarnTypes.SelectedIndex = -1;
             });
-            */
         }
 
         private void Add()
@@ -138,8 +137,12 @@ namespace M3.QA.Pages
         private void Search()
         {
             grid.ItemsSource = null;
+            
             var cordCode = cbCordCode.SelectedItem as CordCode;
             string code =  (null != cordCode) ? cordCode.ItemCode : null;
+
+
+
             items = CordCodeDetail.Gets(code).Value();
             this.InvokeAction(() =>
             {

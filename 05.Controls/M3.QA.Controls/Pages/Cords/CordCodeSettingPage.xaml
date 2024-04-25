@@ -8,6 +8,35 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="ItemCode">
+            <TextBlock Text="{Binding Path=ItemCode, Mode=OneWay}" TextAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="Customer">
+            <TextBlock Text="{Binding Path=Customer, Mode=OneWay}" TextAlignment="Left" />
+        </DataTemplate>
+        <DataTemplate x:Key="UserName">
+            <TextBlock Text="{Binding Path=UserName, Mode=OneWay}" TextAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="CoaNo">
+            <TextBlock Text="{Binding Path=CoaNo, Mode=OneWay}" TextAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="FMQC">
+            <TextBlock Text="{Binding Path=FMQC, Mode=OneWay}" TextAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="ProductName">
+            <TextBlock Text="{Binding Path=ProductName, Mode=OneWay}" TextAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="ProductType">
+            <TextBlock Text="{Binding Path=ProductType, Mode=OneWay}" TextAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="YarnType">
+            <TextBlock Text="{Binding Path=YarnType, Mode=OneWay}" TextAlignment="Center" />
+        </DataTemplate>
+        <DataTemplate x:Key="ELongLoadN">
+            <TextBlock Text="{Binding Path=ELongLoadN, Mode=OneWay}" TextAlignment="Left" />
+        </DataTemplate>
+    </UserControl.Resources>
     <page:NPage HeaderText="Cord Code Setting">
         <DockPanel LastChildFill="True" Margin="5">
             <!--  BUTTON BARS  -->
@@ -37,32 +66,26 @@
                                     DisplayMemberPath="ItemCode"
                                     SelectionChanged="cbCordCode_SelectionChanged" />
                     <!--  CUSTOMER  -->
-                    <!--
                     <ctrl:NComboBox x:Name="cbCustomers"
                                     Margin="0,0,5,0"
                                     CaptionText="Customer:"
                                     Width="150"
                                     DisplayMemberPath="Customer"
-                                    SelectionChanged="cbCustomers_SelectionChanged"/>
-                    -->
+                                    SelectionChanged="cbCustomers_SelectionChanged" />
                     <!--  PRODUCT TYPE  -->
-                    <!--
                     <ctrl:NComboBox x:Name="cbProductTypes"
                                     Margin="0,0,5,0"
                                     CaptionText="Product Type:"
                                     Width="150"
                                     DisplayMemberPath="Text"
-                                    SelectionChanged="cbProductTypes_SelectionChanged"/>
-                    -->
+                                    SelectionChanged="cbProductTypes_SelectionChanged" />
                     <!--  YARN TYPE  -->
-                    <!--
                     <ctrl:NComboBox x:Name="cbYarnTypes"
                                     Margin="0,0,5,0"
                                     CaptionText="Yarn Type:"
                                     Width="150"
                                     DisplayMemberPath="Text"
-                                    SelectionChanged="cbYarnTypes_SelectionChanged"/>
-                    -->
+                                    SelectionChanged="cbYarnTypes_SelectionChanged" />
                     <ctrl:FontAwesomeButton x:Name="cmdSearch"
                                             Width="120"
                                             Height="40"
@@ -84,31 +107,31 @@
                     <GridView>
                         <GridViewColumn Header="Cord Code"
                                         Width="120"
-                                        DisplayMemberBinding="{Binding ItemCode}" />
+                                        CellTemplate="{StaticResource ItemCode}" />
                         <GridViewColumn Header="Customer"
                                         Width="200"
-                                        DisplayMemberBinding="{Binding Customer}" />
+                                        CellTemplate="{StaticResource Customer}" />
                         <GridViewColumn Header="User Name"
                                         Width="200"
-                                        DisplayMemberBinding="{Binding UserName}" />
+                                        CellTemplate="{StaticResource UserName}" />
                         <GridViewColumn Header="Coa No"
                                         Width="80"
-                                        DisplayMemberBinding="{Binding CoaNo}" />
+                                        CellTemplate="{StaticResource CoaNo}" />
                         <GridViewColumn Header="FMQC"
                                         Width="100"
-                                        DisplayMemberBinding="{Binding FMQC}" />
+                                        CellTemplate="{StaticResource FMQC}" />
                         <GridViewColumn Header="Product Name"
                                         Width="200"
-                                        DisplayMemberBinding="{Binding ProductName}" />
+                                        CellTemplate="{StaticResource ProductName}" />
                         <GridViewColumn Header="Product Type"
                                         Width="120"
-                                        DisplayMemberBinding="{Binding ProductType}" />
+                                        CellTemplate="{StaticResource ProductType}" />
                         <GridViewColumn Header="Yarn Type"
                                         Width="100"
-                                        DisplayMemberBinding="{Binding YarnType}" />
+                                        CellTemplate="{StaticResource YarnType}" />
                         <GridViewColumn Header="Elong Load N"
                                         Width="120"
-                                        DisplayMemberBinding="{Binding ELongLoadN}" />
+                                        CellTemplate="{StaticResource ELongLoadN}" />
                     </GridView>
                 </ListView.View>
             </ListView>
