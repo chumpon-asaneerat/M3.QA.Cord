@@ -12,16 +12,16 @@ using M3.QA.Models;
 namespace M3.QA.Windows
 {
     /// <summary>
-    /// Interaction logic for CordCodeSettingWindow.xaml
+    /// Interaction logic for CordCodeSettingEditorWindow.xaml
     /// </summary>
-    public partial class CordCodeSettingWindow : Window
+    public partial class CordCodeSettingEditorWindow : Window
     {
         #region Constructor
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public CordCodeSettingWindow()
+        public CordCodeSettingEditorWindow()
         {
             InitializeComponent();
         }

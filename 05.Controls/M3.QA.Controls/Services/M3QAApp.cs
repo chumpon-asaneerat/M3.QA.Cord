@@ -234,6 +234,16 @@ namespace M3.QA
             }
 
             #endregion
+
+            #region Cord Code Setting Editor
+
+            /// <summary>Gets Cord Code Setting Window.</summary>
+            public static CordCodeSettingEditorWindow CordCodeSettingEditor
+            {
+                get { return GetWindow<CordCodeSettingEditorWindow>(); }
+            }
+
+            #endregion
         }
     }
 }

@@ -165,8 +165,8 @@
     </Compile>
     <Compile Include="Services\M3QAApp.cs" />
     <Compile Include="Services\SignInService.cs" />
-    <Compile Include="Windows\CordCodeSettingWindow.xaml.cs">
-      <DependentUpon>CordCodeSettingWindow.xaml</DependentUpon>
+    <Compile Include="Windows\Cord\CordCodeSettingEditorWindow.xaml.cs">
+      <DependentUpon>CordCodeSettingEditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SignIn\ChooseUserWindow.xaml.cs">
       <DependentUpon>ChooseUserWindow.xaml</DependentUpon>
@@ -355,7 +355,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\CordCodeSettingWindow.xaml">
+    <Page Include="Windows\Cord\CordCodeSettingEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
