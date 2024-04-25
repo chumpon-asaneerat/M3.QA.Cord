@@ -342,9 +342,11 @@ namespace M3.QA.Models
         {
             get 
             {
+                if (!N.HasValue)
+                    return (R.HasValue) ? ModelConsts.DimGrayColor : ModelConsts.BlackColor; // No input
                 if (NOut)
                     return ModelConsts.RedColor; // Out of spec.
-                return (R.HasValue) ? ModelConsts.DimGrayColor : ModelConsts.BlackColor; 
+                return (R.HasValue) ? ModelConsts.DimGrayColor : ModelConsts.ForestGreenColor; 
             }
             set { }
         }
@@ -353,9 +355,11 @@ namespace M3.QA.Models
         {
             get 
             {
+                if (!R.HasValue)
+                    return ModelConsts.BlackColor; // No input
                 if (ROut)
                     return ModelConsts.RedColor; // Out of spec.
-                return ModelConsts.BlackColor;
+                return ModelConsts.ForestGreenColor; // In Range
             }
             set { }
         }
