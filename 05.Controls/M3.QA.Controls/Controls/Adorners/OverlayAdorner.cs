@@ -48,9 +48,9 @@ namespace M3.QA.Controls
 
         #endregion
 
-        #region Private Methods
+        #region Protected Methods
 
-        private void DrawText(DrawingContext drawingContext, string text, SolidColorBrush brush, Point pt)
+        protected void DrawText(DrawingContext drawingContext, string text, SolidColorBrush brush, Point pt)
         {
             if (null == drawingContext)
                 return;
@@ -66,6 +66,7 @@ namespace M3.QA.Controls
         // method, which is called by the layout system as part of a rendering pass.
         protected override void OnRender(DrawingContext drawingContext)
         {
+            /*
             var ctrl = (null != this.AdornedElement && this.AdornedElement is FrameworkElement) ? 
                 (FrameworkElement)this.AdornedElement : null;
             if (null == ctrl || ctrl.Visibility != Visibility.Visible)
@@ -80,6 +81,7 @@ namespace M3.QA.Controls
             Point pt = new Point(adornedElementRect.Right - 20, adornedElementRect.Top);
             
             this.DrawText(drawingContext, "P", Brushes.ForestGreen, pt);
+            */
         }
 
         #endregion
