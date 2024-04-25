@@ -67,8 +67,6 @@ namespace M3.QA.Models
 
                     StandardDenierD.NOut1 = StandardDenierDtex.NOut1;
                     StandardDenierD.ROut1 = StandardDenierDtex.ROut1;
-                    YarnWeightAfterDrying.NOut1 = StandardDenierDtex.NOut1;
-                    YarnWeightAfterDrying.ROut1 = StandardDenierDtex.ROut1;
 
                     // Raise items events
                     StandardDenierD.RaiseNOutChanges();
@@ -76,9 +74,6 @@ namespace M3.QA.Models
 
                     StandardDenierDtex.RaiseNOutChanges();
                     StandardDenierDtex.RaiseROutChanges();
-
-                    YarnWeightAfterDrying.RaiseNOutChanges();
-                    YarnWeightAfterDrying.RaiseROutChanges();
                 }
                 else if (!string.IsNullOrEmpty(SpecDenier.UnitId) && SpecDenier.UnitId.Trim().ToLower() == "D")
                 {
@@ -87,8 +82,6 @@ namespace M3.QA.Models
 
                     StandardDenierDtex.NOut1 = StandardDenierD.NOut1;
                     StandardDenierDtex.ROut1 = StandardDenierD.ROut1;
-                    YarnWeightAfterDrying.NOut1 = StandardDenierD.NOut1;
-                    YarnWeightAfterDrying.ROut1 = StandardDenierD.ROut1;
 
                     // Raise items events
                     StandardDenierD.RaiseNOutChanges();
@@ -96,9 +89,6 @@ namespace M3.QA.Models
 
                     StandardDenierDtex.RaiseNOutChanges();
                     StandardDenierDtex.RaiseROutChanges();
-
-                    YarnWeightAfterDrying.RaiseNOutChanges();
-                    YarnWeightAfterDrying.RaiseROutChanges();
                 }
             }
         }
@@ -107,13 +97,11 @@ namespace M3.QA.Models
         {
             if (null != SpecMoisture && null != YarnWeightBeforeDrying && null != YarnWeightAfterDrying && null != EquilibriumMoistureContent)
             {
-                EquilibriumMoistureContent.NOut1 = (EquilibriumMoistureContent.N1.HasValue) ? SpecWeight.IsOutOfSpec(EquilibriumMoistureContent.N1.Value) : false;
-                EquilibriumMoistureContent.ROut1 = (EquilibriumMoistureContent.R1.HasValue) ? SpecWeight.IsOutOfSpec(EquilibriumMoistureContent.R1.Value) : false;
+                EquilibriumMoistureContent.NOut1 = (EquilibriumMoistureContent.N1.HasValue) ? SpecMoisture.IsOutOfSpec(EquilibriumMoistureContent.N1.Value) : false;
+                EquilibriumMoistureContent.ROut1 = (EquilibriumMoistureContent.R1.HasValue) ? SpecMoisture.IsOutOfSpec(EquilibriumMoistureContent.R1.Value) : false;
 
                 YarnWeightBeforeDrying.NOut1 = EquilibriumMoistureContent.NOut1;
                 YarnWeightBeforeDrying.ROut1 = EquilibriumMoistureContent.ROut1;
-                YarnWeightAfterDrying.NOut1 = EquilibriumMoistureContent.NOut1;
-                YarnWeightAfterDrying.ROut1 = EquilibriumMoistureContent.ROut1;
 
                 // Raise items events
                 EquilibriumMoistureContent.RaiseNOutChanges();
@@ -121,9 +109,6 @@ namespace M3.QA.Models
 
                 YarnWeightBeforeDrying.RaiseNOutChanges();
                 YarnWeightBeforeDrying.RaiseROutChanges();
-
-                YarnWeightAfterDrying.RaiseNOutChanges();
-                YarnWeightAfterDrying.RaiseROutChanges();
             }
         }
 
@@ -134,12 +119,25 @@ namespace M3.QA.Models
                 Weight.NOut1 = (Weight.N1.HasValue) ? SpecWeight.IsOutOfSpec(Weight.N1.Value) : false;
                 Weight.ROut1 = (Weight.R1.HasValue) ? SpecWeight.IsOutOfSpec(Weight.R1.Value) : false;
 
-                YarnWeightAfterDrying.NOut1 = Weight.NOut1;
-                YarnWeightAfterDrying.ROut1 = Weight.ROut1;
-
                 // Raise items events
                 Weight.RaiseNOutChanges();
                 Weight.RaiseROutChanges();
+
+                YarnWeightAfterDrying.RaiseNOutChanges();
+                YarnWeightAfterDrying.RaiseROutChanges();
+            }
+        }
+
+        private void CheckCommonSpec()
+        {
+            if (null != YarnWeightAfterDrying)
+            {
+                // StandardDenierDtex and StandardDenierD Out of range state shoud be same.
+                bool bNOut = StandardDenierDtex.NOut1 || EquilibriumMoistureContent.NOut1 || Weight.NOut1;
+                bool bROut = StandardDenierDtex.ROut1 || EquilibriumMoistureContent.ROut1 || Weight.ROut1;
+
+                YarnWeightAfterDrying.NOut1 = bNOut;
+                YarnWeightAfterDrying.ROut1 = bROut;
 
                 YarnWeightAfterDrying.RaiseNOutChanges();
                 YarnWeightAfterDrying.RaiseROutChanges();
@@ -152,11 +150,11 @@ namespace M3.QA.Models
             {
                 // YarnWeightAfterDrying = YarnAndContentWeightAfterDrying – ContentWeight
                 YarnWeightAfterDrying.N1 = (YarnAndContentWeightAfterDrying.N1.HasValue ?
-                    YarnAndContentWeightAfterDrying.N1 - (ContentWeight.N1.HasValue ? ContentWeight.N1.Value : decimal.Zero) :
+                    YarnAndContentWeightAfterDrying.N1.Value - (ContentWeight.N1.HasValue ? ContentWeight.N1.Value : decimal.Zero) :
                     new decimal?());
 
                 YarnWeightAfterDrying.R1 = (YarnAndContentWeightAfterDrying.R1.HasValue ?
-                    YarnAndContentWeightAfterDrying.R1 - (ContentWeight.R1.HasValue ? ContentWeight.R1.Value : decimal.Zero) :
+                    YarnAndContentWeightAfterDrying.R1.Value - (ContentWeight.R1.HasValue ? ContentWeight.R1.Value : decimal.Zero) :
                     new decimal?());
 
                 Raise(() => this.YarnWeightAfterDrying);
@@ -215,6 +213,8 @@ namespace M3.QA.Models
 
                     CheckDenierSpec(); // Check Denier Spec
                 }
+                // Check Common Spec.
+                CheckCommonSpec();
             }
         }
 
@@ -223,10 +223,13 @@ namespace M3.QA.Models
             if (null != YarnWeightBeforeDrying && null != YarnWeightAfterDrying && null != EquilibriumMoistureContent)
             {
                 // Moisture = ((YarnWeightBeforeDrying - YarnWeightAfterDrying) / 4) * 100
-                EquilibriumMoistureContent.N1 = (YarnWeightBeforeDrying.N1.HasValue) ?
-                    (YarnWeightBeforeDrying.N1 - ((YarnWeightAfterDrying.N1.HasValue) ? YarnWeightAfterDrying.N1.Value : decimal.Zero) / 4) * 100 : new decimal?();
-                EquilibriumMoistureContent.R1 = (YarnWeightBeforeDrying.R1.HasValue) ?
-                    (YarnWeightBeforeDrying.R1 - ((YarnWeightAfterDrying.R1.HasValue) ? YarnWeightAfterDrying.R1.Value : decimal.Zero) / 4) * 100 : new decimal?();
+                var eN1 = (YarnWeightBeforeDrying.N1.HasValue) ?
+                    YarnWeightBeforeDrying.N1.Value - ((YarnWeightAfterDrying.N1.HasValue) ? YarnWeightAfterDrying.N1.Value : decimal.Zero) : new decimal?();
+                var eR1 = (YarnWeightBeforeDrying.R1.HasValue) ?
+                    YarnWeightBeforeDrying.R1.Value - ((YarnWeightAfterDrying.R1.HasValue) ? YarnWeightAfterDrying.R1.Value : decimal.Zero) : new decimal?();
+
+                EquilibriumMoistureContent.N1 = eN1.HasValue ? (eN1 / 4) * 100 : new decimal?();
+                EquilibriumMoistureContent.R1 = eN1.HasValue ? (eR1 / 4) * 100 : new decimal?();
 
                 // Raise events
                 Raise(() => this.EquilibriumMoistureContent);

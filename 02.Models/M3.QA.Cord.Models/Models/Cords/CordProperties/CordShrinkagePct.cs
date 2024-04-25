@@ -95,23 +95,23 @@ namespace M3.QA.Models
             {
                 // Shrinkage % = ( (Length BF Heat – Length AF Heat) * 2
                 PctShrinkage.N1 = 2 * (LengthBeforeHeat.N1.HasValue ? 
-                    LengthBeforeHeat.N1 - (LengthAfterHeat.N1.HasValue ? LengthAfterHeat.N1.Value : decimal.Zero) : 
+                    LengthBeforeHeat.N1.Value - (LengthAfterHeat.N1.HasValue ? LengthAfterHeat.N1.Value : decimal.Zero) : 
                     new decimal?());
                 PctShrinkage.N2 = 2 * (LengthBeforeHeat.N2.HasValue ?
-                    LengthBeforeHeat.N2 - (LengthAfterHeat.N2.HasValue ? LengthAfterHeat.N2.Value : decimal.Zero) :
+                    LengthBeforeHeat.N2.Value - (LengthAfterHeat.N2.HasValue ? LengthAfterHeat.N2.Value : decimal.Zero) :
                     new decimal?());
                 PctShrinkage.N3 = 2 * (LengthBeforeHeat.N3.HasValue ?
-                    LengthBeforeHeat.N3 - (LengthAfterHeat.N3.HasValue ? LengthAfterHeat.N3.Value : decimal.Zero) :
+                    LengthBeforeHeat.N3.Value - (LengthAfterHeat.N3.HasValue ? LengthAfterHeat.N3.Value : decimal.Zero) :
                     new decimal?());
 
                 PctShrinkage.R1 = 2 * (LengthBeforeHeat.R1.HasValue ?
-                    LengthBeforeHeat.R1 - (LengthAfterHeat.R1.HasValue ? LengthAfterHeat.R1.Value : decimal.Zero) :
+                    LengthBeforeHeat.R1.Value - (LengthAfterHeat.R1.HasValue ? LengthAfterHeat.R1.Value : decimal.Zero) :
                     new decimal?());
                 PctShrinkage.R2 = 2 * (LengthBeforeHeat.R2.HasValue ?
-                    LengthBeforeHeat.R2 - (LengthAfterHeat.R2.HasValue ? LengthAfterHeat.R2.Value : decimal.Zero) :
+                    LengthBeforeHeat.R2.Value - (LengthAfterHeat.R2.HasValue ? LengthAfterHeat.R2.Value : decimal.Zero) :
                     new decimal?());
                 PctShrinkage.R3 = 2 * (LengthBeforeHeat.R3.HasValue ?
-                    LengthBeforeHeat.R3 - (LengthAfterHeat.R3.HasValue ? LengthAfterHeat.R3.Value : decimal.Zero) :
+                    LengthBeforeHeat.R3.Value - (LengthAfterHeat.R3.HasValue ? LengthAfterHeat.R3.Value : decimal.Zero) :
                     new decimal?());
 
                 // Recheck if less than zero not allow

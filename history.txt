@@ -19,8 +19,10 @@ M3 QA Cord #175
 M3 QA Cord #174
 - 
 
+[commit]
 M3 QA Cord #173
-- 
+- Implements Cord Test Data #143
+  - Fixed out of range bug #2
 
 [commit]
 M3 QA Cord #172
