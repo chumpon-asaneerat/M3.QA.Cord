@@ -120,7 +120,7 @@ namespace M3.QA.Pages
                 return;
             }
 
-            var page = M3QAApp.Pages.ReceiveDipSolutionTestSample;
+            var page = M3QAApp.Pages.ReceiveDIPSolutionTestSample;
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
@@ -138,11 +138,9 @@ namespace M3.QA.Pages
                 msgbox.ShowDialog();
                 return;
             }
-            /*
-            var page = M3QAApp.Pages.DipSolutionTestData;
+            var page = M3QAApp.Pages.DIPSolutionSampleTestData;
             page.Setup();
             PageContentManager.Instance.Current = page;
-            */
         }
 
         private void cmdDipSolutionProduction_Click(object sender, RoutedEventArgs e)

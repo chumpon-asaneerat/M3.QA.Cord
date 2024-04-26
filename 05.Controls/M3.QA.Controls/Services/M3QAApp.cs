@@ -103,8 +103,8 @@ namespace M3.QA
 
             #region Dip Solution
 
-            /// <summary>Gets M3 Receive Solution Sample Test Page.</summary>
-            public static ReceiveDIPSolutionTestSamplePage ReceiveDipSolutionTestSample
+            /// <summary>Gets M3 Receive DIP Solution Sample Test Page.</summary>
+            public static ReceiveDIPSolutionTestSamplePage ReceiveDIPSolutionTestSample
             {
                 get
                 {
@@ -112,7 +112,7 @@ namespace M3.QA
                 }
             }
             /// <summary>Gets M3 DIP Solution Sample Test Data Page.</summary>
-            public static DIPSolutionSampleTestDataPage SolutionSampleTestData
+            public static DIPSolutionSampleTestDataPage DIPSolutionSampleTestData
             {
                 get
                 {
