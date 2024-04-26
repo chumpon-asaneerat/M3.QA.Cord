@@ -20,16 +20,16 @@ using System.Windows.Shapes;
 namespace M3.QA.Pages
 {
     /// <summary>
-    /// Interaction logic for SolutionSampleTestDataPage.xaml
+    /// Interaction logic for DIPSolutionSampleTestDataPage.xaml
     /// </summary>
-    public partial class SolutionSampleTestDataPage : UserControl
+    public partial class DIPSolutionSampleTestDataPage : UserControl
     {
         #region Constructor
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public SolutionSampleTestDataPage()
+        public DIPSolutionSampleTestDataPage()
         {
             InitializeComponent();
         }

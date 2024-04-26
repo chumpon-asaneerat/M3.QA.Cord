@@ -112,11 +112,11 @@ namespace M3.QA
                 }
             }
             /// <summary>Gets M3 DIP Solution Sample Test Data Page.</summary>
-            public static SolutionSampleTestDataPage SolutionSampleTestData
+            public static DIPSolutionSampleTestDataPage SolutionSampleTestData
             {
                 get
                 {
-                    return GetPage<SolutionSampleTestDataPage>();
+                    return GetPage<DIPSolutionSampleTestDataPage>();
                 }
             }
 
