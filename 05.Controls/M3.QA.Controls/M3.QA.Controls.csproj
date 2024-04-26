@@ -138,7 +138,7 @@
     <Compile Include="Pages\Cords\Properties\CordThicknessPage.xaml.cs">
       <DependentUpon>CordThicknessPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SolutionSampleTestDataPage.xaml.cs">
+    <Compile Include="Pages\Solutions\SolutionSampleTestDataPage.xaml.cs">
       <DependentUpon>SolutionSampleTestDataPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Solutions\ReceiveDIPSolutionTestSamplePage.xaml.cs">
@@ -334,7 +334,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SolutionSampleTestDataPage.xaml">
+    <Page Include="Pages\Solutions\SolutionSampleTestDataPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
