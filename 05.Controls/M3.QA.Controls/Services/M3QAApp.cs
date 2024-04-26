@@ -82,6 +82,7 @@ namespace M3.QA
 
             #region Cord
 
+            /// <summary>Gets M3 Receive Cord Sample Test Page.</summary>
             public static ReceiveCordTestSamplePage ReceiveCordSampleTest
             {
                 get
@@ -89,7 +90,7 @@ namespace M3.QA
                     return GetPage<ReceiveCordTestSamplePage>();
                 }
             }
-            
+            /// <summary>Gets M3 Cord Sample Test Data Page.</summary>
             public static CordSampleTestDataPage CordSampleTestData
             {
                 get
@@ -102,6 +103,7 @@ namespace M3.QA
 
             #region Dip Solution
 
+            /// <summary>Gets M3 Receive Solution Sample Test Page.</summary>
             public static ReceiveDIPSolutionTestSamplePage ReceiveDipSolutionTestSample
             {
                 get
@@ -109,16 +111,15 @@ namespace M3.QA
                     return GetPage<ReceiveDIPSolutionTestSamplePage>();
                 }
             }
-
-            /*
-            public static DipSolutionTestDataPage DipSolutionTestData
+            /// <summary>Gets M3 DIP Solution Sample Test Data Page.</summary>
+            public static SolutionSampleTestDataPage SolutionSampleTestData
             {
                 get
                 {
-                    return GetPage<DipSolutionTestDataPage>();
+                    return GetPage<SolutionSampleTestDataPage>();
                 }
             }
-            */
+
             #endregion
 
             #region Master
