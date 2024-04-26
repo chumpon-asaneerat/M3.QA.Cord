@@ -7,8 +7,11 @@ M3 QA Cord #199
 M3 QA Cord #198
 - 
 
+[commit]
 M3 QA Cord #197
-- 
+- Implements Cord Test Data #157
+  - Implements Cord Code Setting #11
+  - Prepare SolutionSampleTestDataPage #5
 
 [commit]
 M3 QA Cord #196

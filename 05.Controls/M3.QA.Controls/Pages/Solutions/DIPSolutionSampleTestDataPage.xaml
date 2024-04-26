@@ -17,11 +17,11 @@
             <DockPanel LastChildFill="True"
                        DockPanel.Dock="Bottom"
                        Height="40">
-                <ctrl:FontAwesomeButton x:Name="cmdCancel"
+                <ctrl:FontAwesomeButton x:Name="cmdSave"
                                         DockPanel.Dock="Left"
                                         IconType="Save"
                                         Text="Save"
-                                        Click="cmdCancel_Click" />
+                                        Click="cmdSave_Click" />
                 <ctrl:FontAwesomeButton x:Name="cmdBack"
                                         DockPanel.Dock="Right"
                                         IconType="Home"

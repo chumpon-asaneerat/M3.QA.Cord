@@ -144,9 +144,6 @@
     <Compile Include="Pages\Solutions\ReceiveDIPSolutionTestSamplePage.xaml.cs">
       <DependentUpon>ReceiveDIPSolutionTestSamplePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\__Backup\Dip Solution Test Data\DipSolutionTestDataPage.xaml.cs">
-      <DependentUpon>DipSolutionTestDataPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Masters\Users\UserManagementPage.xaml.cs">
       <DependentUpon>UserManagementPage.xaml</DependentUpon>
     </Compile>
@@ -342,10 +339,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\__Backup\Dip Solution Test Data\DipSolutionTestDataPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Pages\Masters\Users\UserManagementPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -391,6 +384,8 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pages\Solutions\Properties\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -40,10 +40,24 @@ namespace M3.QA.Pages
 
         private void cmdBack_Click(object sender, RoutedEventArgs e)
         {
+            M3QAApp.Pages.GotoQAMainMenu();
+        }
+
+        private void cmdSave_Click(object sender, RoutedEventArgs e)
+        {
+            Save();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void Clear()
+        {
 
         }
 
-        private void cmdCancel_Click(object sender, RoutedEventArgs e)
+        private void Save()
         {
 
         }
@@ -54,7 +68,7 @@ namespace M3.QA.Pages
 
         public void Setup()
         {
-
+            Clear();
         }
 
         #endregion
