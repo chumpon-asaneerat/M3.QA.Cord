@@ -20,23 +20,47 @@ namespace M3.QA.Models
     /// <summary>
     /// The Cord Code Detail class.
     /// </summary>
-    public class CordCodeDetail
+    public class CordCodeDetail : NInpc
     {
         #region Public Properties
 
         /// <summary>Gets or set MasterId.</summary>
-        public int? MasterId { get; set; }
+        public int? MasterId 
+        {
+            get { return Get<int?>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets or set Customer.</summary>
-        public string Customer { get; set; }
+        public string Customer 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets or set ItemCode.</summary>
-        public string ItemCode { get; set; }
+        public string ItemCode 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets or set UserName.</summary>
-        public string UserName { get; set; }
-        
+        public string UserName 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
+
         /// <summary>Gets or set CoaNo.</summary>
-        public int CoaNo { get; set; }
+        public int CoaNo 
+        {
+            get { return Get<int>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets or set FMQC.</summary>
-        public string FMQC { get; set; }
+        public string FMQC 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets Coa Report Code.</summary>
         public string CoaReportCode
         {
@@ -45,18 +69,66 @@ namespace M3.QA.Models
         }
 
         /// <summary>Gets or set ProductType.</summary>
-        public string ProductType { get; set; }
+        public string ProductType 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets or set ProductName.</summary>
-        public string ProductName { get; set; }
+        public string ProductName 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets or set YarnType.</summary>
-        public string YarnType { get; set; }
+        public string YarnType 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets or set YarnCode.</summary>
-        public string YarnCode { get; set; }
+        public string YarnCode 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
 
         /// <summary>Gets or set ELongLoadN.</summary>
-        public string ELongLoadN { get; set; }
+        public string ELongLoadN 
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets or set NoTestCH.</summary>
-        public int NoTestCH { get; set; }
+        public int NoTestCH 
+        {
+            get { return Get<int>(); }
+            set { Set(value, () => { }); }
+        }
+
+
+
+        /// <summary>Check is new record (MasterId is null or less than zero).</summary>
+        public bool IsNew
+        {
+            get { return MasterId.HasValue && MasterId.Value > 0 ? false : true; }
+            set { }
+        }
+        /// <summary>Gets or sets New customer.</summary>
+        public string NewCustomer 
+        {
+            get { return Get<string>();  }
+            set 
+            {
+                if (!IsNew) 
+                    return; // not allow if already exist.
+                Set(value, () => 
+                {
+                    // when set new customer the old Customer should be reset
+                    Customer = null;
+                });
+            }
+        }
 
         #endregion
 
@@ -199,7 +271,7 @@ namespace M3.QA.Models
             p.Add("@masterid", value.MasterId);
 
             p.Add("@cordcode", value.ItemCode);
-            p.Add("@customer", value.Customer);
+            p.Add("@customer", (value.IsNew) ? value.NewCustomer : value.Customer);
             p.Add("@coano", value.CoaNo);
             p.Add("@fmqc", value.FMQC);
             p.Add("@producttype", value.ProductType);
