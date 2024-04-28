@@ -23,8 +23,8 @@ namespace M3.QA.Models
 
         /// <summary>Gets or sets Property No.</summary>
         public int PropertyNo { get; set; }
-        /// <summary>Gets or sets Property Name.</summary>
-        public string PropertyName { get; set; }
+        /// <summary>Gets or sets Property Name. (Note: on db column is misspelling)</summary>
+        public string PropertName { get; set; }
         /// <summary>Gets or sets Property Type.</summary>
         public string PropertyType { get; set; }
 

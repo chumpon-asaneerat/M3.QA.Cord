@@ -610,7 +610,7 @@ namespace M3.QA.Models
                     var inst = new CordTestSpec()
                     {
                         PropertyNo = item.PropertyNo,
-                        ProductName = item.PropertyName
+                        PropertyName = item.PropertName
                     };
                     // Add to list.
                     ret.Add(inst);
