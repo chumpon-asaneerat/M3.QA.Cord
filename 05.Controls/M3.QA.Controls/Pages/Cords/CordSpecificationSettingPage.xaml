@@ -33,40 +33,69 @@
 
         <!--  PLUS/MINUS  -->
         <DataTemplate x:Key="PlusMinus">
-            <DockPanel LastChildFill="True">
-                <TextBlock Text=" N = "
-                           DockPanel.Dock="Left"
-                           VerticalAlignment="Center" />
+            <DockPanel LastChildFill="True"
+                       VerticalAlignment="Bottom"
+                       Margin="0,5,0,0">
                 <StackPanel Orientation="Horizontal"
-                            DockPanel.Dock="Left"
-                            VerticalAlignment="Center">
-                    <TextBox Text="{Binding VCenter, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
-                             Width="100"
-                             VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left">
+                    <TextBlock Text=" N = " VerticalAlignment="Center" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                    <TextBlock Text=" + "
-                               TextAlignment="Center"
-                               FontSize="18"
-                               Margin="5"
-                               Width="16" />
-                    <TextBox Text="{Binding VMin, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
-                             Width="100"
-                             VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left">
+                    <StackPanel Orientation="Vertical">
+                        <TextBox Text="{Binding VCenter, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
+                                 Width="100"
+                                 VerticalAlignment="Center" />
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                    <TextBlock Text=" - "
-                               TextAlignment="Center"
-                               FontSize="20"
-                               Margin="5"
-                               Width="16" />
-                    <TextBox Text="{Binding VMax, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
-                             Width="100"
-                             VerticalAlignment="Center" />
+                <StackPanel Orientation="Vertical"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text=" + "
+                                       TextAlignment="Center"
+                                       FontSize="16"
+                                       Margin="5"
+                                       Width="16" />
+                            <TextBox Text="{Binding VMin, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
+                                     Width="100"
+                                     VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text=" - "
+                                       TextAlignment="Center"
+                                       FontSize="20"
+                                       Margin="5"
+                                       Width="16" />
+                            <TextBox Text="{Binding VMax, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
+                                     Width="100"
+                                     VerticalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
-                <TextBlock Text="{Binding SpecInfo}"
-                           DockPanel.Dock="Left"
-                           VerticalAlignment="Center" />
+                <!--  EXAMPLE  -->
+                <Grid Width="20" DockPanel.Dock="Left" />
+                <Border BorderThickness="0.2"
+                        BorderBrush="Silver"
+                        Background="CornflowerBlue"
+                        CornerRadius="5"
+                        Padding="5,2"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Left">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="Spec. Preview : "
+                                   FontSize="10"
+                                   Foreground="WhiteSmoke" />
+                        <TextBlock Text="{Binding SpecInfo}"
+                                   Foreground="Yellow"
+                                   Margin="5,0"
+                                   FontSize="30"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
                 <Grid />
             </DockPanel>
         </DataTemplate>
@@ -75,6 +104,7 @@
         <DataTemplate x:Key="MinMax">
             <DockPanel LastChildFill="True">
                 <StackPanel Orientation="Horizontal"
+                            Margin="1"
                             VerticalAlignment="Bottom"
                             DockPanel.Dock="Left">
                     <TextBox Text="{Binding VMin, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
