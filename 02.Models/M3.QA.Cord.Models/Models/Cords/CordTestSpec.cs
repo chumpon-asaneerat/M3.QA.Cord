@@ -948,6 +948,101 @@ namespace M3.QA.Models
 
             return ret;
         }
+        /// <summary>
+        /// Delete Setting
+        /// </summary>
+        /// <param name="value">The CordTestSpec item to delete.</param>
+        /// <returns></returns>
+        public static NDbResult<CordTestSpec> DeleteSetting(CordTestSpec value, Models.UserInfo user)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordTestSpec> ret = new NDbResult<CordTestSpec>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@masterid", value.MasterId);
+            p.Add("@propertyno", value.PropertyNo);
+            p.Add("@unitid", value.UnitId);
+
+            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+            try
+            {
+                cnn.Execute("M_DeleteSpecByMasterid", p, commandType: CommandType.StoredProcedure);
+                ret.Success(value);
+                // Set error number/message
+                ret.ErrNum = p.Get<int>("@errNum");
+                ret.ErrMsg = p.Get<string>("@errMsg");
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+        /// <summary>
+        /// Save Settings
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static NDbResult SaveSettings(List<CordTestSpec> values, Models.UserInfo user)
+        {
+            //MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult ret = new NDbResult();
+
+            if (null == values || values.Count <= 0)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            foreach (var item in values)
+            {
+                NDbResult ritem;
+
+                if (item.EnableProperty)
+                    ritem = SaveSetting(item, user);
+                else 
+                    ritem = DeleteSetting(item, user);
+
+                if (null == ritem || ritem.HasError)
+                {
+                    var ex = (null != ritem) ? new Exception("Item is null.") : new Exception(ritem.ErrMsg);
+                    ret.Error(ex);
+                    break;
+                }
+            }
+
+            ret.Success();
+
+            return ret;
+        }
 
         #endregion
     }

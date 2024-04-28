@@ -90,7 +90,28 @@ namespace M3.QA.Pages
 
         private void Save()
         {
+            // Set current user
+            var user = M3QAApp.Current.User;
+            NDbResult ret;
 
+            ret = CordTestSpec.SaveSettings(specs, user);
+
+            if (null == ret || !ret.Ok)
+            {
+                // error.
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += (null != ret) ? ret.ErrMsg : "Unknown Error!!";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+            else
+            {
+                // success
+                M3QAApp.Windows.SaveSuccess();
+            }
         }
 
         #endregion
