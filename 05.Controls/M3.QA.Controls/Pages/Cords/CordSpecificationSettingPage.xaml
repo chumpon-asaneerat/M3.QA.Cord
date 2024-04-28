@@ -21,9 +21,7 @@
 
         <!--  NO CHECK  -->
         <DataTemplate x:Key="NoCheck">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                <TextBlock Text="None" VerticalAlignment="Center" />
-            </StackPanel>
+            <Grid />
         </DataTemplate>
 
         <!--  PLUS/MINUS  -->
@@ -166,61 +164,93 @@
                                     <!--  ENTRY  -->
                                     <Border Padding="3,3,3,6">
                                         <DockPanel LastChildFill="True" IsEnabled="{Binding EnableProperty}">
-                                            <!--  SPEC TYPE  -->
-                                            <StackPanel Orientation="Vertical"
-                                                        DockPanel.Dock="Left"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="2,0">
-                                                <TextBlock Text="Spec. Type:" Margin="2,0" />
-                                                <ComboBox ItemsSource="{Binding SpecTypes}"
-                                                          Margin="2,0"
-                                                          DisplayMemberPath="SpecDesc"
-                                                          SelectedItem="{Binding SelectionSpecType}"
-                                                          Width="150"
-                                                          Style="{StaticResource CommonComboBox}" />
-                                            </StackPanel>
-                                            <!--  NO SAMPLE  -->
-                                            <StackPanel Orientation="Vertical"
-                                                        DockPanel.Dock="Left"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="2,0"
-                                                        Width="75">
-                                                <TextBlock Text="Total N:" />
-                                                <TextBox Text="{Binding NoSample}" />
-                                            </StackPanel>
-                                            <Grid Width="5" />
-                                            <!--  VCENTER/VMIN/VMAX  -->
-                                            <ContentControl Content="{Binding}">
-                                                <ContentControl.Style>
-                                                    <Style TargetType="ContentControl">
-                                                        <Setter Property="ContentTemplate" Value="{StaticResource NoCheck}" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding SpecId}" Value="{x:Null}">
-                                                                <Setter Property="ContentTemplate" Value="{StaticResource NoCheck}" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding SpecId}" Value="1">
-                                                                <Setter Property="ContentTemplate" Value="{StaticResource PlusMinus}" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding SpecId}" Value="2">
-                                                                <Setter Property="ContentTemplate" Value="{StaticResource MinMax}" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </ContentControl.Style>
-                                            </ContentControl>
-
-                                            <!--  UNIT ID/DESC  -->
-                                            <StackPanel Orientation="Vertical"
-                                                        DockPanel.Dock="Left"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="2,0">
-                                                <TextBlock Text="Unit Id:" Margin="2,0" />
-                                            </StackPanel>
-                                            <!--  OPTION ID/DESC ???  -->
-                                            <StackPanel Orientation="Vertical"
-                                                        DockPanel.Dock="Left"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="2,0" />
+                                            <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                                                <!--  SPEC TYPE  -->
+                                                <StackPanel Orientation="Vertical"
+                                                            DockPanel.Dock="Left"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="2,0">
+                                                    <TextBlock Text="Spec. Type:" Margin="2,0" />
+                                                    <ComboBox ItemsSource="{Binding SpecTypes}"
+                                                              Margin="2,0"
+                                                              DisplayMemberPath="SpecDesc"
+                                                              SelectedItem="{Binding SelectionSpecType}"
+                                                              Width="150"
+                                                              Style="{StaticResource CommonComboBox}" />
+                                                </StackPanel>
+                                                <!--  NO SAMPLE  -->
+                                                <StackPanel Orientation="Vertical"
+                                                            DockPanel.Dock="Left"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="2,0"
+                                                            Width="75">
+                                                    <TextBlock Text="Total N:" />
+                                                    <TextBox Text="{Binding NoSample}" />
+                                                </StackPanel>
+                                                <Grid Width="5" />
+                                                <!--  VCENTER/VMIN/VMAX  -->
+                                                <ContentControl Content="{Binding}">
+                                                    <ContentControl.Style>
+                                                        <Style TargetType="ContentControl">
+                                                            <Setter Property="ContentTemplate" Value="{StaticResource NoCheck}" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding SpecId}" Value="{x:Null}">
+                                                                    <Setter Property="ContentTemplate" Value="{StaticResource NoCheck}" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding SpecId}" Value="1">
+                                                                    <Setter Property="ContentTemplate" Value="{StaticResource PlusMinus}" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding SpecId}" Value="2">
+                                                                    <Setter Property="ContentTemplate" Value="{StaticResource MinMax}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ContentControl.Style>
+                                                </ContentControl>
+                                            </DockPanel>
+                                            <Grid DockPanel.Dock="Top" Height="5" />
+                                            <DockPanel LastChildFill="True"
+                                                       DockPanel.Dock="Top"
+                                                       Visibility="{Binding UnitVisibility}">
+                                                <!--  UNIT ID/DESC  -->
+                                                <StackPanel Orientation="Horizontal"
+                                                            DockPanel.Dock="Left"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="2,0">
+                                                    <StackPanel Orientation="Vertical" Visibility="{Binding ComboBoxUnitVisible}">
+                                                        <TextBlock Text="Unit :" Margin="2,0" />
+                                                        <ComboBox ItemsSource="{Binding Units}"
+                                                                  Margin="2,0"
+                                                                  DisplayMemberPath="UnitDesc"
+                                                                  SelectedItem="{Binding SelectionUnit}"
+                                                                  Width="150"
+                                                                  Style="{StaticResource CommonComboBox}" />
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Vertical" Visibility="{Binding TextBoxUnitVisible}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <StackPanel Orientation="Vertical">
+                                                                <TextBlock Text="Unit :" Margin="2,0" />
+                                                                <TextBox Text="{Binding UnitId}"
+                                                                         Margin="2,0"
+                                                                         Width="150" />
+                                                            </StackPanel>
+                                                            <StackPanel Orientation="Vertical">
+                                                                <TextBlock Text="Description :" Margin="2,0" />
+                                                                <TextBox Text="{Binding UnitDesc}"
+                                                                         Margin="2,0"
+                                                                         Width="150" />
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <!--  OPTION ID/DESC ???  -->
+                                                <StackPanel Orientation="Vertical"
+                                                            DockPanel.Dock="Left"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="2,0" />
+                                                <Grid />
+                                            </DockPanel>
+                                            <Grid DockPanel.Dock="Top" Height="5" />
                                             <Grid />
                                         </DockPanel>
                                     </Border>
