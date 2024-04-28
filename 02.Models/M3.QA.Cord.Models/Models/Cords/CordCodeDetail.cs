@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Remoting;
+using System.Windows;
 using Dapper;
 
 using NLib;
@@ -22,6 +23,37 @@ namespace M3.QA.Models
     /// </summary>
     public class CordCodeDetail : NInpc
     {
+        #region Public Method
+        /*
+        /// <summary>
+        /// Clone.
+        /// </summary>
+        /// <returns></returns>
+        public CordCodeDetail Clone()
+        {
+            var inst = new CordCodeDetail();
+
+            inst.MasterId = MasterId;
+            inst.Customer = Customer;
+            inst.ItemCode = ItemCode;
+            inst.UserName = UserName;
+            inst.CoaNo = CoaNo;
+            inst.FMQC = FMQC;
+            inst.ProductType = ProductType;
+            inst.ProductName = ProductName;
+            inst.YarnType = YarnType;
+            inst.YarnCode = YarnCode;
+            inst.ELongLoadN = ELongLoadN;
+            inst.NoTestCH = NoTestCH;
+
+            //inst.NewItemCode = NewItemCode;
+            //inst.NewCustomer = NewCustomer;
+
+            return inst;
+        }
+        */
+        #endregion
+
         #region Public Properties
 
         /// <summary>Gets or set MasterId.</summary>
@@ -113,6 +145,35 @@ namespace M3.QA.Models
         {
             get { return MasterId.HasValue && MasterId.Value > 0 ? false : true; }
             set { }
+        }
+
+        /// <summary>Gets Visibility for input that allow only New item.</summary>
+        public Visibility NewVisible
+        {
+            get { return (IsNew) ? Visibility.Visible : Visibility.Collapsed; }
+            set { }
+        }
+        /// <summary>Gets Visibility for input that allow only Exist item.</summary>
+        public Visibility ExistVisible
+        {
+            get { return (!IsNew) ? Visibility.Visible : Visibility.Collapsed; }
+            set { }
+        }
+
+        /// <summary>Gets or sets New Item Code.</summary>
+        public string NewItemCode
+        {
+            get { return Get<string>(); }
+            set
+            {
+                if (!IsNew)
+                    return; // not allow if already exist.
+                Set(value, () =>
+                {
+                    // when set new customer the old Customer should be reset
+                    ItemCode = null;
+                });
+            }
         }
         /// <summary>Gets or sets New customer.</summary>
         public string NewCustomer 
@@ -270,7 +331,7 @@ namespace M3.QA.Models
 
             p.Add("@masterid", value.MasterId);
 
-            p.Add("@cordcode", value.ItemCode);
+            p.Add("@cordcode", (value.IsNew) ? value.NewItemCode : value.ItemCode);
             p.Add("@customer", (value.IsNew) ? value.NewCustomer : value.Customer);
             p.Add("@coano", value.CoaNo);
             p.Add("@fmqc", value.FMQC);
@@ -288,7 +349,7 @@ namespace M3.QA.Models
 
             try
             {
-                cnn.Execute("P_SaveReceiveCord", p, commandType: CommandType.StoredProcedure);
+                cnn.Execute("M_SaveCordCode", p, commandType: CommandType.StoredProcedure);
                 ret.Success(value);
                 // Set error number/message
                 ret.ErrNum = p.Get<int>("@errNum");

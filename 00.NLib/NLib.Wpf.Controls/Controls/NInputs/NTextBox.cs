@@ -65,14 +65,34 @@ namespace NLib.Wpf.Controls
             if (null != obj && obj is TextBox)
             {
                 ctrl = (TextBox)obj;
+                if (null != ctrl)
+                {
+                    ctrl.TextChanged += Ctrl_TextChanged;
+                }
             }
         }
+
         /// <summary>
         /// Focus internal control.
         /// </summary>
         public override void FocusControl() 
         {
             if (null != ctrl) ctrl.Focus();
+        }
+
+        private void Ctrl_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            RaiseTextChanged(e);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void RaiseTextChanged(TextChangedEventArgs e)
+        {
+            var evt = new TextChangedEventArgs(TextChangedEvent, e.UndoAction, e.Changes);
+            RaiseEvent(evt);
         }
 
         #endregion
@@ -407,6 +427,27 @@ namespace NLib.Wpf.Controls
         }
 
         #endregion
+
+        #endregion
+
+        #region Event Handlers
+
+        /// <summary>
+        /// The TextChangedEvent Route Event.
+        /// </summary>
+        public static readonly RoutedEvent TextChangedEvent = EventManager.RegisterRoutedEvent(
+            "TextChanged",
+            RoutingStrategy.Bubble,
+            typeof(TextChangedEventHandler),
+            typeof(NTextBox));
+        /// <summary>
+        /// The TextChanged event Handler.
+        /// </summary>
+        public event TextChangedEventHandler TextChanged
+        {
+            add { AddHandler(TextChangedEvent, value); }
+            remove { RemoveHandler(TextChangedEvent, value); }
+        }
 
         #endregion
     }

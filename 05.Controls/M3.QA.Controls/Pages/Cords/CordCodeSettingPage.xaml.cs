@@ -43,7 +43,8 @@ namespace M3.QA.Pages
 
         private void cmdNew_Click(object sender, RoutedEventArgs e)
         {
-            Add();
+            var item = new CordCodeDetail();
+            Add(item);
         }
 
         private void cmdBack_Click(object sender, RoutedEventArgs e)
@@ -54,6 +55,13 @@ namespace M3.QA.Pages
         private void cmdSearch_Click(object sender, RoutedEventArgs e)
         {
             Search();
+        }
+
+        private void cmdEdit_Click(object sender, RoutedEventArgs e)
+        {
+            var ctx = (null != sender && sender is Button) ? (sender as Button).DataContext : null;
+            var item = (null != ctx) ? ctx as CordCodeDetail : null;
+            Edit(item);
         }
 
         #endregion
@@ -109,14 +117,28 @@ namespace M3.QA.Pages
             });
         }
 
-        private void Add()
+        private void Add(CordCodeDetail item)
         {
-
+            if (null == item) return;
+            // Open Editor
+            var win = M3QAApp.Windows.CordCodeSettingEditor;
+            win.Setup(item);
+            if (win.ShowDialog() == true)
+            {
+                Search(); // Refresh grid by call Search method.
+            }
         }
 
-        private void Edit()
+        private void Edit(CordCodeDetail item)
         {
-
+            if (null == item) return;
+            // Open Editor
+            var win = M3QAApp.Windows.CordCodeSettingEditor;
+            win.Setup(item);
+            if (win.ShowDialog() == true)
+            {
+                Search(); // Refresh grid by call Search method.
+            }
         }
 
         private void Search()

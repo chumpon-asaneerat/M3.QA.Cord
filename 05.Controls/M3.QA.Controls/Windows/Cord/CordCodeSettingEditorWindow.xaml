@@ -11,8 +11,8 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner"
-        Height="400"
-        Width="800"
+        Height="500"
+        Width="900"
         mc:Ignorable="d">
     <page:NPage HeaderText="Cord Code Setting">
         <DockPanel LastChildFill="True">
@@ -27,20 +27,81 @@
                                         IconType="Cancel"
                                         Text="Cancel"
                                         Height="35"
-                                        FontWeight="Bold" 
-                                        Click="cmdCancel_Click"/>
+                                        FontWeight="Bold"
+                                        Click="cmdCancel_Click" />
                 <ctrl:FontAwesomeButton x:Name="cmdOk"
                                         DockPanel.Dock="Right"
                                         Margin="5,0"
                                         IconType="Ok"
                                         Text="Ok"
                                         Height="35"
-                                        FontWeight="Bold" 
-                                        Click="cmdOk_Click"/>
+                                        FontWeight="Bold"
+                                        Click="cmdOk_Click" />
                 <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
             <DockPanel LastChildFill="True" Margin="20">
+                <!--  CORD CODE  -->
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <ctrl:NComboBox x:Name="cbCordCode"
+                                    Width="200"
+                                    CaptionText="Cord Code:"
+                                    DisplayMemberPath="ItemCode"
+                                    Visibility="{Binding ExistVisible}" />
+                    <ctrl:NTextBox x:Name="txtNewCordCode"
+                                   Width="200"
+                                   CaptionText="Cord Code (New):"
+                                   Text="{Binding NewItemCode}"
+                                   Visibility="{Binding NewVisible}" />
+                </StackPanel>
+                <!--  CUSTOMER  -->
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <ctrl:NComboBox x:Name="cbCustomers"
+                                    Width="200"
+                                    CaptionText="Customer:"
+                                    DisplayMemberPath="Customer" 
+                                    SelectionChanged="cbCustomers_SelectionChanged"/>
+                    <ctrl:NTextBox x:Name="txtNewCustomer"
+                                   Width="200"
+                                   CaptionText="Customer (New):"
+                                   Text="{Binding NewCustomer}"
+                                   Visibility="{Binding NewVisible}" 
+                                   TextChanged="txtNewCustomer_TextChanged"/>
+                </StackPanel>
+                <!--  PRODUCTS AND YARNS  -->
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <!--  PRODUCT TYPE  -->
+                    <ctrl:NComboBox x:Name="cbProductTypes"
+                                    Width="200"
+                                    CaptionText="Product Type:"
+                                    DisplayMemberPath="Text" />
+                    <!--  PRODUCT NAME  -->
+                    <ctrl:NTextBox x:Name="txtProductName"
+                                   Width="200"
+                                   Text="{Binding ProductName}"
+                                   CaptionText="Product Name:" />
+                    <!--  YARN TYPE  -->
+                    <ctrl:NComboBox x:Name="cbYarnTypes"
+                                    Width="200"
+                                    CaptionText="Yarn Type:"
+                                    DisplayMemberPath="Text" />
+                    <!--  YARN CODE  -->
+                    <ctrl:NTextBox x:Name="txtYarnCode"
+                                   Width="200"
+                                   Text="{Binding YarnCode}"
+                                   CaptionText="Yarn Code:" />
+                </StackPanel>
+                <!--  TOTAL TEST CH / ELONGN AT LOAD  -->
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <ctrl:NTextBox x:Name="txtNoTestCH"
+                                   Width="200"
+                                   Text="{Binding NoTestCH}"
+                                   CaptionText="Total Test Ch:" />
+                    <ctrl:NTextBox x:Name="txtELongLoadN"
+                                   Width="200"
+                                   Text="{Binding ELongLoadN}"
+                                   CaptionText="Elongation At Load:" />
+                </StackPanel>
                 <Grid />
             </DockPanel>
         </DockPanel>
