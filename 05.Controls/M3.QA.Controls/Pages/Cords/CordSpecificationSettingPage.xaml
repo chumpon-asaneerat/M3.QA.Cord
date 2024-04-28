@@ -64,27 +64,55 @@
                              Width="100"
                              VerticalAlignment="Center" />
                 </StackPanel>
+                <TextBlock Text="{Binding SpecInfo}"
+                           DockPanel.Dock="Left"
+                           VerticalAlignment="Center" />
                 <Grid />
             </DockPanel>
         </DataTemplate>
 
         <!--  MIN/MAX  -->
         <DataTemplate x:Key="MinMax">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                <TextBox Text="{Binding VMin, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
-                         Width="100"
-                         VerticalAlignment="Center" />
-                <TextBlock Text="≤"
-                           Margin="5,0"
-                           VerticalAlignment="Center" />
-                <TextBlock Text=" N " VerticalAlignment="Center" />
-                <TextBlock Text="≤"
-                           Margin="5,0"
-                           VerticalAlignment="Center" />
-                <TextBox Text="{Binding VMax, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
-                         Width="100"
-                         VerticalAlignment="Center" />
-            </StackPanel>
+            <DockPanel LastChildFill="True">
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Bottom"
+                            DockPanel.Dock="Left">
+                    <TextBox Text="{Binding VMin, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
+                             Width="100"
+                             VerticalAlignment="Center" />
+                    <TextBlock Text="≤"
+                               Margin="5,0"
+                               VerticalAlignment="Center" />
+                    <TextBlock Text=" N " VerticalAlignment="Center" />
+                    <TextBlock Text="≤"
+                               Margin="5,0"
+                               VerticalAlignment="Center" />
+                    <TextBox Text="{Binding VMax, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
+                             Width="100"
+                             VerticalAlignment="Center" />
+                </StackPanel>
+                <!--  EXAMPLE  -->
+                <Grid Width="20" />
+                <Border BorderThickness="0.2"
+                        BorderBrush="Silver"
+                        Background="CornflowerBlue"
+                        CornerRadius="2"
+                        Padding="5,2"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Left">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="Preview : "
+                                   FontSize="10"
+                                   Foreground="WhiteSmoke" />
+                        <TextBlock Text="{Binding SpecInfo}"
+                                   Foreground="Yellow"
+                                   Margin="5,0"
+                                   FontSize="30"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+                <Grid />
+            </DockPanel>
         </DataTemplate>
         <!--#endregion-->
     </UserControl.Resources>

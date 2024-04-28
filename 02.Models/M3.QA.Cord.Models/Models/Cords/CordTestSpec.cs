@@ -501,19 +501,34 @@ namespace M3.QA.Models
         public decimal? VCenter
         {
             get { return Get<decimal?>(); }
-            set { Set(value, () => { }); }
+            set 
+            { 
+                Set(value, () => 
+                { 
+                }); 
+            }
         }
         /// <summary>Gets or sets VMin.</summary>
         public decimal? VMin
         {
             get { return Get<decimal?>(); }
-            set { Set(value, () => { }); }
+            set 
+            { 
+                Set(value, () => 
+                { 
+                }); 
+            }
         }
         /// <summary>Gets or sets VMax.</summary>
         public decimal? VMax
         {
             get { return Get<decimal?>(); }
-            set { Set(value, () => { }); }
+            set 
+            { 
+                Set(value, () => 
+                { 
+                }); 
+            }
         }
 
         /// <summary>Gets or sets Unit Report.</summary>
