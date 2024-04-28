@@ -58,6 +58,7 @@ namespace M3.QA.Models
         /// <summary>
         /// Gets
         /// </summary>
+        /// <param name="customername">The customer name.</param>
         /// <returns></returns>
         public static NDbResult<List<CordCode>> Gets(string customername)
         {
@@ -83,6 +84,56 @@ namespace M3.QA.Models
             try
             {
                 var items = cnn.Query<CordCode>("M_GetCordCodeListByCustomer", p,
+                    commandType: CommandType.StoredProcedure);
+                var data = (null != items) ? items.ToList() : null;
+                rets.Success(data);
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                rets.ErrNum = 9999;
+                rets.ErrMsg = ex.Message;
+            }
+
+            if (null == rets.data)
+            {
+                // create empty list.
+                rets.data = new List<CordCode>();
+            }
+
+            return rets;
+        }
+        /// <summary>
+        /// Get Cord Products
+        /// </summary>
+        /// <returns></returns>
+        public static NDbResult<List<CordCode>> GetCordProducts()
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<List<CordCode>> rets = new NDbResult<List<CordCode>>();
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                rets.ErrNum = 8000;
+                rets.ErrMsg = msg;
+
+                return rets;
+            }
+
+            string product = "Cord";
+
+            var p = new DynamicParameters();
+            p.Add("@product", product);
+
+            try
+            {
+                var items = cnn.Query<CordCode>("M_GetCustomerListByProduct", p,
                     commandType: CommandType.StoredProcedure);
                 var data = (null != items) ? items.ToList() : null;
                 rets.Success(data);
