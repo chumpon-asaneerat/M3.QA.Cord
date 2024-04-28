@@ -235,6 +235,9 @@ namespace M3.QA.Models
 
         private void ApplySpecId()
         {
+            if (!IsSettingMode)
+                return; // not in setting mode.
+
             if (null != SelectionSpecType && SelectionSpecType.SpecId == SpecId)
                 return; // Same SpecId so ignore
 
@@ -243,10 +246,19 @@ namespace M3.QA.Models
                 return;
             int idx = SpecTypes.FindIndex(x => { return x.SpecId == SpecId; });
             SelectionSpecType = (idx != -1) ? SpecTypes[idx] : null;
+
+            // Update OptionId
+            if (null != SelectionSpecType)
+            {
+                OptionId = SelectionSpecType.SpecId != 0 ? "1" : null;
+            }
         }
 
         private void ApplySelectionSpecType()
         {
+            if (!IsSettingMode)
+                return; // not in setting mode.
+
             if (null != SelectionSpecType)
             {
                 if (SpecId != SelectionSpecType.SpecId)
@@ -269,6 +281,9 @@ namespace M3.QA.Models
 
         private void ApplyUnitId()
         {
+            if (!IsSettingMode)
+                return; // not in setting mode.
+
             if (null != SelectionUnit && SelectionUnit.UnitId == UnitId)
                 return; // Same SpecId so ignore
 
@@ -281,6 +296,9 @@ namespace M3.QA.Models
 
         private void ApplySelectionUnit()
         {
+            if (!IsSettingMode)
+                return; // not in setting mode.
+
             if (null != SelectionUnit)
             {
                 if (UnitId != SelectionUnit.UnitId)
@@ -528,6 +546,9 @@ namespace M3.QA.Models
         #endregion
 
         #region For Setting UI
+
+        /// <summary>Gets or sets is setting mode.</summary>
+        public bool IsSettingMode { get; set; } = false;
 
         /// <summary>Gets or sets is property is enable for test.</summary>
         public bool EnableProperty
@@ -785,6 +806,8 @@ namespace M3.QA.Models
                     {
                         PropertyNo = item.PropertyNo,
                         PropertyName = item.PropertName,
+                        // Setting Mode
+                        IsSettingMode = true,
                         // Assign default spect type = 0
                         SpecId = 0
                     };
