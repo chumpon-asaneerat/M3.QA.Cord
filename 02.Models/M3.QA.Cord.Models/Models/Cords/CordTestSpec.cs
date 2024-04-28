@@ -239,7 +239,6 @@ namespace M3.QA.Models
                 return; // Same SpecId so ignore
 
             // in setting page required sync items.
-
             if (null == SpecTypes || SpecTypes.Count <= 0)
                 return;
             int idx = SpecTypes.FindIndex(x => { return x.SpecId == SpecId; });
@@ -266,6 +265,40 @@ namespace M3.QA.Models
             }
             // Raise events.
             Raise(() => SelectionSpecType);
+        }
+
+        private void ApplyUnitId()
+        {
+            if (null != SelectionUnit && SelectionUnit.UnitId == UnitId)
+                return; // Same SpecId so ignore
+
+            // in setting page required sync items.
+            if (null == Units || Units.Count <= 0)
+                return;
+            int idx = Units.FindIndex(x => { return x.UnitId == UnitId; });
+            SelectionUnit = (idx != -1) ? Units[idx] : null;
+        }
+
+        private void ApplySelectionUnit()
+        {
+            if (null != SelectionUnit)
+            {
+                if (UnitId != SelectionUnit.UnitId)
+                {
+                    UnitId = SelectionUnit.UnitId;
+                    UnitDesc = SelectionUnit.UnitDesc;
+                }
+            }
+            else
+            {
+                if (UnitId != null)
+                {
+                    UnitId = null;
+                    UnitDesc = null;
+                }
+            }
+            // Raise events.
+            Raise(() => SelectionUnit);
         }
 
         #endregion
@@ -418,7 +451,13 @@ namespace M3.QA.Models
         public string UnitId
         {
             get { return Get<string>(); }
-            set { Set(value, () => { }); }
+            set 
+            { 
+                Set(value, () => 
+                {
+                    ApplyUnitId();
+                }); 
+            }
         }
         /// <summary>Gets Unit description.</summary>
         public string UnitDesc
@@ -583,6 +622,20 @@ namespace M3.QA.Models
                 return _units;
             }
             set { }
+        }
+
+        private CordSpecUnit _SelectionUnit;
+        public CordSpecUnit SelectionUnit
+        {
+            get { return _SelectionUnit; }
+            set
+            {
+                if (_SelectionUnit != value)
+                {
+                    _SelectionUnit = value;
+                    ApplySelectionUnit();
+                }
+            }
         }
 
         public Visibility ComboBoxUnitVisible
