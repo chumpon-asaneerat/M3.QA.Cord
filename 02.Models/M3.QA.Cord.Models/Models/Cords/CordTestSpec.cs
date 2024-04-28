@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
@@ -18,6 +19,48 @@ using static M3.QA.Models.Utils;
 
 namespace M3.QA.Models
 {
+    #region Helper classes
+
+    #region CordSpecUnit
+
+    /// <summary>
+    /// The CordSpecUnit class. Use for PropertyNo 3,7,8,10
+    /// </summary>
+    public class CordSpecUnit
+    {
+        #region Public Properties
+
+        /// <summary>Gets or sets Unit Id.</summary>
+        public string UnitId { get; set; }
+        /// <summary>Gets or sets Unit Desc.</summary>
+        public string UnitDesc { get; set; }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region CordSpecType
+
+    /// <summary>
+    /// The CordSpecType class. Use for Spec Type
+    /// </summary>
+    public class CordSpecType
+    {
+        #region Public Properties
+
+        /// <summary>Gets or sets Spec Id.</summary>
+        public int SpecId { get; set; }
+        /// <summary>Gets or sets Spec Desc.</summary>
+        public string SpecDesc { get; set; }
+
+        #endregion
+    }
+
+    #endregion
+
+    #endregion
+
     #region CordTestSpec
 
     /// <summary>
@@ -230,6 +273,8 @@ namespace M3.QA.Models
 
         #region Public Properties
 
+        #region For Test Entry UI
+
         /// <summary>Gets or sets Item Code.</summary>
         public string ItemCode 
         {
@@ -252,6 +297,12 @@ namespace M3.QA.Models
         public int PropertyNo
         {
             get { return Get<int>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets Property Name.</summary>
+        public string PropertyName
+        {
+            get { return Get<string>(); }
             set { Set(value, () => { }); }
         }
 
@@ -339,6 +390,94 @@ namespace M3.QA.Models
             get { return (SpecId > 0) ? Visibility.Visible : Visibility.Collapsed; }
             set { }
         }
+
+        #endregion
+
+        #region For Setting UI
+
+        /// <summary>Gets Unit Visibility.</summary>
+        public Visibility UnitVisibility
+        {
+            get 
+            { 
+                return (PropertyNo == 3 || PropertyNo == 7 || PropertyNo == 8 || PropertyNo == 10) ? 
+                    Visibility.Visible : Visibility.Collapsed; 
+            }
+            set { }
+        }
+
+        private List<CordSpecUnit> _units;
+        public List<CordSpecUnit> Units
+        {
+            get 
+            {
+                if (PropertyNo == 7 || PropertyNo == 8)
+                {
+                    if (null == _units)
+                    {
+                        _units = new List<CordSpecUnit>()
+                        {
+                            new CordSpecUnit() { UnitId = "t/10cm", UnitDesc = "t/10cm" },
+                            new CordSpecUnit() { UnitId = "t/m", UnitDesc = "t/m" }
+                        };
+                    }
+                }
+                else if (PropertyNo == 10)
+                {
+                    if (null == _units)
+                    {
+                        _units = new List<CordSpecUnit>()
+                        {
+                            new CordSpecUnit() { UnitId = "D", UnitDesc = "Denier (D)" },
+                            new CordSpecUnit() { UnitId = "dtex", UnitDesc = "dtex" }
+                        };
+                    }
+                }
+                return _units;
+            }
+            set { }
+        }
+
+        public Visibility ComboBoxUnitVisible
+        {
+            get
+            {
+                return (PropertyNo == 7 || PropertyNo == 8 || PropertyNo == 10) ?
+                    Visibility.Visible : Visibility.Collapsed;
+            }
+            set { }
+        }
+
+        public Visibility TextBoxUnitVisible
+        {
+            get
+            {
+                return (PropertyNo == 3) ?
+                    Visibility.Visible : Visibility.Collapsed;
+            }
+            set { }
+        }
+
+        private List<CordSpecType> _specTypes;
+        public List<CordSpecType> SpecTypes
+        {
+            get
+            {
+                if (null == _specTypes)
+                {
+                    _specTypes = new List<CordSpecType>()
+                    {
+                        new CordSpecType() { SpecId = 0, SpecDesc = "No Check" },
+                        new CordSpecType() { SpecId = 1, SpecDesc = "Plus/Minus" },
+                        new CordSpecType() { SpecId = 2, SpecDesc = "Min/Max" }
+                    };
+                }
+                return _specTypes;
+            }
+            set { }
+        }
+
+        #endregion
 
         #endregion
 
@@ -439,6 +578,65 @@ namespace M3.QA.Models
                 // Set error number/message
                 ret.ErrNum = 9999;
                 ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+
+        public static List<CordTestSpec> GetSettings(CordCode cordCode)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            var ret = new List<CordTestSpec>();
+
+            var specs = MCordTestSpec.Gets().Value();
+            if (null != specs) 
+            {
+                foreach (var item in specs)
+                {
+                    var inst = new CordTestSpec()
+                    {
+                        PropertyNo = item.PropertyNo,
+                        ProductName = item.PropertyName
+                    };
+                    // Setup some special case UnitId by Property No.
+                    switch (item.PropertyNo)
+                    {
+                        case 3:
+                            {
+                                // Manual user entry
+                                break;
+                            }
+                        case 7:
+                        case 8:
+                            {
+                                // Only t/10cm and t/m
+                                break;
+                            }
+                        case 10:
+                            {
+                                // Only D and dtex
+                                break;
+                            }
+                        default: 
+                            {
+                                break;
+                            }
+                    }
+
+                    // Add to list.
+                    ret.Add(inst);
+                }
+            }
+
+            try
+            {
+                var exists = (null != ret) ? GetsByMasterId(cordCode.MasterId).Value() : null;
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
             }
 
             return ret;
