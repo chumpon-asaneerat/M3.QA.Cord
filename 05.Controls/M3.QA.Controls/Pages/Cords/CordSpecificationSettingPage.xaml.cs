@@ -33,6 +33,7 @@ namespace M3.QA.Pages
         #region Internal Variables
 
         private List<CordCode> cordCodes;
+        private List<CordTestSpec> specs;
 
         #endregion
 
@@ -75,7 +76,16 @@ namespace M3.QA.Pages
 
         private void Refresh()
         {
-            this.DataContext = null;
+            entry.ItemsSource = null;
+            var cordCode = cbCordCode.SelectedItem as CordCode;
+
+            entry.IsEnabled = (null != cordCode);
+
+            if (null != cordCode)
+            {
+                specs = CordTestSpec.GetSettings(cordCode);
+                entry.ItemsSource = specs;
+            }
         }
 
         private void Save()

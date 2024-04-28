@@ -9,7 +9,7 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
     <UserControl.Resources>
-        <!--#region LISTVIEW COLUMN DATA TEMPLATES-->
+        <!--#region TEMPLATES-->
 
         <!--#endregion-->
     </UserControl.Resources>
@@ -23,17 +23,16 @@
                                         DockPanel.Dock="Left"
                                         IconType="Save"
                                         Text="Save"
-                                        Click="cmdSave_Click"/>
+                                        Click="cmdSave_Click" />
                 <ctrl:FontAwesomeButton x:Name="cmdBack"
                                         DockPanel.Dock="Right"
                                         IconType="Home"
                                         Text="Back"
-                                        Click="cmdBack_Click"/>
+                                        Click="cmdBack_Click" />
                 <Grid />
             </DockPanel>
             <!--  FILTER BARS  -->
-            <DockPanel LastChildFill="True"
-                       DockPanel.Dock="Top">
+            <DockPanel LastChildFill="True" DockPanel.Dock="Top">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <!--  CORD CODE  -->
                     <ctrl:NComboBox x:Name="cbCordCode"
@@ -41,12 +40,36 @@
                                     CaptionText="Cord Code:"
                                     Width="200"
                                     DisplayMemberPath="ItemCode"
-                                    SelectionChanged="cbCordCode_SelectionChanged"/>
+                                    SelectionChanged="cbCordCode_SelectionChanged" />
                 </StackPanel>
                 <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
-            <Grid />
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="entry"
+                              Focusable="False"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="5"
+                                    BorderBrush="Silver"
+                                    BorderThickness="1"
+                                    Padding="5">
+                                <DockPanel LastChildFill="True">
+                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                                        <TextBlock Text="{Binding ProperyNo}" TextAlignment="Right" 
+                                                   Width="50"/>
+                                        <TextBlock Text="{Binding ProperyName}" TextAlignment="Left"
+                                                   Width="200"/>
+                                    </StackPanel>
+                                    <Grid/>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </DockPanel>
     </page:NPage>
 </UserControl>
