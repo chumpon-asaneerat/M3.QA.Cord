@@ -9,8 +9,44 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
     <UserControl.Resources>
+        <!--#region TEXTBOX STYLE-->
+
+        <Style TargetType="TextBox" BasedOn="{StaticResource CommonTextBox}">
+            <Setter Property="Margin" Value="2,0" />
+        </Style>
+
+        <!--#endregion-->
+
         <!--#region TEMPLATES-->
 
+        <!--  NO CHECK  -->
+        <DataTemplate x:Key="NoCheck">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="None" />
+            </StackPanel>
+        </DataTemplate>
+
+        <!--  PLUS/MINUS  -->
+        <DataTemplate x:Key="PlusMinus">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding VCenter}" />
+                <TextBlock Text="+" />
+                <TextBox Text="{Binding VMin}" />
+                <TextBlock Text="-" />
+                <TextBox Text="{Binding VMax}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <!--  MIN/MAX  -->
+        <DataTemplate x:Key="MinMax">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding VMin}" />
+                <TextBlock Text="≤" />
+                <TextBox Text="{Binding VCenter}" />
+                <TextBlock Text="≤" />
+                <TextBox Text="{Binding VMax}" />
+            </StackPanel>
+        </DataTemplate>
         <!--#endregion-->
     </UserControl.Resources>
     <page:NPage HeaderText="Cord Code Setting">
@@ -116,44 +152,27 @@
                                                         Margin="2,0"
                                                         Width="75">
                                                 <TextBlock Text="Total N:" Margin="2,0" />
-                                                <TextBox Text="{Binding NoSample}"
-                                                         Margin="2,0"
-                                                         Style="{StaticResource CommonTextBox}" />
+                                                <TextBox Text="{Binding NoSample}" />
                                             </StackPanel>
-                                            <!--  VCENTER  -->
-                                            <StackPanel Orientation="Vertical"
-                                                        DockPanel.Dock="Left"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="2,0"
-                                                        Width="75">
-                                                <TextBlock Text="Center:" Margin="2,0" />
-                                                <TextBox Text="{Binding VCenter}"
-                                                         Margin="2,0"
-                                                         Style="{StaticResource CommonTextBox}" />
-                                            </StackPanel>
-                                            <!--  VMIN  -->
-                                            <StackPanel Orientation="Vertical"
-                                                        DockPanel.Dock="Left"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="2,0"
-                                                        Width="75">
-                                                <TextBlock Text="Min:" Margin="2,0" />
-                                                <TextBox Text="{Binding VMin}"
-                                                         Margin="2,0"
-                                                         Style="{StaticResource CommonTextBox}" />
-                                            </StackPanel>
-                                            <!--  VMAX  -->
-                                            <StackPanel Orientation="Vertical"
-                                                        DockPanel.Dock="Left"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="2,0"
-                                                        Width="75">
-                                                <TextBlock Text="Max:" Margin="2,0" />
-                                                <TextBox Text="{Binding VMax}"
-                                                         Margin="2,0"
-                                                         Style="{StaticResource CommonTextBox}" />
-                                            </StackPanel>
-
+                                            <!--  VCENTER/VMIN/VMAX  -->
+                                            <ContentControl Content="{Binding}">
+                                                <ContentControl.Style>
+                                                    <Style TargetType="ContentControl">
+                                                        <Setter Property="ContentTemplate" Value="{StaticResource NoCheck}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding SpecId}" Value="{x:Null}">
+                                                                <Setter Property="ContentTemplate" Value="{StaticResource NoCheck}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding SpecId}" Value="1">
+                                                                <Setter Property="ContentTemplate" Value="{StaticResource PlusMinus}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding SpecId}" Value="2">
+                                                                <Setter Property="ContentTemplate" Value="{StaticResource MinMax}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ContentControl.Style>
+                                            </ContentControl>
 
                                             <!--  UNIT ID/DESC  -->
                                             <StackPanel Orientation="Vertical"
