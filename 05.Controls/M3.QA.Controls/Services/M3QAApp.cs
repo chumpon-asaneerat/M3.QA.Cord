@@ -129,6 +129,13 @@ namespace M3.QA
             {
                 get { return GetPage<CordCodeSettingPage>(); }
             }
+
+            /// <summary>Gets M3 Cord Specification Setting Page.</summary>
+            public static CordSpecificationSettingPage CordSpecSetting
+            {
+                get { return GetPage<CordSpecificationSettingPage>(); }
+            }
+
             /// <summary>Gets M3 Cord User Manage Page.</summary>
             public static UserManagementPage UserManage
             {
