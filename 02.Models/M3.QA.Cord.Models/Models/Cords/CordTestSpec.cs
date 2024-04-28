@@ -1,6 +1,7 @@
 ﻿#region Using
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -395,6 +396,12 @@ namespace M3.QA.Models
 
         #region For Setting UI
 
+        /// <summary>Gets or sets No of Sample.</summary>
+        public int NoSample
+        {
+            get { return Get<int>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets Unit Visibility.</summary>
         public Visibility UnitVisibility
         {
@@ -583,13 +590,18 @@ namespace M3.QA.Models
             return ret;
         }
 
-
+        /// <summary>
+        /// Gets Setting specification.
+        /// </summary>
+        /// <param name="cordCode"></param>
+        /// <returns></returns>
         public static List<CordTestSpec> GetSettings(CordCode cordCode)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
             var ret = new List<CordTestSpec>();
 
+            // Parse all specification
             var specs = MCordTestSpec.Gets().Value();
             if (null != specs) 
             {
@@ -600,31 +612,6 @@ namespace M3.QA.Models
                         PropertyNo = item.PropertyNo,
                         ProductName = item.PropertyName
                     };
-                    // Setup some special case UnitId by Property No.
-                    switch (item.PropertyNo)
-                    {
-                        case 3:
-                            {
-                                // Manual user entry
-                                break;
-                            }
-                        case 7:
-                        case 8:
-                            {
-                                // Only t/10cm and t/m
-                                break;
-                            }
-                        case 10:
-                            {
-                                // Only D and dtex
-                                break;
-                            }
-                        default: 
-                            {
-                                break;
-                            }
-                    }
-
                     // Add to list.
                     ret.Add(inst);
                 }
@@ -633,6 +620,35 @@ namespace M3.QA.Models
             try
             {
                 var exists = (null != ret) ? GetsByMasterId(cordCode.MasterId).Value() : null;
+                if (null != exists)
+                {
+                    int idx;
+                    foreach (var item in ret)
+                    {
+                        // init required property
+                        item.ItemCode = cordCode.ItemCode;
+                        item.ProductName = cordCode.ProductName;
+                        item.MasterId = cordCode.MasterId;
+
+                        idx = exists.FindIndex(x =>  x.PropertyNo == item.PropertyNo);
+                        if (idx != -1 && null != exists[idx])
+                        {
+                            // Copy from exist setting.
+                            var exist = exists[idx];
+                            item.NoSample = exist.NoSample;
+                            item.SpecId = exist.SpecId;
+                            item.SpecDesc = exist.SpecDesc;
+                            item.UnitId = exist.UnitId;
+                            item.UnitDesc = exist.UnitDesc;
+                            item.OptionId = exist.OptionId;
+                            item.OptionDesc = exist.OptionDesc;
+                            item.VCenter = exist.VCenter;
+                            item.VMin = exist.VMin;
+                            item.VMax = exist.VMax;
+                            item.UnitReport = exist.UnitReport;
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
