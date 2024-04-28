@@ -233,6 +233,41 @@ namespace M3.QA.Models
             return ret;
         }
 
+        private void ApplySpecId()
+        {
+            if (null != SelectionSpecType && SelectionSpecType.SpecId == SpecId)
+                return; // Same SpecId so ignore
+
+            // in setting page required sync items.
+
+            if (null == SpecTypes || SpecTypes.Count <= 0)
+                return;
+            int idx = SpecTypes.FindIndex(x => { return x.SpecId == SpecId; });
+            SelectionSpecType = (idx != -1) ? SpecTypes[idx] : null;
+        }
+
+        private void ApplySelectionSpecType()
+        {
+            if (null != SelectionSpecType)
+            {
+                if (SpecId != SelectionSpecType.SpecId)
+                {
+                    SpecId = SelectionSpecType.SpecId;
+                    SpecDesc = SelectionSpecType.SpecDesc;
+                }
+            }
+            else
+            {
+                if (SpecId != 0)
+                {
+                    SpecId = 0;
+                    SpecDesc = "No Check";
+                }
+            }
+            // Raise events.
+            Raise(() => SelectionSpecType);
+        }
+
         #endregion
 
         #region Public Methods
@@ -368,11 +403,7 @@ namespace M3.QA.Models
             { 
                 Set(value, () => 
                 {
-                    // in setting page required sync items.
-                    if (null == SpecTypes || SpecTypes.Count <= 0) 
-                        return;
-                    int idx = SpecTypes.FindIndex(x => { return x.SpecId == value; });
-                    SelectionSpecType = (idx != -1) ? SpecTypes[idx] : null;
+                    ApplySpecId();
                 }); 
             }
         }
@@ -505,10 +536,7 @@ namespace M3.QA.Models
                 if (_SelectionSpec != value)
                 {
                     _SelectionSpec = value;
-                    // Raise events.
-                    Raise(() => SelectionSpecType);
-                    Raise(() => SpecId);
-                    Raise(() => SpecDesc);
+                    ApplySelectionSpecType();
                 }
             }
         }
