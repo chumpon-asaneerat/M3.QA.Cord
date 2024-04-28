@@ -507,6 +507,7 @@ namespace M3.QA.Models
                     _SelectionSpec = value;
                     // Raise events.
                     Raise(() => SelectionSpecType);
+                    Raise(() => SpecId);
                     Raise(() => SpecDesc);
                 }
             }
