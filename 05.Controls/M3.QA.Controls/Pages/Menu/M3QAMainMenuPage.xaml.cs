@@ -54,6 +54,9 @@ namespace M3.QA.Pages
 
         #region Button Handlers
 
+        #region Cord Menu
+
+        // Cord Receive Sample
         private void cmdReceiveCordTestSample_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -72,7 +75,7 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
-
+        // Cord Test Data
         private void cmdCordTestData_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -90,7 +93,7 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
-
+        // Not implements
         private void cmdCordProduction_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -106,6 +109,11 @@ namespace M3.QA.Pages
             }
         }
 
+        #endregion
+
+        #region DIP Solution Menu
+
+        // Dip Solution Receive Sample
         private void cmdReceiveDipSolution_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -124,7 +132,7 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
-
+        // Dip Solution Test Data
         private void cmdDipSolutionTestData_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -142,7 +150,7 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
-
+        // Not implements
         private void cmdDipSolutionProduction_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -158,6 +166,11 @@ namespace M3.QA.Pages
             }
         }
 
+        #endregion
+
+        #region Master Data Menu
+
+        // Cord Code Setting
         private void cmdCordCodeSetting_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -176,7 +189,7 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
-
+        // Cord Spec Setting
         private void cmdCordTestSpecification_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -190,8 +203,12 @@ namespace M3.QA.Pages
                 msgbox.ShowDialog();
                 return;
             }
-        }
 
+            var page = M3QAApp.Pages.CordSpecSetting;
+            page.Setup();
+            PageContentManager.Instance.Current = page;
+        }
+        // Not Implements
         private void cmdDipSolutionTestSpecification_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -206,7 +223,7 @@ namespace M3.QA.Pages
                 return;
             }
         }
-
+        // User Manage
         private void cmdUserManage_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -234,6 +251,8 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
+
+        #endregion
 
         #endregion
 
