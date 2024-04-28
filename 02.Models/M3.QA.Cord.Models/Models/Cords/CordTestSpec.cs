@@ -15,6 +15,7 @@ using Dapper;
 using NLib;
 using NLib.Models;
 using static M3.QA.Models.Utils;
+using static NLib.NGC;
 
 #endregion
 
@@ -29,6 +30,30 @@ namespace M3.QA.Models
     /// </summary>
     public class CordSpecUnit
     {
+        #region Override
+
+        /// <summary>
+        /// GetHashCode
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return UnitId.GetHashCode();
+        }
+        /// <summary>
+        /// Equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is CordSpecUnit)) return false;
+            return (obj as CordSpecUnit).UnitId == UnitId;
+        }
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>Gets or sets Unit Id.</summary>
@@ -48,6 +73,30 @@ namespace M3.QA.Models
     /// </summary>
     public class CordSpecType
     {
+        #region Override
+
+        /// <summary>
+        /// GetHashCode
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return SpecId.GetHashCode();
+        }
+        /// <summary>
+        /// Equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is CordSpecType)) return false;
+            return (obj as CordSpecType).SpecId == SpecId;
+        }
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>Gets or sets Spec Id.</summary>
@@ -76,6 +125,13 @@ namespace M3.QA.Models
         /// </summary>
         public CordTestSpec() : base()
         {
+            // Init Spec Types.
+            SpecTypes = new List<CordSpecType>()
+            {
+                new CordSpecType() { SpecId = 0, SpecDesc = "No Check" },
+                new CordSpecType() { SpecId = 1, SpecDesc = "Plus/Minus" },
+                new CordSpecType() { SpecId = 2, SpecDesc = "Min/Max" }
+            };
         }
 
         #endregion
@@ -311,13 +367,23 @@ namespace M3.QA.Models
         public int SpecId
         {
             get { return Get<int>(); }
-            set { Set(value, () => { }); }
+            set 
+            { 
+                Set(value, () => 
+                {
+                    // in setting page required sync items.
+                    if (null == SpecTypes || SpecTypes.Count <= 0) 
+                        return;
+                    int idx = SpecTypes.FindIndex(x => { return x.SpecId == value; });
+                    SelectionSpecType = (idx != -1) ? SpecTypes[idx] : null;
+                }); 
+            }
         }
-        /// <summary>Gets or sets Spec description.</summary>
+        /// <summary>Gets Spec description.</summary>
         public string SpecDesc
         {
-            get { return Get<string>(); }
-            set { Set(value, () => { }); }
+            get { return (null != SelectionSpecType) ? SelectionSpecType.SpecDesc : null; }
+            set { }
         }
 
         /// <summary>Gets or sets UnitId.</summary>
@@ -326,7 +392,7 @@ namespace M3.QA.Models
             get { return Get<string>(); }
             set { Set(value, () => { }); }
         }
-        /// <summary>Gets or sets Unit description.</summary>
+        /// <summary>Gets Unit description.</summary>
         public string UnitDesc
         {
             get { return Get<string>(); }
@@ -339,7 +405,7 @@ namespace M3.QA.Models
             get { return Get<string>(); }
             set { Set(value, () => { }); }
         }
-        /// <summary>Gets or sets Option description.</summary>
+        /// <summary>Gets Option description.</summary>
         public string OptionDesc
         {
             get { return Get<string>(); }
@@ -402,6 +468,27 @@ namespace M3.QA.Models
             get { return Get<int>(); }
             set { Set(value, () => { }); }
         }
+        /// <summary>Gets SpecTypes.</summary>
+        public List<CordSpecType> SpecTypes { get; private set; }
+
+        private CordSpecType _SelectionSpec;
+        /// <summary>Gets Selection SpecType.</summary>
+        public CordSpecType SelectionSpecType
+        {
+            get { return _SelectionSpec; }
+            set
+            {
+                if (_SelectionSpec != value)
+                {
+                    _SelectionSpec = value;
+                    // Raise events.
+                    Raise(() => SelectionSpecType);
+                    Raise(() => SpecDesc);
+                }
+            }
+        }
+
+
         /// <summary>Gets Unit Visibility.</summary>
         public Visibility UnitVisibility
         {
@@ -461,25 +548,6 @@ namespace M3.QA.Models
             {
                 return (PropertyNo == 3) ?
                     Visibility.Visible : Visibility.Collapsed;
-            }
-            set { }
-        }
-
-        private List<CordSpecType> _specTypes;
-        public List<CordSpecType> SpecTypes
-        {
-            get
-            {
-                if (null == _specTypes)
-                {
-                    _specTypes = new List<CordSpecType>()
-                    {
-                        new CordSpecType() { SpecId = 0, SpecDesc = "No Check" },
-                        new CordSpecType() { SpecId = 1, SpecDesc = "Plus/Minus" },
-                        new CordSpecType() { SpecId = 2, SpecDesc = "Min/Max" }
-                    };
-                }
-                return _specTypes;
             }
             set { }
         }
@@ -610,7 +678,9 @@ namespace M3.QA.Models
                     var inst = new CordTestSpec()
                     {
                         PropertyNo = item.PropertyNo,
-                        PropertyName = item.PropertName
+                        PropertyName = item.PropertName,
+                        // Assign default spect type = 0
+                        SpecId = 0
                     };
                     // Add to list.
                     ret.Add(inst);
