@@ -880,6 +880,74 @@ namespace M3.QA.Models
 
             return ret;
         }
+        /// <summary>
+        /// Save Setting
+        /// </summary>
+        /// <param name="value">The CordTestSpec item to save.</param>
+        /// <returns></returns>
+        public static NDbResult<CordTestSpec> SaveSetting(CordTestSpec value, Models.UserInfo user)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordTestSpec> ret = new NDbResult<CordTestSpec>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@masterid", value.MasterId);
+            p.Add("@propertyno", value.PropertyNo);
+            p.Add("@specid", value.SpecId);
+            p.Add("@specdesc", value.SpecDesc);
+            p.Add("@unitid", value.UnitId);
+            p.Add("@optionid", value.OptionId);
+
+            p.Add("@vcenter", value.VCenter);
+            p.Add("@vmin", value.VMin);
+            p.Add("@vmax", value.VMax);
+
+            p.Add("@unitreport", value.UnitReport);
+            p.Add("@nosample", value.NoSample);
+
+            p.Add("@operator", (null != user) ? user.FullName : null);
+
+            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+            try
+            {
+                cnn.Execute("M_SaveTestSpec", p, commandType: CommandType.StoredProcedure);
+                ret.Success(value);
+                // Set error number/message
+                ret.ErrNum = p.Get<int>("@errNum");
+                ret.ErrMsg = p.Get<string>("@errMsg");
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
 
         #endregion
     }
