@@ -255,7 +255,6 @@ namespace M3.QA.Models
             set { Set(value, () => { }); }
         }
 
-
         /// <summary>Gets or sets SpecId.</summary>
         public int SpecId
         {

@@ -89,6 +89,7 @@
     <Compile Include="Models\Excels\ExcelModels.cs" />
     <Compile Include="Models\Masters\COAReportType.cs" />
     <Compile Include="Models\Masters\Customer.cs" />
+    <Compile Include="Models\Masters\MCordTestSpec.cs" />
     <Compile Include="Models\Masters\ProductType.cs" />
     <Compile Include="Models\Masters\YarnType.cs" />
     <Compile Include="Models\Solutions\DIPSolutionSampleRecv.cs" />
