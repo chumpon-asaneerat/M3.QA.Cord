@@ -99,6 +99,9 @@
     <Compile Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml.cs">
       <DependentUpon>OperatorInfoElement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CordSpecificationSettingPage.xaml.cs">
+      <DependentUpon>CordSpecificationSettingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Cords\CordCodeSettingPage.xaml.cs">
       <DependentUpon>CordCodeSettingPage.xaml</DependentUpon>
     </Compile>
@@ -278,6 +281,10 @@
     <Page Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\CordSpecificationSettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Cords\CordCodeSettingPage.xaml">
       <SubType>Designer</SubType>

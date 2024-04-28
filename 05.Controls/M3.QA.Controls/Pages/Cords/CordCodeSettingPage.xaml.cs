@@ -41,12 +41,6 @@ namespace M3.QA.Pages
 
         #region Button Handlers
 
-        private void cmdNew_Click(object sender, RoutedEventArgs e)
-        {
-            var item = new CordCodeDetail();
-            Add(item);
-        }
-
         private void cmdBack_Click(object sender, RoutedEventArgs e)
         {
             M3QAApp.Pages.GotoQAMainMenu();
@@ -55,6 +49,12 @@ namespace M3.QA.Pages
         private void cmdSearch_Click(object sender, RoutedEventArgs e)
         {
             Search();
+        }
+
+        private void cmdNew_Click(object sender, RoutedEventArgs e)
+        {
+            var item = new CordCodeDetail();
+            Add(item);
         }
 
         private void cmdEdit_Click(object sender, RoutedEventArgs e)

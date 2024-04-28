@@ -9,6 +9,8 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
     <UserControl.Resources>
+        <!--#region LISTVIEW COLUMN DATA TEMPLATES-->
+
         <DataTemplate x:Key="ItemCode">
             <TextBlock Text="{Binding Path=ItemCode, Mode=OneWay}" TextAlignment="Center" />
         </DataTemplate>
@@ -36,6 +38,8 @@
         <DataTemplate x:Key="ELongLoadN">
             <TextBlock Text="{Binding Path=ELongLoadN, Mode=OneWay}" TextAlignment="Left" />
         </DataTemplate>
+
+        <!--#endregion-->
     </UserControl.Resources>
     <page:NPage HeaderText="Cord Code Setting">
         <DockPanel LastChildFill="True" Margin="5">
