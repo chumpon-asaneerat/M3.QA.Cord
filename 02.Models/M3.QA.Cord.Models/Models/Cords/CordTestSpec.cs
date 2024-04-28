@@ -8,14 +8,11 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Navigation;
+using System.Windows.Media;
 using Dapper;
 
 using NLib;
 using NLib.Models;
-using static M3.QA.Models.Utils;
-using static NLib.NGC;
 
 #endregion
 
@@ -462,6 +459,33 @@ namespace M3.QA.Models
 
         #region For Setting UI
 
+        /// <summary>Gets or sets is property is enable for test.</summary>
+        public bool EnableProperty
+        {
+            get { return Get<bool>(); }
+            set 
+            { 
+                Set(value, () => 
+                {
+                    // Raise events.
+                    Raise(() => PropertyCaptionColor);
+                    Raise(() => PropertyPanelBrush);
+                }); 
+            }
+        }
+
+        /// <summary>Gets Property Caption Color.</summary>
+        public Color PropertyCaptionColor
+        {
+            get { return (EnableProperty) ? Colors.ForestGreen : Colors.DimGray; }
+            set { }
+        }
+        /// <summary>Gets Property Panel Entry Color.</summary>
+        public SolidColorBrush PropertyPanelBrush
+        {
+            get { return (EnableProperty) ? ModelConsts.TransparentColor : ModelConsts.WhiteSmokeColor; }
+        }
+
         /// <summary>Gets or sets No of Sample.</summary>
         public int NoSample
         {
@@ -705,6 +729,7 @@ namespace M3.QA.Models
                         {
                             // Copy from exist setting.
                             var exist = exists[idx];
+                            item.EnableProperty = true; // set property is enable
                             item.NoSample = exist.NoSample;
                             item.SpecId = exist.SpecId;
                             item.SpecDesc = exist.SpecDesc;

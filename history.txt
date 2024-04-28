@@ -22,8 +22,10 @@ M3 QA Cord #214
 M3 QA Cord #213
 - 
 
+[commit]
 M3 QA Cord #212
-- 
+- Implements Cord Test Data #172
+  - Implements Cord Test Specification Setting Page #11
 
 [commit]
 M3 QA Cord #211
