@@ -455,6 +455,8 @@ namespace M3.QA.Models
                 Set(value, () => 
                 {
                     ApplySpecId();
+                    // Raise events
+                    Raise(() => SpecInfo);
                 }); 
             }
         }
@@ -504,7 +506,9 @@ namespace M3.QA.Models
             set 
             { 
                 Set(value, () => 
-                { 
+                {
+                    // Raise events
+                    Raise(() => SpecInfo);
                 }); 
             }
         }
@@ -515,7 +519,9 @@ namespace M3.QA.Models
             set 
             { 
                 Set(value, () => 
-                { 
+                {
+                    // Raise events
+                    Raise(() => SpecInfo);
                 }); 
             }
         }
@@ -526,7 +532,9 @@ namespace M3.QA.Models
             set 
             { 
                 Set(value, () => 
-                { 
+                {
+                    // Raise events
+                    Raise(() => SpecInfo);
                 }); 
             }
         }

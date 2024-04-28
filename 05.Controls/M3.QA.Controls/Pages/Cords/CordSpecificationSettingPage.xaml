@@ -96,12 +96,12 @@
                 <Border BorderThickness="0.2"
                         BorderBrush="Silver"
                         Background="CornflowerBlue"
-                        CornerRadius="2"
+                        CornerRadius="5"
                         Padding="5,2"
                         VerticalAlignment="Center"
                         DockPanel.Dock="Left">
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                        <TextBlock Text="Preview : "
+                        <TextBlock Text="Spec. Preview : "
                                    FontSize="10"
                                    Foreground="WhiteSmoke" />
                         <TextBlock Text="{Binding SpecInfo}"
