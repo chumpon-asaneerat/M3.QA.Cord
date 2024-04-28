@@ -4,8 +4,10 @@ M3 QA Cord #220
 M3 QA Cord #219
 - 
 
+[commit]
 M3 QA Cord #218
-- 
+- Implements Cord Test Data #178
+  - Implements Cord Test Specification Setting Page #16
 
 [commit]
 M3 QA Cord #217
