@@ -36,6 +36,7 @@ namespace M3.QA.Windows
         private List<MCustomer> customers;
         private List<ProductType> productTypes;
         private List<YarnType> yarnTypes;
+        private List<CoaReportType> coaReports;
 
         private CordCodeDetail item;
 
@@ -143,6 +144,15 @@ namespace M3.QA.Windows
                 //cbYarnTypes.SelectedIndex = (null != yarnTypes && yarnTypes.Count > 0) ? 0 : -1;
                 //cbYarnTypes.SelectedIndex = -1;
             });
+
+            cbCoaReports.ItemsSource = null;
+            coaReports = CoaReportType.Gets();
+            this.InvokeAction(() =>
+            {
+                cbCoaReports.ItemsSource = coaReports;
+                //cbCoaReports.SelectedIndex = (null != coaReports && coaReports.Count > 0) ? 0 : -1;
+                //cbCoaReports.SelectedIndex = -1;
+            });
         }
 
         private void SyncItemToControls()
@@ -173,6 +183,12 @@ namespace M3.QA.Windows
                     return string.Compare(x.Text, item.YarnType, true) == 0;
                 }) : -1;
                 cbYarnTypes.SelectedIndex = idx;
+
+                idx = (null != coaReports) ? coaReports.FindIndex(x =>
+                {
+                    return (x.CoaNo == item.CoaNo) && (string.Compare(x.FMQC, item.FMQC, true) == 0);
+                }) : -1;
+                cbCoaReports.SelectedIndex = idx;
             });
         }
 
@@ -199,6 +215,12 @@ namespace M3.QA.Windows
             {
                 var x = cbYarnTypes.SelectedItem as YarnType;
                 item.YarnType = x.Text;
+            }
+            if (cbCoaReports.SelectedIndex != -1)
+            {
+                var x = cbCoaReports.SelectedItem as CoaReportType;
+                item.CoaNo = x.CoaNo;
+                item.FMQC = x.FMQC;
             }
         }
 

@@ -67,6 +67,10 @@
                                    Text="{Binding NewCustomer}"
                                    Visibility="{Binding NewVisible}" 
                                    TextChanged="txtNewCustomer_TextChanged"/>
+                    <ctrl:NTextBox x:Name="txtUserName"
+                                   Width="200"
+                                   CaptionText="UserName:"
+                                   Text="{Binding UserName}"/>
                 </StackPanel>
                 <!--  PRODUCTS AND YARNS  -->
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
@@ -102,7 +106,14 @@
                                    Text="{Binding ELongLoadN}"
                                    CaptionText="Elongation At Load:" />
                 </StackPanel>
-                <Grid />
+                <!--  COA REPORTS -->
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <ctrl:NComboBox x:Name="cbCoaReports"
+                                    Width="200"
+                                    CaptionText="COA Report:"
+                                    DisplayMemberPath="CoaReportCode" />
+                </StackPanel>
+               <Grid />
             </DockPanel>
         </DockPanel>
     </page:NPage>
