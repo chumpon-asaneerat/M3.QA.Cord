@@ -41,7 +41,10 @@ namespace M3.QA.Models
 
         }
         public DateTime? SendDate { get; set; }
-        public DateTime? ReceiveDate { get; set; }
+
+        //public DateTime? ReceiveDate { get; set; }
+        public DateTime? ValidDate { get; set; }
+
         public DateTime? ForecastFinishDate { get; set; }
 
         public string SaveBy { get; set; }
@@ -90,7 +93,7 @@ namespace M3.QA.Models
             p.Add("@SendBy", value.SendBy);
             p.Add("@SendDate", value.SendDate);
 
-            p.Add("@ReceiveDate", value.ReceiveDate);
+            p.Add("@validdate", value.ValidDate);
             p.Add("@ForecastFinishDate", value.ForecastFinishDate);
 
             p.Add("@SaveBy", value.SaveBy);

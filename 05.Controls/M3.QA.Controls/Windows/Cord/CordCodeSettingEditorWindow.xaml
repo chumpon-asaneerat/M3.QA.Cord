@@ -45,6 +45,7 @@
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                     <ctrl:NComboBox x:Name="cbCordCode"
                                     Width="200"
+                                    IsEnabled="False"
                                     CaptionText="Cord Code:"
                                     DisplayMemberPath="ItemCode"
                                     Visibility="{Binding ExistVisible}" />

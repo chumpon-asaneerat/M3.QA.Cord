@@ -128,7 +128,9 @@ namespace M3.QA.Pages
             sample = new DIPSolutionSampleRecv();
 
             sample.SendDate = DateTime.Now;
-            sample.ReceiveDate = DateTime.Now;
+            
+            //sample.ValidDate = DateTime.Now;
+
             sample.ForecastFinishDate = DateTime.Now;
 
             this.DataContext = sample;
