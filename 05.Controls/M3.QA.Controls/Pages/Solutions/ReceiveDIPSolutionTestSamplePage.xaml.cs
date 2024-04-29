@@ -45,6 +45,8 @@ namespace M3.QA.Pages
         private List<MCustomer> customers = null;
         private List<CordCode> cordCodes = null;
 
+        public List<Models.Utils.P_SearchReceiveSolution> searchs = null;
+
         #endregion
 
         #region Button Handlers
@@ -70,6 +72,16 @@ namespace M3.QA.Pages
             {
                 sample.SendBy = (null != win.User) ? win.User.FullName : null;
             }
+        }
+
+        private void cmdSeach_Click(object sender, RoutedEventArgs e)
+        {
+            Search();
+        }
+
+        private void cmdClear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearSearch();
         }
 
         #endregion
@@ -108,6 +120,25 @@ namespace M3.QA.Pages
         {
             // recalc valid date
             UpdateValidDate();
+        }
+
+        private void dtDateFrom_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            //Search();
+        }
+
+        private void dtDateTo_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            //Search();
+        }
+
+        #endregion
+
+        #region ListView Handlers
+
+        private void grid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
         #endregion
@@ -333,6 +364,24 @@ namespace M3.QA.Pages
             }
         }
 
+        private void Search()
+        {
+            DateTime? dateFrom = dtDateFrom.Value;
+            DateTime? dateTo = dtDateTo.Value;
+
+            grid.ItemsSource = null;
+            searchs = Models.Utils.P_SearchReceiveSolution.SearchByDate(dateFrom, dateTo).Value();
+            grid.ItemsSource = searchs;
+
+        }
+
+        private void ClearSearch()
+        {
+            grid.ItemsSource = null;
+            searchs = new List<Models.Utils.P_SearchReceiveSolution>();
+            grid.ItemsSource = searchs;
+        }
+
         #endregion
 
         #region Public Methods
@@ -342,6 +391,11 @@ namespace M3.QA.Pages
             LoadCompounds();
             LoadCustomers();
             ClearInputs();
+
+            dtDateFrom.Value = DateTime.Today;
+            dtDateTo.Value = DateTime.Today;
+
+            ClearSearch();
         }
 
         #endregion

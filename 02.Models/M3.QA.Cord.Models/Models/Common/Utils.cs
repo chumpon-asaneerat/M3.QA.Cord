@@ -646,6 +646,73 @@ namespace M3.QA.Models
         }
 
         #endregion
+
+        #region P_SearchReceiveSolution
+
+        public class P_SearchReceiveSolution
+        {
+            #region Public Properties
+
+            public string LotNo { get; set; }
+            public string ItemCode { get; set; }
+            public string Compound { get; set; }
+            public DateTime? ReceiveDate { get; set; }
+            public string ReceiveBy { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<P_SearchReceiveSolution>> SearchByDate(
+                DateTime? dateFrom = new DateTime?(),
+                DateTime? dateTo = new DateTime?())
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<P_SearchReceiveSolution>> ret = new NDbResult<List<P_SearchReceiveSolution>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@dateform", dateFrom);
+                p.Add("@dateto", dateTo);
+
+                try
+                {
+                    var items = cnn.Query<P_SearchReceiveSolution>("P_SearchReceiveSolution", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
     }
 
     #endregion

@@ -29,101 +29,263 @@
                 <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <DockPanel LastChildFill="True">
-                    <DockPanel DockPanel.Dock="Top">
-                        <!--  LOT NO  -->
-                        <ctrl:NTextBox x:Name="txtLotNo"
-                                       CaptionText="Lot No:"
-                                       DockPanel.Dock="Left"
-                                       Text="{Binding LotNo}"
-                                       Width="200" />
-                        <!--  CUSTOMER  -->
-                        <ctrl:NComboBox x:Name="cbCustomers"
-                                        DockPanel.Dock="Left"
-                                        CaptionText="Customer:"
-                                        DisplayMemberPath="Customer"
-                                        Width="250"
-                                        SelectionChanged="cbCustomers_SelectionChanged" />
-                        <!--  DIP Solution  -->
-                        <ctrl:NComboBox x:Name="cbCodes"
-                                        DockPanel.Dock="Left"
-                                        CaptionText="DIP Solution:"
-                                        DisplayMemberPath="ItemCode"
-                                        Width="200"
-                                        SelectionChanged="cbCodes_SelectionChanged" />
-                        <!--  COMPOUND  -->
-                        <ctrl:NComboBox x:Name="cbCompound"
-                                        CaptionText="Compound:"
-                                        DockPanel.Dock="Left"
-                                        DisplayMemberPath="Compound"
-                                        Width="200"
-                                        SelectionChanged="cbCompound_SelectionChanged" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <!--  ENTRY PANEL  -->
+                <ScrollViewer Grid.Column="0"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <DockPanel LastChildFill="True">
+                        <!--  LOT NO/CUSTOMER  -->
+                        <DockPanel DockPanel.Dock="Top">
+                            <!--  LOT NO  -->
+                            <ctrl:NTextBox x:Name="txtLotNo"
+                                           CaptionText="Lot No:"
+                                           DockPanel.Dock="Left"
+                                           Text="{Binding LotNo}"
+                                           Width="200" />
+                            <!--  CUSTOMER  -->
+                            <ctrl:NComboBox x:Name="cbCustomers"
+                                            DockPanel.Dock="Left"
+                                            CaptionText="Customer:"
+                                            DisplayMemberPath="Customer"
+                                            Width="250"
+                                            SelectionChanged="cbCustomers_SelectionChanged" />
+                            <Grid />
+                        </DockPanel>
+                        <!--  DIP SOLUTION/COMPOUND  -->
+                        <DockPanel DockPanel.Dock="Top">
+                            <!--  DIP SOLUTION  -->
+                            <ctrl:NComboBox x:Name="cbCodes"
+                                            DockPanel.Dock="Left"
+                                            CaptionText="DIP Solution:"
+                                            DisplayMemberPath="ItemCode"
+                                            Width="200"
+                                            SelectionChanged="cbCodes_SelectionChanged" />
+                            <!--  COMPOUND  -->
+                            <ctrl:NComboBox x:Name="cbCompound"
+                                            CaptionText="Compound:"
+                                            DockPanel.Dock="Left"
+                                            DisplayMemberPath="Compound"
+                                            Width="200"
+                                            SelectionChanged="cbCompound_SelectionChanged" />
+                            <Grid />
+                        </DockPanel>
+                        <!--  SEND BY  -->
+                        <DockPanel DockPanel.Dock="Top">
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        DockPanel.Dock="Top">
+                                <!--  SEND BY  -->
+                                <ctrl:NTextBox CaptionText="Send By:"
+                                               Margin="5"
+                                               IsReadOnly="True"
+                                               IsTabStop="False"
+                                               Text="{Binding SendBy}" />
+                                <Button x:Name="cmdSendBy"
+                                        Content="Choose"
+                                        Style="{StaticResource InlineButton}"
+                                        Margin="0,0,0,5"
+                                        Width="80"
+                                        VerticalAlignment="Bottom"
+                                        Click="cmdSendBy_Click" />
+                            </StackPanel>
+                            <Grid />
+                        </DockPanel>
+                        <!--  SEND/VALID DATE  -->
+                        <DockPanel DockPanel.Dock="Top">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <!--  SEND DATE  -->
+                                <ctrl:NInputGroup CaptionText="Send Date/Time:"
+                                                  DockPanel.Dock="Left"
+                                                  Width="250">
+                                    <xctk:DateTimePicker x:Name="dtSend"
+                                                         Margin="0,5,0,0"
+                                                         Format="Custom"
+                                                         FormatString="dd/MM/yyyy HH:mm"
+                                                         Value="{Binding SendDate}"
+                                                         AutoCloseCalendar="True"
+                                                         AutoCloseCalendarOnTimeSelection="True"
+                                                         ValueChanged="dtSend_ValueChanged" />
+                                </ctrl:NInputGroup>
+                                <!--  VALID DATE  -->
+                                <ctrl:NInputGroup CaptionText="Valid Date:"
+                                                  DockPanel.Dock="Left"
+                                                  Width="200">
+                                    <xctk:DateTimePicker x:Name="dtValid"
+                                                         Margin="0,5,0,0"
+                                                         Format="Custom"
+                                                         FormatString="dd/MM/yyyy"
+                                                         Value="{Binding ValidDate}"
+                                                         AutoCloseCalendar="True"
+                                                         AutoCloseCalendarOnTimeSelection="True"
+                                                         ShowButtonSpinner="False"
+                                                         TimePickerShowButtonSpinner="False"
+                                                         TimePickerVisibility="Collapsed"
+                                                         IsEnabled="False" />
+                                </ctrl:NInputGroup>
+                            </StackPanel>
+                            <Grid />
+                        </DockPanel>
+                        <!--  FORECAST DATE  -->
+                        <DockPanel DockPanel.Dock="Top">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <ctrl:NInputGroup CaptionText="Forcast Finished Date/Time:"
+                                                  DockPanel.Dock="Left"
+                                                  Width="250">
+                                    <!--  FORECAST DATE  -->
+                                    <xctk:DateTimePicker x:Name="dtForecast"
+                                                         Margin="0,5,0,0"
+                                                         Format="Custom"
+                                                         FormatString="dd/MM/yyyy HH:mm"
+                                                         Value="{Binding ForecastFinishDate}"
+                                                         AutoCloseCalendar="True"
+                                                         AutoCloseCalendarOnTimeSelection="True" />
+                                </ctrl:NInputGroup>
+                            </StackPanel>
+                            <Grid />
+                        </DockPanel>
                         <Grid />
                     </DockPanel>
-                    <DockPanel DockPanel.Dock="Top">
+                </ScrollViewer>
+                <!--  SPLITTER  -->
+                <GridSplitter Grid.Column="1"
+                              Background="WhiteSmoke"
+                              Width="8"
+                              ResizeDirection="Columns"
+                              ResizeBehavior="PreviousAndNext"
+                              HorizontalAlignment="Center"
+                              ShowsPreview="True"
+                              VerticalContentAlignment="Stretch" />
+                <!--  SEARCH PANEL  -->
+                <DockPanel Grid.Column="2" LastChildFill="True">
+                    <!--  SEARCH FILTER  -->
+                    <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                        <Grid DockPanel.Dock="Top" Height="5" />
                         <StackPanel Orientation="Horizontal"
-                                    VerticalAlignment="Center"
-                                    DockPanel.Dock="Top">
-                            <!--  Send By  -->
-                            <ctrl:NTextBox CaptionText="Send By:"
-                                           Margin="5"
-                                           IsReadOnly="True"
-                                           IsTabStop="False"
-                                           Text="{Binding SendBy}" />
-                            <Button x:Name="cmdSendBy"
-                                    Content="Choose"
+                                    DockPanel.Dock="Top"
+                                    HorizontalAlignment="Center">
+                            <TextBlock Text="Receive Date: "
+                                       FontWeight="SemiBold"
+                                       Foreground="Red" />
+                            <!--  DATE FROM  -->
+                            <xctk:DateTimePicker x:Name="dtDateFrom"
+                                                 Margin="5,0"
+                                                 Format="Custom"
+                                                 FormatString="dd/MM/yyyy"
+                                                 TimePickerVisibility="Collapsed"
+                                                 TimePickerAllowSpin="False"
+                                                 TimePickerShowButtonSpinner="False"
+                                                 ShowButtonSpinner="False"
+                                                 AutoCloseCalendar="True"
+                                                 AutoCloseCalendarOnTimeSelection="True"
+                                                 Width="150"
+                                                 ValueChanged="dtDateFrom_ValueChanged" />
+                            <TextBlock Text=" - " FontWeight="SemiBold" />
+                            <!--  DATE TO  -->
+                            <xctk:DateTimePicker x:Name="dtDateTo"
+                                                 Margin="5,0"
+                                                 Format="Custom"
+                                                 FormatString="dd/MM/yyyy"
+                                                 TimePickerVisibility="Collapsed"
+                                                 TimePickerAllowSpin="False"
+                                                 TimePickerShowButtonSpinner="False"
+                                                 ShowButtonSpinner="False"
+                                                 AutoCloseCalendar="True"
+                                                 AutoCloseCalendarOnTimeSelection="True"
+                                                 Width="150"
+                                                 ValueChanged="dtDateTo_ValueChanged" />
+                        </StackPanel>
+                        <Grid DockPanel.Dock="Top" Height="10" />
+                        <StackPanel Orientation="Horizontal"
+                                    DockPanel.Dock="Top"
+                                    HorizontalAlignment="Center">
+                            <Button x:Name="cmdSeach"
+                                    Content="Search"
                                     Style="{StaticResource InlineButton}"
-                                    Margin="0,0,0,5"
-                                    Width="80"
-                                    VerticalAlignment="Bottom"
-                                    Click="cmdSendBy_Click" />
+                                    Margin="5,0"
+                                    FontSize="18"
+                                    Height="30"
+                                    Width="120"
+                                    Click="cmdSeach_Click" />
+                            <Button x:Name="cmdClear"
+                                    Content="Clear"
+                                    Style="{StaticResource InlineButton}"
+                                    Margin="5,0"
+                                    FontSize="18"
+                                    Height="30"
+                                    Width="120"
+                                    Click="cmdClear_Click" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <!--  Send DATE  -->
-                            <ctrl:NInputGroup CaptionText="Send Date/Time:"
-                                              DockPanel.Dock="Left"
-                                              Width="250">
-                                <xctk:DateTimePicker x:Name="dtSend"
-                                                     Margin="0,5,0,0"
-                                                     Format="Custom"
-                                                     FormatString="dd/MM/yyyy HH:mm"
-                                                     Value="{Binding SendDate}"
-                                                     AutoCloseCalendar="True"
-                                                     AutoCloseCalendarOnTimeSelection="True" 
-                                                     ValueChanged="dtSend_ValueChanged"/>
-                            </ctrl:NInputGroup>
-                            <!--  VALID DATE  -->
-                            <ctrl:NInputGroup CaptionText="Valid Date:"
-                                              DockPanel.Dock="Left"
-                                              Width="250">
-                                <xctk:DateTimePicker x:Name="dtValid"
-                                                     Margin="0,5,0,0"
-                                                     Format="Custom"
-                                                     FormatString="dd/MM/yyyy"
-                                                     Value="{Binding ValidDate}"
-                                                     AutoCloseCalendar="True"
-                                                     AutoCloseCalendarOnTimeSelection="True" 
-                                                     IsEnabled="False"/>
-                            </ctrl:NInputGroup>
-                            <!--  FORECAST DATE  -->
-                            <ctrl:NInputGroup CaptionText="Forcast Finished Date/Time:"
-                                              DockPanel.Dock="Left"
-                                              Width="250">
-                                <xctk:DateTimePicker x:Name="dtForecast"
-                                                     Margin="0,5,0,0"
-                                                     Format="Custom"
-                                                     FormatString="dd/MM/yyyy HH:mm"
-                                                     Value="{Binding ForecastFinishDate}"
-                                                     AutoCloseCalendar="True"
-                                                     AutoCloseCalendarOnTimeSelection="True" />
-                            </ctrl:NInputGroup>
-                        </StackPanel>
-                        <Grid />
+                        <Grid Height="10" />
                     </DockPanel>
-                    <Grid />
+                    <ListView x:Name="grid"
+                              ItemContainerStyle="{StaticResource BASEListViewItemContainer}"
+                              Style="{StaticResource SingleSelectListView}"
+                              SelectionChanged="grid_SelectionChanged">
+                        <ListView.View>
+                            <GridView>
+                                <GridView.Columns>
+                                    <!--  LOT NO  -->
+                                    <GridViewColumn Header="Lot No" Width="100">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding LotNo}"
+                                                           TextAlignment="Center"
+                                                           FontWeight="SemiBold" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--  CORD CODE  -->
+                                    <GridViewColumn Header="Cord Code" Width="180">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ItemCode}"
+                                                           TextAlignment="Center"
+                                                           FontWeight="SemiBold" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--  COMPOUND  -->
+                                    <GridViewColumn Header="Compound" Width="180">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Compound}"
+                                                           TextAlignment="Center"
+                                                           FontWeight="SemiBold" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--  RECEIVE DATE  -->
+                                    <GridViewColumn Header="Receive Date" Width="180">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ReceiveDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}"
+                                                           TextAlignment="Center"
+                                                           FontWeight="SemiBold" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <!--  RECEIVE BY  -->
+                                    <GridViewColumn Header="Receive By" Width="200">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ReceiveBy}"
+                                                           TextAlignment="Left"
+                                                           FontWeight="SemiBold" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </DockPanel>
-            </ScrollViewer>
+            </Grid>
         </DockPanel>
     </page:NPage>
 </UserControl>
