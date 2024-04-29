@@ -40,6 +40,8 @@ namespace M3.QA.Pages
         #region Internal Variables
 
         private DIPSolutionSampleRecv sample = null;
+
+        private List<CompoundType> compounds = null;
         private List<MCustomer> customers = null;
         private List<CordCode> cordCodes = null;
 
@@ -83,7 +85,29 @@ namespace M3.QA.Pages
 
         private void cbCodes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            UpdateValidDate();
+        }
 
+        private void cbCompound_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Update compound value.
+            var compound = cbCompound.SelectedItem as CompoundType;
+            if (null != sample)
+            {
+                sample.Compound = (null != compound) ? compound.Compound : null;
+                // recalc valid date
+                UpdateValidDate();
+            }
+        }
+
+        #endregion
+
+        #region DatePicker Handlers
+
+        private void dtSend_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            // recalc valid date
+            UpdateValidDate();
         }
 
         #endregion
@@ -105,6 +129,15 @@ namespace M3.QA.Pages
             }
         }
 
+        private void LoadCompounds()
+        {
+            cbCompound.ItemsSource = null;
+            
+            compounds = CompoundType.Gets();
+            
+            cbCompound.ItemsSource = compounds;
+        }
+
         private void LoadCordCodes(MCustomer customer)
         {
             cbCodes.ItemsSource = null;
@@ -121,6 +154,41 @@ namespace M3.QA.Pages
             }
         }
 
+        private void UpdateValidDate()
+        {
+            var cordCode = cbCodes.SelectedItem as CordCode;
+            DateTime? sendDT = dtSend.Value;
+            int validdays = (null != cordCode && cordCode.ValidDays.HasValue) ? cordCode.ValidDays.Value : 0;
+            DateTime? validDT = new DateTime?();
+
+            if (sendDT.HasValue)
+            {
+                validDT = sendDT.Value.Date.AddDays(validdays);
+            }
+
+            var compound = cbCompound.SelectedItem as CompoundType;
+            if (null != compound)
+            {
+                bool isRF = (!string.IsNullOrEmpty(compound.Compound) && compound.Compound == "RF");
+                if (isRF)
+                {
+                    // Compound = RF - no valid date
+                    dtValid.Value = new DateTime?();
+                    dtValid.IsEnabled = false;
+                }
+                else
+                {
+                    // Compound = FINAL - valid date = Send DateTime + ValidDays
+                    dtValid.Value = validDT;
+                    dtValid.IsEnabled = true;
+                }
+            }
+            else
+            {
+                dtValid.IsEnabled = false;
+            }
+        }
+
         private void ClearInputs()
         {
             this.DataContext = null;
@@ -128,9 +196,7 @@ namespace M3.QA.Pages
             sample = new DIPSolutionSampleRecv();
 
             sample.SendDate = DateTime.Now;
-            
-            //sample.ValidDate = DateTime.Now;
-
+            sample.ValidDate = new DateTime?();
             sample.ForecastFinishDate = DateTime.Now;
 
             this.DataContext = sample;
@@ -143,6 +209,11 @@ namespace M3.QA.Pages
                     cbCustomers.SelectedIndex = 0;
                 });
             }
+            // Change Compound selection index
+            this.InvokeAction(() =>
+            {
+                cbCompound.SelectedIndex = -1;
+            });
         }
 
         private void Save()
@@ -190,10 +261,14 @@ namespace M3.QA.Pages
                 this.InvokeAction(() =>
                 {
                     M3QAApp.Windows.ShowMessage("กรุณาบันทึก ค่า Compound");
-                    txtLotNo.FocusControl();
+                    cbCompound.FocusControl();
                 });
                 return;
             }
+
+            // update compound value.
+            var compound = cbCompound.SelectedItem as CompoundType;
+            sample.Compound = (null != compound) ? compound.Compound : null;
 
             if (!dtSend.Value.HasValue)
             {
@@ -205,12 +280,15 @@ namespace M3.QA.Pages
                 return;
             }
 
-            if (!dtRecv.Value.HasValue)
+            bool isRF = (!string.IsNullOrEmpty(sample.Compound) && sample.Compound == "RF");
+
+            if (!isRF && !dtValid.Value.HasValue)
             {
+                // Compound = FINAL required valid date.
                 this.InvokeAction(() =>
                 {
-                    M3QAApp.Windows.ShowMessage("กรุณาเลือก วันที่ Receive");
-                    dtRecv.FocusControl();
+                    M3QAApp.Windows.ShowMessage("กรุณาเลือก วันที่ Valid");
+                    dtValid.FocusControl();
                 });
                 return;
             }
@@ -235,15 +313,18 @@ namespace M3.QA.Pages
             }
 
             var code = cbCodes.SelectedItem as CordCode;
+            var validDate = (dtValid.Value.HasValue) ? dtValid.Value.Value.Date : new DateTime?();
 
             sample.MasterId = (null != code) ? code.MasterId : new int?();
+            sample.ValidDate = (isRF) ? new DateTime?() : validDate;
             sample.SaveBy = (null != M3QAApp.Current.User) ? M3QAApp.Current.User.FullName : null;
             sample.SaveDate = DateTime.Now;
 
             var ret = DIPSolutionSampleRecv.Save(sample);
             if (null == ret || !ret.Ok)
             {
-                M3QAApp.Windows.SaveFailed();
+                var errmsg = (null != ret) ? ret.ErrMsg : null;
+                M3QAApp.Windows.SaveFailed(errmsg);
             }
             else
             {
@@ -258,6 +339,7 @@ namespace M3.QA.Pages
 
         public void Setup()
         {
+            LoadCompounds();
             LoadCustomers();
             ClearInputs();
         }

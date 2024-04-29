@@ -53,11 +53,12 @@
                                         Width="200"
                                         SelectionChanged="cbCodes_SelectionChanged" />
                         <!--  COMPOUND  -->
-                        <ctrl:NTextBox x:Name="txtCompound"
-                                       CaptionText="Compound:"
-                                       DockPanel.Dock="Left"
-                                       Text="{Binding Compound}"
-                                       Width="200" />
+                        <ctrl:NComboBox x:Name="cbCompound"
+                                        CaptionText="Compound:"
+                                        DockPanel.Dock="Left"
+                                        DisplayMemberPath="Compound"
+                                        Width="200"
+                                        SelectionChanged="cbCompound_SelectionChanged" />
                         <Grid />
                     </DockPanel>
                     <DockPanel DockPanel.Dock="Top">
@@ -89,19 +90,21 @@
                                                      FormatString="dd/MM/yyyy HH:mm"
                                                      Value="{Binding SendDate}"
                                                      AutoCloseCalendar="True"
-                                                     AutoCloseCalendarOnTimeSelection="True" />
+                                                     AutoCloseCalendarOnTimeSelection="True" 
+                                                     ValueChanged="dtSend_ValueChanged"/>
                             </ctrl:NInputGroup>
-                            <!--  Receive DATE  -->
-                            <ctrl:NInputGroup CaptionText="Receive Date/Time:"
+                            <!--  VALID DATE  -->
+                            <ctrl:NInputGroup CaptionText="Valid Date:"
                                               DockPanel.Dock="Left"
                                               Width="250">
-                                <xctk:DateTimePicker x:Name="dtRecv"
+                                <xctk:DateTimePicker x:Name="dtValid"
                                                      Margin="0,5,0,0"
                                                      Format="Custom"
-                                                     FormatString="dd/MM/yyyy HH:mm"
-                                                     Value="{Binding ReceiveDate}"
+                                                     FormatString="dd/MM/yyyy"
+                                                     Value="{Binding ValidDate}"
                                                      AutoCloseCalendar="True"
-                                                     AutoCloseCalendarOnTimeSelection="True" />
+                                                     AutoCloseCalendarOnTimeSelection="True" 
+                                                     IsEnabled="False"/>
                             </ctrl:NInputGroup>
                             <!--  FORECAST DATE  -->
                             <ctrl:NInputGroup CaptionText="Forcast Finished Date/Time:"

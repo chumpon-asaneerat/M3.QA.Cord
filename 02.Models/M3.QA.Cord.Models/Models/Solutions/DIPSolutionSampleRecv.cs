@@ -19,6 +19,43 @@ using Newtonsoft.Json;
 
 namespace M3.QA.Models
 {
+    #region Helper class
+
+    public class CompoundType
+    {
+        #region Public Properties
+
+        /// <summary>Gets or sets Compound value.</summary>
+        public string Compound { get; set; }
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// Gets
+        /// </summary>
+        /// <returns></returns>
+        public static List<CompoundType> Gets()
+        {
+            var rets = new List<CompoundType>() 
+            { 
+                new CompoundType() { Compound = "RF" },
+                new CompoundType() { Compound = "Final" }
+            };
+            return rets;
+        }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region DIPSolutionSampleRecv
+
+    /// <summary>
+    /// The DIPSolutionSampleRecv class
+    /// </summary>
     public class DIPSolutionSampleRecv : NInpc
     {
         #region Public Properties
@@ -41,8 +78,6 @@ namespace M3.QA.Models
 
         }
         public DateTime? SendDate { get; set; }
-
-        //public DateTime? ReceiveDate { get; set; }
         public DateTime? ValidDate { get; set; }
 
         public DateTime? ForecastFinishDate { get; set; }
@@ -123,4 +158,6 @@ namespace M3.QA.Models
 
         #endregion
     }
+
+    #endregion
 }

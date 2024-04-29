@@ -177,10 +177,15 @@ namespace M3.QA
                 win.ShowDialog();
             }
 
-            public static void SaveFailed()
+            public static void SaveFailed(string errmsg = null)
             {
                 var win = M3QAApp.Windows.MessageBox;
-                win.Setup("Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ");
+                string msg = "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                if (!string.IsNullOrEmpty(errmsg))
+                {
+                    msg += Environment.NewLine + errmsg;
+                }
+                win.Setup(msg);
                 win.ShowDialog();
             }
 

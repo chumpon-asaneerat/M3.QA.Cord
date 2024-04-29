@@ -10,8 +10,10 @@ M3 QA Cord #228
 M3 QA Cord #227
 - 
 
+[commit]
 M3 QA Cord #226
-- 
+- Implements Cord Test Data #186
+  - Update Receive Solution - Supports Valid days
 
 [commit]
 M3 QA Cord #225

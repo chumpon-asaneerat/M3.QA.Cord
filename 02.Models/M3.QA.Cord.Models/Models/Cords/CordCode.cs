@@ -50,6 +50,8 @@ namespace M3.QA.Models
         public string ELongLoadN { get; set; }
         /// <summary>Gets or set NoTestCH.</summary>
         public int NoTestCH { get; set; }
+        /// <summary>Gets or sets valid days.</summary>
+        public int? ValidDays { get; set; }
 
         #endregion
 
