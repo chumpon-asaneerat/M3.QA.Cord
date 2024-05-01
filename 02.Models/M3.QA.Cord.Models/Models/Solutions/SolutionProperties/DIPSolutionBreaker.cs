@@ -200,6 +200,43 @@ namespace M3.QA.Models
         #endregion
 
         #endregion
+
+        #region Static Methods
+
+        #region Clone
+
+        /// <summary>
+        /// Clone.
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="dst"></param>
+        public static void Clone(DIPSolutionBreaker src, DIPSolutionBreaker dst)
+        {
+            if (null == src || null == dst)
+                return;
+
+            dst.LotNo = src.LotNo;
+            dst.PropertyNo = src.PropertyNo;
+            dst.NoOfSample = src.NoOfSample;
+            dst.NeedSP = src.NeedSP;
+
+            dst.Spec = src.Spec;
+
+            dst.EditBy = src.EditBy;
+            dst.EditDate = src.EditDate;
+            dst.InputBy = src.InputBy;
+            dst.InputDate = src.InputDate;
+
+            NRTestProperty.Clone(src.BreakerWeight, dst.BreakerWeight);
+            NRTestProperty.Clone(src.BreakerWeightBeforeHeat, dst.BreakerWeightBeforeHeat);
+            NRTestProperty.Clone(src.BreakerWeightAfterHeat, dst.BreakerWeightAfterHeat);
+            NRTestProperty.Clone(src.RPU, dst.RPU);
+        }
+
+        #endregion
+
+
+        #endregion
     }
 
     #endregion
