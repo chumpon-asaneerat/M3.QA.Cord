@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 
@@ -45,18 +46,29 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Spec
+
+        /// <summary>The Spec.</summary>
+        public List<CordTestSpec> Specs { get; set; }
+
+        #endregion
+
+        #region Test Properties
+
+        public DIPSolutionPH PH { get; set; }
+        public DIPSolutionTempurature Temperature { get; set; }
+        public DIPSolutionViscosity Viscosity { get; set; }
+
+        #endregion
+
         #endregion
 
         #region Private Methods
 
         private void InitSpecs()
         {
-
-        }
-
-        private void InitTestProperties()
-        {
-
+            var specs = CordTestSpec.GetsByMasterId(this.MasterId).Value();
+            Specs = (null != specs) ? specs : new List<CordTestSpec>();
         }
 
         #endregion
@@ -87,30 +99,40 @@ namespace M3.QA.Models
 
                 if (null == items || items.Count <= 0)
                     return ret;
-                
+
+                int iCnt = 0;
                 ret = new DIPSolutionSampleTestData();
                 foreach (var item in items)
                 {
-                    ret.MasterId = item.MasterId;
-                    ret.ItemCode = item.ItemCode;
-                    ret.LotNo = item.LotNo;
+                    if (iCnt == 0)
+                    {
+                        ret.MasterId = item.MasterId;
+                        ret.ItemCode = item.ItemCode;
+                        ret.LotNo = item.LotNo;
 
-                    ret.Compounds += (string.IsNullOrEmpty(ret.Compounds)) ? item.Compound : ", " + item.Compound;
+                        ret.Compounds = item.Compound;
 
-                    ret.SendDate = item.SendDate;
-                    ret.SendBy = item.SendBy;
+                        ret.SendDate = item.SendDate;
+                        ret.SendBy = item.SendBy;
 
-                    ret.ForecastFinishDate = item.ForecastFinishDate;
-                    ret.ValidDate = item.ValidDate;
+                        ret.ForecastFinishDate = item.ForecastFinishDate;
+                        ret.ValidDate = item.ValidDate;
 
-                    ret.InputBy = item.InputBy;
-                    ret.InputDate = item.InputDate;
-                    ret.EditBy = item.EditBy;
-                    ret.EditDate = item.EditDate;
+                        ret.InputBy = item.InputBy;
+                        ret.InputDate = item.InputDate;
+                        ret.EditBy = item.EditBy;
+                        ret.EditDate = item.EditDate;
+
+                        if (ret.MasterId.HasValue)
+                        {
+                            ret.InitSpecs();
+                        }
+                    }
+                    else
+                    {
+                        ret.Compounds += (string.IsNullOrEmpty(ret.Compounds)) ? item.Compound : ", " + item.Compound;
+                    }
                 }
-
-                ret.InitSpecs();
-                ret.InitTestProperties();
             }
             catch (Exception ex)
             {
