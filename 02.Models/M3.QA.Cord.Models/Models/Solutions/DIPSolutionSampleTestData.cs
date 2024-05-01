@@ -143,6 +143,7 @@ namespace M3.QA.Models
                     {
                         ret.Compounds += (string.IsNullOrEmpty(ret.Compounds)) ? item.Compound : ", " + item.Compound;
                     }
+                    iCnt++;
                 }
 
                 if (null != ret && ret.MasterId.HasValue)
