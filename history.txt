@@ -1,5 +1,37 @@
-M3 QA Cord #240
+M3 QA Cord #250
 - 
+
+M3 QA Cord #249
+- 
+
+M3 QA Cord #248
+- 
+
+M3 QA Cord #247
+- 
+
+M3 QA Cord #246
+- 
+
+M3 QA Cord #245
+- 
+
+M3 QA Cord #244
+- 
+
+M3 QA Cord #243
+- 
+
+M3 QA Cord #242
+- 
+
+M3 QA Cord #241
+- 
+
+[commit]
+M3 QA Cord #240
+- Implements Cord Test Data #200
+  - Implements DIP Solution Test Data #12
 
 [commit]
 M3 QA Cord #239
