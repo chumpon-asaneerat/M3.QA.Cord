@@ -835,6 +835,22 @@ namespace M3.QA.Models
             dst.R5 = src.R5;
             dst.R6 = src.R6;
             dst.R7 = src.R7;
+
+            dst.NOut1 = src.NOut1;
+            dst.NOut2 = src.NOut2;
+            dst.NOut3 = src.NOut3;
+            dst.NOut4 = src.NOut4;
+            dst.NOut5 = src.NOut5;
+            dst.NOut6 = src.NOut6;
+            dst.NOut7 = src.NOut7;
+
+            dst.ROut1 = src.ROut1;
+            dst.ROut2 = src.ROut2;
+            dst.ROut3 = src.ROut3;
+            dst.ROut4 = src.ROut4;
+            dst.ROut5 = src.ROut5;
+            dst.ROut6 = src.ROut6;
+            dst.ROut7 = src.ROut7;
         }
 
         #endregion
