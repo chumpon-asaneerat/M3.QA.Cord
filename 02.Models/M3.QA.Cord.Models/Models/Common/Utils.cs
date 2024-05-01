@@ -713,6 +713,113 @@ namespace M3.QA.Models
         }
 
         #endregion
+
+        #region M_CheckSolutionLotReceive
+
+        public class M_CheckSolutionLotReceive
+        {
+            #region Public Properties
+
+            public string ItemCode { get; set; }
+            public string LotNo { get; set; }
+            public int? MasterId { get; set; }
+            public string Compound { get; set; }
+            public string SendBy { get; set; }
+            public DateTime? SendDate { get; set; }
+            public DateTime? ForecastFinishDate { get; set; }
+            public DateTime? ValidDate { get; set; }
+
+            public DateTime? SaveDate { get; set; }
+            public string SaveBy { get; set; }
+
+            public decimal? PhN { get; set; }
+            public decimal? PhR { get; set; }
+
+            public decimal? TempturatureN { get; set; }
+            public decimal? TempturatureR { get; set; }
+
+            public decimal? ViscosityN { get; set; }
+            public decimal? ViscosityR { get; set; }
+
+
+            public decimal? TSCN1 { get; set; }
+            public decimal? TSCN2 { get; set; }
+            public decimal? TSCR1 { get; set; }
+            public decimal? TSCR3 { get; set; }
+
+            public decimal? BreakerWN1 { get; set; }
+            public decimal? BreakerWN2 { get; set; }
+            public decimal? BreakerWR1 { get; set; }
+            public decimal? BreakerWR2 { get; set; }
+
+            public decimal? BreakerW_BHN1 { get; set; }
+            public decimal? BreakerW_BHN2 { get; set; }
+            public decimal? BreakerW_BHR1 { get; set; }
+            public decimal? BreakerW_BHR2 { get; set; }
+
+            public decimal? BreakerW_AHN1 { get; set; }
+            public decimal? BreakerW_AHN2 { get; set; }
+            public decimal? BreakerW_AHR1 { get; set; }
+            public decimal? BreakerW_AHR2 { get; set; }
+
+            public DateTime? InputDate { get; set; }
+            public string InputBy { get; set; }
+
+            public DateTime? EditDate { get; set; }
+            public string EditBy { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<M_CheckSolutionLotReceive>> Gets(
+                string lotNo)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<M_CheckSolutionLotReceive>> ret = new NDbResult<List<M_CheckSolutionLotReceive>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@lotno", lotNo);
+
+                try
+                {
+                    var items = cnn.Query<M_CheckSolutionLotReceive>("M_CheckSolutionLotReceive", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
     }
 
     #endregion
