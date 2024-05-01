@@ -15,6 +15,11 @@ using NLib.Models;
 
 namespace M3.QA.Models
 {
+    #region CordTestSampleRecv
+
+    /// <summary>
+    /// The Cord Test Sample Recv
+    /// </summary>
     public class CordTestSampleRecv
     {
         #region Public Properties
@@ -122,4 +127,6 @@ namespace M3.QA.Models
 
         #endregion
     }
+
+    #endregion
 }

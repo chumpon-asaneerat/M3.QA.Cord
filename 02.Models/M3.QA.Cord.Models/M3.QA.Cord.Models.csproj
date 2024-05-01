@@ -97,6 +97,7 @@
     <Compile Include="Models\Solutions\SolutionProperties\SolutionTempurature.cs" />
     <Compile Include="Models\Solutions\SolutionProperties\SolutionTSC.cs" />
     <Compile Include="Models\Solutions\SolutionProperties\SolutionViscosity.cs" />
+    <Compile Include="Models\Solutions\SolutionSampleTestData.cs" />
     <Compile Include="Models\Users\UserInfo.cs" />
     <Compile Include="Models\Users\UserRole.cs" />
     <Compile Include="Models\Cords\CordProperties\CordAdhesionForce.cs" />
