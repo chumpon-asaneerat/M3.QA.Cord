@@ -99,6 +99,9 @@ namespace M3.QA.Pages
                 return;
             }
 
+            // Set current item and binding
+            this.DataContext = null;
+
             var ret = CordSampleTestData.GetByLotNo(sLotNo.Trim());
             if (null == ret || !ret.Ok)
             {
@@ -108,8 +111,6 @@ namespace M3.QA.Pages
                 M3QAApp.Windows.ShowMessage(msg);
                 return;
             }
-            // Set current item and binding
-            this.DataContext = null;
 
             item = ret.Value();
             this.DataContext = item;

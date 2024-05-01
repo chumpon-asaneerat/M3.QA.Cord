@@ -18,12 +18,12 @@ using NLib.Models;
 
 namespace M3.QA.Models
 {
-    #region SolutionTSC
+    #region DIPSolutionPH
 
     /// <summary>
-    /// The Solution TSC class.
+    /// The DIP Solution PH class.
     /// </summary>
-    public class SolutionTSC : NRTestProperty
+    public class DIPSolutionPH : NRTestProperty
     {
         #region Protected Methods
 

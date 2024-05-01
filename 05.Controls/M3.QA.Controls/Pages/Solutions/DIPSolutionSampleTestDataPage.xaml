@@ -29,7 +29,60 @@
                                         Click="cmdBack_Click" />
                 <Grid />
             </DockPanel>
+            <!--  SEARCH/RESULT LINE 1  -->
+            <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                <StackPanel Orientation="Horizontal">
+                    <!--  LOT NO  -->
+                    <StackPanel Orientation="Vertical" Margin="2">
+                        <TextBlock Text="Lot No:" />
+                        <TextBox x:Name="txtLotNo"
+                                 Width="150"
+                                 TextAlignment="Center"
+                                 Style="{StaticResource CommonTextBox}"
+                                 KeyDown="txtLotNo_KeyDown"/>
+                    </StackPanel>
+                    <!--  DIP SOLUTION  -->
+                    <StackPanel Orientation="Vertical" Margin="2">
+                        <TextBlock Text="DIP Solution:" />
+                        <TextBox x:Name="txtDIPSolution"
+                                 TextAlignment="Center"
+                                 Width="200"
+                                 IsReadOnly="True"
+                                 Text="{Binding ItemCode, TargetNullValue=''}"
+                                 Style="{StaticResource CommonTextBox}" />
+                    </StackPanel>
+                    <!--  COMPOUND  -->
+                    <StackPanel Orientation="Vertical" Margin="2">
+                        <TextBlock Text="Compound:" />
+                        <TextBox x:Name="txtCOMPOUND"
+                                 TextAlignment="Center"
+                                 Width="150"
+                                 IsReadOnly="True"
+                                 Text="{Binding Compounds, TargetNullValue=''}"
+                                 Style="{StaticResource CommonTextBox}" />
+                    </StackPanel>
+                </StackPanel>
+                <Grid />
+            </DockPanel>
+            <!--  SEARCH/RESULT LINE 2  -->
+            <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                <StackPanel Orientation="Horizontal">
+                    <!--  START TEST DATE  -->
+                    <StackPanel Orientation="Vertical" Margin="2">
+                        <TextBlock Text="Date:" />
+                        <xctk:DateTimePicker x:Name="txtTestDate"
+                                             Width="200"
+                                             Format="Custom"
+                                             FormatString="dd/MM/yyyy HH:mm"
+                                             AutoCloseCalendar="True"
+                                             AutoCloseCalendarOnTimeSelection="True" />
+                    </StackPanel>
+                </StackPanel>
+                <Grid />
+            </DockPanel>
+            <!--  PH/TEMP/VISCOSITY  -->
             <Grid />
+            <!--  BREAK W/TSC  -->
         </DockPanel>
     </page:NPage>
 </UserControl>

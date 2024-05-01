@@ -18,12 +18,12 @@ using NLib.Models;
 
 namespace M3.QA.Models
 {
-    #region SolutionTempurature
+    #region DIPSolutionViscosity
 
     /// <summary>
-    /// The Solution Tempurature class.
+    /// The DIP Solution Viscosity class.
     /// </summary>
-    public class SolutionTempurature : NRTestProperty
+    public class DIPSolutionViscosity : NRTestProperty
     {
         #region Protected Methods
 

@@ -15,12 +15,12 @@ using NLib.Models;
 
 namespace M3.QA.Models
 {
-    #region SolutionSampleTestData
+    #region DIPSolutionSampleTestData
 
     /// <summary>
-    /// The Solution Sample Test Data class.
+    /// The DIP Solution Sample Test Data class.
     /// </summary>
-    public class SolutionSampleTestData
+    public class DIPSolutionSampleTestData
     {
         #region Public Properties
 
@@ -47,20 +47,34 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Private Methods
+
+        private void InitSpecs()
+        {
+
+        }
+
+        private void InitTestProperties()
+        {
+
+        }
+
+        #endregion
+
         #region Static Methods
 
         #region GetByLotNo
 
         /// <summary>
-        /// Gets CordSampleTestData by Lot No.
+        /// Gets DIPSolutionSampleTestData by Lot No.
         /// </summary>
         /// <param name="value">The CordSampleTestData item to save.</param>
         /// <returns></returns>
-        public static SolutionSampleTestData GetByLotNo(string lotNo)
+        public static DIPSolutionSampleTestData GetByLotNo(string lotNo)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
-            SolutionSampleTestData ret = null;
+            DIPSolutionSampleTestData ret = null;
 
             if (string.IsNullOrWhiteSpace(lotNo))
             {
@@ -74,11 +88,11 @@ namespace M3.QA.Models
                 if (null == items || items.Count <= 0)
                     return ret;
                 
-                ret = new SolutionSampleTestData();
+                ret = new DIPSolutionSampleTestData();
                 foreach (var item in items)
                 {
                     ret.MasterId = item.MasterId;
-                    ret.MasterId = item.MasterId;
+                    ret.ItemCode = item.ItemCode;
                     ret.LotNo = item.LotNo;
 
                     ret.Compounds += (string.IsNullOrEmpty(ret.Compounds)) ? item.Compound : ", " + item.Compound;
@@ -94,6 +108,9 @@ namespace M3.QA.Models
                     ret.EditBy = item.EditBy;
                     ret.EditDate = item.EditDate;
                 }
+
+                ret.InitSpecs();
+                ret.InitTestProperties();
             }
             catch (Exception ex)
             {

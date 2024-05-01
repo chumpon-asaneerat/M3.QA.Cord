@@ -93,11 +93,11 @@
     <Compile Include="Models\Masters\ProductType.cs" />
     <Compile Include="Models\Masters\YarnType.cs" />
     <Compile Include="Models\Solutions\DIPSolutionSampleRecv.cs" />
-    <Compile Include="Models\Solutions\SolutionProperties\SolutionPH.cs" />
-    <Compile Include="Models\Solutions\SolutionProperties\SolutionTempurature.cs" />
-    <Compile Include="Models\Solutions\SolutionProperties\SolutionTSC.cs" />
-    <Compile Include="Models\Solutions\SolutionProperties\SolutionViscosity.cs" />
-    <Compile Include="Models\Solutions\SolutionSampleTestData.cs" />
+    <Compile Include="Models\Solutions\SolutionProperties\DIPSolutionPH.cs" />
+    <Compile Include="Models\Solutions\SolutionProperties\DIPSolutionTempurature.cs" />
+    <Compile Include="Models\Solutions\SolutionProperties\DIPSolutionTSC.cs" />
+    <Compile Include="Models\Solutions\SolutionProperties\DIPSolutionViscosity.cs" />
+    <Compile Include="Models\Solutions\DIPSolutionSampleTestData.cs" />
     <Compile Include="Models\Users\UserInfo.cs" />
     <Compile Include="Models\Users\UserRole.cs" />
     <Compile Include="Models\Cords\CordProperties\CordAdhesionForce.cs" />
