@@ -294,10 +294,10 @@ namespace M3.QA.Models
             get { return (NeedSP) ? !SPNo.HasValue || R.HasValue: R.HasValue; } 
             set { } 
         }
-        /// <summary>Check is ReadOnly Re Test (requird N value first).</summary>
+        /// <summary>Check is ReadOnly Re Test (if no N not allow to enter R).</summary>
         public bool ReadOnlyR 
         { 
-            get { return (NeedSP) ? !SPNo.HasValue && N.HasValue : N.HasValue; } 
+            get { return (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue; } 
             set { } 
         }
 

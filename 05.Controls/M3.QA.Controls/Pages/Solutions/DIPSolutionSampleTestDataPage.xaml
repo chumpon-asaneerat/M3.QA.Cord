@@ -11,6 +11,40 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <UserControl.Resources>
+        <!--  N INPUT  -->
+        <Style x:Key="NInput"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.####}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyN}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  R INPUT  -->
+        <Style x:Key="RInput"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding R, StringFormat='{}{0:#,##0.####}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
     <page:NPage HeaderText="DIP Solution Test Data">
         <DockPanel LastChildFill="True" Margin="5">
             <!--  BUTTON BARS  -->
@@ -86,21 +120,26 @@
                        Margin="0,10,0,0">
                 <!--  PH  -->
                 <Border DockPanel.Dock="Left"
-                        BorderThickness="0"
+                        BorderThickness="1"
                         BorderBrush="Silver"
                         CornerRadius="2"
-                        Background="DarkMagenta"
-                        Margin="0,0,2,0"
+                        Margin="2"
                         Padding="5">
                     <StackPanel DataContext="{Binding Ph}"
                                 Orientation="Vertical"
                                 Width="250"
                                 HorizontalAlignment="Center">
-                        <TextBlock Text="PH"
-                                   TextAlignment="Center"
-                                   HorizontalAlignment="Stretch"
-                                   Foreground="Yellow"
-                                   FontWeight="SemiBold" />
+                        <!--  CAPTION  -->
+                        <Border Background="DarkMagenta"
+                                Margin="0,2"
+                                Padding="3"
+                                CornerRadius="2">
+                            <TextBlock Text="PH"
+                                       TextAlignment="Center"
+                                       HorizontalAlignment="Stretch"
+                                       Foreground="Yellow"
+                                       FontWeight="SemiBold" />
+                        </Border>
                         <!--  SPEC  -->
                         <Border Background="LightGoldenrodYellow"
                                 Margin="0,2"
@@ -118,25 +157,68 @@
                                            FontWeight="SemiBold" />
                             </StackPanel>
                         </Border>
+                        <!--  EACH Item N/R  -->
+                        <ItemsControl ItemsSource="{Binding Items}"
+                                      Focusable="False"
+                                      HorizontalAlignment="Center"
+                                      IsEnabled="{Binding EnableTest}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Vertical"
+                                                            VirtualizingPanel.IsVirtualizing="True"
+                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="0,0,5,0">
+                                        <DockPanel LastChildFill="True">
+                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                    <TextBlock TextAlignment="Center"
+                                                               Foreground="{Binding ForegroundColorN}"
+                                                               Text="{Binding CaptionN}" />
+                                                    <TextBox Style="{StaticResource NInput}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                    <TextBlock TextAlignment="Center"
+                                                               Foreground="{Binding ForegroundColorR}"
+                                                               Text="{Binding CaptionR}" />
+                                                    <TextBox Style="{StaticResource RInput}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <Grid />
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
                 </Border>
                 <!--  TEMPERATURE  -->
                 <Border DockPanel.Dock="Left"
-                        BorderThickness="0"
+                        BorderThickness="1"
                         BorderBrush="Silver"
                         CornerRadius="2"
-                        Background="DarkMagenta"
-                        Margin="0,0,2,0"
+                        Margin="2"
                         Padding="5">
                     <StackPanel DataContext="{Binding Temperature}"
                                 Orientation="Vertical"
                                 Width="250"
                                 HorizontalAlignment="Center">
-                        <TextBlock Text="TEMPERATURE (℃)"
-                                   TextAlignment="Center"
-                                   HorizontalAlignment="Stretch"
-                                   Foreground="Yellow"
-                                   FontWeight="SemiBold" />
+                        <!--  CAPTION  -->
+                        <Border Background="DarkMagenta"
+                                Margin="0,2"
+                                Padding="3"
+                                CornerRadius="2">
+                            <TextBlock Text="TEMPERATURE (℃)"
+                                       TextAlignment="Center"
+                                       HorizontalAlignment="Stretch"
+                                       Foreground="Yellow"
+                                       FontWeight="SemiBold" />
+                        </Border>
                         <!--  SPEC  -->
                         <Border Background="LightGoldenrodYellow"
                                 Margin="0,2"
@@ -158,21 +240,26 @@
                 </Border>
                 <!--  VISCOSITY  -->
                 <Border DockPanel.Dock="Left"
-                        BorderThickness="0"
+                        BorderThickness="1"
                         BorderBrush="Silver"
                         CornerRadius="2"
-                        Background="DarkMagenta"
-                        Margin="0,0,2,0"
+                        Margin="2"
                         Padding="5">
                     <StackPanel DataContext="{Binding Viscosity}"
                                 Orientation="Vertical"
                                 Width="250"
                                 HorizontalAlignment="Center">
-                        <TextBlock Text="VISCOSITY (Cps)"
-                                   TextAlignment="Center"
-                                   HorizontalAlignment="Stretch"
-                                   Foreground="Yellow"
-                                   FontWeight="SemiBold" />
+                        <!--  CAPTION  -->
+                        <Border Background="DarkMagenta"
+                                Margin="0,2"
+                                Padding="3"
+                                CornerRadius="2">
+                            <TextBlock Text="VISCOSITY (Cps)"
+                                       TextAlignment="Center"
+                                       HorizontalAlignment="Stretch"
+                                       Foreground="Yellow"
+                                       FontWeight="SemiBold" />
+                        </Border>
                         <!--  SPEC  -->
                         <Border Background="LightGoldenrodYellow"
                                 Margin="0,2"
