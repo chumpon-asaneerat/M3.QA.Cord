@@ -127,7 +127,8 @@ namespace M3.QA.Models
             {
                 new CordSpecType() { SpecId = 0, SpecDesc = "No Check" },
                 new CordSpecType() { SpecId = 1, SpecDesc = "Plus/Minus" },
-                new CordSpecType() { SpecId = 2, SpecDesc = "Min/Max" }
+                new CordSpecType() { SpecId = 2, SpecDesc = "Min/Max" },
+                new CordSpecType() { SpecId = 3, SpecDesc = "Range" }
             };
         }
 
@@ -228,6 +229,40 @@ namespace M3.QA.Models
             {
                 // No min-max assign
                 ret += "Min/Max Specification is not set.";
+            }
+
+            return ret;
+        }
+
+        private string GetRangeSpec()
+        {
+            string ret = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(UnitDesc))
+            {
+                ret += string.Format("[ {0} ] - ", UnitDesc);
+            }
+
+            // Min/Max
+            if (VMin.HasValue && VMax.HasValue)
+            {
+                // Has both value
+                ret += string.Format("{0:#,##0.###} ≤ N ≤ {1:#,##0.###}", VMin.Value, VMax.Value);
+            }
+            else if (VMin.HasValue && !VMax.HasValue)
+            {
+                // Has Min value only
+                ret += string.Format("N ≥ {0:#,##0.###}", VMin.Value);
+            }
+            else if (!VMin.HasValue && VMax.HasValue)
+            {
+                // Has Max value only
+                ret += string.Format("N ≤ {0:#,##0.###}", VMax.Value);
+            }
+            else
+            {
+                // No min-max assign
+                ret += "Range Specification is not set.";
             }
 
             return ret;
@@ -378,6 +413,7 @@ namespace M3.QA.Models
                         break;
                     }
                 case 2: // Min-Max
+                case 3: // Range
                     {
                         bool checkMin = VMin.HasValue;
                         bool checkMax = VMax.HasValue;
@@ -554,6 +590,7 @@ namespace M3.QA.Models
                 if (SpecId == 0) ret = GetNoneSpec();
                 else if (SpecId == 1) ret = GetPlusMinusSpec();
                 else if (SpecId == 2) ret = GetMinMaxSpec();
+                else if (SpecId == 3) ret = GetRangeSpec();
                 return ret;
             }
             set { }
@@ -1134,7 +1171,7 @@ namespace M3.QA.Models
         /// <param name="propertyNo"></param>
         /// <returns></returns>
         public static List<CordTestSpec> FindListByPropertyNo(this List<CordTestSpec> items, 
-            int propertyNo, string elongId = null)
+            int propertyNo)
         {
             if (null == items || items.Count <= 0)
                 return null;
