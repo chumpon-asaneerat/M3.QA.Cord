@@ -144,6 +144,51 @@
                 <Grid />
             </DockPanel>
         </DataTemplate>
+
+        <!--  Range  -->
+        <DataTemplate x:Key="Range">
+            <DockPanel LastChildFill="True">
+                <StackPanel Orientation="Horizontal"
+                            Margin="1"
+                            VerticalAlignment="Bottom"
+                            DockPanel.Dock="Left">
+                    <TextBox Text="{Binding VMin, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
+                             Width="100"
+                             VerticalAlignment="Center" />
+                    <TextBlock Text="≤"
+                               Margin="5,0"
+                               VerticalAlignment="Center" />
+                    <TextBlock Text=" N " VerticalAlignment="Center" />
+                    <TextBlock Text="≤"
+                               Margin="5,0"
+                               VerticalAlignment="Center" />
+                    <TextBox Text="{Binding VMax, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}"
+                             Width="100"
+                             VerticalAlignment="Center" />
+                </StackPanel>
+                <!--  EXAMPLE  -->
+                <Grid Width="20" />
+                <Border BorderThickness="0.2"
+                        BorderBrush="Silver"
+                        Background="CornflowerBlue"
+                        CornerRadius="5"
+                        Padding="5,2"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Left">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="Spec. Preview : "
+                                   FontSize="10"
+                                   Foreground="WhiteSmoke" />
+                        <TextBlock Text="{Binding SpecInfo}"
+                                   Foreground="Yellow"
+                                   Margin="5,0"
+                                   FontSize="30"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+                <Grid />
+            </DockPanel>
+        </DataTemplate>
         <!--#endregion-->
     </UserControl.Resources>
     <page:NPage HeaderText="Cord Code Setting">
@@ -268,6 +313,9 @@
                                                                 </DataTrigger>
                                                                 <DataTrigger Binding="{Binding SpecId}" Value="2">
                                                                     <Setter Property="ContentTemplate" Value="{StaticResource MinMax}" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding SpecId}" Value="3">
+                                                                    <Setter Property="ContentTemplate" Value="{StaticResource Range}" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
