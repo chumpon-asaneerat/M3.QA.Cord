@@ -55,7 +55,7 @@ namespace M3.QA.Models
 
         #region Test Properties
 
-        public DIPSolutionPH PH { get; set; }
+        public DIPSolutionPH Ph { get; set; }
         public DIPSolutionTempurature Temperature { get; set; }
         public DIPSolutionViscosity Viscosity { get; set; }
 
@@ -102,6 +102,14 @@ namespace M3.QA.Models
 
                 int iCnt = 0;
                 ret = new DIPSolutionSampleTestData();
+
+                decimal? PhN = new decimal?();
+                decimal? PhR = new decimal?();
+                decimal? TempN = new decimal?();
+                decimal? TempR = new decimal?();
+                decimal? ViscosityN = new decimal?();
+                decimal? ViscosityR = new decimal?();
+
                 foreach (var item in items)
                 {
                     if (iCnt == 0)
@@ -123,15 +131,26 @@ namespace M3.QA.Models
                         ret.EditBy = item.EditBy;
                         ret.EditDate = item.EditDate;
 
-                        if (ret.MasterId.HasValue)
-                        {
-                            ret.InitSpecs();
-                        }
+                        // Store variables.
+                        PhN = item.PhN;
+                        PhR = item.PhR;
+                        TempN = item.TempturatureN;
+                        TempR = item.TempturatureR;
+                        ViscosityN = item.ViscosityN;
+                        ViscosityR = item.ViscosityR;
                     }
                     else
                     {
                         ret.Compounds += (string.IsNullOrEmpty(ret.Compounds)) ? item.Compound : ", " + item.Compound;
                     }
+                }
+
+                if (null != ret && ret.MasterId.HasValue)
+                {
+                    ret.InitSpecs();
+                    ret.Ph = DIPSolutionPH.Create(ret, PhN, PhR);
+                    ret.Temperature = DIPSolutionTempurature.Create(ret, TempN, TempR);
+                    ret.Viscosity = DIPSolutionViscosity.Create(ret, ViscosityN, ViscosityR);
                 }
             }
             catch (Exception ex)

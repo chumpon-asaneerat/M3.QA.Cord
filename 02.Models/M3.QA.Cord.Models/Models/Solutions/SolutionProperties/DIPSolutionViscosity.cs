@@ -112,6 +112,42 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Create
+
+        /// <summary>
+        /// Create
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="ViscosityN"></param>
+        /// <param name="ViscosityR"></param>
+        /// <returns></returns>
+        internal static DIPSolutionViscosity Create(DIPSolutionSampleTestData value,
+            decimal? ViscosityN, decimal? ViscosityR)
+        {
+            DIPSolutionViscosity result = null;
+            if (null == value)
+                return result;
+
+            // For Temperature Proepty No = 18
+            int noOfSample = 1;
+            // Temperature Proepty No = 18
+            var spec = value.Specs.FindByPropertyNo(18);
+
+            result = new DIPSolutionViscosity();
+            result.LotNo = value.LotNo;
+            result.LotNo = value.LotNo;
+            result.PropertyNo = 18; // Temperature = 18
+            result.NeedSP = false;
+            result.Spec = spec;
+            result.NoOfSample = noOfSample;
+            result.N1 = ViscosityN;
+            result.R1 = ViscosityR;
+
+            return result;
+        }
+
+        #endregion
+
         #endregion
     }
 

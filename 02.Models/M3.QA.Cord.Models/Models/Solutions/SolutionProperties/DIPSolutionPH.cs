@@ -112,6 +112,42 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Create
+
+        /// <summary>
+        /// Create
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="PhN"></param>
+        /// <param name="PhR"></param>
+        /// <returns></returns>
+        internal static DIPSolutionPH Create(DIPSolutionSampleTestData value,
+            decimal? PhN, decimal? PhR)
+        {
+            DIPSolutionPH result = null;
+            if (null == value)
+                return result;
+
+            // For Ph Proepty No = 16
+            int noOfSample = 1;
+            // Ph Proepty No = 16
+            var spec = value.Specs.FindByPropertyNo(16);
+
+            result = new DIPSolutionPH();
+            result.LotNo = value.LotNo;
+            result.LotNo = value.LotNo;
+            result.PropertyNo = 16; // Ph = 16
+            result.NeedSP = false;
+            result.Spec = spec;
+            result.NoOfSample = noOfSample;
+            result.N1 = PhN;
+            result.R1 = PhR;
+
+            return result;
+        }
+
+        #endregion
+
         #endregion
     }
 

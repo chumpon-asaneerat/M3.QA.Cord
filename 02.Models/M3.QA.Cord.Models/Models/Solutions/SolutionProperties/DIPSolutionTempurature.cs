@@ -112,6 +112,42 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Create
+
+        /// <summary>
+        /// Create
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="TempN"></param>
+        /// <param name="TempR"></param>
+        /// <returns></returns>
+        internal static DIPSolutionTempurature Create(DIPSolutionSampleTestData value,
+            decimal? TempN, decimal? TempR)
+        {
+            DIPSolutionTempurature result = null;
+            if (null == value)
+                return result;
+
+            // For Temperature Proepty No = 17
+            int noOfSample = 1;
+            // Temperature Proepty No = 17
+            var spec = value.Specs.FindByPropertyNo(17);
+
+            result = new DIPSolutionTempurature();
+            result.LotNo = value.LotNo;
+            result.LotNo = value.LotNo;
+            result.PropertyNo = 17; // Temperature = 17
+            result.NeedSP = false;
+            result.Spec = spec;
+            result.NoOfSample = noOfSample;
+            result.N1 = TempN;
+            result.R1 = TempR;
+
+            return result;
+        }
+
+        #endregion
+
         #endregion
     }
 
