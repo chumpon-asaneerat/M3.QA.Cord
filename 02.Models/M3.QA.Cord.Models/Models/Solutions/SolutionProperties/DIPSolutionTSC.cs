@@ -54,7 +54,54 @@ namespace M3.QA.Models
 
         private void CheckSpec()
         {
+            if (null != Spec && 
+                null != BreakerWeight && null != BreakerWeightBeforeHeat &&
+                null != BreakerWeightAfterHeat && null != RPU)
+            {
+                // Check AdhesionForce Range.
+                RPU.NOut1 = (RPU.N1.HasValue) ? Spec.IsOutOfSpec(RPU.N1.Value) : false;
+                RPU.NOut2 = (RPU.N2.HasValue) ? Spec.IsOutOfSpec(RPU.N2.Value) : false;
 
+                RPU.ROut1 = (RPU.R1.HasValue) ? Spec.IsOutOfSpec(RPU.R1.Value) : false;
+                RPU.ROut2 = (RPU.R2.HasValue) ? Spec.IsOutOfSpec(RPU.R2.Value) : false;
+
+                // Raise items events
+                RPU.RaiseNOutChanges();
+                RPU.RaiseROutChanges();
+
+                // set out of range flag to BreakerWeight object
+                BreakerWeight.NOut1 = RPU.NOut1;
+                BreakerWeight.NOut2 = RPU.NOut2;
+
+                BreakerWeight.ROut1 = RPU.ROut1;
+                BreakerWeight.ROut2 = RPU.ROut2;
+                
+                // Raise items events
+                BreakerWeight.RaiseNOutChanges();
+                BreakerWeight.RaiseROutChanges();
+
+                // set out of range flag to BreakerWeightBeforeHeat object
+                BreakerWeightBeforeHeat.NOut1 = RPU.NOut1;
+                BreakerWeightBeforeHeat.NOut2 = RPU.NOut2;
+
+                BreakerWeightBeforeHeat.ROut1 = RPU.ROut1;
+                BreakerWeightBeforeHeat.ROut2 = RPU.ROut2;
+
+                // Raise items events
+                BreakerWeightBeforeHeat.RaiseNOutChanges();
+                BreakerWeightBeforeHeat.RaiseROutChanges();
+
+                // set out of range flag to BreakerWeightAfterHeat object
+                BreakerWeightAfterHeat.NOut1 = RPU.NOut1;
+                BreakerWeightAfterHeat.NOut2 = RPU.NOut2;
+
+                BreakerWeightAfterHeat.ROut1 = RPU.ROut1;
+                BreakerWeightAfterHeat.ROut2 = RPU.ROut2;
+
+                // Raise items events
+                BreakerWeightAfterHeat.RaiseNOutChanges();
+                BreakerWeightAfterHeat.RaiseROutChanges();
+            }
         }
 
         private void CalculateFormula()
