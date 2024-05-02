@@ -155,6 +155,9 @@ namespace M3.QA.Models
         protected internal Func<bool> GetROut { get; set; }
         protected internal Action<bool> SetROut { get; set; }
 
+        // CustomAllowR Gets
+        protected internal Func<bool> CustomAllowR { get; set; }
+
         #endregion
 
         #region Public Properties
@@ -284,7 +287,12 @@ namespace M3.QA.Models
         /// <summary>Check is Enable Re Test (requird N value first).</summary>
         public bool EnableR 
         { 
-            get { return (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R.HasValue) : ((N.HasValue && NOut) || R.HasValue); } 
+            get 
+            { 
+                bool ret = (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R.HasValue) : ((N.HasValue && NOut) || R.HasValue);
+                bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
+                return ret && allowR;
+            } 
             set { } 
         }
 
@@ -297,7 +305,12 @@ namespace M3.QA.Models
         /// <summary>Check is ReadOnly Re Test (if no N not allow to enter R).</summary>
         public bool ReadOnlyR 
         { 
-            get { return (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue; } 
+            get 
+            {
+                bool ret = (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue;
+                bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
+                return ret && allowR;
+            } 
             set { } 
         }
 

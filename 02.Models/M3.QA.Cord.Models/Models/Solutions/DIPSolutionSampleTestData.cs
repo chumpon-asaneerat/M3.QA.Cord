@@ -53,6 +53,16 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Custom Allow R
+
+        private bool AloowRetest()
+        {
+            // Case RF: not allow retest
+            return (string.IsNullOrEmpty(Compounds) ? false : Compounds.Trim() != "RF");
+        }
+
+        #endregion
+
         #region Test Properties
 
         public DIPSolutionPH Ph { get; set; }
@@ -150,8 +160,13 @@ namespace M3.QA.Models
                 {
                     ret.InitSpecs();
                     ret.Ph = DIPSolutionPH.Create(ret, PhN, PhR);
+                    ret.Ph.AllowReTest = ret.AloowRetest;
+
                     ret.Temperature = DIPSolutionTempurature.Create(ret, TempN, TempR);
+                    ret.Temperature.AllowReTest = ret.AloowRetest;
+
                     ret.Viscosity = DIPSolutionViscosity.Create(ret, ViscosityN, ViscosityR);
+                    ret.Viscosity.AllowReTest = ret.AloowRetest;
                 }
             }
             catch (Exception ex)

@@ -37,6 +37,8 @@ namespace M3.QA.Models
         private List<Func<bool>> _GetROuts;
         private List<Action<bool>> _SetROuts;
 
+        private Func<bool> _GetCustomAllowR;
+
         #endregion
 
         #region Constructor
@@ -142,6 +144,8 @@ namespace M3.QA.Models
                 (value) => { this.ROut6 = value; },
                 (value) => { this.ROut7 = value; }
             };
+            // Get Custom Allow Retest
+            _GetCustomAllowR = () => { return (null != AllowReTest) ? AllowReTest() : true; };
 
             #endregion
 
@@ -181,6 +185,9 @@ namespace M3.QA.Models
 
                     item.GetROut = (null != _GetROuts) ? _GetROuts[i - 1] : null;
                     item.SetROut = (null != _SetROuts) ? _SetROuts[i - 1] : null;
+
+                    // common for all test N
+                    item.CustomAllowR = (null != _GetCustomAllowR) ? _GetCustomAllowR : null;
 
                     Items.Add(item);
                 }
@@ -421,6 +428,8 @@ namespace M3.QA.Models
             get { return (NeedSP) ? SPNo.HasValue : true; }
             set { }
         }
+        /// <summary>Gets or sets custom allow retrest.</summary>
+        public Func<bool> AllowReTest { get; set; }
 
         #endregion
 
