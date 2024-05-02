@@ -52,9 +52,96 @@ namespace M3.QA.Models
 
         #region Private Methods
 
-        private void CalculateFormula()
+        private void CheckSpec()
         {
 
+        }
+
+        private void CalculateFormula()
+        {
+            // A = BreakerWeight
+            // B = BreakerWeightBeforeHeat
+            // C = BreakerWeightAfterHeat
+            if (null != BreakerWeight && null != BreakerWeightBeforeHeat && 
+                null != BreakerWeightAfterHeat && null != RPU)
+            {
+                var A = BreakerWeight;
+                var B = BreakerWeightBeforeHeat;
+                var C = BreakerWeightAfterHeat;
+                // X = C - A
+                decimal? XN1 = (C.N1.HasValue) ? C.N1.Value - ((A.N1.HasValue) ? A.N1.Value : new decimal?()) : new decimal?();
+                decimal? XN2 = (C.N2.HasValue) ? C.N2.Value - ((A.N2.HasValue) ? A.N2.Value : new decimal?()) : new decimal?();
+                decimal? XR1 = (C.R1.HasValue) ? C.R1.Value - ((A.R1.HasValue) ? A.R1.Value : new decimal?()) : new decimal?();
+                decimal? XR2 = (C.R2.HasValue) ? C.R2.Value - ((A.R2.HasValue) ? A.R2.Value : new decimal?()) : new decimal?();
+                // Y = B - A
+                decimal? YN1 = (B.N1.HasValue) ? B.N1.Value - ((A.N1.HasValue) ? A.N1.Value : new decimal?()) : new decimal?();
+                decimal? YN2 = (B.N2.HasValue) ? B.N2.Value - ((A.N2.HasValue) ? A.N2.Value : new decimal?()) : new decimal?();
+                decimal? YR1 = (B.R1.HasValue) ? B.R1.Value - ((A.R1.HasValue) ? A.R1.Value : new decimal?()) : new decimal?();
+                decimal? YR2 = (B.R2.HasValue) ? B.R2.Value - ((A.R2.HasValue) ? A.R2.Value : new decimal?()) : new decimal?();
+                // Z = X/Y
+                decimal? ZN1 = new decimal?();
+                decimal? ZN2 = new decimal?();
+                decimal? ZR1 = new decimal?();
+                decimal? ZR2 = new decimal?();
+                if (YN1.HasValue && YN1.Value > 0)
+                {
+                    try
+                    {
+                        ZN1 = (XN1.HasValue) ? XN1.Value / ((YN1.HasValue) ? YN1.Value : new decimal?()) : new decimal?();
+                    }
+                    catch 
+                    { 
+                        // devide by zero
+                        ZN1 = new decimal?(); 
+                    }
+                }
+                if (YN2.HasValue && YN2.Value > 0)
+                {
+                    try
+                    {
+                        ZN2 = (XN2.HasValue) ? XN2.Value / ((YN2.HasValue) ? YN2.Value : new decimal?()) : new decimal?();
+                    }
+                    catch
+                    {
+                        // devide by zero
+                        ZN2 = new decimal?();
+                    }
+                }
+                if (YR1.HasValue && YR1.Value > 0)
+                {
+                    try
+                    {
+                        ZR1 = (XN1.HasValue) ? XR1.Value / ((YR1.HasValue) ? YR1.Value : new decimal?()) : new decimal?();
+                    }
+                    catch
+                    {
+                        // devide by zero
+                        ZR1 = new decimal?();
+                    }
+                }
+                if (YR2.HasValue && YR2.Value > 0)
+                {
+                    try
+                    {
+                        ZR2 = (XR2.HasValue) ? XR2.Value / ((YR2.HasValue) ? YR2.Value : new decimal?()) : new decimal?();
+                    }
+                    catch
+                    {
+                        // devide by zero
+                        ZR2 = new decimal?();
+                    }
+                }
+
+                RPU.N1 = (ZN1.HasValue) ? ZN1.Value / 100 : new decimal?();
+                RPU.N2 = (ZN2.HasValue) ? ZN2.Value / 100 : new decimal?();
+                RPU.R1 = (ZR1.HasValue) ? ZR1.Value / 100 : new decimal?();
+                RPU.R2 = (ZR2.HasValue) ? ZR2.Value / 100 : new decimal?();
+
+                // Raise events
+                Raise(() => this.RPU);
+
+                CheckSpec(); // Check Spec
+            }
         }
 
         private void UpdateProperties()
