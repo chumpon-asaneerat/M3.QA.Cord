@@ -128,14 +128,14 @@ namespace M3.QA.Models
             if (null == value)
                 return result;
 
-            // For Temperature Proepty No = 18
-            int noOfSample = 1;
-            // Temperature Proepty No = 18
+            // Viscosity Proepty No = 18
             var spec = value.Specs.FindByPropertyNo(18);
+            // For Viscosity Proepty No = 18
+            int noOfSample = (null != spec) ? spec.NoSample : 1; // default 1
 
             result = new DIPSolutionViscosity();
             result.LotNo = value.LotNo;
-            result.PropertyNo = 18; // Temperature = 18
+            result.PropertyNo = 18; // Viscosity = 18
             result.NeedSP = false;
             result.Spec = spec;
             result.NoOfSample = noOfSample;

@@ -128,10 +128,10 @@ namespace M3.QA.Models
             if (null == value)
                 return result;
 
-            // For Ph Proepty No = 16
-            int noOfSample = 1;
             // Ph Proepty No = 16
             var spec = value.Specs.FindByPropertyNo(16);
+            // For Ph Proepty No = 16
+            int noOfSample = (null != spec) ? spec.NoSample : 1; // default 1
 
             result = new DIPSolutionPH();
             result.LotNo = value.LotNo;
