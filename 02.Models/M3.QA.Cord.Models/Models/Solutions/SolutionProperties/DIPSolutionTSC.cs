@@ -33,17 +33,17 @@ namespace M3.QA.Models
         /// </summary>
         public DIPSolutionTSC() : base()
         {
-            BreakerWeight = new NRTestProperty();
+            BeakerWeight = new NRTestProperty();
             // Set calc formula
-            BreakerWeight.ValueChanges = CalculateFormula;
+            BeakerWeight.ValueChanges = CalculateFormula;
 
-            BreakerWeightBeforeHeat = new NRTestProperty();
+            BeakerWeightBeforeHeat = new NRTestProperty();
             // Set calc formula
-            BreakerWeight.ValueChanges = CalculateFormula;
+            BeakerWeight.ValueChanges = CalculateFormula;
 
-            BreakerWeightAfterHeat = new NRTestProperty();
+            BeakerWeightAfterHeat = new NRTestProperty();
             // Set calc formula
-            BreakerWeight.ValueChanges = CalculateFormula;
+            BeakerWeight.ValueChanges = CalculateFormula;
 
             RPU = new NRTestProperty();
         }
@@ -55,8 +55,8 @@ namespace M3.QA.Models
         private void CheckSpec()
         {
             if (null != Spec && 
-                null != BreakerWeight && null != BreakerWeightBeforeHeat &&
-                null != BreakerWeightAfterHeat && null != RPU)
+                null != BeakerWeight && null != BeakerWeightBeforeHeat &&
+                null != BeakerWeightAfterHeat && null != RPU)
             {
                 // Check AdhesionForce Range.
                 RPU.NOut1 = (RPU.N1.HasValue) ? Spec.IsOutOfSpec(RPU.N1.Value) : false;
@@ -69,38 +69,38 @@ namespace M3.QA.Models
                 RPU.RaiseNOutChanges();
                 RPU.RaiseROutChanges();
 
-                // set out of range flag to BreakerWeight object
-                BreakerWeight.NOut1 = RPU.NOut1;
-                BreakerWeight.NOut2 = RPU.NOut2;
+                // set out of range flag to BeakerWeight object
+                BeakerWeight.NOut1 = RPU.NOut1;
+                BeakerWeight.NOut2 = RPU.NOut2;
 
-                BreakerWeight.ROut1 = RPU.ROut1;
-                BreakerWeight.ROut2 = RPU.ROut2;
+                BeakerWeight.ROut1 = RPU.ROut1;
+                BeakerWeight.ROut2 = RPU.ROut2;
                 
                 // Raise items events
-                BreakerWeight.RaiseNOutChanges();
-                BreakerWeight.RaiseROutChanges();
+                BeakerWeight.RaiseNOutChanges();
+                BeakerWeight.RaiseROutChanges();
 
-                // set out of range flag to BreakerWeightBeforeHeat object
-                BreakerWeightBeforeHeat.NOut1 = RPU.NOut1;
-                BreakerWeightBeforeHeat.NOut2 = RPU.NOut2;
+                // set out of range flag to BeakerWeightBeforeHeat object
+                BeakerWeightBeforeHeat.NOut1 = RPU.NOut1;
+                BeakerWeightBeforeHeat.NOut2 = RPU.NOut2;
 
-                BreakerWeightBeforeHeat.ROut1 = RPU.ROut1;
-                BreakerWeightBeforeHeat.ROut2 = RPU.ROut2;
-
-                // Raise items events
-                BreakerWeightBeforeHeat.RaiseNOutChanges();
-                BreakerWeightBeforeHeat.RaiseROutChanges();
-
-                // set out of range flag to BreakerWeightAfterHeat object
-                BreakerWeightAfterHeat.NOut1 = RPU.NOut1;
-                BreakerWeightAfterHeat.NOut2 = RPU.NOut2;
-
-                BreakerWeightAfterHeat.ROut1 = RPU.ROut1;
-                BreakerWeightAfterHeat.ROut2 = RPU.ROut2;
+                BeakerWeightBeforeHeat.ROut1 = RPU.ROut1;
+                BeakerWeightBeforeHeat.ROut2 = RPU.ROut2;
 
                 // Raise items events
-                BreakerWeightAfterHeat.RaiseNOutChanges();
-                BreakerWeightAfterHeat.RaiseROutChanges();
+                BeakerWeightBeforeHeat.RaiseNOutChanges();
+                BeakerWeightBeforeHeat.RaiseROutChanges();
+
+                // set out of range flag to BeakerWeightAfterHeat object
+                BeakerWeightAfterHeat.NOut1 = RPU.NOut1;
+                BeakerWeightAfterHeat.NOut2 = RPU.NOut2;
+
+                BeakerWeightAfterHeat.ROut1 = RPU.ROut1;
+                BeakerWeightAfterHeat.ROut2 = RPU.ROut2;
+
+                // Raise items events
+                BeakerWeightAfterHeat.RaiseNOutChanges();
+                BeakerWeightAfterHeat.RaiseROutChanges();
             }
         }
 
@@ -109,12 +109,12 @@ namespace M3.QA.Models
             // A = BreakerWeight
             // B = BreakerWeightBeforeHeat
             // C = BreakerWeightAfterHeat
-            if (null != BreakerWeight && null != BreakerWeightBeforeHeat && 
-                null != BreakerWeightAfterHeat && null != RPU)
+            if (null != BeakerWeight && null != BeakerWeightBeforeHeat && 
+                null != BeakerWeightAfterHeat && null != RPU)
             {
-                var A = BreakerWeight;
-                var B = BreakerWeightBeforeHeat;
-                var C = BreakerWeightAfterHeat;
+                var A = BeakerWeight;
+                var B = BeakerWeightBeforeHeat;
+                var C = BeakerWeightAfterHeat;
                 // X = C - A
                 decimal? XN1 = (C.N1.HasValue) ? C.N1.Value - ((A.N1.HasValue) ? A.N1.Value : new decimal?()) : new decimal?();
                 decimal? XN2 = (C.N2.HasValue) ? C.N2.Value - ((A.N2.HasValue) ? A.N2.Value : new decimal?()) : new decimal?();
@@ -193,38 +193,38 @@ namespace M3.QA.Models
 
         private void UpdateProperties()
         {
-            if (null == BreakerWeight) BreakerWeight = new NRTestProperty();
+            if (null == BeakerWeight) BeakerWeight = new NRTestProperty();
 
-            BreakerWeight.LotNo = LotNo;
-            BreakerWeight.PropertyNo = PropertyNo;
-            BreakerWeight.NoOfSample = NoOfSample;
-            BreakerWeight.NeedSP = NeedSP;
+            BeakerWeight.LotNo = LotNo;
+            BeakerWeight.PropertyNo = PropertyNo;
+            BeakerWeight.NoOfSample = NoOfSample;
+            BeakerWeight.NeedSP = NeedSP;
             // Check calculate action
-            if (null == BreakerWeight.ValueChanges)
+            if (null == BeakerWeight.ValueChanges)
             {
-                BreakerWeight.ValueChanges = CalculateFormula;
+                BeakerWeight.ValueChanges = CalculateFormula;
             }
 
-            if (null == BreakerWeightBeforeHeat) BreakerWeightBeforeHeat = new NRTestProperty();
-            BreakerWeightBeforeHeat.LotNo = LotNo;
-            BreakerWeightBeforeHeat.PropertyNo = PropertyNo;
-            BreakerWeightBeforeHeat.NoOfSample = NoOfSample;
-            BreakerWeightBeforeHeat.NeedSP = NeedSP;
+            if (null == BeakerWeightBeforeHeat) BeakerWeightBeforeHeat = new NRTestProperty();
+            BeakerWeightBeforeHeat.LotNo = LotNo;
+            BeakerWeightBeforeHeat.PropertyNo = PropertyNo;
+            BeakerWeightBeforeHeat.NoOfSample = NoOfSample;
+            BeakerWeightBeforeHeat.NeedSP = NeedSP;
             // Check calculate action
-            if (null == BreakerWeightBeforeHeat.ValueChanges)
+            if (null == BeakerWeightBeforeHeat.ValueChanges)
             {
-                BreakerWeightBeforeHeat.ValueChanges = CalculateFormula;
+                BeakerWeightBeforeHeat.ValueChanges = CalculateFormula;
             }
 
-            if (null == BreakerWeightAfterHeat) BreakerWeightAfterHeat = new NRTestProperty();
-            BreakerWeightAfterHeat.LotNo = LotNo;
-            BreakerWeightAfterHeat.PropertyNo = PropertyNo;
-            BreakerWeightAfterHeat.NoOfSample = NoOfSample;
-            BreakerWeightAfterHeat.NeedSP = NeedSP;
+            if (null == BeakerWeightAfterHeat) BeakerWeightAfterHeat = new NRTestProperty();
+            BeakerWeightAfterHeat.LotNo = LotNo;
+            BeakerWeightAfterHeat.PropertyNo = PropertyNo;
+            BeakerWeightAfterHeat.NoOfSample = NoOfSample;
+            BeakerWeightAfterHeat.NeedSP = NeedSP;
             // Check calculate action
-            if (null == BreakerWeightAfterHeat.ValueChanges)
+            if (null == BeakerWeightAfterHeat.ValueChanges)
             {
-                BreakerWeightAfterHeat.ValueChanges = CalculateFormula;
+                BeakerWeightAfterHeat.ValueChanges = CalculateFormula;
             }
 
             if (null == RPU) RPU = new NRTestProperty();
@@ -312,14 +312,14 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region BreakerWeight/BreakerWeightBeforeHeat/BreakerWeightAfterHeat/RPU
+        #region BeakerWeight/BeakerWeightBeforeHeat/BeakerWeightAfterHeat/RPU
 
-        /// <summary>Gets or sets BreakerWeight.</summary>
-        public NRTestProperty BreakerWeight { get; set; }
-        /// <summary>Gets or sets BreakerWeightBeforeHeat.</summary>
-        public NRTestProperty BreakerWeightBeforeHeat { get; set; }
-        /// <summary>Gets or sets BreakerWeightAfterHeat.</summary>
-        public NRTestProperty BreakerWeightAfterHeat { get; set; }
+        /// <summary>Gets or sets BeakerWeight.</summary>
+        public NRTestProperty BeakerWeight { get; set; }
+        /// <summary>Gets or sets BeakerWeightBeforeHeat.</summary>
+        public NRTestProperty BeakerWeightBeforeHeat { get; set; }
+        /// <summary>Gets or sets BeakerWeightAfterHeat.</summary>
+        public NRTestProperty BeakerWeightAfterHeat { get; set; }
         /// <summary>Gets or sets RPU.</summary>
         public NRTestProperty RPU { get; set; }
 
@@ -362,9 +362,9 @@ namespace M3.QA.Models
             dst.InputBy = src.InputBy;
             dst.InputDate = src.InputDate;
 
-            NRTestProperty.Clone(src.BreakerWeight, dst.BreakerWeight);
-            NRTestProperty.Clone(src.BreakerWeightBeforeHeat, dst.BreakerWeightBeforeHeat);
-            NRTestProperty.Clone(src.BreakerWeightAfterHeat, dst.BreakerWeightAfterHeat);
+            NRTestProperty.Clone(src.BeakerWeight, dst.BeakerWeight);
+            NRTestProperty.Clone(src.BeakerWeightBeforeHeat, dst.BeakerWeightBeforeHeat);
+            NRTestProperty.Clone(src.BeakerWeightAfterHeat, dst.BeakerWeightAfterHeat);
             NRTestProperty.Clone(src.RPU, dst.RPU);
         }
 
@@ -376,26 +376,26 @@ namespace M3.QA.Models
         /// Create
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="breakWN1"></param>
-        /// <param name="breakWN2"></param>
-        /// <param name="breakWR1"></param>
-        /// <param name="breakWR2"></param>
-        /// <param name="breakWBHN1"></param>
-        /// <param name="breakWBHN2"></param>
-        /// <param name="breakWBHR1"></param>
-        /// <param name="breakWBHR2"></param>
-        /// <param name="breakWAHN1"></param>
-        /// <param name="breakWAHN2"></param>
-        /// <param name="breakWAHR1"></param>
-        /// <param name="breakWAHR2"></param>
+        /// <param name="beakWN1"></param>
+        /// <param name="beakWN2"></param>
+        /// <param name="beakWR1"></param>
+        /// <param name="beakWR2"></param>
+        /// <param name="beakWBHN1"></param>
+        /// <param name="beakWBHN2"></param>
+        /// <param name="beakWBHR1"></param>
+        /// <param name="beakWBHR2"></param>
+        /// <param name="beakWAHN1"></param>
+        /// <param name="beakWAHN2"></param>
+        /// <param name="beakWAHR1"></param>
+        /// <param name="beakWAHR2"></param>
         /// <returns></returns>
         internal static DIPSolutionTSC Create(DIPSolutionSampleTestData value,
-            decimal? breakWN1, decimal? breakWN2,
-            decimal? breakWR1, decimal? breakWR2,
-            decimal? breakWBHN1, decimal? breakWBHN2,
-            decimal? breakWBHR1, decimal? breakWBHR2,
-            decimal? breakWAHN1, decimal? breakWAHN2,
-            decimal? breakWAHR1, decimal? breakWAHR2,
+            decimal? beakWN1, decimal? beakWN2,
+            decimal? beakWR1, decimal? beakWR2,
+            decimal? beakWBHN1, decimal? beakWBHN2,
+            decimal? beakWBHR1, decimal? beakWBHR2,
+            decimal? beakWAHN1, decimal? beakWAHN2,
+            decimal? beakWAHR1, decimal? beakWAHR2,
             Func<bool> allowReTest)
         {
             DIPSolutionTSC result = null;
@@ -414,65 +414,65 @@ namespace M3.QA.Models
             result.Spec = spec;
             result.NoOfSample = noOfSample;
 
-            // Break Weight
-            if (null == result.BreakerWeight) result.BreakerWeight = new NRTestProperty();
+            // Beaker Weight
+            if (null == result.BeakerWeight) result.BeakerWeight = new NRTestProperty();
             // Set Common properties
-            result.BreakerWeight.LotNo = result.LotNo;
-            result.BreakerWeight.PropertyNo = result.PropertyNo;
-            result.BreakerWeight.NeedSP = result.NeedSP;
-            result.BreakerWeight.NoOfSample = result.NoOfSample;
-            result.BreakerWeight.AllowReTest = allowReTest;
-            result.BreakerWeight.Spec = result.Spec;
+            result.BeakerWeight.LotNo = result.LotNo;
+            result.BeakerWeight.PropertyNo = result.PropertyNo;
+            result.BeakerWeight.NeedSP = result.NeedSP;
+            result.BeakerWeight.NoOfSample = result.NoOfSample;
+            result.BeakerWeight.AllowReTest = allowReTest;
+            result.BeakerWeight.Spec = result.Spec;
             // Set calc formula
-            if (null == result.BreakerWeight.ValueChanges)
+            if (null == result.BeakerWeight.ValueChanges)
             {
-                result.BreakerWeight.ValueChanges = result.CalculateFormula;
+                result.BeakerWeight.ValueChanges = result.CalculateFormula;
             }
             // Set N/R
-            result.BreakerWeight.N1 = breakWN1;
-            result.BreakerWeight.N2 = breakWN2;
-            result.BreakerWeight.R1 = breakWR1;
-            result.BreakerWeight.R2 = breakWR2;
+            result.BeakerWeight.N1 = beakWN1;
+            result.BeakerWeight.N2 = beakWN2;
+            result.BeakerWeight.R1 = beakWR1;
+            result.BeakerWeight.R2 = beakWR2;
 
-            // Break Weight Before Heat
-            if (null == result.BreakerWeightBeforeHeat) result.BreakerWeightBeforeHeat = new NRTestProperty();
+            // Beaker Weight Before Heat
+            if (null == result.BeakerWeightBeforeHeat) result.BeakerWeightBeforeHeat = new NRTestProperty();
             // Set Common properties
-            result.BreakerWeightBeforeHeat.LotNo = result.LotNo;
-            result.BreakerWeightBeforeHeat.PropertyNo = result.PropertyNo;
-            result.BreakerWeightBeforeHeat.NeedSP = result.NeedSP;
-            result.BreakerWeightBeforeHeat.NoOfSample = result.NoOfSample;
-            result.BreakerWeightBeforeHeat.AllowReTest = allowReTest;
-            result.BreakerWeightBeforeHeat.Spec = result.Spec;
+            result.BeakerWeightBeforeHeat.LotNo = result.LotNo;
+            result.BeakerWeightBeforeHeat.PropertyNo = result.PropertyNo;
+            result.BeakerWeightBeforeHeat.NeedSP = result.NeedSP;
+            result.BeakerWeightBeforeHeat.NoOfSample = result.NoOfSample;
+            result.BeakerWeightBeforeHeat.AllowReTest = allowReTest;
+            result.BeakerWeightBeforeHeat.Spec = result.Spec;
             // Set calc formula
-            if (null == result.BreakerWeightBeforeHeat.ValueChanges)
+            if (null == result.BeakerWeightBeforeHeat.ValueChanges)
             {
-                result.BreakerWeightBeforeHeat.ValueChanges = result.CalculateFormula;
+                result.BeakerWeightBeforeHeat.ValueChanges = result.CalculateFormula;
             }
             // Set N/R
-            result.BreakerWeightBeforeHeat.N1 = breakWBHN1;
-            result.BreakerWeightBeforeHeat.N2 = breakWBHN2;
-            result.BreakerWeightBeforeHeat.R1 = breakWBHR1;
-            result.BreakerWeightBeforeHeat.R2 = breakWBHR2;
+            result.BeakerWeightBeforeHeat.N1 = beakWBHN1;
+            result.BeakerWeightBeforeHeat.N2 = beakWBHN2;
+            result.BeakerWeightBeforeHeat.R1 = beakWBHR1;
+            result.BeakerWeightBeforeHeat.R2 = beakWBHR2;
 
-            // Break Weight After Heat
-            if (null == result.BreakerWeightAfterHeat) result.BreakerWeightAfterHeat = new NRTestProperty();
+            // Beaker Weight After Heat
+            if (null == result.BeakerWeightAfterHeat) result.BeakerWeightAfterHeat = new NRTestProperty();
             // Set Common properties
-            result.BreakerWeightAfterHeat.LotNo = result.LotNo;
-            result.BreakerWeightAfterHeat.PropertyNo = result.PropertyNo;
-            result.BreakerWeightAfterHeat.NeedSP = result.NeedSP;
-            result.BreakerWeightAfterHeat.NoOfSample = result.NoOfSample;
-            result.BreakerWeightAfterHeat.AllowReTest = allowReTest;
-            result.BreakerWeightAfterHeat.Spec = result.Spec;
+            result.BeakerWeightAfterHeat.LotNo = result.LotNo;
+            result.BeakerWeightAfterHeat.PropertyNo = result.PropertyNo;
+            result.BeakerWeightAfterHeat.NeedSP = result.NeedSP;
+            result.BeakerWeightAfterHeat.NoOfSample = result.NoOfSample;
+            result.BeakerWeightAfterHeat.AllowReTest = allowReTest;
+            result.BeakerWeightAfterHeat.Spec = result.Spec;
             // Set calc formula
-            if (null == result.BreakerWeightAfterHeat.ValueChanges)
+            if (null == result.BeakerWeightAfterHeat.ValueChanges)
             {
-                result.BreakerWeightAfterHeat.ValueChanges = result.CalculateFormula;
+                result.BeakerWeightAfterHeat.ValueChanges = result.CalculateFormula;
             }
             // Set N/R
-            result.BreakerWeightAfterHeat.N1 = breakWAHN1;
-            result.BreakerWeightAfterHeat.N2 = breakWAHN2;
-            result.BreakerWeightAfterHeat.R1 = breakWAHR1;
-            result.BreakerWeightAfterHeat.R2 = breakWAHR2;
+            result.BeakerWeightAfterHeat.N1 = beakWAHN1;
+            result.BeakerWeightAfterHeat.N2 = beakWAHN2;
+            result.BeakerWeightAfterHeat.R1 = beakWAHR1;
+            result.BeakerWeightAfterHeat.R2 = beakWAHR2;
 
             // RPU
             if (null == result.RPU) result.RPU = new NRTestProperty();

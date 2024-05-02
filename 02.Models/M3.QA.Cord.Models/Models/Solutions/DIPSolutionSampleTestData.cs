@@ -122,18 +122,18 @@ namespace M3.QA.Models
                 decimal? ViscosityN = new decimal?();
                 decimal? ViscosityR = new decimal?();
 
-                decimal? breakWN1 = new decimal?(); 
-                decimal? breakWN2 = new decimal?();
-                decimal? breakWR1 = new decimal?(); 
-                decimal? breakWR2 = new decimal?();
-                decimal? breakWBHN1 = new decimal?();
-                decimal? breakWBHN2 = new decimal?();
-                decimal? breakWBHR1 = new decimal?();
-                decimal? breakWBHR2 = new decimal?();
-                decimal? breakWAHN1 = new decimal?();
-                decimal? breakWAHN2 = new decimal?();
-                decimal? breakWAHR1 = new decimal?(); 
-                decimal? breakWAHR2 = new decimal?();
+                decimal? beakWN1 = new decimal?(); 
+                decimal? beakWN2 = new decimal?();
+                decimal? beakWR1 = new decimal?(); 
+                decimal? beakWR2 = new decimal?();
+                decimal? beakWBHN1 = new decimal?();
+                decimal? beakWBHN2 = new decimal?();
+                decimal? beakWBHR1 = new decimal?();
+                decimal? beakWBHR2 = new decimal?();
+                decimal? beakWAHN1 = new decimal?();
+                decimal? beakWAHN2 = new decimal?();
+                decimal? beakWAHR1 = new decimal?(); 
+                decimal? beakWAHR2 = new decimal?();
 
                 foreach (var item in items)
                 {
@@ -164,18 +164,18 @@ namespace M3.QA.Models
                         ViscosityN = item.ViscosityN;
                         ViscosityR = item.ViscosityR;
 
-                        breakWN1 = item.BreakerWN1;
-                        breakWN2 = item.BreakerWN2;
-                        breakWR1 = item.BreakerWR1;
-                        breakWR2 = item.BreakerWR2;
-                        breakWBHN1 = item.BreakerW_BHN1;
-                        breakWBHN2 = item.BreakerW_BHN2;
-                        breakWBHR1 = item.BreakerW_BHR1;
-                        breakWBHR2 = item.BreakerW_BHR2;
-                        breakWAHN1 = item.BreakerW_AHN1;
-                        breakWAHN2 = item.BreakerW_AHN2;
-                        breakWAHR1 = item.BreakerW_AHR1;
-                        breakWAHR2 = item.BreakerW_AHR2;
+                        beakWN1 = item.BeakerWN1;
+                        beakWN2 = item.BeakerWN2;
+                        beakWR1 = item.BeakerWR1;
+                        beakWR2 = item.BeakerWR2;
+                        beakWBHN1 = item.BeakerW_BHN1;
+                        beakWBHN2 = item.BeakerW_BHN2;
+                        beakWBHR1 = item.BeakerW_BHR1;
+                        beakWBHR2 = item.BeakerW_BHR2;
+                        beakWAHN1 = item.BeakerW_AHN1;
+                        beakWAHN2 = item.BeakerW_AHN2;
+                        beakWAHR1 = item.BeakerW_AHR1;
+                        beakWAHR2 = item.BeakerW_AHR2;
                     }
                     else
                     {
@@ -198,15 +198,124 @@ namespace M3.QA.Models
 
                     var spec = ret.Specs.FindByPropertyNo(13);
                     ret.TSC = DIPSolutionTSC.Create(ret,
-                        breakWN1, breakWN2, breakWR1, breakWR2,
-                        breakWBHN1, breakWBHN2, breakWBHR1, breakWBHR2,
-                        breakWAHN1, breakWAHN2, breakWAHR1, breakWAHR2,
+                        beakWN1, beakWN2, beakWR1, beakWR2,
+                        beakWBHN1, beakWBHN2, beakWBHR1, beakWBHR2,
+                        beakWAHN1, beakWAHN2, beakWAHR1, beakWAHR2,
                         ret.AloowRetest);
                 }
             }
             catch (Exception ex)
             {
                 med.Err(ex);
+            }
+
+            return ret;
+        }
+
+        #endregion
+
+        #region Save
+
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static NDbResult<DIPSolutionSampleTestData> Save(DIPSolutionSampleTestData value,
+            QA.Models.UserInfo user)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<DIPSolutionSampleTestData> ret = new NDbResult<DIPSolutionSampleTestData>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            string compound;
+            if (string.IsNullOrEmpty(value.Compounds)) 
+            {
+                compound = null;
+            }
+            else
+            {
+                compound = value.Compounds.Contains("FINAL") ? "FINAL" : "RF";
+            }
+
+            var p = new DynamicParameters();
+
+            p.Add("@LotNo", value.LotNo);
+            p.Add("@compound", compound);
+
+            // Ph
+            p.Add("@phn", (null != value.Ph) ? value.Ph.N1 : new decimal?());
+            p.Add("@phr", (null != value.Ph) ? value.Ph.R1 : new decimal?());
+            // Temperature
+            p.Add("@temperaturen", (null != value.Temperature) ? value.Temperature.N1 : new decimal?());
+            p.Add("@temperaturer", (null != value.Temperature) ? value.Temperature.R1 : new decimal?());
+            // Viscosity
+            p.Add("@viscosityn", (null != value.Viscosity) ? value.Viscosity.N1 : new decimal?());
+            p.Add("@viscosityr", (null != value.Viscosity) ? value.Viscosity.R1 : new decimal?());
+
+            // BreakerWeight
+            p.Add("@beakerwn1", (null != value.TSC && null != value.TSC.BeakerWeight) ? value.TSC.BeakerWeight.N1 : new decimal?());
+            p.Add("@beakerwn2", (null != value.TSC && null != value.TSC.BeakerWeight) ? value.TSC.BeakerWeight.N2 : new decimal?());
+            p.Add("@beakerwr1", (null != value.TSC && null != value.TSC.BeakerWeight) ? value.TSC.BeakerWeight.R1 : new decimal?());
+            p.Add("@beakerwr2", (null != value.TSC && null != value.TSC.BeakerWeight) ? value.TSC.BeakerWeight.R2 : new decimal?());
+
+            // BreakerWeightBeforeHeat
+            p.Add("@beakerw_bhn1", (null != value.TSC && null != value.TSC.BeakerWeightBeforeHeat) ? value.TSC.BeakerWeightBeforeHeat.N1 : new decimal?());
+            p.Add("@beakerw_bhn2", (null != value.TSC && null != value.TSC.BeakerWeightBeforeHeat) ? value.TSC.BeakerWeightBeforeHeat.N2 : new decimal?());
+            p.Add("@beakerw_bhr1", (null != value.TSC && null != value.TSC.BeakerWeightBeforeHeat) ? value.TSC.BeakerWeightBeforeHeat.R1 : new decimal?());
+            p.Add("@beakerw_bhr2", (null != value.TSC && null != value.TSC.BeakerWeightBeforeHeat) ? value.TSC.BeakerWeightBeforeHeat.R2 : new decimal?());
+
+            // BreakerWeightAfterHeat
+            p.Add("@beakerw_ahn1", (null != value.TSC && null != value.TSC.BeakerWeightAfterHeat) ? value.TSC.BeakerWeightAfterHeat.N1 : new decimal?());
+            p.Add("@beakerw_ahn2", (null != value.TSC && null != value.TSC.BeakerWeightAfterHeat) ? value.TSC.BeakerWeightAfterHeat.N2 : new decimal?());
+            p.Add("@beakerw_ahr1", (null != value.TSC && null != value.TSC.BeakerWeightAfterHeat) ? value.TSC.BeakerWeightAfterHeat.R1 : new decimal?());
+            p.Add("@beakerw_ahr2", (null != value.TSC && null != value.TSC.BeakerWeightAfterHeat) ? value.TSC.BeakerWeightAfterHeat.R2 : new decimal?());
+
+            // RPU
+            p.Add("@tscn1", (null != value.TSC && null != value.TSC.RPU) ? value.TSC.RPU.N1 : new decimal?());
+            p.Add("@tscn2", (null != value.TSC && null != value.TSC.RPU) ? value.TSC.RPU.N2 : new decimal?());
+            p.Add("@tscr1", (null != value.TSC && null != value.TSC.RPU) ? value.TSC.RPU.R1 : new decimal?());
+            p.Add("@tscr2", (null != value.TSC && null != value.TSC.RPU) ? value.TSC.RPU.R2 : new decimal?());
+
+            p.Add("@user", (null != user) ? user.FullName : null);
+            p.Add("@savedate", DateTime.Now);
+
+            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+            try
+            {
+                cnn.Execute("P_SaveDipSolutionResult", p, commandType: CommandType.StoredProcedure);
+                ret.Success(value);
+                // Set error number/message
+                ret.ErrNum = p.Get<int>("@errNum");
+                ret.ErrMsg = p.Get<string>("@errMsg");
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
             }
 
             return ret;

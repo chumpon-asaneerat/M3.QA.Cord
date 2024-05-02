@@ -404,9 +404,9 @@
                             </DockPanel>
                         </Border>
                         <DockPanel LastChildFill="True">
-                            <!--  BREAK W  -->
+                            <!--  BEAKER W  -->
                             <StackPanel DockPanel.Dock="Left"
-                                        DataContext="{Binding BreakerWeight}"
+                                        DataContext="{Binding BeakerWeight}"
                                         Width="250"
                                         Margin="0,0,1,0">
                                 <!--  CAPTION  -->
@@ -475,9 +475,9 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </StackPanel>
-                            <!--  BREAK W BEFORE HEAT  -->
+                            <!--  BEAKER W BEFORE HEAT  -->
                             <StackPanel DockPanel.Dock="Left"
-                                        DataContext="{Binding BreakerWeightBeforeHeat}"
+                                        DataContext="{Binding BeakerWeightBeforeHeat}"
                                         Width="250"
                                         Margin="0,0,1,0">
                                 <!--  CAPTION  -->
@@ -547,9 +547,9 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </StackPanel>
-                            <!--  BREAK W AFTER HEAT  -->
+                            <!--  BEAKER W AFTER HEAT  -->
                             <StackPanel DockPanel.Dock="Left"
-                                        DataContext="{Binding BreakerWeightAfterHeat}"
+                                        DataContext="{Binding BeakerWeightAfterHeat}"
                                         Width="250"
                                         Margin="0,0,1,0">
                                 <!--  CAPTION  -->

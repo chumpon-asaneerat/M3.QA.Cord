@@ -2,6 +2,7 @@
 
 using M3.QA.Models;
 using NLib;
+using NLib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -129,7 +130,32 @@ namespace M3.QA.Pages
 
         private void Save()
         {
+            if (null != item)
+            {
+                // Set current user
+                var user = M3QAApp.Current.User;
+                NDbResult ret;
 
+                ret = DIPSolutionSampleTestData.Save(item, user);
+                if (null == ret || !ret.Ok)
+                {
+                    // error.
+                    string msg = string.Empty;
+                    msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                    msg += Environment.NewLine;
+                    msg += (null != ret) ? ret.ErrMsg : "Unknown Error!!";
+                    M3QAApp.Windows.ShowMessage(msg);
+
+                    return;
+                }
+                else
+                {
+                    // success
+                    M3QAApp.Windows.SaveSuccess();
+                }
+
+                Clear();
+            }
         }
 
         #endregion

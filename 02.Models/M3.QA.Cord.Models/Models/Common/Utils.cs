@@ -747,20 +747,20 @@ namespace M3.QA.Models
             public decimal? TSCR1 { get; set; }
             public decimal? TSCR3 { get; set; }
 
-            public decimal? BreakerWN1 { get; set; }
-            public decimal? BreakerWN2 { get; set; }
-            public decimal? BreakerWR1 { get; set; }
-            public decimal? BreakerWR2 { get; set; }
+            public decimal? BeakerWN1 { get; set; }
+            public decimal? BeakerWN2 { get; set; }
+            public decimal? BeakerWR1 { get; set; }
+            public decimal? BeakerWR2 { get; set; }
 
-            public decimal? BreakerW_BHN1 { get; set; }
-            public decimal? BreakerW_BHN2 { get; set; }
-            public decimal? BreakerW_BHR1 { get; set; }
-            public decimal? BreakerW_BHR2 { get; set; }
+            public decimal? BeakerW_BHN1 { get; set; }
+            public decimal? BeakerW_BHN2 { get; set; }
+            public decimal? BeakerW_BHR1 { get; set; }
+            public decimal? BeakerW_BHR2 { get; set; }
 
-            public decimal? BreakerW_AHN1 { get; set; }
-            public decimal? BreakerW_AHN2 { get; set; }
-            public decimal? BreakerW_AHR1 { get; set; }
-            public decimal? BreakerW_AHR2 { get; set; }
+            public decimal? BeakerW_AHN1 { get; set; }
+            public decimal? BeakerW_AHN2 { get; set; }
+            public decimal? BeakerW_AHR1 { get; set; }
+            public decimal? BeakerW_AHR2 { get; set; }
 
             public DateTime? InputDate { get; set; }
             public string InputBy { get; set; }
