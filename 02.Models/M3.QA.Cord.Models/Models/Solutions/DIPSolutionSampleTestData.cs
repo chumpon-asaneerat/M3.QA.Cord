@@ -297,7 +297,7 @@ namespace M3.QA.Models
             p.Add("@tscr2", (null != value.TSC && null != value.TSC.RPU) ? value.TSC.RPU.R2 : new decimal?());
 
             p.Add("@user", (null != user) ? user.FullName : null);
-            p.Add("@savedate", DateTime.Now);
+            p.Add("@savedate", value.EditDate);
 
             p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
             p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);

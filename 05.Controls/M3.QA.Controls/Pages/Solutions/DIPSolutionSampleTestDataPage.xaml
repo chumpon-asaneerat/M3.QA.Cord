@@ -44,6 +44,23 @@
             <Setter Property="Width" Value="120" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
+        <!--  AVG  -->
+        <Style x:Key="AVG"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
     </UserControl.Resources>
     <page:NPage HeaderText="DIP Solution Test Data">
         <DockPanel LastChildFill="True" Margin="5">
@@ -107,6 +124,7 @@
                             <StackPanel Orientation="Vertical" Margin="2">
                                 <TextBlock Text="Date:" />
                                 <xctk:DateTimePicker x:Name="txtTestDate"
+                                                     Value="{Binding EditDate}"
                                                      Width="200"
                                                      Format="Custom"
                                                      FormatString="dd/MM/yyyy HH:mm"
@@ -407,8 +425,9 @@
                             <!--  BEAKER W  -->
                             <StackPanel DockPanel.Dock="Left"
                                         DataContext="{Binding BeakerWeight}"
+                                        Orientation="Vertical"
                                         Width="250"
-                                        Margin="0,0,1,0">
+                                        Margin="0,0,2,0">
                                 <!--  CAPTION  -->
                                 <Border BorderThickness="1"
                                         BorderBrush="Silver"
@@ -478,8 +497,9 @@
                             <!--  BEAKER W BEFORE HEAT  -->
                             <StackPanel DockPanel.Dock="Left"
                                         DataContext="{Binding BeakerWeightBeforeHeat}"
+                                        Orientation="Vertical"
                                         Width="250"
-                                        Margin="0,0,1,0">
+                                        Margin="0,0,2,0">
                                 <!--  CAPTION  -->
                                 <Border BorderThickness="1"
                                         BorderBrush="Silver"
@@ -516,7 +536,7 @@
                                         <DataTemplate>
                                             <Border Margin="0,0,0,0"
                                                     BorderBrush="Silver"
-                                                    BorderThickness="0,0,1,1">
+                                                    BorderThickness="1,0,1,1">
                                                 <DockPanel LastChildFill="True" Margin="0,1">
                                                     <Grid Height="5" DockPanel.Dock="Top" />
                                                     <StackPanel Orientation="Horizontal"
@@ -550,8 +570,9 @@
                             <!--  BEAKER W AFTER HEAT  -->
                             <StackPanel DockPanel.Dock="Left"
                                         DataContext="{Binding BeakerWeightAfterHeat}"
+                                        Orientation="Vertical"
                                         Width="250"
-                                        Margin="0,0,1,0">
+                                        Margin="0,0,2,0">
                                 <!--  CAPTION  -->
                                 <Border BorderThickness="1"
                                         BorderBrush="Silver"
@@ -588,7 +609,7 @@
                                         <DataTemplate>
                                             <Border Margin="0,0,0,0"
                                                     BorderBrush="Silver"
-                                                    BorderThickness="0,0,1,1">
+                                                    BorderThickness="1,0,1,1">
                                                 <DockPanel LastChildFill="True" Margin="0,1">
                                                     <Grid Height="5" DockPanel.Dock="Top" />
                                                     <StackPanel Orientation="Horizontal"
@@ -621,8 +642,9 @@
                             </StackPanel>
                             <!--  RPU  -->
                             <StackPanel DataContext="{Binding RPU}"
+                                        Orientation="Vertical"
                                         Width="250"
-                                        Margin="0,0,1,0">
+                                        Margin="0,0,2,0">
                                 <!--  CAPTION  -->
                                 <Border BorderThickness="1"
                                         BorderBrush="Silver"
@@ -658,7 +680,7 @@
                                         <DataTemplate>
                                             <Border Margin="0,0,0,0"
                                                     BorderBrush="Silver"
-                                                    BorderThickness="0,0,1,1">
+                                                    BorderThickness="1,0,1,1">
                                                 <DockPanel LastChildFill="True" Margin="0,1">
                                                     <Grid Height="5" DockPanel.Dock="Top" />
                                                     <StackPanel Orientation="Horizontal"
@@ -688,6 +710,19 @@
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
+                                <!--  AVG.  -->
+                                <Border Margin="0"
+                                        BorderBrush="Silver"
+                                        BorderThickness="1,0,1,1"
+                                        Background="LightYellow"
+                                        Padding="5">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                                        <Grid Height="5" />
+                                        <TextBlock Text="AVG" TextAlignment="Center" />
+                                        <TextBox Style="{StaticResource AVG}" />
+                                        <Grid Height="5" />
+                                    </StackPanel>
+                                </Border>
                             </StackPanel>
                             <Grid />
                         </DockPanel>
