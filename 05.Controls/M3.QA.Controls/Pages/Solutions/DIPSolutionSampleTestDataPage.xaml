@@ -10,7 +10,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignHeight="450"
-             d:DesignWidth="800">
+             d:DesignWidth="1200">
     <UserControl.Resources>
         <!--  N INPUT  -->
         <Style x:Key="NInput"
@@ -357,7 +357,157 @@
                 </Border>
                 <Grid />
             </DockPanel>
-            <!--  BREAK W/TSC  -->
+            <!--  TSC  -->
+            <DockPanel LastChildFill="True" DataContext="{Binding TSC}">
+                <!--  TSC CAPTION  -->
+                <Border DockPanel.Dock="Top"
+                        BorderThickness="1"
+                        BorderBrush="Silver"
+                        Background="DarkMagenta"
+                        CornerRadius="2"
+                        Margin="2"
+                        Padding="5">
+                    <TextBlock Text="TSC %"
+                               TextAlignment="Center"
+                               HorizontalAlignment="Stretch"
+                               Foreground="Yellow"
+                               FontWeight="SemiBold" />
+                </Border>
+                <DockPanel LastChildFill="True">
+                    <!--  BREAK W  -->
+                    <StackPanel DockPanel.Dock="Left"
+                                DataContext="{Binding BreakerWeight}"
+                                Width="250"
+                                Margin="0,0,1,0">
+                        <!--  CAPTION  -->
+                        <Border BorderThickness="1"
+                                BorderBrush="Silver"
+                                Background="DarkMagenta"
+                                CornerRadius="2"
+                                Margin="0"
+                                Padding="5">
+                            <TextBlock TextAlignment="Center"
+                                       HorizontalAlignment="Stretch"
+                                       Foreground="Yellow"
+                                       FontWeight="SemiBold">
+                                <Run Text="BREAKER WT (g)" />
+                                <LineBreak />
+                                <LineBreak />
+                                <Run Text="A" />
+                            </TextBlock>
+                        </Border>
+                        <!--  EACH Item N/R  -->
+                        <ItemsControl ItemsSource="{Binding Items}"
+                                      Focusable="False"
+                                      HorizontalAlignment="Center"
+                                      IsEnabled="{Binding EnableTest}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Vertical"
+                                                            VirtualizingPanel.IsVirtualizing="True"
+                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="0,0,5,0">
+                                        <DockPanel LastChildFill="True">
+                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                    <TextBlock TextAlignment="Center"
+                                                               Foreground="{Binding ForegroundColorN}"
+                                                               Text="{Binding CaptionN}" />
+                                                    <TextBox Style="{StaticResource NInput}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                    <TextBlock TextAlignment="Center"
+                                                               Foreground="{Binding ForegroundColorR}"
+                                                               Text="{Binding CaptionR}" />
+                                                    <TextBox Style="{StaticResource RInput}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <Grid />
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    <!--  BREAK W BEFORE HEAT  -->
+                    <StackPanel DockPanel.Dock="Left"
+                                DataContext="{Binding BreakerWeightBeforeHeat}"
+                                Width="250"
+                                Margin="0,0,1,0">
+                        <!--  CAPTION  -->
+                        <Border BorderThickness="1"
+                                BorderBrush="Silver"
+                                Background="DarkMagenta"
+                                CornerRadius="2"
+                                Margin="0"
+                                Padding="5">
+                            <TextBlock TextAlignment="Center"
+                                       HorizontalAlignment="Stretch"
+                                       Foreground="Yellow"
+                                       FontWeight="SemiBold">
+                                <Run Text="BREAKER WT (g) + " />
+                                <LineBreak />
+                                <Run Text="DIP SOL. BEFORE HEAT (g)" />
+                                <LineBreak />
+                                <Run Text="B" />
+                            </TextBlock>
+                        </Border>
+                    </StackPanel>
+                    <!--  BREAK W AFTER HEAT  -->
+                    <StackPanel DockPanel.Dock="Left"
+                                DataContext="{Binding BreakerWeightAfterHeat}"
+                                Width="250"
+                                Margin="0,0,1,0">
+                        <!--  CAPTION  -->
+                        <Border BorderThickness="1"
+                                BorderBrush="Silver"
+                                Background="DarkMagenta"
+                                CornerRadius="2"
+                                Margin="0"
+                                Padding="5">
+                            <TextBlock TextAlignment="Center"
+                                       HorizontalAlignment="Stretch"
+                                       Foreground="Yellow"
+                                       FontWeight="SemiBold">
+                                <Run Text="BREAKER WT (g) + " />
+                                <LineBreak />
+                                <Run Text="DIP SOL. AFTER HEAT (g)" />
+                                <LineBreak />
+                                <Run Text="C" />
+                            </TextBlock>
+                        </Border>
+                    </StackPanel>
+                    <!--  RPU  -->
+                    <StackPanel DataContext="{Binding RPU}"
+                                Width="250"
+                                Margin="0,0,1,0">
+                        <!--  CAPTION  -->
+                        <Border BorderThickness="1"
+                                BorderBrush="Silver"
+                                Background="DarkMagenta"
+                                CornerRadius="2"
+                                Margin="0"
+                                Padding="5">
+                            <TextBlock TextAlignment="Center"
+                                       HorizontalAlignment="Stretch"
+                                       Foreground="Yellow"
+                                       FontWeight="SemiBold">
+                                <Run Text="RPU" />
+                                <LineBreak />
+                                <LineBreak />
+                                <Run Text="(C-A)/(B-A) x 100" />
+                            </TextBlock>
+                        </Border>
+                    </StackPanel>
+                    <Grid />
+                </DockPanel>
+            </DockPanel>
             <Grid />
         </DockPanel>
     </page:NPage>

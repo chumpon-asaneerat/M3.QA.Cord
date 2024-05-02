@@ -197,7 +197,7 @@ namespace M3.QA.Models
                     ret.Viscosity.AllowReTest = ret.AloowRetest;
 
                     var spec = ret.Specs.FindByPropertyNo(13);
-                    ret.TSC = DIPSolutionTSC.Create(ret, 2,
+                    ret.TSC = DIPSolutionTSC.Create(ret,
                         breakWN1, breakWN2, breakWR1, breakWR2,
                         breakWBHN1, breakWBHN2, breakWBHR1, breakWBHR2,
                         breakWAHN1, breakWAHN2, breakWAHR1, breakWAHR2,

@@ -289,6 +289,11 @@ namespace M3.QA.Models
             result.BreakerWeight.NoOfSample = result.NoOfSample;
             result.BreakerWeight.AllowReTest = allowReTest;
             result.BreakerWeight.Spec = result.Spec;
+            // Set calc formula
+            if (null == result.BreakerWeight.ValueChanges)
+            {
+                result.BreakerWeight.ValueChanges = result.CalculateFormula;
+            }
             // Set N/R
             result.BreakerWeight.N1 = breakWN1;
             result.BreakerWeight.N2 = breakWN2;
@@ -304,6 +309,11 @@ namespace M3.QA.Models
             result.BreakerWeightBeforeHeat.NoOfSample = result.NoOfSample;
             result.BreakerWeightBeforeHeat.AllowReTest = allowReTest;
             result.BreakerWeightBeforeHeat.Spec = result.Spec;
+            // Set calc formula
+            if (null == result.BreakerWeightBeforeHeat.ValueChanges)
+            {
+                result.BreakerWeightBeforeHeat.ValueChanges = result.CalculateFormula;
+            }
             // Set N/R
             result.BreakerWeightBeforeHeat.N1 = breakWBHN1;
             result.BreakerWeightBeforeHeat.N2 = breakWBHN2;
@@ -319,6 +329,11 @@ namespace M3.QA.Models
             result.BreakerWeightAfterHeat.NoOfSample = result.NoOfSample;
             result.BreakerWeightAfterHeat.AllowReTest = allowReTest;
             result.BreakerWeightAfterHeat.Spec = result.Spec;
+            // Set calc formula
+            if (null == result.BreakerWeightAfterHeat.ValueChanges)
+            {
+                result.BreakerWeightAfterHeat.ValueChanges = result.CalculateFormula;
+            }
             // Set N/R
             result.BreakerWeightAfterHeat.N1 = breakWAHN1;
             result.BreakerWeightAfterHeat.N2 = breakWAHN2;
