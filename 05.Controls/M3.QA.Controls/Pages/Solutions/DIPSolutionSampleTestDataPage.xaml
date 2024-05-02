@@ -63,566 +63,638 @@
                                         Click="cmdBack_Click" />
                 <Grid />
             </DockPanel>
-            <!--  SEARCH/RESULT LINE 1  -->
-            <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-                <StackPanel Orientation="Horizontal">
-                    <!--  LOT NO  -->
-                    <StackPanel Orientation="Vertical" Margin="2">
-                        <TextBlock Text="Lot No:" />
-                        <TextBox x:Name="txtLotNo"
-                                 Width="150"
-                                 TextAlignment="Center"
-                                 Style="{StaticResource CommonTextBox}"
-                                 KeyDown="txtLotNo_KeyDown" />
-                    </StackPanel>
-                    <!--  DIP SOLUTION  -->
-                    <StackPanel Orientation="Vertical" Margin="2">
-                        <TextBlock Text="DIP Solution:" />
-                        <TextBox x:Name="txtDIPSolution"
-                                 TextAlignment="Center"
-                                 Width="200"
-                                 IsReadOnly="True"
-                                 Text="{Binding ItemCode, TargetNullValue=''}"
-                                 Style="{StaticResource CommonTextBox}" />
-                    </StackPanel>
-                    <!--  COMPOUND  -->
-                    <StackPanel Orientation="Vertical" Margin="2">
-                        <TextBlock Text="Compound:" />
-                        <TextBox x:Name="txtCOMPOUND"
-                                 TextAlignment="Center"
-                                 Width="150"
-                                 IsReadOnly="True"
-                                 Text="{Binding Compounds, TargetNullValue=''}"
-                                 Style="{StaticResource CommonTextBox}" />
-                    </StackPanel>
-                </StackPanel>
-                <Grid />
-            </DockPanel>
-            <!--  SEARCH/RESULT LINE 2  -->
-            <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-                <StackPanel Orientation="Horizontal">
-                    <!--  START TEST DATE  -->
-                    <StackPanel Orientation="Vertical" Margin="2">
-                        <TextBlock Text="Date:" />
-                        <xctk:DateTimePicker x:Name="txtTestDate"
-                                             Width="200"
-                                             Format="Custom"
-                                             FormatString="dd/MM/yyyy HH:mm"
-                                             AutoCloseCalendar="True"
-                                             AutoCloseCalendarOnTimeSelection="True" />
-                    </StackPanel>
-                </StackPanel>
-                <Grid />
-            </DockPanel>
-            <!--  PH/TEMP/VISCOSITY  -->
-            <DockPanel DockPanel.Dock="Top"
-                       LastChildFill="True"
-                       Margin="0,10,0,0">
-                <!--  PH  -->
-                <Border DockPanel.Dock="Left"
-                        BorderThickness="1"
-                        BorderBrush="Silver"
-                        CornerRadius="2"
-                        Margin="2"
-                        Padding="5">
-                    <StackPanel DataContext="{Binding Ph}"
-                                Orientation="Vertical"
-                                Width="250"
-                                HorizontalAlignment="Center">
-                        <!--  CAPTION  -->
-                        <Border Background="DarkMagenta"
-                                Margin="0,2"
-                                Padding="3"
-                                CornerRadius="2">
-                            <TextBlock Text="PH"
-                                       TextAlignment="Center"
-                                       HorizontalAlignment="Stretch"
-                                       Foreground="Yellow"
-                                       FontWeight="SemiBold" />
-                        </Border>
-                        <!--  SPEC  -->
-                        <Border Background="LightGoldenrodYellow"
-                                Margin="0,2"
-                                Padding="3"
-                                CornerRadius="2">
-                            <StackPanel DataContext="{Binding Spec}"
-                                        Orientation="Horizontal"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center">
-                                <TextBlock Text="Spec: "
-                                           FontSize="20"
-                                           FontWeight="SemiBold" />
-                                <TextBlock Text="{Binding SpecInfo}"
-                                           FontSize="20"
-                                           FontWeight="SemiBold" />
-                            </StackPanel>
-                        </Border>
-                        <!--  EACH Item N/R  -->
-                        <ItemsControl ItemsSource="{Binding Items}"
-                                      Focusable="False"
-                                      HorizontalAlignment="Center"
-                                      IsEnabled="{Binding EnableTest}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Vertical"
-                                                            VirtualizingPanel.IsVirtualizing="True"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="0,0,5,0">
-                                        <DockPanel LastChildFill="True">
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorN}"
-                                                               Text="{Binding CaptionN}" />
-                                                    <TextBox Style="{StaticResource NInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorR}"
-                                                               Text="{Binding CaptionR}" />
-                                                    <TextBox Style="{StaticResource RInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <Grid />
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Border>
-                <!--  TEMPERATURE  -->
-                <Border DockPanel.Dock="Left"
-                        BorderThickness="1"
-                        BorderBrush="Silver"
-                        CornerRadius="2"
-                        Margin="2"
-                        Padding="5">
-                    <StackPanel DataContext="{Binding Temperature}"
-                                Orientation="Vertical"
-                                Width="250"
-                                HorizontalAlignment="Center">
-                        <!--  CAPTION  -->
-                        <Border Background="DarkMagenta"
-                                Margin="0,2"
-                                Padding="3"
-                                CornerRadius="2">
-                            <TextBlock Text="TEMPERATURE (℃)"
-                                       TextAlignment="Center"
-                                       HorizontalAlignment="Stretch"
-                                       Foreground="Yellow"
-                                       FontWeight="SemiBold" />
-                        </Border>
-                        <!--  SPEC  -->
-                        <Border Background="LightGoldenrodYellow"
-                                Margin="0,2"
-                                Padding="3"
-                                CornerRadius="2">
-                            <StackPanel DataContext="{Binding Spec}"
-                                        Orientation="Horizontal"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center">
-                                <TextBlock Text="Spec: "
-                                           FontSize="20"
-                                           FontWeight="SemiBold" />
-                                <TextBlock Text="{Binding SpecInfo}"
-                                           FontSize="20"
-                                           FontWeight="SemiBold" />
-                            </StackPanel>
-                        </Border>
-                        <!--  EACH Item N/R  -->
-                        <ItemsControl ItemsSource="{Binding Items}"
-                                      Focusable="False"
-                                      HorizontalAlignment="Center"
-                                      IsEnabled="{Binding EnableTest}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Vertical"
-                                                            VirtualizingPanel.IsVirtualizing="True"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="0,0,5,0">
-                                        <DockPanel LastChildFill="True">
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorN}"
-                                                               Text="{Binding CaptionN}" />
-                                                    <TextBox Style="{StaticResource NInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorR}"
-                                                               Text="{Binding CaptionR}" />
-                                                    <TextBox Style="{StaticResource RInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <Grid />
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Border>
-                <!--  VISCOSITY  -->
-                <Border DockPanel.Dock="Left"
-                        BorderThickness="1"
-                        BorderBrush="Silver"
-                        CornerRadius="2"
-                        Margin="2"
-                        Padding="5">
-                    <StackPanel DataContext="{Binding Viscosity}"
-                                Orientation="Vertical"
-                                Width="250"
-                                HorizontalAlignment="Center">
-                        <!--  CAPTION  -->
-                        <Border Background="DarkMagenta"
-                                Margin="0,2"
-                                Padding="3"
-                                CornerRadius="2">
-                            <TextBlock Text="VISCOSITY (Cps)"
-                                       TextAlignment="Center"
-                                       HorizontalAlignment="Stretch"
-                                       Foreground="Yellow"
-                                       FontWeight="SemiBold" />
-                        </Border>
-                        <!--  SPEC  -->
-                        <Border Background="LightGoldenrodYellow"
-                                Margin="0,2"
-                                Padding="3"
-                                CornerRadius="2">
-                            <StackPanel DataContext="{Binding Spec}"
-                                        Orientation="Horizontal"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center">
-                                <TextBlock Text="Spec: "
-                                           FontSize="20"
-                                           FontWeight="SemiBold" />
-                                <TextBlock Text="{Binding SpecInfo}"
-                                           FontSize="20"
-                                           FontWeight="SemiBold" />
-                            </StackPanel>
-                        </Border>
-                        <!--  EACH Item N/R  -->
-                        <ItemsControl ItemsSource="{Binding Items}"
-                                      Focusable="False"
-                                      HorizontalAlignment="Center"
-                                      IsEnabled="{Binding EnableTest}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Vertical"
-                                                            VirtualizingPanel.IsVirtualizing="True"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="0,0,5,0">
-                                        <DockPanel LastChildFill="True">
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorN}"
-                                                               Text="{Binding CaptionN}" />
-                                                    <TextBox Style="{StaticResource NInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorR}"
-                                                               Text="{Binding CaptionR}" />
-                                                    <TextBox Style="{StaticResource RInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <Grid />
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Border>
-                <Grid />
-            </DockPanel>
-            <!--  TSC  -->
-            <DockPanel LastChildFill="True" DataContext="{Binding TSC}">
-                <!--  TSC CAPTION  -->
-                <Border DockPanel.Dock="Top"
-                        BorderThickness="1"
-                        BorderBrush="Silver"
-                        Background="DarkMagenta"
-                        CornerRadius="2"
-                        Margin="2"
-                        Padding="5">
-                    <TextBlock Text="TSC %"
-                               TextAlignment="Center"
-                               HorizontalAlignment="Stretch"
-                               Foreground="Yellow"
-                               FontWeight="SemiBold" />
-                </Border>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <DockPanel LastChildFill="True">
-                    <!--  BREAK W  -->
-                    <StackPanel DockPanel.Dock="Left"
-                                DataContext="{Binding BreakerWeight}"
-                                Width="250"
-                                Margin="0,0,1,0">
-                        <!--  CAPTION  -->
-                        <Border BorderThickness="1"
+                    <!--  SEARCH/RESULT LINE 1  -->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                        <StackPanel Orientation="Horizontal">
+                            <!--  LOT NO  -->
+                            <StackPanel Orientation="Vertical" Margin="2">
+                                <TextBlock Text="Lot No:" />
+                                <TextBox x:Name="txtLotNo"
+                                         Width="150"
+                                         TextAlignment="Center"
+                                         Style="{StaticResource CommonTextBox}"
+                                         KeyDown="txtLotNo_KeyDown" />
+                            </StackPanel>
+                            <!--  DIP SOLUTION  -->
+                            <StackPanel Orientation="Vertical" Margin="2">
+                                <TextBlock Text="DIP Solution:" />
+                                <TextBox x:Name="txtDIPSolution"
+                                         TextAlignment="Center"
+                                         Width="200"
+                                         IsReadOnly="True"
+                                         Text="{Binding ItemCode, TargetNullValue=''}"
+                                         Style="{StaticResource CommonTextBox}" />
+                            </StackPanel>
+                            <!--  COMPOUND  -->
+                            <StackPanel Orientation="Vertical" Margin="2">
+                                <TextBlock Text="Compound:" />
+                                <TextBox x:Name="txtCOMPOUND"
+                                         TextAlignment="Center"
+                                         Width="150"
+                                         IsReadOnly="True"
+                                         Text="{Binding Compounds, TargetNullValue=''}"
+                                         Style="{StaticResource CommonTextBox}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <Grid />
+                    </DockPanel>
+                    <!--  SEARCH/RESULT LINE 2  -->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                        <StackPanel Orientation="Horizontal">
+                            <!--  START TEST DATE  -->
+                            <StackPanel Orientation="Vertical" Margin="2">
+                                <TextBlock Text="Date:" />
+                                <xctk:DateTimePicker x:Name="txtTestDate"
+                                                     Width="200"
+                                                     Format="Custom"
+                                                     FormatString="dd/MM/yyyy HH:mm"
+                                                     AutoCloseCalendar="True"
+                                                     AutoCloseCalendarOnTimeSelection="True" />
+                            </StackPanel>
+                        </StackPanel>
+                        <Grid />
+                    </DockPanel>
+                    <!--  PH/TEMP/VISCOSITY  -->
+                    <DockPanel DockPanel.Dock="Top"
+                               LastChildFill="True"
+                               Margin="0,2,0,0">
+                        <!--  PH  -->
+                        <Border DockPanel.Dock="Left"
+                                BorderThickness="1"
+                                BorderBrush="Silver"
+                                CornerRadius="2"
+                                Margin="0,0,2,2"
+                                Padding="2">
+                            <StackPanel DataContext="{Binding Ph}"
+                                        Orientation="Vertical"
+                                        Width="250"
+                                        HorizontalAlignment="Center">
+                                <!--  CAPTION  -->
+                                <Border Background="DarkMagenta"
+                                        Margin="0"
+                                        Padding="2"
+                                        CornerRadius="2">
+                                    <TextBlock Text="PH"
+                                               TextAlignment="Center"
+                                               HorizontalAlignment="Stretch"
+                                               Foreground="WhiteSmoke"
+                                               FontWeight="SemiBold" />
+                                </Border>
+                                <!--  SPEC  -->
+                                <Border Background="LightGoldenrodYellow"
+                                        BorderThickness="1"
+                                        BorderBrush="Silver"
+                                        Margin="0"
+                                        Padding="3"
+                                        CornerRadius="2">
+                                    <StackPanel DataContext="{Binding Spec}"
+                                                Orientation="Horizontal"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                        <TextBlock Text="Spec: "
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding SpecInfo}"
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold" />
+                                    </StackPanel>
+                                </Border>
+                                <!--  EACH Item N/R  -->
+                                <ItemsControl ItemsSource="{Binding Items}"
+                                              Focusable="False"
+                                              HorizontalAlignment="Center"
+                                              IsEnabled="{Binding EnableTest}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Vertical"
+                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="0,0,5,0">
+                                                <DockPanel LastChildFill="True">
+                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorN}"
+                                                                       Text="{Binding CaptionN}" />
+                                                            <TextBox Style="{StaticResource NInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR}"
+                                                                       Text="{Binding CaptionR}" />
+                                                            <TextBox Style="{StaticResource RInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <Grid />
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                        <!--  TEMPERATURE  -->
+                        <Border DockPanel.Dock="Left"
+                                BorderThickness="1"
+                                BorderBrush="Silver"
+                                CornerRadius="2"
+                                Margin="0,0,2,2"
+                                Padding="2">
+                            <StackPanel DataContext="{Binding Temperature}"
+                                        Orientation="Vertical"
+                                        Width="250"
+                                        HorizontalAlignment="Center">
+                                <!--  CAPTION  -->
+                                <Border Background="DarkMagenta"
+                                        Margin="0"
+                                        Padding="3"
+                                        CornerRadius="2">
+                                    <TextBlock Text="TEMPERATURE (℃)"
+                                               TextAlignment="Center"
+                                               HorizontalAlignment="Stretch"
+                                               Foreground="WhiteSmoke"
+                                               FontWeight="SemiBold" />
+                                </Border>
+                                <!--  SPEC  -->
+                                <Border Background="LightGoldenrodYellow"
+                                        BorderThickness="1"
+                                        BorderBrush="Silver"
+                                        Margin="0"
+                                        Padding="3"
+                                        CornerRadius="2">
+                                    <StackPanel DataContext="{Binding Spec}"
+                                                Orientation="Horizontal"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                        <TextBlock Text="Spec: "
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding SpecInfo}"
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold" />
+                                    </StackPanel>
+                                </Border>
+                                <!--  EACH Item N/R  -->
+                                <ItemsControl ItemsSource="{Binding Items}"
+                                              Focusable="False"
+                                              HorizontalAlignment="Center"
+                                              IsEnabled="{Binding EnableTest}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Vertical"
+                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="0,0,5,0">
+                                                <DockPanel LastChildFill="True">
+                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorN}"
+                                                                       Text="{Binding CaptionN}" />
+                                                            <TextBox Style="{StaticResource NInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR}"
+                                                                       Text="{Binding CaptionR}" />
+                                                            <TextBox Style="{StaticResource RInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <Grid />
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                        <!--  VISCOSITY  -->
+                        <Border DockPanel.Dock="Left"
+                                BorderThickness="1"
+                                BorderBrush="Silver"
+                                CornerRadius="2"
+                                Margin="0,0,2,2"
+                                Padding="2">
+                            <StackPanel DataContext="{Binding Viscosity}"
+                                        Orientation="Vertical"
+                                        Width="250"
+                                        HorizontalAlignment="Center">
+                                <!--  CAPTION  -->
+                                <Border Background="DarkMagenta"
+                                        Margin="0"
+                                        Padding="3"
+                                        CornerRadius="2">
+                                    <TextBlock Text="VISCOSITY (Cps)"
+                                               TextAlignment="Center"
+                                               HorizontalAlignment="Stretch"
+                                               Foreground="WhiteSmoke"
+                                               FontWeight="SemiBold" />
+                                </Border>
+                                <!--  SPEC  -->
+                                <Border Background="LightGoldenrodYellow"
+                                        BorderThickness="1"
+                                        BorderBrush="Silver"
+                                        Margin="0"
+                                        Padding="3"
+                                        CornerRadius="2">
+                                    <StackPanel DataContext="{Binding Spec}"
+                                                Orientation="Horizontal"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                        <TextBlock Text="Spec: "
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding SpecInfo}"
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold" />
+                                    </StackPanel>
+                                </Border>
+                                <!--  EACH Item N/R  -->
+                                <ItemsControl ItemsSource="{Binding Items}"
+                                              Focusable="False"
+                                              HorizontalAlignment="Center"
+                                              IsEnabled="{Binding EnableTest}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Vertical"
+                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="0,0,5,0">
+                                                <DockPanel LastChildFill="True">
+                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorN}"
+                                                                       Text="{Binding CaptionN}" />
+                                                            <TextBox Style="{StaticResource NInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR}"
+                                                                       Text="{Binding CaptionR}" />
+                                                            <TextBox Style="{StaticResource RInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <Grid />
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                        <Grid />
+                    </DockPanel>
+                    <!--  TSC  -->
+                    <DockPanel LastChildFill="True" DataContext="{Binding TSC}">
+                        <!--  TSC CAPTION  -->
+                        <Border DockPanel.Dock="Top"
+                                BorderThickness="1"
                                 BorderBrush="Silver"
                                 Background="DarkMagenta"
                                 CornerRadius="2"
-                                Margin="0"
+                                Margin="1"
                                 Padding="5">
-                            <TextBlock TextAlignment="Center"
+                            <DockPanel LastChildFill="True"
                                        HorizontalAlignment="Stretch"
-                                       Foreground="Yellow"
-                                       FontWeight="SemiBold">
-                                <Run Text="BREAKER WT (g)" />
-                                <LineBreak />
-                                <LineBreak />
-                                <Run Text="A" />
-                            </TextBlock>
+                                       VerticalAlignment="Center">
+                                <Border DockPanel.Dock="Right"
+                                        Background="CornflowerBlue"
+                                        CornerRadius="2"
+                                        Margin="10,2"
+                                        Padding="10,3">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="RPU Spec : "
+                                                   Foreground="WhiteSmoke"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding Spec.SpecInfo}"
+                                                   Foreground="WhiteSmoke"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Text="TSC %"
+                                           TextAlignment="Center"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           FontWeight="SemiBold" />
+                            </DockPanel>
                         </Border>
-                        <!--  EACH Item N/R  -->
-                        <ItemsControl ItemsSource="{Binding Items}"
-                                      Focusable="False"
-                                      HorizontalAlignment="Center"
-                                      IsEnabled="{Binding EnableTest}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Vertical"
-                                                            VirtualizingPanel.IsVirtualizing="True"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="0,0,5,0">
-                                        <DockPanel LastChildFill="True">
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorN}"
-                                                               Text="{Binding CaptionN}" />
-                                                    <TextBox Style="{StaticResource NInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorR}"
-                                                               Text="{Binding CaptionR}" />
-                                                    <TextBox Style="{StaticResource RInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <Grid />
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                    <!--  BREAK W BEFORE HEAT  -->
-                    <StackPanel DockPanel.Dock="Left"
-                                DataContext="{Binding BreakerWeightBeforeHeat}"
-                                Width="250"
-                                Margin="0,0,1,0">
-                        <!--  CAPTION  -->
-                        <Border BorderThickness="1"
-                                BorderBrush="Silver"
-                                Background="DarkMagenta"
-                                CornerRadius="2"
-                                Margin="0"
-                                Padding="5">
-                            <TextBlock TextAlignment="Center"
-                                       HorizontalAlignment="Stretch"
-                                       Foreground="Yellow"
-                                       FontWeight="SemiBold">
-                                <Run Text="BREAKER WT (g) + " />
-                                <LineBreak />
-                                <Run Text="DIP SOL. BEFORE HEAT (g)" />
-                                <LineBreak />
-                                <Run Text="B" />
-                            </TextBlock>
-                        </Border>
-                        <!--  EACH Item N/R  -->
-                        <ItemsControl ItemsSource="{Binding Items}"
-                                      Focusable="False"
-                                      HorizontalAlignment="Center"
-                                      IsEnabled="{Binding EnableTest}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Vertical"
-                                                            VirtualizingPanel.IsVirtualizing="True"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="0,0,5,0">
-                                        <DockPanel LastChildFill="True">
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorN}"
-                                                               Text="{Binding CaptionN}" />
-                                                    <TextBox Style="{StaticResource NInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorR}"
-                                                               Text="{Binding CaptionR}" />
-                                                    <TextBox Style="{StaticResource RInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <Grid />
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                    <!--  BREAK W AFTER HEAT  -->
-                    <StackPanel DockPanel.Dock="Left"
-                                DataContext="{Binding BreakerWeightAfterHeat}"
-                                Width="250"
-                                Margin="0,0,1,0">
-                        <!--  CAPTION  -->
-                        <Border BorderThickness="1"
-                                BorderBrush="Silver"
-                                Background="DarkMagenta"
-                                CornerRadius="2"
-                                Margin="0"
-                                Padding="5">
-                            <TextBlock TextAlignment="Center"
-                                       HorizontalAlignment="Stretch"
-                                       Foreground="Yellow"
-                                       FontWeight="SemiBold">
-                                <Run Text="BREAKER WT (g) + " />
-                                <LineBreak />
-                                <Run Text="DIP SOL. AFTER HEAT (g)" />
-                                <LineBreak />
-                                <Run Text="C" />
-                            </TextBlock>
-                        </Border>
-                        <!--  EACH Item N/R  -->
-                        <ItemsControl ItemsSource="{Binding Items}"
-                                      Focusable="False"
-                                      HorizontalAlignment="Center"
-                                      IsEnabled="{Binding EnableTest}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Vertical"
-                                                            VirtualizingPanel.IsVirtualizing="True"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="0,0,5,0">
-                                        <DockPanel LastChildFill="True">
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorN}"
-                                                               Text="{Binding CaptionN}" />
-                                                    <TextBox Style="{StaticResource NInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorR}"
-                                                               Text="{Binding CaptionR}" />
-                                                    <TextBox Style="{StaticResource RInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <Grid />
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                    <!--  RPU  -->
-                    <StackPanel DataContext="{Binding RPU}"
-                                Width="250"
-                                Margin="0,0,1,0">
-                        <!--  CAPTION  -->
-                        <Border BorderThickness="1"
-                                BorderBrush="Silver"
-                                Background="DarkMagenta"
-                                CornerRadius="2"
-                                Margin="0"
-                                Padding="5">
-                            <TextBlock TextAlignment="Center"
-                                       HorizontalAlignment="Stretch"
-                                       Foreground="Yellow"
-                                       FontWeight="SemiBold">
-                                <Run Text="RPU" />
-                                <LineBreak />
-                                <LineBreak />
-                                <Run Text="(C-A)/(B-A) x 100" />
-                            </TextBlock>
-                        </Border>
-                        <!--  EACH Item N/R  -->
-                        <ItemsControl ItemsSource="{Binding Items}"
-                                      Focusable="False"
-                                      HorizontalAlignment="Center"
-                                      IsEnabled="{Binding EnableTest}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Vertical"
-                                                            VirtualizingPanel.IsVirtualizing="True"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="0,0,5,0">
-                                        <DockPanel LastChildFill="True">
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorN}"
-                                                               Text="{Binding CaptionN}" />
-                                                    <TextBox Style="{StaticResource NInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
-                                                    <TextBlock TextAlignment="Center"
-                                                               Foreground="{Binding ForegroundColorR}"
-                                                               Text="{Binding CaptionR}" />
-                                                    <TextBox Style="{StaticResource RInput}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <Grid />
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
+                        <DockPanel LastChildFill="True">
+                            <!--  BREAK W  -->
+                            <StackPanel DockPanel.Dock="Left"
+                                        DataContext="{Binding BreakerWeight}"
+                                        Width="250"
+                                        Margin="0,0,1,0">
+                                <!--  CAPTION  -->
+                                <Border BorderThickness="1"
+                                        BorderBrush="Silver"
+                                        Background="DarkMagenta"
+                                        CornerRadius="2"
+                                        Margin="0"
+                                        Padding="5">
+                                    <TextBlock TextAlignment="Center"
+                                               HorizontalAlignment="Stretch"
+                                               Foreground="WhiteSmoke"
+                                               FontWeight="SemiBold">
+                                        <Run Text="BREAKER WT (g)" />
+                                        <LineBreak />
+                                        <LineBreak />
+                                        <Run Text="A" />
+                                    </TextBlock>
+                                </Border>
+                                <!--  EACH Item N/R  -->
+                                <ItemsControl ItemsSource="{Binding Items}"
+                                              Focusable="False"
+                                              Background="Lavender"
+                                              HorizontalAlignment="Stretch"
+                                              IsEnabled="{Binding EnableTest}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Vertical"
+                                                                    HorizontalAlignment="Stretch"
+                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="0,0,0,0"
+                                                    BorderBrush="Silver"
+                                                    BorderThickness="1,0,1,1">
+                                                <DockPanel LastChildFill="True" Margin="0,1">
+                                                    <Grid Height="5" DockPanel.Dock="Top" />
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorN}"
+                                                                       Text="{Binding CaptionN}" />
+                                                            <TextBox Style="{StaticResource NInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR}"
+                                                                       Text="{Binding CaptionR}" />
+                                                            <TextBox Style="{StaticResource RInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <Grid Height="10" DockPanel.Dock="Top" />
+                                                    <Grid />
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                            <!--  BREAK W BEFORE HEAT  -->
+                            <StackPanel DockPanel.Dock="Left"
+                                        DataContext="{Binding BreakerWeightBeforeHeat}"
+                                        Width="250"
+                                        Margin="0,0,1,0">
+                                <!--  CAPTION  -->
+                                <Border BorderThickness="1"
+                                        BorderBrush="Silver"
+                                        Background="DarkMagenta"
+                                        CornerRadius="2"
+                                        Margin="0"
+                                        Padding="5">
+                                    <TextBlock TextAlignment="Center"
+                                               HorizontalAlignment="Stretch"
+                                               Foreground="WhiteSmoke"
+                                               FontWeight="SemiBold">
+                                        <Run Text="BREAKER WT (g) + " />
+                                        <LineBreak />
+                                        <Run Text="DIP SOL. BEFORE HEAT (g)" />
+                                        <LineBreak />
+                                        <Run Text="B" />
+                                    </TextBlock>
+                                </Border>
+                                <!--  EACH Item N/R  -->
+                                <ItemsControl ItemsSource="{Binding Items}"
+                                              Focusable="False"
+                                              Background="FloralWhite"
+                                              HorizontalAlignment="Stretch"
+                                              IsEnabled="{Binding EnableTest}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Vertical"
+                                                                    HorizontalAlignment="Stretch"
+                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="0,0,0,0"
+                                                    BorderBrush="Silver"
+                                                    BorderThickness="0,0,1,1">
+                                                <DockPanel LastChildFill="True" Margin="0,1">
+                                                    <Grid Height="5" DockPanel.Dock="Top" />
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorN}"
+                                                                       Text="{Binding CaptionN}" />
+                                                            <TextBox Style="{StaticResource NInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR}"
+                                                                       Text="{Binding CaptionR}" />
+                                                            <TextBox Style="{StaticResource RInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <Grid Height="10" DockPanel.Dock="Top" />
+                                                    <Grid />
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                            <!--  BREAK W AFTER HEAT  -->
+                            <StackPanel DockPanel.Dock="Left"
+                                        DataContext="{Binding BreakerWeightAfterHeat}"
+                                        Width="250"
+                                        Margin="0,0,1,0">
+                                <!--  CAPTION  -->
+                                <Border BorderThickness="1"
+                                        BorderBrush="Silver"
+                                        Background="DarkMagenta"
+                                        CornerRadius="2"
+                                        Margin="0"
+                                        Padding="5">
+                                    <TextBlock TextAlignment="Center"
+                                               HorizontalAlignment="Stretch"
+                                               Foreground="WhiteSmoke"
+                                               FontWeight="SemiBold">
+                                        <Run Text="BREAKER WT (g) + " />
+                                        <LineBreak />
+                                        <Run Text="DIP SOL. AFTER HEAT (g)" />
+                                        <LineBreak />
+                                        <Run Text="C" />
+                                    </TextBlock>
+                                </Border>
+                                <!--  EACH Item N/R  -->
+                                <ItemsControl ItemsSource="{Binding Items}"
+                                              Focusable="False"
+                                              Background="Cornsilk"
+                                              HorizontalAlignment="Stretch"
+                                              IsEnabled="{Binding EnableTest}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Vertical"
+                                                                    HorizontalAlignment="Stretch"
+                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="0,0,0,0"
+                                                    BorderBrush="Silver"
+                                                    BorderThickness="0,0,1,1">
+                                                <DockPanel LastChildFill="True" Margin="0,1">
+                                                    <Grid Height="5" DockPanel.Dock="Top" />
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorN}"
+                                                                       Text="{Binding CaptionN}" />
+                                                            <TextBox Style="{StaticResource NInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR}"
+                                                                       Text="{Binding CaptionR}" />
+                                                            <TextBox Style="{StaticResource RInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <Grid Height="10" DockPanel.Dock="Top" />
+                                                    <Grid />
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                            <!--  RPU  -->
+                            <StackPanel DataContext="{Binding RPU}"
+                                        Width="250"
+                                        Margin="0,0,1,0">
+                                <!--  CAPTION  -->
+                                <Border BorderThickness="1"
+                                        BorderBrush="Silver"
+                                        Background="DarkMagenta"
+                                        CornerRadius="2"
+                                        Margin="0"
+                                        Padding="5">
+                                    <TextBlock TextAlignment="Center"
+                                               HorizontalAlignment="Stretch"
+                                               Foreground="WhiteSmoke"
+                                               FontWeight="SemiBold">
+                                        <Run Text="RPU" />
+                                        <LineBreak />
+                                        <LineBreak />
+                                        <Run Text="(C-A)/(B-A) x 100" />
+                                    </TextBlock>
+                                </Border>
+                                <!--  EACH Item N/R  -->
+                                <ItemsControl ItemsSource="{Binding Items}"
+                                              Focusable="False"
+                                              Background="AliceBlue"
+                                              HorizontalAlignment="Stretch"
+                                              IsEnabled="{Binding EnableTest}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Vertical"
+                                                                    HorizontalAlignment="Stretch"
+                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="0,0,0,0"
+                                                    BorderBrush="Silver"
+                                                    BorderThickness="0,0,1,1">
+                                                <DockPanel LastChildFill="True" Margin="0,1">
+                                                    <Grid Height="5" DockPanel.Dock="Top" />
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorN}"
+                                                                       Text="{Binding CaptionN}" />
+                                                            <TextBox Style="{StaticResource NInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR}"
+                                                                       Text="{Binding CaptionR}" />
+                                                            <TextBox Style="{StaticResource RInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <Grid Height="10" DockPanel.Dock="Top" />
+                                                    <Grid />
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                            <Grid />
+                        </DockPanel>
+                    </DockPanel>
                     <Grid />
                 </DockPanel>
-            </DockPanel>
-            <Grid />
+            </ScrollViewer>
         </DockPanel>
     </page:NPage>
 </UserControl>
