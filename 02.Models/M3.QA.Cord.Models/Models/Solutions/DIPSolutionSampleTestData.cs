@@ -69,6 +69,8 @@ namespace M3.QA.Models
         public DIPSolutionTempurature Temperature { get; set; }
         public DIPSolutionViscosity Viscosity { get; set; }
 
+        public DIPSolutionTSC TSC { get; set; }
+
         #endregion
 
         #endregion
@@ -120,6 +122,19 @@ namespace M3.QA.Models
                 decimal? ViscosityN = new decimal?();
                 decimal? ViscosityR = new decimal?();
 
+                decimal? breakWN1 = new decimal?(); 
+                decimal? breakWN2 = new decimal?();
+                decimal? breakWR1 = new decimal?(); 
+                decimal? breakWR2 = new decimal?();
+                decimal? breakWBHN1 = new decimal?();
+                decimal? breakWBHN2 = new decimal?();
+                decimal? breakWBHR1 = new decimal?();
+                decimal? breakWBHR2 = new decimal?();
+                decimal? breakWAHN1 = new decimal?();
+                decimal? breakWAHN2 = new decimal?();
+                decimal? breakWAHR1 = new decimal?(); 
+                decimal? breakWAHR2 = new decimal?();
+
                 foreach (var item in items)
                 {
                     if (iCnt == 0)
@@ -148,6 +163,19 @@ namespace M3.QA.Models
                         TempR = item.TempturatureR;
                         ViscosityN = item.ViscosityN;
                         ViscosityR = item.ViscosityR;
+
+                        breakWN1 = item.BreakerWN1;
+                        breakWN2 = item.BreakerWN2;
+                        breakWR1 = item.BreakerWR1;
+                        breakWR2 = item.BreakerWR2;
+                        breakWBHN1 = item.BreakerW_BHN1;
+                        breakWBHN2 = item.BreakerW_BHN2;
+                        breakWBHR1 = item.BreakerW_BHR1;
+                        breakWBHR2 = item.BreakerW_BHR2;
+                        breakWAHN1 = item.BreakerW_AHN1;
+                        breakWAHN2 = item.BreakerW_AHN2;
+                        breakWAHR1 = item.BreakerW_AHR1;
+                        breakWAHR2 = item.BreakerW_AHR2;
                     }
                     else
                     {
@@ -167,6 +195,13 @@ namespace M3.QA.Models
 
                     ret.Viscosity = DIPSolutionViscosity.Create(ret, ViscosityN, ViscosityR);
                     ret.Viscosity.AllowReTest = ret.AloowRetest;
+
+                    var spec = ret.Specs.FindByPropertyNo(13);
+                    ret.TSC = DIPSolutionTSC.Create(ret, 2,
+                        breakWN1, breakWN2, breakWR1, breakWR2,
+                        breakWBHN1, breakWBHN2, breakWBHR1, breakWBHR2,
+                        breakWAHN1, breakWAHN2, breakWAHR1, breakWAHR2,
+                        ret.AloowRetest);
                 }
             }
             catch (Exception ex)

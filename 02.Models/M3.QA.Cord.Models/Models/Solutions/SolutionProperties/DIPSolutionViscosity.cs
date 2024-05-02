@@ -135,7 +135,6 @@ namespace M3.QA.Models
 
             result = new DIPSolutionViscosity();
             result.LotNo = value.LotNo;
-            result.LotNo = value.LotNo;
             result.PropertyNo = 18; // Temperature = 18
             result.NeedSP = false;
             result.Spec = spec;

@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -237,92 +238,109 @@ namespace M3.QA.Models
 
         #region Create
 
-        /*
         /// <summary>
         /// Create
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="totalN"></param>
+        /// <param name="breakWN1"></param>
+        /// <param name="breakWN2"></param>
+        /// <param name="breakWR1"></param>
+        /// <param name="breakWR2"></param>
+        /// <param name="breakWBHN1"></param>
+        /// <param name="breakWBHN2"></param>
+        /// <param name="breakWBHR1"></param>
+        /// <param name="breakWBHR2"></param>
+        /// <param name="breakWAHN1"></param>
+        /// <param name="breakWAHN2"></param>
+        /// <param name="breakWAHR1"></param>
+        /// <param name="breakWAHR2"></param>
         /// <returns></returns>
-        internal static List<CordAdhesionForce> Create(CordSampleTestData value,
-            Utils.M_GetPropertyTotalNByItem totalN)
+        internal static DIPSolutionTSC Create(DIPSolutionSampleTestData value,
+            decimal? breakWN1, decimal? breakWN2,
+            decimal? breakWR1, decimal? breakWR2,
+            decimal? breakWBHN1, decimal? breakWBHN2,
+            decimal? breakWBHR1, decimal? breakWBHR2,
+            decimal? breakWAHN1, decimal? breakWAHN2,
+            decimal? breakWAHR1, decimal? breakWAHR2,
+            Func<bool> allowReTest)
         {
-            List<CordAdhesionForce> results = new List<CordAdhesionForce>();
+            DIPSolutionTSC result = null;
             if (null == value)
-                return results;
+                return result;
 
-            // For Adhesion Force Proepty No = 4
-            int noOfSample = (null != totalN) ? totalN.NoSample : 0;
-            int alllowSP = (value.TotalSP.HasValue) ? value.TotalSP.Value : 0;
 
-            // Adhesion Force Proepty No = 4
-            var spec = value.Specs.FindByPropertyNo(4);
+            // TSC Proepty No = 13
+            var spec = value.Specs.FindByPropertyNo(13);
+            int noOfSample = (null != spec) ? spec.NoSample : 0;
 
-            int i = 1;
-            int iMaxLimitSP = 7;
-            while (i <= iMaxLimitSP)
-            {
-                if (results.Count >= alllowSP)
-                    break; // already reach max allow SP
+            result = new DIPSolutionTSC();
+            result.LotNo = value.LotNo;
+            result.PropertyNo = 13; // TSC = 13
+            result.NeedSP = false;
+            result.Spec = spec;
+            result.NoOfSample = noOfSample;
 
-                int? SP;
-                switch (i)
-                {
-                    case 1: SP = value.SP1; break;
-                    case 2: SP = value.SP2; break;
-                    case 3: SP = value.SP3; break;
-                    case 4: SP = value.SP4; break;
-                    case 5: SP = value.SP5; break;
-                    case 6: SP = value.SP6; break;
-                    case 7: SP = value.SP7; break;
-                    default: SP = new int?(); break;
-                }
-                // Skip SP is null
-                if (!SP.HasValue)
-                {
-                    i++; // increase index and skip to next loop.
-                    continue;
-                }
+            // Break Weight
+            if (null == result.BreakerWeight) result.BreakerWeight = new NRTestProperty();
+            // Set Common properties
+            result.BreakerWeight.LotNo = result.LotNo;
+            result.BreakerWeight.PropertyNo = result.PropertyNo;
+            result.BreakerWeight.NeedSP = result.NeedSP;
+            result.BreakerWeight.NoOfSample = result.NoOfSample;
+            result.BreakerWeight.AllowReTest = allowReTest;
+            result.BreakerWeight.Spec = result.Spec;
+            // Set N/R
+            result.BreakerWeight.N1 = breakWN1;
+            result.BreakerWeight.N2 = breakWN2;
+            result.BreakerWeight.R1 = breakWR1;
+            result.BreakerWeight.R2 = breakWR2;
 
-                var inst = new CordAdhesionForce()
-                {
-                    LotNo = value.LotNo,
-                    PropertyNo = 4, // Adhesion Force = 4
-                    SPNo = SP,
-                    NeedSP = true,
-                    Spec = spec,
-                    YarnType = value.YarnType,
-                    NoOfSample = noOfSample
-                };
+            // Break Weight Before Heat
+            if (null == result.BreakerWeightBeforeHeat) result.BreakerWeightBeforeHeat = new NRTestProperty();
+            // Set Common properties
+            result.BreakerWeightBeforeHeat.LotNo = result.LotNo;
+            result.BreakerWeightBeforeHeat.PropertyNo = result.PropertyNo;
+            result.BreakerWeightBeforeHeat.NeedSP = result.NeedSP;
+            result.BreakerWeightBeforeHeat.NoOfSample = result.NoOfSample;
+            result.BreakerWeightBeforeHeat.AllowReTest = allowReTest;
+            result.BreakerWeightBeforeHeat.Spec = result.Spec;
+            // Set N/R
+            result.BreakerWeightBeforeHeat.N1 = breakWBHN1;
+            result.BreakerWeightBeforeHeat.N2 = breakWBHN2;
+            result.BreakerWeightBeforeHeat.R1 = breakWBHR1;
+            result.BreakerWeightBeforeHeat.R2 = breakWBHR2;
 
-                results.Add(inst);
+            // Break Weight After Heat
+            if (null == result.BreakerWeightAfterHeat) result.BreakerWeightAfterHeat = new NRTestProperty();
+            // Set Common properties
+            result.BreakerWeightAfterHeat.LotNo = result.LotNo;
+            result.BreakerWeightAfterHeat.PropertyNo = result.PropertyNo;
+            result.BreakerWeightAfterHeat.NeedSP = result.NeedSP;
+            result.BreakerWeightAfterHeat.NoOfSample = result.NoOfSample;
+            result.BreakerWeightAfterHeat.AllowReTest = allowReTest;
+            result.BreakerWeightAfterHeat.Spec = result.Spec;
+            // Set N/R
+            result.BreakerWeightAfterHeat.N1 = breakWAHN1;
+            result.BreakerWeightAfterHeat.N2 = breakWAHN2;
+            result.BreakerWeightAfterHeat.R1 = breakWAHR1;
+            result.BreakerWeightAfterHeat.R2 = breakWAHR2;
 
-                i++; // increase index
-            }
+            // RPU
+            if (null == result.RPU) result.RPU = new NRTestProperty();
+            // Set Common properties
+            result.RPU.LotNo = result.LotNo;
+            result.RPU.PropertyNo = result.PropertyNo;
+            result.RPU.NeedSP = result.NeedSP;
+            result.RPU.NoOfSample = result.NoOfSample;
+            result.RPU.AllowReTest = allowReTest;
+            result.RPU.Spec = result.Spec;
 
-            var existItems = (value.MasterId.HasValue) ? GetsByLotNo(value.LotNo).Value() : null;
-            if (null != existItems && null != results)
-            {
-                int idx = -1;
-                // loop trought all initial results and fill data with the exists on database
-                foreach (var item in results)
-                {
-                    idx = existItems.FindIndex((x) => { return x.SPNo == item.SPNo; });
-                    if (idx != -1)
-                    {
-                        // need to set because not return from db.
-                        existItems[idx].NoOfSample = item.NoOfSample;
-                        existItems[idx].YarnType = item.YarnType;
-                        existItems[idx].Spec = spec; // assign spec
-                        // Clone anther properties
-                        Clone(existItems[idx], item);
-                    }
-                }
-            }
+            // Calculate Formula
+            result.CalculateFormula();
 
-            return results;
+            return result;
         }
-        */
+
         #endregion
 
         #endregion

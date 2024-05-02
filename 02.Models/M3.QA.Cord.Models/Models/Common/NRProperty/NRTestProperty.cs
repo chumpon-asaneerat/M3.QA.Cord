@@ -829,6 +829,8 @@ namespace M3.QA.Models
             dst.NoOfSample = src.NoOfSample;
             dst.YarnType = src.YarnType;
 
+            dst.Spec = src.Spec;
+
             dst.N1 = src.N1;
             dst.N2 = src.N2;
             dst.N3 = src.N3;

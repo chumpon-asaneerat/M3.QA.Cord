@@ -10,8 +10,10 @@ M3 QA Cord #248
 M3 QA Cord #247
 - 
 
+[commit]
 M3 QA Cord #246
-- 
+- Implements Cord Test Data #205
+  - Implements DIP Solution Test Data #18
 
 [commit]
 M3 QA Cord #245

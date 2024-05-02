@@ -135,7 +135,6 @@ namespace M3.QA.Models
 
             result = new DIPSolutionPH();
             result.LotNo = value.LotNo;
-            result.LotNo = value.LotNo;
             result.PropertyNo = 16; // Ph = 16
             result.NeedSP = false;
             result.Spec = spec;

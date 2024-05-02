@@ -135,7 +135,6 @@ namespace M3.QA.Models
 
             result = new DIPSolutionTempurature();
             result.LotNo = value.LotNo;
-            result.LotNo = value.LotNo;
             result.PropertyNo = 17; // Temperature = 17
             result.NeedSP = false;
             result.Spec = spec;
