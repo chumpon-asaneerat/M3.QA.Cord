@@ -179,10 +179,10 @@ namespace M3.QA.Models
                     }
                 }
 
-                RPU.N1 = (ZN1.HasValue) ? ZN1.Value / 100 : new decimal?();
-                RPU.N2 = (ZN2.HasValue) ? ZN2.Value / 100 : new decimal?();
-                RPU.R1 = (ZR1.HasValue) ? ZR1.Value / 100 : new decimal?();
-                RPU.R2 = (ZR2.HasValue) ? ZR2.Value / 100 : new decimal?();
+                RPU.N1 = (ZN1.HasValue) ? ZN1.Value * 100 : new decimal?();
+                RPU.N2 = (ZN2.HasValue) ? ZN2.Value * 100 : new decimal?();
+                RPU.R1 = (ZR1.HasValue) ? ZR1.Value * 100 : new decimal?();
+                RPU.R2 = (ZR2.HasValue) ? ZR2.Value * 100 : new decimal?();
 
                 // Raise events
                 Raise(() => this.RPU);
