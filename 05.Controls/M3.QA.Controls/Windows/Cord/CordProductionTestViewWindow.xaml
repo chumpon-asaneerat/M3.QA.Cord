@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ctrl="clr-namespace:NLib.Wpf.Controls;assembly=NLib.Wpf.Controls"
         xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
+        xmlns:util="clr-namespace:NLib.Wpf.Controls.Utils;assembly=NLib.Wpf.Controls"
         Title="Cord Production Tets Data View"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
@@ -14,6 +15,55 @@
         Height="750"
         Width="1000"
         mc:Ignorable="d">
+    <Window.Resources>
+        <!--  SPNo  -->
+        <Style x:Key="SPNo"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <Setter Property="Text" Value="{Binding SPNo, TargetNullValue=''}" />
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  N INPUT  -->
+        <Style x:Key="NInput"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.###}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  AVG  -->
+        <Style x:Key="AVG"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding Avg, StringFormat='{}{0:#,##0.###}', TargetNullValue=''}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
     <page:NPage HeaderText="Cord Production Tets Data View">
         <DockPanel LastChildFill="True">
             <!--  NAV BUTTON  -->
@@ -73,91 +123,119 @@
                 <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
-            <DockPanel LastChildFill="True" Margin="10">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <DockPanel LastChildFill="True" Margin="10">
                     <ItemsControl Focusable="False"
                                   VirtualizingPanel.IsVirtualizing="True"
                                   VirtualizingPanel.VirtualizationMode="Recycling"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                   ItemsSource="{Binding Properties}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Margin="5"
+                                <Border Margin="1"
                                         BorderBrush="Silver"
-                                        BorderThickness="1"
+                                        BorderThickness="0,0,0,0.5"
                                         Padding="5">
                                     <DockPanel LastChildFill="True">
-                                        <StackPanel Orientation="Vertical"
-                                                    DockPanel.Dock="Left"
-                                                    Width="400">
-                                            <!--  PROPERTY NAME  -->
-                                            <Border Background="Black"
-                                                    CornerRadius="2"
-                                                    Margin="2"
-                                                    Padding="2"
-                                                    HorizontalAlignment="Left">
-                                                <TextBlock Text="{Binding PropertyName}" Foreground="WhiteSmoke" />
-                                            </Border>
-                                            <!--  SPEC INFO  -->
-                                            <Border Background="CornflowerBlue"
-                                                    CornerRadius="2"
-                                                    Margin="2"
-                                                    Padding="2"
-                                                    HorizontalAlignment="Left">
-                                                <TextBlock Text="{Binding Spec.SpecInfo}" Foreground="WhiteSmoke" />
-                                            </Border>
-                                        </StackPanel>
+                                        <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!--  PROPERTY NO/PROPERTY NAME  -->
+                                                <Border BorderThickness="0"
+                                                        CornerRadius="5"
+                                                        Padding="3"
+                                                        Background="Black">
+                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding PropertyName}"
+                                                                   Foreground="WhiteSmoke"
+                                                                   Margin="2,0"
+                                                                   VerticalAlignment="Center"
+                                                                   TextAlignment="Left" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <!--  SPEC  -->
+                                                <Border BorderThickness="0"
+                                                        CornerRadius="5"
+                                                        Margin="5,0"
+                                                        Padding="3,0"
+                                                        Background="CornflowerBlue">
+                                                    <TextBlock Foreground="WhiteSmoke"
+                                                               Margin="2,0"
+                                                               VerticalAlignment="Center">
+                                                        <Run Text="Spec. :" />
+                                                        <Run Text="{Binding Spec.SpecInfo}" />
+                                                    </TextBlock>
+                                                </Border>
+                                            </StackPanel>
+                                            <Grid />
+                                        </DockPanel>
                                         <!--  TESTS  -->
-                                        <ItemsControl Focusable="False"
-                                                      VirtualizingPanel.IsVirtualizing="True"
-                                                      VirtualizingPanel.VirtualizationMode="Recycling"
-                                                      ItemsSource="{Binding Tests}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border BorderBrush="Silver" BorderThickness="1">
+                                        <DockPanel LastChildFill="True" Margin="0,5">
+                                            <ItemsControl Focusable="False"
+                                                          VirtualizingPanel.IsVirtualizing="True"
+                                                          VirtualizingPanel.VirtualizationMode="Recycling"
+                                                          ItemsSource="{Binding Tests}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
                                                         <DockPanel LastChildFill="True">
-                                                            <StackPanel Orientation="Vertical"
-                                                                        DockPanel.Dock="Left"
-                                                                        VerticalAlignment="Top"
-                                                                        Margin="3">
-                                                                <TextBlock Text="SP" />
-                                                                <TextBox Text="{Binding SPNo}"
-                                                                         IsReadOnly="True"
-                                                                         Width="90"
-                                                                         Style="{StaticResource CommonTextBox}" />
-                                                            </StackPanel>
-                                                            <ItemsControl Focusable="False"
-                                                                          VirtualizingPanel.IsVirtualizing="True"
-                                                                          VirtualizingPanel.VirtualizationMode="Recycling"
-                                                                          ItemsSource="{Binding Items}">
-                                                                <ItemsControl.ItemTemplate>
-                                                                    <DataTemplate>
-                                                                        <Border BorderBrush="Silver" BorderThickness="1">
-                                                                            <StackPanel Orientation="Horizontal">
-                                                                                <StackPanel Orientation="Vertical">
-                                                                                    <TextBlock Text="{Binding CaptionN}" />
-                                                                                    <TextBox Text="{Binding N}"
-                                                                                             IsReadOnly="True"
-                                                                                             Width="90"
-                                                                                             Style="{StaticResource CommonTextBox}" />
-                                                                                </StackPanel>
-                                                                            </StackPanel>
-                                                                        </Border>
-                                                                    </DataTemplate>
-                                                                </ItemsControl.ItemTemplate>
-                                                            </ItemsControl>
+                                                            <!--  SP No.  -->
+                                                            <Border Margin="0,0,2,0" DockPanel.Dock="Left">
+                                                                <StackPanel Orientation="Vertical" Width="100">
+                                                                    <TextBlock Text="Spindle No" TextAlignment="Center" />
+                                                                    <TextBox Style="{StaticResource SPNo}" />
+                                                                </StackPanel>
+                                                            </Border>
+                                                            <!--  ITEMS.  -->
+                                                            <DockPanel LastChildFill="True" DockPanel.Dock="Left">
+                                                                <ItemsControl ItemsSource="{Binding Items}"
+                                                                              Focusable="False"
+                                                                              DockPanel.Dock="Left">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Border Margin="0,0,5,5">
+                                                                                <DockPanel LastChildFill="True">
+                                                                                    <!--  N INPUTS  -->
+                                                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                                        <StackPanel Orientation="Vertical">
+                                                                                            <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
+                                                                                            <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                                        </StackPanel>
+                                                                                    </StackPanel>
+                                                                                </DockPanel>
+                                                                            </Border>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                            <!--  AVG.  -->
+                                                            <Border Margin="0,0,2,0" DockPanel.Dock="Left">
+                                                                <StackPanel Orientation="Vertical" Width="100">
+                                                                    <TextBlock Text="AVG" TextAlignment="Center" />
+                                                                    <TextBox Style="{StaticResource AVG}" />
+                                                                </StackPanel>
+                                                            </Border>
+                                                            <Grid />
                                                         </DockPanel>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </DockPanel>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </ScrollViewer>
-                <Grid />
-            </DockPanel>
+                    <Grid />
+                </DockPanel>
+            </ScrollViewer>
         </DockPanel>
     </page:NPage>
 

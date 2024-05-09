@@ -117,7 +117,7 @@ namespace M3.QA.Models
                 inst.MasterId = rpt.MasterId;
 
                 inst.PropertyNo = rpt.PropertyNo;
-                inst.PropertyName = rpt.PropertName;
+                inst.PropertyName = (string.IsNullOrEmpty(rpt.PropertName)) ? null : rpt.PropertName.Trim();
 
                 inst.NoOfSample = rpt.NoSample;
 
