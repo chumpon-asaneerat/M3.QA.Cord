@@ -278,11 +278,6 @@ namespace M3.QA.Models
         {
             string ret = string.Empty;
 
-            if (!string.IsNullOrWhiteSpace(UnitDesc))
-            {
-                ret += string.Format("[ {0} ] - ", UnitDesc);
-            }
-
             string part1 = string.Empty;
 
             // Plus/Minus

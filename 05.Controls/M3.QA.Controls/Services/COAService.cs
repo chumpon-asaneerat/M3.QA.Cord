@@ -17,6 +17,23 @@ namespace M3.QA
 
         public class COA1
         {
+            private static void WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
+            {
+                if (null != ws && null != p && null != p.Spec)
+                {
+                    // Unit Report
+                    ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
+                    // SPEC
+                    ws.Cells["D" + iRow.ToString()].Value = p.Spec.ReportSpec;
+                    // RESULT
+                    ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                    // JUDGE
+                    ws.Cells["G" + iRow.ToString()].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
+                    // Test Method
+                    ws.Cells["H" + iRow.ToString()].Value = p.Spec.TestMethod;
+                }
+            }
+
             public static void Export(CordProduction value)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
@@ -64,166 +81,41 @@ namespace M3.QA
                             // PI NO 
                             ws.Cells["B16"].Value = value.PiNoSL;
 
+                            #endregion
+
+                            #region Write each properties
+
                             CordProductionProperty p;
                             // TENSILE STRENGTH (PropertyNo = 1)
                             p = value.Properties.FindByPropertyNo(1);
-                            if (null != p && null != p.Spec)
-                            {
-                                // Unit Report
-                                ws.Cells["C20"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D20"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E20"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G20"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H20"].Value = p.Spec.TestMethod;
-                            }
-
+                            WriteProperty(ws, 20, p);
                             // ELONG AT BREAK (PropertyNo = 2)
                             p = value.Properties.FindByPropertyNo(2);
-                            if (null != p && null != p.Spec)
-                            {
-                                // Unit Report
-                                ws.Cells["C21"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D21"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E21"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G21"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H21"].Value = p.Spec.TestMethod;
-                            }
-
+                            WriteProperty(ws, 21, p);
                             // ELONG AT LOAD (PropertyNo = 3)
                             p = value.Properties.FindByPropertyNo(3);
-                            if (null != p && null != p.Spec)
-                            {
-                                // Unit Report
-                                ws.Cells["C22"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D22"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E22"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G22"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H22"].Value = p.Spec.TestMethod;
-                            }
-
+                            WriteProperty(ws, 22, p);
                             // NO OF TWIST (PropertyNo = 7)
                             p = value.Properties.FindByPropertyNo(7);
-                            if (null != p && null != p.Spec)
-                            {
-                                // Unit Report
-                                ws.Cells["C23"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D23"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E23"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G23"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H23"].Value = p.Spec.TestMethod;
-                            }
-
+                            WriteProperty(ws, 23, p);
                             // CORD GAUGE (PropertyNo = 9)
                             p = value.Properties.FindByPropertyNo(9);
-                            if (null != p && null != p.Spec)
-                            {
-                                // Unit Report
-                                ws.Cells["C24"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D24"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E24"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G24"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H24"].Value = p.Spec.TestMethod;
-                            }
-
+                            WriteProperty(ws, 24, p);
                             // THERMAL SHRINKAGE (PropertyNo = 6)
                             p = value.Properties.FindByPropertyNo(6);
-                            if (null != p && null != p.Spec)
-                            {
-                                // Unit Report
-                                ws.Cells["C25"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D25"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E25"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G25"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H25"].Value = p.Spec.TestMethod;
-                            }
-
+                            WriteProperty(ws, 25, p);
                             // CORD SIZE (PropertyNo = 10)
                             p = value.Properties.FindByPropertyNo(10);
-                            if (null != p && null != p.Spec)
-                            {
-                                // Unit Report
-                                ws.Cells["C26"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D26"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E26"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G26"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H26"].Value = p.Spec.TestMethod;
-                            }
-
+                            WriteProperty(ws, 26, p);
                             // MOISTURE REGAIN (PropertyNo = 11)
                             p = value.Properties.FindByPropertyNo(11);
-                            if (null != p && null != p.Spec)
-                            {
-                                // Unit Report
-                                ws.Cells["C27"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D27"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E27"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G27"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H27"].Value = p.Spec.TestMethod;
-                            }
-
+                            WriteProperty(ws, 27, p);
                             // RPU (PropertyNo = 12)
                             p = value.Properties.FindByPropertyNo(12);
-                            if (null != p && null != p.Spec)
-                            {
-                                // Unit Report
-                                ws.Cells["C28"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D28"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E28"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G28"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H28"].Value = p.Spec.TestMethod;
-                            }
-
+                            WriteProperty(ws, 28, p);
                             // ADHESION FORCE (PEEL) (PropertyNo = 4)
                             p = value.Properties.FindByPropertyNo(4);
-                            if (null != p) 
-                            {
-                                // Unit Report
-                                ws.Cells["C29"].Value = "(" + p.Spec.UnitReport + ")";
-                                // SPEC
-                                ws.Cells["D29"].Value = p.Spec.ReportSpec;
-                                // RESULT
-                                ws.Cells["E29"].Value = p.Avg;
-                                // JUDGE
-                                ws.Cells["G29"].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
-                                // Test Method
-                                ws.Cells["H29"].Value = p.Spec.TestMethod;
-                            }
+                            WriteProperty(ws, 29, p);
 
                             #endregion
                         }
@@ -275,16 +167,12 @@ namespace M3.QA
                         var ws = package.Workbook.Worksheets[0]; // check exists
                         if (null != ws)
                         {
-                            #region Header
-                            /*
-                            string hdr = "Cord  production  appearance  check  sheet ( ใบตรวจเช็คเส้นด้ายของ S-9 ) ";
-                            hdr += " Item Code : " + pcCard.ProductCode;
-                            hdr += " Lot :  " + pcCard.DIPLotNo;
-                            ws.Cells["A2"].Value = hdr;
-                            // Date
-                            string sDate = sheet.CheckDate.ToString("dd/MM/yyyy");
-                            ws.Cells["AS2"].Value = " Date : " + sDate;
-                            */
+                            #region Write Cells
+
+                            #endregion
+
+                            #region Write each properties
+
                             #endregion
                         }
 
