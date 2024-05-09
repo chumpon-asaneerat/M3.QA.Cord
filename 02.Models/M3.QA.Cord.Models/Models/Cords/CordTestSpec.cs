@@ -268,6 +268,121 @@ namespace M3.QA.Models
             return ret;
         }
 
+        private string GetReportNoneSpec()
+        {
+            string ret = string.Empty;
+            return ret;
+        }
+
+        private string GetReportPlusMinusSpec()
+        {
+            string ret = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(UnitDesc))
+            {
+                ret += string.Format("[ {0} ] - ", UnitDesc);
+            }
+
+            string part1 = string.Empty;
+
+            // Plus/Minus
+            decimal dCenter = VCenter.HasValue ? VCenter.Value : 0;
+
+            if (VMin.HasValue && VMax.HasValue)
+            {
+                // has both min/max
+                if (VMin.Value == VMax.Value)
+                {
+                    part1 += string.Format("{0:#,##0.###} ± {1:#,##0.###}", dCenter, VMin.Value);
+                }
+                else
+                {
+                    part1 += string.Format("{0:#,##0.###} + {1:#,##0.###}, {0:#,##0.###} - {2:#,##0.###}",
+                        dCenter, VMax.Value, VMin.Value);
+                }
+
+                ret += part1;
+            }
+            else if (VMin.HasValue && !VMax.HasValue)
+            {
+                // has min only
+                part1 += string.Format("{0:#,##0.###} - {1:#,##0.###}", dCenter, VMin.Value);
+
+                ret += part1;
+            }
+            else if (!VMin.HasValue && VMax.HasValue)
+            {
+                // has max only
+                part1 += string.Format("{0:#,##0.###} + {1:#,##0.###}", dCenter, VMax.Value);
+
+                ret += part1;
+            }
+            else
+            {
+                ret += "Spec is not set.";
+            }
+
+            return ret;
+        }
+
+        private string GetReportMinMaxSpec()
+        {
+            string ret = string.Empty;
+
+            // Min/Max
+            if (VMin.HasValue && VMax.HasValue)
+            {
+                // Has both value
+                ret += string.Format("{0:#,##0.###} ≤ N ≤ {1:#,##0.###}", VMin.Value, VMax.Value);
+            }
+            else if (VMin.HasValue && !VMax.HasValue)
+            {
+                // Has Min value only
+                ret += string.Format("MIN. {0:#,##0.###}", VMin.Value);
+            }
+            else if (!VMin.HasValue && VMax.HasValue)
+            {
+                // Has Max value only
+                ret += string.Format("MAX. {0:#,##0.###}", VMax.Value);
+            }
+            else
+            {
+                // No min-max assign
+                ret += "Spec is not set.";
+            }
+
+            return ret;
+        }
+
+        private string GetReportRangeSpec()
+        {
+            string ret = string.Empty;
+
+            // Min/Max
+            if (VMin.HasValue && VMax.HasValue)
+            {
+                // Has both value
+                ret += string.Format("{0:#,##0.###} ≤ N ≤ {1:#,##0.###}", VMin.Value, VMax.Value);
+            }
+            else if (VMin.HasValue && !VMax.HasValue)
+            {
+                // Has Min value only
+                ret += string.Format("MIN. {0:#,##0.###}", VMin.Value);
+            }
+            else if (!VMin.HasValue && VMax.HasValue)
+            {
+                // Has Max value only
+                ret += string.Format("MAX. {0:#,##0.###}", VMax.Value);
+            }
+            else
+            {
+                // No min-max assign
+                ret += "Spec is not set.";
+            }
+
+            return ret;
+        }
+
         private void ApplySpecId()
         {
             if (!IsSettingMode)
@@ -591,6 +706,20 @@ namespace M3.QA.Models
                 else if (SpecId == 1) ret = GetPlusMinusSpec();
                 else if (SpecId == 2) ret = GetMinMaxSpec();
                 else if (SpecId == 3) ret = GetRangeSpec();
+                return ret;
+            }
+            set { }
+        }
+
+        public string ReportSpec
+        {
+            get
+            {
+                string ret = string.Empty;
+                if (SpecId == 0) ret = GetReportNoneSpec();
+                else if (SpecId == 1) ret = GetReportPlusMinusSpec();
+                else if (SpecId == 2) ret = GetReportMinMaxSpec();
+                else if (SpecId == 3) ret = GetReportRangeSpec();
                 return ret;
             }
             set { }

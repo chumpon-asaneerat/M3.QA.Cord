@@ -15,6 +15,8 @@ using NLib.Models;
 
 namespace M3.QA.Models
 {
+    #region CordProductionProperty
+
     /// <summary>
     /// The Cord Production Property class
     /// </summary>
@@ -133,6 +135,8 @@ namespace M3.QA.Models
 
             spec.TestMethod = value.TestMethod;
 
+            spec.UnitReport = value.UnitReport;
+
             return spec;
         }
 
@@ -175,4 +179,32 @@ namespace M3.QA.Models
 
         #endregion
     }
+
+    #endregion
+
+    #region CordProductionPropertyExtensionMethods
+
+    public static class CordProductionPropertyExtensionMethods
+    {
+        #region Find By Property No
+
+        /// <summary>
+        /// Find By Property No.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="propertyNo"></param>
+        /// <returns></returns>
+        public static CordProductionProperty FindByPropertyNo(this List<CordProductionProperty> items,
+            int propertyNo)
+        {
+            if (null == items || items.Count <= 0)
+                return null;
+
+            return items.Find((x) => { return x.PropertyNo == propertyNo; });
+        }
+
+        #endregion
+    }
+
+    #endregion
 }
