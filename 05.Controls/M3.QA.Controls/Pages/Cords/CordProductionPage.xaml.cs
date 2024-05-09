@@ -2,18 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using NLib;
 using NLib.Models;
@@ -176,6 +167,38 @@ namespace M3.QA.Pages
         {
             if (null == item)
                 return;
+
+            if (!item.CoaNo.HasValue) return;
+
+            COAService.COA1.Export(item);
+            //COAService.COA4.Export(item);
+            /*
+            switch (item.CoaNo.Value)
+            {
+                case 1: 
+                    {
+                        COAService.COA1.Export(item);
+                        break;
+                    }
+                case 2:
+                    {
+                        break;
+                    }
+                case 3:
+                    {
+                        break;
+                    }
+                case 4:
+                    {
+                        COAService.COA4.Export(item);
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+            */
         }
 
         #endregion

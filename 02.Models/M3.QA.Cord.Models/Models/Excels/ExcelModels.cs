@@ -858,7 +858,7 @@ namespace M3.QA.Models
                 var sd = new Microsoft.Win32.SaveFileDialog();
                 sd.InitialDirectory = initDir;
                 sd.Title = string.IsNullOrEmpty(title) ? "กรุณาระบุขื่อ excel file ที่ต้องการนำส่งออกข้อมูล" : title;
-                sd.Filter = "Excel Files(*.xls, *.xlsx)|*.xls;*.xlsx";
+                sd.Filter = "Excel Files(*.xlsx)|*.xlsx";
                 sd.FileName = defaultFileName;
                 var ret = sd.ShowDialog(owner) == true;
                 if (ret)

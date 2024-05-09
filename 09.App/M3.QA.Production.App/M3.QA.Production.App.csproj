@@ -43,11 +43,18 @@
     <Reference Include="EPPlus">
       <HintPath>..\..\Executables\Production\Common\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus.DataExtractor, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\EPPlus.DataExtractor.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus.Interfaces">
       <HintPath>..\..\Executables\Production\Common\EPPlus.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus.System.Drawing">
       <HintPath>..\..\Executables\Production\Common\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream">
+      <HintPath>..\..\References\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
