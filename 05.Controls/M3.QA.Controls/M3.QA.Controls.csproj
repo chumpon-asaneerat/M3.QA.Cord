@@ -166,6 +166,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Resources\ExcelResource.cs" />
     <Compile Include="Services\M3QAApp.cs" />
     <Compile Include="Services\SignInService.cs" />
     <Compile Include="Windows\Cord\CordCodeSettingEditorWindow.xaml.cs">
@@ -198,6 +199,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\Original\COA Format.xlsx" />
+    <EmbeddedResource Include="Resources\Excels\COA1.xlsx" />
+    <EmbeddedResource Include="Resources\Excels\COA4.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\00.NLib\NLib.Reports\NLib.Reports.csproj">
