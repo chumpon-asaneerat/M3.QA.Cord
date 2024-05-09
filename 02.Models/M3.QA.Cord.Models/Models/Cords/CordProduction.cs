@@ -21,61 +21,9 @@ namespace M3.QA.Models
     {
         #region Public Methods
 
-        private CordTestSpec GetSpec(Utils.M_GetReportTestSpecByMasterid value)
-        {
-            CordTestSpec spec = null;
-            if (null == value) 
-                return spec;
-
-            // Setup Spec
-            spec = new CordTestSpec();
-            spec.ItemCode = value.ItemCode;
-            spec.MasterId = value.MasterId;
-
-            spec.PropertyNo = value.PropertyNo;
-            spec.PropertyName = value.PropertName;
-            spec.NoSample = value.NoSample;
-
-            spec.SpecId = value.SpecId;
-            spec.SpecDesc = value.SpecDesc;
-
-            spec.UnitId = value.UnitId;
-            spec.UnitDesc = value.UnitDesc;
-
-            spec.OptionId = value.OptionId;
-            spec.OptionDesc = value.OptionDesc;
-
-            spec.VCenter = value.VCenter;
-            spec.VMin = value.VMin;
-            spec.VMax = value.VMax;
-
-            spec.TestMethod = value.TestMethod;
-
-            return spec;
-        }
-
         public void LoadProperties()
         {
-            Properties = new List<CordProductionTest>();
-
-            var rpts = Utils.M_GetReportTestSpecByMasterid.Gets(this.MasterId).Value();
-            if (null == rpts) 
-                return;
-            foreach (var rpt in rpts) 
-            {
-                var inst = new CordProductionTest();
-                inst.ItemCode = rpt.ItemCode;
-                inst.MasterId = rpt.MasterId;
-
-                inst.PropertyNo = rpt.PropertyNo;
-                inst.PropertyName = rpt.PropertName;
-
-                inst.NoOfSample = rpt.NoSample;
-
-                inst.Spec = GetSpec(rpt); // Setup Spec.
-
-                Properties.Add(inst);
-            }
+            Properties = CordProductionProperty.Create(this);
         }
 
         #endregion
@@ -106,7 +54,7 @@ namespace M3.QA.Models
             set { }
         }
 
-        public List<CordProductionTest> Properties { get; set; }
+        public List<CordProductionProperty> Properties { get; set; }
 
         #endregion
 

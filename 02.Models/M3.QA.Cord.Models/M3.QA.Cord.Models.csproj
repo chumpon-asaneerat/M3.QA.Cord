@@ -76,6 +76,8 @@
     <Compile Include="Models\Common\ModelConsts.cs" />
     <Compile Include="Models\Cords\CordCodeDetail.cs" />
     <Compile Include="Models\Cords\CordProduction.cs" />
+    <Compile Include="Models\Cords\CordProductionProperty.cs" />
+    <Compile Include="Models\Cords\CordProductionTest.cs" />
     <Compile Include="Models\Cords\CordProductionTestItem.cs" />
     <Compile Include="Models\Cords\CordTestSpec.cs" />
     <Compile Include="Models\Cords\CordMC.cs" />

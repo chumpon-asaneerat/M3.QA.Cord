@@ -854,7 +854,7 @@ namespace M3.QA.Models
             #region Static Methods
 
             public static NDbResult<List<M_GetReportTestSpecByMasterid>> Gets(
-                int? masterID)
+                int? masterId)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -874,11 +874,82 @@ namespace M3.QA.Models
 
                 var p = new DynamicParameters();
 
-                p.Add("@masterid", masterID);
+                p.Add("@masterid", masterId);
 
                 try
                 {
                     var items = cnn.Query<M_GetReportTestSpecByMasterid>("M_GetReportTestSpecByMasterid", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
+
+        #region P_GetTestDetailByProperty
+
+        public class P_GetTestDetailByProperty
+        {
+            #region Public Properties
+
+            public string ItemCode { get; set; }
+            public string LotNo { get; set; }
+            public int? SPNo { get; set; }
+
+            public decimal? N1 { get; set; }
+            public decimal? N2 { get; set; }
+            public decimal? N3 { get; set; }
+
+            public string LoadN { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<P_GetTestDetailByProperty>> Gets(
+                string lotNo, int propertyno, string unitid)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<P_GetTestDetailByProperty>> ret = new NDbResult<List<P_GetTestDetailByProperty>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@lotNo", lotNo);
+                p.Add("@propertyno", propertyno);
+                p.Add("@unit", unitid);
+
+                try
+                {
+                    var items = cnn.Query<P_GetTestDetailByProperty>("P_GetTestDetailByProperty", p, commandType: CommandType.StoredProcedure);
                     var data = (null != items) ? items.ToList() : null;
 
                     ret.Success(data);
