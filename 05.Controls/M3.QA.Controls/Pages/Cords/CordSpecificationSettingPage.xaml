@@ -191,7 +191,7 @@
         </DataTemplate>
         <!--#endregion-->
     </UserControl.Resources>
-    <page:NPage HeaderText="Cord Code Setting">
+    <page:NPage HeaderText="Cord Test Specification">
         <DockPanel LastChildFill="True" Margin="5">
             <!--  BUTTON BARS  -->
             <DockPanel LastChildFill="True"
