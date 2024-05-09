@@ -98,6 +98,14 @@ namespace M3.QA
                     return GetPage<CordSampleTestDataPage>();
                 }
             }
+            /// <summary>Gets M3 Cord Production Page.</summary>
+            public static CordProductionPage CordProduction
+            {
+                get
+                {
+                    return GetPage<CordProductionPage>();
+                }
+            }
 
             #endregion
 

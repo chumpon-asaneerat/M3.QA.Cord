@@ -15,6 +15,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using NLib;
+using NLib.Models;
+using M3.QA.Models;
+
 #endregion
 
 namespace M3.QA.Pages
@@ -33,6 +37,12 @@ namespace M3.QA.Pages
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region Internal Variables
+
+        public List<CordProduction> searchs = null;
 
         #endregion
 
@@ -100,7 +110,24 @@ namespace M3.QA.Pages
 
         private void Search()
         {
+            DateTime? from = dtDateFrom.Value;
+            DateTime? to = dtDateTo.Value;
 
+            if (string.IsNullOrEmpty(txtLotNo.Text) && !from.HasValue && !to.HasValue)
+            {
+                M3QAApp.Windows.ShowMessage("กรุณาใส่ Lot No หรือ ระบุวันที่ที่ต้องการค้นหา");
+                this.InvokeAction(() =>
+                {
+                    txtLotNo.FocusControl();
+                });
+                return;
+            }
+
+            string lotNo = txtLotNo.Text.Trim();
+
+            grid.ItemsSource = null;
+            searchs = CordProduction.Gets(lotNo, from, to).Value();
+            grid.ItemsSource = searchs;
         }
 
         private void ClearSearch()
@@ -110,8 +137,8 @@ namespace M3.QA.Pages
             dtDateFrom.Value = DateTime.Today;
 
             grid.ItemsSource = null;
-            //searchs = new List<Models.Utils.P_SearchReceiveCord>();
-            //grid.ItemsSource = searchs;
+            searchs = new List<CordProduction>();
+            grid.ItemsSource = searchs;
         }
 
         #endregion

@@ -93,7 +93,7 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
-        // Not implements
+        // Cord Production
         private void cmdCordProduction_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -107,6 +107,9 @@ namespace M3.QA.Pages
                 msgbox.ShowDialog();
                 return;
             }
+            var page = M3QAApp.Pages.CordProduction;
+            page.Setup();
+            PageContentManager.Instance.Current = page;
         }
 
         #endregion
