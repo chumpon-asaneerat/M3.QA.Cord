@@ -364,6 +364,18 @@
                                                             Margin="2,0" />
                                                 <Grid />
                                             </DockPanel>
+                                            <Grid DockPanel.Dock="Top" Height="10" />
+                                            <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                                                <!--  Test Method  -->
+                                                <StackPanel Orientation="Vertical"
+                                                            DockPanel.Dock="Left"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="2,0"
+                                                            Width="300">
+                                                    <TextBlock Text="Test Method:" />
+                                                    <TextBox Text="{Binding TestMethod}" />
+                                                </StackPanel>
+                                            </DockPanel>
                                             <Grid DockPanel.Dock="Top" Height="5" />
                                             <Grid />
                                         </DockPanel>

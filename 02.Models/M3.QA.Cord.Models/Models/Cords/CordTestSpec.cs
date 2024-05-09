@@ -603,6 +603,13 @@ namespace M3.QA.Models
             set { }
         }
 
+        /// <summary>Gets or sets Test Method.</summary>
+        public string TestMethod
+        {
+            get { return Get<string>(); }
+            set { Set(value, () => { }); }
+        }
+
         #endregion
 
         #region For Setting UI
@@ -906,6 +913,7 @@ namespace M3.QA.Models
                             item.VMin = exist.VMin;
                             item.VMax = exist.VMax;
                             item.UnitReport = exist.UnitReport;
+                            item.TestMethod = exist.TestMethod;
                         }
                     }
                 }
@@ -961,6 +969,8 @@ namespace M3.QA.Models
 
             p.Add("@unitreport", value.UnitReport);
             p.Add("@nosample", value.NoSample);
+
+            p.Add("@testmethod", string.IsNullOrWhiteSpace(value.TestMethod) ? null : value.TestMethod);
 
             p.Add("@operator", (null != user) ? user.FullName : null);
 
