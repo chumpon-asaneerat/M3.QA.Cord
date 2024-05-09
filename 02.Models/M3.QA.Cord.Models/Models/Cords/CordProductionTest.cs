@@ -350,6 +350,7 @@ namespace M3.QA.Models
             foreach (var item in tests)
             {
                 var inst = new CordProductionTest();
+
                 inst.LotNo = value.LotNo;
                 inst.PropertyNo = value.PropertyNo;
                 inst.ItemCode = value.ItemCode;

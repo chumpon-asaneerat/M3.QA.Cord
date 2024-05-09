@@ -20,6 +20,35 @@ namespace M3.QA.Models
     /// </summary>
     public class CordProductionProperty : NInpc
     {
+        #region Public Methods
+
+        public void CalcAverage()
+        {
+            if (null == Tests) return;
+
+            decimal total = decimal.Zero;
+            int iCnt = 0;
+            lock (this)
+            {
+                if (null != this.Tests)
+                {
+                    foreach (var item in this.Tests)
+                    {
+                        if (item.Avg.HasValue)
+                        {
+                            // Has N value and no R value so use N to calc avg
+                            total += item.Avg.Value;
+                            ++iCnt;
+                        }
+                    }
+                }
+            }
+            // Calc average value.
+            this.Avg = (iCnt > 0) ? (total / iCnt) : new decimal?();
+        }
+
+        #endregion
+
         #region Public Properties
 
         #region LotNo/PropertyNo/SPNo/NoOfSample
@@ -47,6 +76,17 @@ namespace M3.QA.Models
 
         /// <summary>Gets or sets CordTestSpec.</summary>
         public CordTestSpec Spec { get; set; }
+
+        #endregion
+
+        #region Avg
+
+        /// <summary>Gets or sets Avg value.</summary>
+        public decimal? Avg
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
 
         #endregion
 
@@ -124,6 +164,8 @@ namespace M3.QA.Models
                 inst.Spec = GetSpec(rpt); // Setup Spec.
 
                 inst.Tests = CordProductionTest.Create(inst); // Load Tests
+
+                inst.CalcAverage(); // calc total avg
 
                 results.Add(inst);
             }
