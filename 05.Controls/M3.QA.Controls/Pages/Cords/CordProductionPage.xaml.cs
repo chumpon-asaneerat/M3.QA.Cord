@@ -63,6 +63,20 @@ namespace M3.QA.Pages
             ClearSearch();
         }
 
+        private void cmdView_Click(object sender, RoutedEventArgs e)
+        {
+            var ctx = (null != sender && sender is Button) ? (sender as Button).DataContext : null;
+            var item = (null != ctx) ? ctx as CordProduction : null;
+            Edit(item);
+        }
+
+        private void cmdExport_Click(object sender, RoutedEventArgs e)
+        {
+            var ctx = (null != sender && sender is Button) ? (sender as Button).DataContext : null;
+            var item = (null != ctx) ? ctx as CordProduction : null;
+            Export(item);
+        }
+
         #endregion
 
         #region TextBox Handlers
@@ -139,6 +153,23 @@ namespace M3.QA.Pages
             grid.ItemsSource = null;
             searchs = new List<CordProduction>();
             grid.ItemsSource = searchs;
+
+            this.InvokeAction(() =>
+            {
+                txtLotNo.FocusControl();
+            });
+        }
+
+        private void Edit(CordProduction item)
+        {
+            if (null == item)
+                return;
+        }
+
+        private void Export(CordProduction item)
+        {
+            if (null == item)
+                return;
         }
 
         #endregion

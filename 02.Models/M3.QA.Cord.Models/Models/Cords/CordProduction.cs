@@ -30,7 +30,7 @@ namespace M3.QA.Models
         public decimal PiNoSL { get; set; }
         public string SpindleNo { get; set; }
         public DateTime? InputDate { get; set; }
-        public DateTime? InputTestBy { get; set; }
+        public string InputTestBy { get; set; }
 
         public int? CoaNo { get; set; }
 
@@ -59,9 +59,9 @@ namespace M3.QA.Models
 
             var p = new DynamicParameters();
 
-            p.Add("@lotno", lotNo);
-            p.Add("@dateform", dateform);
-            p.Add("@dateto", dateto);
+            p.Add("@lotno", string.IsNullOrWhiteSpace(lotNo) ? null : lotNo);
+            p.Add("@dateform", dateform.HasValue ? dateform.Value.Date : new DateTime?());
+            p.Add("@dateto", dateto.HasValue ? dateto.Value.Date : new DateTime?());
 
             try
             {
