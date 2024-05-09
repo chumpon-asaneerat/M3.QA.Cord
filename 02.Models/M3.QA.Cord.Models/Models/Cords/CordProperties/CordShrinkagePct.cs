@@ -115,6 +115,7 @@ namespace M3.QA.Models
                     new decimal?());
 
                 // Recheck if less than zero not allow
+                /*
                 if (PctShrinkage.N1.HasValue && PctShrinkage.N1.Value < 0) PctShrinkage.N1 = new decimal?();
                 if (PctShrinkage.N2.HasValue && PctShrinkage.N2.Value < 0) PctShrinkage.N2 = new decimal?();
                 if (PctShrinkage.N3.HasValue && PctShrinkage.N3.Value < 0) PctShrinkage.N3 = new decimal?();
@@ -122,7 +123,7 @@ namespace M3.QA.Models
                 if (PctShrinkage.R1.HasValue && PctShrinkage.R1.Value < 0) PctShrinkage.R1 = new decimal?();
                 if (PctShrinkage.R2.HasValue && PctShrinkage.R2.Value < 0) PctShrinkage.R2 = new decimal?();
                 if (PctShrinkage.R3.HasValue && PctShrinkage.R3.Value < 0) PctShrinkage.R3 = new decimal?();
-
+                */
                 // Raise events
                 Raise(() => this.PctShrinkage);
 

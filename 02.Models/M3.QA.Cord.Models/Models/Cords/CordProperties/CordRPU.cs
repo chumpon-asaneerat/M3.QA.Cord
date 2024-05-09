@@ -49,7 +49,8 @@ namespace M3.QA.Models
         {
             if (null != Spec && null != BeforeHeat && null != AfterHeat)
             {
-                RPUO = (RPU.HasValue) ? Spec.IsOutOfSpec(RPU.Value) : false;
+                bool isZero = (AfterHeat.N1.HasValue && AfterHeat.N1.Value == 0) ? true : false;
+                RPUO = (RPU.HasValue) ? Spec.IsOutOfSpec(RPU.Value) : isZero;
 
                 // set out of range flag to BeforeHeat, AfterHeat object
                 BeforeHeat.NOut1 = RPUO;
@@ -83,8 +84,10 @@ namespace M3.QA.Models
                 BF = (BeforeHeat.R1.HasValue) ? BeforeHeat.R1.Value : (BeforeHeat.N1.HasValue) ? BeforeHeat.N1.Value : new decimal?();
                 AF = (AfterHeat.R1.HasValue) ? AfterHeat.R1.Value : (AfterHeat.N1.HasValue) ? AfterHeat.N1.Value : new decimal?();
 
-                diff = (BF.HasValue && AF.HasValue && (BF.Value - AF.Value > 0)) ? BF.Value - AF.Value : new decimal?();
-                RPU = (diff.HasValue && AF.HasValue && AF.Value > 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
+                //diff = (BF.HasValue && AF.HasValue && (BF.Value - AF.Value > 0)) ? BF.Value - AF.Value : new decimal?();
+                //RPU = (diff.HasValue && AF.HasValue && AF.Value > 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
+                diff = (BF.HasValue && AF.HasValue) ? BF.Value - AF.Value : new decimal?();
+                RPU = (diff.HasValue && AF.HasValue && AF.Value != 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
 
                 // Raise events
                 Raise(() => this.RPU);
