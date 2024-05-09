@@ -170,9 +170,8 @@ namespace M3.QA.Pages
 
             if (!item.CoaNo.HasValue) return;
 
-            COAService.COA1.Export(item);
+            //COAService.COA1.Export(item);
             //COAService.COA4.Export(item);
-            /*
             switch (item.CoaNo.Value)
             {
                 case 1: 
@@ -198,7 +197,6 @@ namespace M3.QA.Pages
                         break;
                     }
             }
-            */
         }
 
         #endregion
