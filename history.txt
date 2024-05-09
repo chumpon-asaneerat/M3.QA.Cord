@@ -16,8 +16,10 @@ M3 QA Cord #266
 M3 QA Cord #265
 - 
 
+[commit]
 M3 QA Cord #264
-- 
+- Implements Cord Test Data #224
+  - EquilibriumMoisture fixed calculation formula #2
 
 [commit]
 M3 QA Cord #263

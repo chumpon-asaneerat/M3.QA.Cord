@@ -231,10 +231,19 @@ namespace M3.QA.Models
                 var aN1 = (YarnWeightAfterDrying.N1.HasValue) ? YarnWeightAfterDrying.N1.Value : new decimal?();
                 var aR1 = (YarnWeightAfterDrying.R1.HasValue) ? YarnWeightAfterDrying.R1.Value : new decimal?();
 
+                // No Round degits
                 EquilibriumMoistureContent.N1 = (aN1.HasValue) ? 
                     (eN1.HasValue ? (eN1 / aN1.Value) * 100 : new decimal?()) : new decimal?();
                 EquilibriumMoistureContent.R1 = (aR1.HasValue) ? 
                     (eN1.HasValue ? (eR1 / aR1.Value) * 100 : new decimal?()) : new decimal?();
+
+                // Round to 2 digits
+                /*
+                EquilibriumMoistureContent.N1 = (aN1.HasValue) ?
+                    (eN1.HasValue ? decimal.Round(((decimal)(eN1 / aN1.Value) * 100), 2) : new decimal?()) : new decimal?();
+                EquilibriumMoistureContent.R1 = (aR1.HasValue) ?
+                    (eN1.HasValue ? decimal.Round(((decimal)(eR1 / aR1.Value) * 100), 2) : new decimal?()) : new decimal?();
+                */
 
                 // Raise events
                 Raise(() => this.EquilibriumMoistureContent);
