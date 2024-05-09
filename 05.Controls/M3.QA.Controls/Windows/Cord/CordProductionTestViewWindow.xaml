@@ -49,6 +49,7 @@
                     <TextBox Text="{Binding LotNo}"
                              Width="120"
                              IsReadOnly="True"
+                             Focusable="False"
                              Style="{StaticResource CommonTextBox}" />
                 </StackPanel>
                 <!--  ITEM CODE  -->
@@ -57,6 +58,7 @@
                     <TextBox Text="{Binding ItemCode}"
                              Width="150"
                              IsReadOnly="True"
+                             Focusable="False"
                              Style="{StaticResource CommonTextBox}" />
                 </StackPanel>
                 <!--  INPUT DATE  -->
@@ -65,13 +67,50 @@
                     <TextBox Text="{Binding sInputDate}"
                              Width="150"
                              IsReadOnly="True"
+                             Focusable="False"
                              Style="{StaticResource CommonTextBox}" />
                 </StackPanel>
                 <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
             <DockPanel LastChildFill="True" Margin="10">
-
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Focusable="False"
+                                  VirtualizingPanel.IsVirtualizing="True"
+                                  VirtualizingPanel.VirtualizationMode="Recycling"
+                                  ItemsSource="{Binding Properties}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="5"
+                                        BorderBrush="Silver"
+                                        BorderThickness="1"
+                                        Padding="5">
+                                    <DockPanel LastChildFill="True">
+                                        <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                                            <Border Background="Black"
+                                                    Padding="2"
+                                                    HorizontalAlignment="Left"
+                                                    DockPanel.Dock="Top">
+                                                <TextBlock Text="{Binding PropertyName}" Foreground="WhiteSmoke" />
+                                            </Border>
+                                            <Grid />
+                                        </DockPanel>
+                                        <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                                            <Border Background="CornflowerBlue"
+                                                    HorizontalAlignment="Left"
+                                                    Padding="2"
+                                                    DockPanel.Dock="Top">
+                                                <TextBlock Text="{Binding Spec.SpecInfo}" Foreground="WhiteSmoke" />
+                                            </Border>
+                                            <Grid />
+                                        </DockPanel>
+                                        <Grid />
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
                 <Grid />
             </DockPanel>
         </DockPanel>

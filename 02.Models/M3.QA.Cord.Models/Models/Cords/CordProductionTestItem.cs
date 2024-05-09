@@ -205,6 +205,14 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region ItemCode/PropertyName/MasterID
+
+        public string ItemCode { get; set; }
+        public string PropertyName { get; set; }
+        public int? MasterId { get; set; }
+
+        #endregion
+
         #region Spec
 
         /// <summary>Gets or sets CordTestSpec.</summary>
@@ -320,6 +328,10 @@ namespace M3.QA.Models
         public List<CordProductionTestItem> Items { get; set; }
 
         #endregion
+
+        #endregion
+
+        #region Static Methods
 
         #endregion
     }

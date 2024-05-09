@@ -56,6 +56,10 @@ namespace M3.QA.Windows
         {
             this.DataContext = null;
             item = value;
+            if (null != item)
+            {
+                item.LoadProperties();
+            }
             this.DataContext = item;
         }
 

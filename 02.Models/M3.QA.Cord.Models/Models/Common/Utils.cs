@@ -821,6 +821,86 @@ namespace M3.QA.Models
         }
 
         #endregion
+
+        #region M_GetReportTestSpecByMasterid
+
+        public class M_GetReportTestSpecByMasterid
+        {
+            #region Public Properties
+
+            public string ItemCode { get; set; }
+            public string PropertName { get; set; }
+            public int NoSample { get; set; }
+            public int? MasterId { get; set; }
+            public int PropertyNo { get; set; }
+            public int SpecId { get; set; }
+            public string SpecDesc { get; set; }
+
+            public string UnitId { get; set; }
+            public string UnitDesc { get; set; }
+
+            public string OptionId { get; set; }
+            public string OptionDesc { get; set; }
+
+            public decimal? VCenter { get; set; }
+            public decimal? VMin { get; set; }
+            public decimal? VMax { get; set; }
+
+            public string UnitReport { get; set; }
+            public string TestMethod { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<M_GetReportTestSpecByMasterid>> Gets(
+                int? masterID)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<M_GetReportTestSpecByMasterid>> ret = new NDbResult<List<M_GetReportTestSpecByMasterid>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@masterid", masterID);
+
+                try
+                {
+                    var items = cnn.Query<M_GetReportTestSpecByMasterid>("M_GetReportTestSpecByMasterid", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
     }
 
     #endregion
