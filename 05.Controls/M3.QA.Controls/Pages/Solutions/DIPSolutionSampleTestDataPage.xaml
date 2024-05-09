@@ -107,12 +107,11 @@
                             <!--  COMPOUND  -->
                             <StackPanel Orientation="Vertical" Margin="2">
                                 <TextBlock Text="Compound:" />
-                                <TextBox x:Name="txtCOMPOUND"
-                                         TextAlignment="Center"
-                                         Width="150"
-                                         IsReadOnly="True"
-                                         Text="{Binding Compounds, TargetNullValue=''}"
-                                         Style="{StaticResource CommonTextBox}" />
+                                <ComboBox x:Name="cbCompound"
+                                          DockPanel.Dock="Left"
+                                          DisplayMemberPath="Compound"
+                                          Width="200"
+                                          SelectionChanged="cbCompound_SelectionChanged" />
                             </StackPanel>
                         </StackPanel>
                         <Grid />

@@ -92,9 +92,10 @@ namespace M3.QA.Models
         /// <summary>
         /// Gets DIPSolutionSampleTestData by Lot No.
         /// </summary>
-        /// <param name="value">The CordSampleTestData item to save.</param>
+        /// <param name="lotNo"></param>
+        /// <param name="compound"></param>
         /// <returns></returns>
-        public static DIPSolutionSampleTestData GetByLotNo(string lotNo)
+        public static DIPSolutionSampleTestData GetByLotNo(string lotNo, string compound)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -107,12 +108,11 @@ namespace M3.QA.Models
 
             try
             {
-                var items = Utils.M_CheckSolutionLotReceive.Gets(lotNo).Value();
+                var items = Utils.M_CheckSolutionLotReceive.Gets(lotNo, compound).Value();
 
                 if (null == items || items.Count <= 0)
                     return ret;
 
-                int iCnt = 0;
                 ret = new DIPSolutionSampleTestData();
 
                 decimal? PhN = new decimal?();
@@ -135,54 +135,48 @@ namespace M3.QA.Models
                 decimal? beakWAHR1 = new decimal?(); 
                 decimal? beakWAHR2 = new decimal?();
 
-                foreach (var item in items)
-                {
-                    if (iCnt == 0)
-                    {
-                        ret.MasterId = item.MasterId;
-                        ret.ItemCode = item.ItemCode;
-                        ret.LotNo = item.LotNo;
 
-                        ret.Compounds = item.Compound;
+                var item = items.FirstOrDefault();
+                if (null == item)
+                    return ret;
 
-                        ret.SendDate = item.SendDate;
-                        ret.SendBy = item.SendBy;
+                ret.MasterId = item.MasterId;
+                ret.ItemCode = item.ItemCode;
+                ret.LotNo = item.LotNo;
 
-                        ret.ForecastFinishDate = item.ForecastFinishDate;
-                        ret.ValidDate = item.ValidDate;
+                ret.Compounds = item.Compound;
 
-                        ret.InputBy = item.InputBy;
-                        ret.InputDate = item.InputDate;
-                        ret.EditBy = item.EditBy;
-                        ret.EditDate = item.EditDate;
+                ret.SendDate = item.SendDate;
+                ret.SendBy = item.SendBy;
 
-                        // Store variables.
-                        PhN = item.PhN;
-                        PhR = item.PhR;
-                        TempN = item.TempturatureN;
-                        TempR = item.TempturatureR;
-                        ViscosityN = item.ViscosityN;
-                        ViscosityR = item.ViscosityR;
+                ret.ForecastFinishDate = item.ForecastFinishDate;
+                ret.ValidDate = item.ValidDate;
 
-                        beakWN1 = item.BeakerWN1;
-                        beakWN2 = item.BeakerWN2;
-                        beakWR1 = item.BeakerWR1;
-                        beakWR2 = item.BeakerWR2;
-                        beakWBHN1 = item.BeakerW_BHN1;
-                        beakWBHN2 = item.BeakerW_BHN2;
-                        beakWBHR1 = item.BeakerW_BHR1;
-                        beakWBHR2 = item.BeakerW_BHR2;
-                        beakWAHN1 = item.BeakerW_AHN1;
-                        beakWAHN2 = item.BeakerW_AHN2;
-                        beakWAHR1 = item.BeakerW_AHR1;
-                        beakWAHR2 = item.BeakerW_AHR2;
-                    }
-                    else
-                    {
-                        ret.Compounds += (string.IsNullOrEmpty(ret.Compounds)) ? item.Compound : ", " + item.Compound;
-                    }
-                    iCnt++;
-                }
+                ret.InputBy = item.InputBy;
+                ret.InputDate = item.InputDate;
+                ret.EditBy = item.EditBy;
+                ret.EditDate = item.EditDate;
+
+                // Store variables.
+                PhN = item.PhN;
+                PhR = item.PhR;
+                TempN = item.TempturatureN;
+                TempR = item.TempturatureR;
+                ViscosityN = item.ViscosityN;
+                ViscosityR = item.ViscosityR;
+
+                beakWN1 = item.BeakerWN1;
+                beakWN2 = item.BeakerWN2;
+                beakWR1 = item.BeakerWR1;
+                beakWR2 = item.BeakerWR2;
+                beakWBHN1 = item.BeakerW_BHN1;
+                beakWBHN2 = item.BeakerW_BHN2;
+                beakWBHR1 = item.BeakerW_BHR1;
+                beakWBHR2 = item.BeakerW_BHR2;
+                beakWAHN1 = item.BeakerW_AHN1;
+                beakWAHN2 = item.BeakerW_AHN2;
+                beakWAHR1 = item.BeakerW_AHR1;
+                beakWAHR2 = item.BeakerW_AHR2;
 
                 if (null != ret && ret.MasterId.HasValue)
                 {
@@ -254,7 +248,7 @@ namespace M3.QA.Models
             }
             else
             {
-                compound = value.Compounds.Contains("FINAL") ? "FINAL" : "RF";
+                compound = value.Compounds.Contains("Final") ? "Final" : "RF";
             }
 
             var p = new DynamicParameters();

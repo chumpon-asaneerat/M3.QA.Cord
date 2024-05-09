@@ -42,6 +42,7 @@ namespace M3.QA.Pages
 
         #region Internal Variables
 
+        private List<CompoundType> compounds = null;
         private DIPSolutionSampleTestData item;
 
         #endregion
@@ -78,7 +79,27 @@ namespace M3.QA.Pages
 
         #endregion
 
+        #region Combox Handlers
+
+        private void cbCompound_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtLotNo.Text))
+                return; // ignore if no Lot No
+            Search();
+        }
+
+        #endregion
+
         #region Private Methods
+
+        private void InitComboboxes()
+        {
+            cbCompound.ItemsSource = null;
+
+            compounds = CompoundType.Gets();
+
+            cbCompound.ItemsSource = compounds;
+        }
 
         private void Search()
         {
@@ -93,10 +114,24 @@ namespace M3.QA.Pages
                 return;
             }
 
+            // Update compound value.
+            var compound = cbCompound.SelectedItem as CompoundType;
+            if (null == compound)
+            {
+                M3QAApp.Windows.ShowMessage("กรุณาใส่ เลือกประเภท Compound");
+                this.InvokeAction(() =>
+                {
+                    cbCompound.FocusControl();
+                });
+                return;
+            }
+
+            string scompound = compound.Compound;
+
             // Set current item and binding
             this.DataContext = null;
 
-            var ret = DIPSolutionSampleTestData.GetByLotNo(sLotNo.Trim());
+            var ret = DIPSolutionSampleTestData.GetByLotNo(sLotNo.Trim(), scompound.Trim());
             if (null == ret)
             {
                 string msg = string.Empty;
@@ -117,6 +152,10 @@ namespace M3.QA.Pages
             this.DataContext = null;
 
             txtLotNo.Text = string.Empty;
+            if (null != cbCompound.ItemsSource && null != compounds && compounds.Count > 0)
+                cbCompound.SelectedIndex = 0;
+            else cbCompound.SelectedIndex = -1;
+
             item = new DIPSolutionSampleTestData();
 
             this.DataContext = item;
@@ -164,6 +203,7 @@ namespace M3.QA.Pages
 
         public void Setup()
         {
+            InitComboboxes();
             Clear();
         }
 

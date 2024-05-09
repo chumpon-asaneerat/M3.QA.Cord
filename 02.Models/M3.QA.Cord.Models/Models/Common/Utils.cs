@@ -773,7 +773,7 @@ namespace M3.QA.Models
             #region Static Methods
 
             public static NDbResult<List<M_CheckSolutionLotReceive>> Gets(
-                string lotNo)
+                string lotNo, string compound)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -794,6 +794,7 @@ namespace M3.QA.Models
                 var p = new DynamicParameters();
 
                 p.Add("@lotno", lotNo);
+                p.Add("@compound", compound);
 
                 try
                 {
