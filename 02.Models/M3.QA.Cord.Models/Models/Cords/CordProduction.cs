@@ -34,6 +34,16 @@ namespace M3.QA.Models
 
         public int? CoaNo { get; set; }
 
+        public string sInputDate
+        {
+            get 
+            {
+                return (InputDate.HasValue) ? 
+                    InputDate.Value.ToString("dd/MM/yyyy", System.Globalization.DateTimeFormatInfo.InvariantInfo) : string.Empty;
+            }
+            set { }
+        }
+
         #endregion
 
         #region Static Methods

@@ -164,6 +164,12 @@ namespace M3.QA.Pages
         {
             if (null == item)
                 return;
+            var win = M3QAApp.Windows.CordProductionTestView;
+            win.Setup(item);
+            if (win.ShowDialog() == true)
+            {
+
+            }
         }
 
         private void Export(CordProduction item)

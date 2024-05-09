@@ -266,6 +266,16 @@ namespace M3.QA
 
             #endregion
 
+            #region Cord Production Test Data View Window
+
+            /// <summary>Gets Cord Production Test Data View Window.</summary>
+            public static CordProductionTestViewWindow CordProductionTestView
+            {
+                get { return GetWindow<CordProductionTestViewWindow>(); }
+            }
+
+            #endregion
+
             #region Export Message
 
             public static void ExportSuccess()

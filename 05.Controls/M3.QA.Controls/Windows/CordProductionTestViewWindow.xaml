@@ -1,0 +1,80 @@
+﻿<Window x:Class="M3.QA.Windows.CordProductionTestViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctrl="clr-namespace:NLib.Wpf.Controls;assembly=NLib.Wpf.Controls"
+        xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
+        Title="Cord Production Tets Data View"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Height="500"
+        Width="900"
+        mc:Ignorable="d">
+    <page:NPage HeaderText="Cord Production Tets Data View">
+        <DockPanel LastChildFill="True">
+            <!--  NAV BUTTON  -->
+            <DockPanel DockPanel.Dock="Bottom"
+                       LastChildFill="True"
+                       Margin="0,5"
+                       Height="40">
+                <ctrl:FontAwesomeButton x:Name="cmdCancel"
+                                        DockPanel.Dock="Left"
+                                        Margin="5,0"
+                                        IconType="Cancel"
+                                        Text="Cancel"
+                                        Height="35"
+                                        FontWeight="Bold"
+                                        Click="cmdCancel_Click" />
+                <ctrl:FontAwesomeButton x:Name="cmdOk"
+                                        DockPanel.Dock="Right"
+                                        Margin="5,0"
+                                        IconType="Ok"
+                                        Text="Ok"
+                                        Height="35"
+                                        FontWeight="Bold"
+                                        Click="cmdOk_Click" />
+                <Grid />
+            </DockPanel>
+            <!--  INFO HEADER  -->
+            <DockPanel LastChildFill="True"
+                       DockPanel.Dock="Top"
+                       Margin="20">
+                <!--  LOT NO  -->
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock Text="Lot No:" />
+                    <TextBox Text="{Binding LotNo}"
+                             Width="120"
+                             IsReadOnly="True"
+                             Style="{StaticResource CommonTextBox}" />
+                </StackPanel>
+                <!--  ITEM CODE  -->
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock Text="Cord Code:" />
+                    <TextBox Text="{Binding ItemCode}"
+                             Width="150"
+                             IsReadOnly="True"
+                             Style="{StaticResource CommonTextBox}" />
+                </StackPanel>
+                <!--  INPUT DATE  -->
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock Text="Input Date:" />
+                    <TextBox Text="{Binding sInputDate}"
+                             Width="150"
+                             IsReadOnly="True"
+                             Style="{StaticResource CommonTextBox}" />
+                </StackPanel>
+                <Grid />
+            </DockPanel>
+            <!--  WORK AREA  -->
+            <DockPanel LastChildFill="True" Margin="10">
+
+                <Grid />
+            </DockPanel>
+        </DockPanel>
+    </page:NPage>
+
+</Window>
