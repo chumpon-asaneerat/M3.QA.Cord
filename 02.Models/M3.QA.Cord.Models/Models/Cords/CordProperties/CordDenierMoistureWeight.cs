@@ -222,14 +222,19 @@ namespace M3.QA.Models
         {
             if (null != YarnWeightBeforeDrying && null != YarnWeightAfterDrying && null != EquilibriumMoistureContent)
             {
-                // Moisture = ((YarnWeightBeforeDrying - YarnWeightAfterDrying) / 4) * 100
+                // Moisture = ((YarnWeightBeforeDrying - YarnWeightAfterDrying) / YarnWeightAfterDrying) * 100
                 var eN1 = (YarnWeightBeforeDrying.N1.HasValue) ?
                     YarnWeightBeforeDrying.N1.Value - ((YarnWeightAfterDrying.N1.HasValue) ? YarnWeightAfterDrying.N1.Value : decimal.Zero) : new decimal?();
                 var eR1 = (YarnWeightBeforeDrying.R1.HasValue) ?
                     YarnWeightBeforeDrying.R1.Value - ((YarnWeightAfterDrying.R1.HasValue) ? YarnWeightAfterDrying.R1.Value : decimal.Zero) : new decimal?();
 
-                EquilibriumMoistureContent.N1 = eN1.HasValue ? (eN1 / 4) * 100 : new decimal?();
-                EquilibriumMoistureContent.R1 = eN1.HasValue ? (eR1 / 4) * 100 : new decimal?();
+                var aN1 = (YarnWeightAfterDrying.N1.HasValue) ? YarnWeightAfterDrying.N1.Value : new decimal?();
+                var aR1 = (YarnWeightAfterDrying.R1.HasValue) ? YarnWeightAfterDrying.R1.Value : new decimal?();
+
+                EquilibriumMoistureContent.N1 = (aN1.HasValue) ? 
+                    (eN1.HasValue ? (eN1 / aN1.Value) * 100 : new decimal?()) : new decimal?();
+                EquilibriumMoistureContent.R1 = (aR1.HasValue) ? 
+                    (eN1.HasValue ? (eR1 / aR1.Value) * 100 : new decimal?()) : new decimal?();
 
                 // Raise events
                 Raise(() => this.EquilibriumMoistureContent);

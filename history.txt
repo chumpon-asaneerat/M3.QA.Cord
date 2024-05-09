@@ -19,12 +19,14 @@ M3 QA Cord #265
 M3 QA Cord #264
 - 
 
+[commit]
 M3 QA Cord #263
-- 
+- Implements Cord Test Data #223
+  - EquilibriumMoisture fixed calculation formula
 
 [commit]
 M3 QA Cord #262
-- Implements Cord Test Data #221
+- Implements Cord Test Data #222
   - DIP Test Data (change compound to combobox) #1 
 
 [commit]
