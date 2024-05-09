@@ -87,6 +87,15 @@ namespace M3.QA.Pages
 
         #endregion
 
+        #region ListView Handlers
+
+        private void grid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
         #region Private Methods
 
         private void Search()

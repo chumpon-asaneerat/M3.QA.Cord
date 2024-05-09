@@ -115,7 +115,7 @@
     <Compile Include="Controls\StatusBar\Elements\OperatorInfoElement.xaml.cs">
       <DependentUpon>OperatorInfoElement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CordProductionPage.xaml.cs">
+    <Compile Include="Pages\Cords\CordProductionPage.xaml.cs">
       <DependentUpon>CordProductionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Cords\CordSpecificationSettingPage.xaml.cs">
@@ -306,7 +306,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\CordProductionPage.xaml">
+    <Page Include="Pages\Cords\CordProductionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
