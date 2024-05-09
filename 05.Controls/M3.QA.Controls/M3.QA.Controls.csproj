@@ -189,7 +189,7 @@
     <Compile Include="Services\COAService.cs" />
     <Compile Include="Services\M3QAApp.cs" />
     <Compile Include="Services\SignInService.cs" />
-    <Compile Include="Windows\CordProductionTestViewWindow.xaml.cs">
+    <Compile Include="Windows\Cord\CordProductionTestViewWindow.xaml.cs">
       <DependentUpon>CordProductionTestViewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Cord\CordCodeSettingEditorWindow.xaml.cs">
@@ -393,7 +393,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\CordProductionTestViewWindow.xaml">
+    <Page Include="Windows\Cord\CordProductionTestViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
