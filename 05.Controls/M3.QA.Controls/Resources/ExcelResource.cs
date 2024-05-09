@@ -4,12 +4,12 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace M3.Cord
+namespace M3.QA
 {
     internal class ExcelResource
     {
-        public const string COA1 = "M3.Cord.Resources.Excels.COA1.xlsx";
-        public const string COA4 = "M3.Cord.Resources.Excels.COA4.xlsx";
+        public const string COA1 = "M3.QA.Resources.Excels.COA1.xlsx";
+        public const string COA4 = "M3.QA.Resources.Excels.COA4.xlsx";
     }
 
     public sealed class ExcelExportUtils
