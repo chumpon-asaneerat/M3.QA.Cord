@@ -9,7 +9,10 @@ namespace M3.QA
     internal class ExcelResource
     {
         public const string COA1 = "M3.QA.Resources.Excels.COA1.xlsx";
+        public const string COA2 = "M3.QA.Resources.Excels.COA2.xlsx";
+        public const string COA3 = "M3.QA.Resources.Excels.COA3.xlsx";
         public const string COA4 = "M3.QA.Resources.Excels.COA4.xlsx";
+        public const string COA5 = "M3.QA.Resources.Excels.COA5.xlsx";
     }
 
     public sealed class ExcelExportUtils
@@ -110,6 +113,38 @@ namespace M3.QA
         {
             return CreateFileFromResource(ExcelResource.COA1,
                 @"\COA1.xlsx", FullFileName, AutoOverwrite);
+        }
+
+        #endregion
+
+        #region COA2
+
+        /// <summary>
+        /// Create COA1 File
+        /// </summary>
+        /// <param name="FullFileName">FileName</param>
+        /// <param name="AutoOverwrite">Force Overwrite</param>
+        /// <returns>true if file is created</returns>
+        public static bool CreateCOA2File(string FullFileName, bool AutoOverwrite)
+        {
+            return CreateFileFromResource(ExcelResource.COA2,
+                @"\COA2.xlsx", FullFileName, AutoOverwrite);
+        }
+
+        #endregion
+
+        #region COA3
+
+        /// <summary>
+        /// Create COA1 File
+        /// </summary>
+        /// <param name="FullFileName">FileName</param>
+        /// <param name="AutoOverwrite">Force Overwrite</param>
+        /// <returns>true if file is created</returns>
+        public static bool CreateCOA3File(string FullFileName, bool AutoOverwrite)
+        {
+            return CreateFileFromResource(ExcelResource.COA3,
+                @"\COA3.xlsx", FullFileName, AutoOverwrite);
         }
 
         #endregion
