@@ -120,7 +120,7 @@ namespace M3.QA
         #region COA2
 
         /// <summary>
-        /// Create COA1 File
+        /// Create COA2 File
         /// </summary>
         /// <param name="FullFileName">FileName</param>
         /// <param name="AutoOverwrite">Force Overwrite</param>
@@ -136,7 +136,7 @@ namespace M3.QA
         #region COA3
 
         /// <summary>
-        /// Create COA1 File
+        /// Create COA3 File
         /// </summary>
         /// <param name="FullFileName">FileName</param>
         /// <param name="AutoOverwrite">Force Overwrite</param>
@@ -161,6 +161,22 @@ namespace M3.QA
         {
             return CreateFileFromResource(ExcelResource.COA4,
                 @"\COA4.xlsx", FullFileName, AutoOverwrite);
+        }
+
+        #endregion
+
+        #region COA5
+
+        /// <summary>
+        /// Create COA5 File
+        /// </summary>
+        /// <param name="FullFileName">FileName</param>
+        /// <param name="AutoOverwrite">Force Overwrite</param>
+        /// <returns>true if file is created</returns>
+        public static bool CreateCOA5File(string FullFileName, bool AutoOverwrite)
+        {
+            return CreateFileFromResource(ExcelResource.COA5,
+                @"\COA5.xlsx", FullFileName, AutoOverwrite);
         }
 
         #endregion
