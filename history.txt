@@ -16,13 +16,15 @@ M3 QA Cord #286
 M3 QA Cord #285
 - 
 
+[commit]
 M3 QA Cord #284
-- 
+- Implements Cord Test Data #244
+  - Add COA2, COA3 service class.
 
 [commit]
 M3 QA Cord #283
 - Implements Cord Test Data #243
-  - Add COA2, COA3 class.
+  - Add COA2, COA3 resource class.
 
 [commit]
 M3 QA Cord #282
