@@ -7,8 +7,10 @@ M3 QA Cord #289
 M3 QA Cord #288
 - 
 
+[commit]
 M3 QA Cord #287
-- 
+- Implements Cord Test Data #247
+  - Add COA5 service class.
 
 [commit]
 M3 QA Cord #286
