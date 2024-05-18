@@ -171,6 +171,8 @@ namespace M3.QA.Pages
             if (!item.CoaNo.HasValue) return;
 
             //COAService.COA1.Export(item);
+            //COAService.COA2.Export(item);
+            //COAService.COA3.Export(item);
             //COAService.COA4.Export(item);
             switch (item.CoaNo.Value)
             {
@@ -181,10 +183,12 @@ namespace M3.QA.Pages
                     }
                 case 2:
                     {
+                        COAService.COA2.Export(item);
                         break;
                     }
                 case 3:
                     {
+                        COAService.COA3.Export(item);
                         break;
                     }
                 case 4:

@@ -4,8 +4,10 @@ M3 QA Cord #290
 M3 QA Cord #289
 - 
 
+[commit]
 M3 QA Cord #288
-- 
+- Implements Cord Test Data #248
+  - Update CordProduction Page - add call COA2, COA3 export.
 
 [commit]
 M3 QA Cord #287
