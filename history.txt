@@ -22,8 +22,10 @@ M3 QA Cord #284
 M3 QA Cord #283
 - 
 
+[commit]
 M3 QA Cord #282
-- 
+- Implements Cord Test Data #242
+  - Add COA2.xlsx and COA3.xlsx
 
 [commit]
 M3 QA Cord #281
