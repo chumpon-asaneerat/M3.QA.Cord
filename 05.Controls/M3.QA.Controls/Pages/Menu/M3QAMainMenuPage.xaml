@@ -20,9 +20,14 @@
         <SolidColorBrush x:Key="SolutionBGHover" Color="DarkGreen" />
         <SolidColorBrush x:Key="SolutionFG" Color="WhiteSmoke" />
 
+        <SolidColorBrush x:Key="AutoBG" Color="DarkMagenta" />
+        <SolidColorBrush x:Key="AutoBGHover" Color="Magenta" />
+        <SolidColorBrush x:Key="AutoFG" Color="WhiteSmoke" />
+
         <SolidColorBrush x:Key="OtherBG" Color="Navy" />
         <SolidColorBrush x:Key="OtherBGHover" Color="RoyalBlue" />
         <SolidColorBrush x:Key="OtherFG" Color="WhiteSmoke" />
+
         <!--  GROUP ITEM STYLES  -->
         <Style x:Key="CommonGroupItemStyle" TargetType="ctrl:NGroupMenuItem">
             <Setter Property="HeaderBorderBrush" Value="Transparent" />
@@ -89,6 +94,31 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="AutoButtonStyle"
+               BasedOn="{StaticResource CommonButtonStyle}"
+               TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AutoBG}" />
+            <Setter Property="Foreground" Value="{StaticResource AutoFG}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource AutoBGHover}" />
+                                <Setter Property="Foreground" Value="{StaticResource AutoFG}" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="{StaticResource AutoBGHover}" />
+                                <Setter Property="Foreground" Value="{StaticResource AutoFG}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="OtherButtonStyle"
                BasedOn="{StaticResource CommonButtonStyle}"
                TargetType="Button">
@@ -144,7 +174,8 @@
                                 <Run Text="Test Data" />
                             </TextBlock>
                         </Button>
-                        <Button x:Name="cmdCordProduction" Style="{StaticResource CordButtonStyle}"
+                        <Button x:Name="cmdCordProduction"
+                                Style="{StaticResource CordButtonStyle}"
                                 Click="cmdCordProduction_Click">
                             <TextBlock TextAlignment="Center">
                                 <Run Text="Cord" />
@@ -184,6 +215,25 @@
                                 <Run Text="Dip Solution" />
                                 <LineBreak />
                                 <Run Text="Production" />
+                            </TextBlock>
+                        </Button>
+                    </ctrl:NGroupMenuItem>
+                    <!--  AUTO TRANSFER MENU  -->
+                    <ctrl:NGroupMenuItem HeaderText="Auto Transfer"
+                                         HeaderBackground="{StaticResource AutoBG}"
+                                         Style="{StaticResource CommonGroupItemStyle}">
+                        <Button x:Name="cmdTensileElongation" Style="{StaticResource AutoButtonStyle}"
+                                Click="cmdTensileElongation_Click">
+                            <TextBlock TextAlignment="Center">
+                                <Run Text="Tensile / " />
+                                <LineBreak />
+                                <Run Text="Elongation" />
+                            </TextBlock>
+                        </Button>
+                        <Button x:Name="cmdPHMeter" Style="{StaticResource AutoButtonStyle}"
+                                Click="cmdPHMeter_Click">
+                            <TextBlock TextAlignment="Center">
+                                <Run Text="PH Meter" />
                             </TextBlock>
                         </Button>
                     </ctrl:NGroupMenuItem>

@@ -171,6 +171,42 @@ namespace M3.QA.Pages
 
         #endregion
 
+        #region Auto Transfer Menu
+
+        // Tensile/Elongation
+        private void cmdTensileElongation_Click(object sender, RoutedEventArgs e)
+        {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
+
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
+        }
+
+        // PH Meter
+        private void cmdPHMeter_Click(object sender, RoutedEventArgs e)
+        {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
+
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
+        }
+
+        #endregion
+
         #region Master Data Menu
 
         // Cord Code Setting
