@@ -2,6 +2,7 @@
 
 using System;
 using System.Reflection;
+using System.Collections.Generic;
 using M3.QA.Models;
 using NLib;
 using OfficeOpenXml;
@@ -12,6 +13,35 @@ namespace M3.QA
 {
     public class COAService
     {
+        private static List<string> Codes = new List<string>()
+        {
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M"
+        };
+
+        public static DateTime? GetDateFromLot(string productLotNo)
+        {
+            DateTime? ret = new DateTime?();
+            if (!string.IsNullOrEmpty(productLotNo))
+            {
+                var sLot = productLotNo.Trim();
+                if (sLot.Length >= 5) 
+                { 
+                    string sYear = "20" + sLot.Substring(0, 2);
+                    string sMn = sLot.Substring(2, 1);
+                    string sDt = sLot.Substring(3, 2);
+
+                    int iYr;
+                    int iDt;
+                    int iMn = Codes.IndexOf(sMn) + 1;
+                    if (int.TryParse(sYear, out iYr) && int.TryParse(sDt, out iDt) && (iMn >= 1 && iMn <= 12))
+                    {
+                        ret = new DateTime(iYr, iMn, iDt);
+                    }
+                }
+            }
+            return ret;
+        }
+
         #region COA 1
 
         public class COA1
@@ -139,39 +169,27 @@ namespace M3.QA
         {
             private static void WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
             {
-                if (null != ws && null != p && null != p.Spec)
+                if (null != ws && null != p)
                 {
                     // Unit Report
                     ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
                     // SPEC
-                    ws.Cells["D" + iRow.ToString()].Value = p.Spec.ReportSpec;
+                    ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpec : "(%)";
 
-                    // RESULT 1-5
-                    int iCnt = 1;
-                    foreach (var test in p.Tests)
-                    {
-                        if (iCnt == 1)
-                        {
-                            ws.Cells["G" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 2)
-                        {
-                            ws.Cells["H" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 3)
-                        {
-                            ws.Cells["I" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 4)
-                        {
-                            ws.Cells["J" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 5)
-                        {
-                            ws.Cells["K" + iRow.ToString()].Value = test.Avg;
-                        }
-                        iCnt++;
-                    }
+                    // MIN
+                    ws.Cells["E" + iRow.ToString()].Value = p.MinTestValue;
+                    // MAX
+                    ws.Cells["F" + iRow.ToString()].Value = p.MaxTestValue;
+                    // AVG
+                    ws.Cells["G" + iRow.ToString()].Value = p.Avg;
+                    // STDDEV
+                    ws.Cells["H" + iRow.ToString()].Value = p.StdDev;
+                    // CPK
+                    ws.Cells["I" + iRow.ToString()].Value = p.Cpk;
+                    // Judge
+                    ws.Cells["J" + iRow.ToString()].Value = (null != p.Spec) ? (p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK") : "-";
+                    // Test Method
+                    ws.Cells["K" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.TestMethod : null;
                 }
             }
 
@@ -205,27 +223,28 @@ namespace M3.QA
                         if (null != ws)
                         {
                             #region Write Cells
-                            /*
+
                             // DATE
-                            ws.Cells["M7"].Value = (value.InputDate.HasValue) ?
+                            ws.Cells["L7"].Value = (value.InputDate.HasValue) ?
                                 value.InputDate.Value.Date : new DateTime?();
                             // USER
-                            ws.Cells["B10"].Value = value.UserName;
+                            ws.Cells["B11"].Value = value.UserName;
+                            // PRODUCT
+                            ws.Cells["B12"].Value = value.ProductName;
                             // ITEM CODE
-                            ws.Cells["I10"].Value = value.ItemCode;
-                            // LOT NO
-                            ws.Cells["N10"].Value = value.LotNo;
-                            */
-                            #endregion
+                            ws.Cells["B13"].Value = value.ItemCode;
+                            // SAP CODE
+                            ws.Cells["B14"].Value = "7 179 172 90";
+                            // YARN TYPE
+                            ws.Cells["B15"].Value = value.YarnCode;
+                            // PRODUCT LOT
+                            ws.Cells["B16"].Value = value.ProductionLot;
+                            // VALID DATE
+                            var dt = COAService.GetDateFromLot(value.ProductionLot);
+                            ws.Cells["B17"].Value = (dt.HasValue) ? dt.Value.AddYears(1) : new DateTime?();
+                            // PI No SL
+                            ws.Cells["B18"].Value = value.PiNoSL;
 
-                            #region Write Lot 1-5
-                            /*
-                            ws.Cells["G14"].Value = string.Format("{0}-1", value.LotNo);
-                            ws.Cells["H14"].Value = string.Format("{0}-2", value.LotNo);
-                            ws.Cells["I14"].Value = string.Format("{0}-3", value.LotNo);
-                            ws.Cells["J14"].Value = string.Format("{0}-4", value.LotNo);
-                            ws.Cells["K14"].Value = string.Format("{0}-5", value.LotNo);
-                            */
                             #endregion
 
                             #region Write each properties
@@ -348,6 +367,7 @@ namespace M3.QA
                         if (null != ws)
                         {
                             #region Write Cells
+
                             /*
                             // DATE
                             ws.Cells["M7"].Value = (value.InputDate.HasValue) ?
@@ -359,6 +379,7 @@ namespace M3.QA
                             // LOT NO
                             ws.Cells["N10"].Value = value.LotNo;
                             */
+
                             #endregion
 
                             #region Write Lot 1-5
@@ -552,11 +573,11 @@ namespace M3.QA
 
                             #region Write Lot 1-5
 
-                            ws.Cells["G14"].Value = string.Format("{0}-1", value.ProductionLot);
-                            ws.Cells["H14"].Value = string.Format("{0}-2", value.ProductionLot);
-                            ws.Cells["I14"].Value = string.Format("{0}-3", value.ProductionLot);
-                            ws.Cells["J14"].Value = string.Format("{0}-4", value.ProductionLot);
-                            ws.Cells["K14"].Value = string.Format("{0}-5", value.ProductionLot);
+                            ws.Cells["G14"].Value = string.Format("{0}-1", value.LotNo);
+                            ws.Cells["H14"].Value = string.Format("{0}-2", value.LotNo);
+                            ws.Cells["I14"].Value = string.Format("{0}-3", value.LotNo);
+                            ws.Cells["J14"].Value = string.Format("{0}-4", value.LotNo);
+                            ws.Cells["K14"].Value = string.Format("{0}-5", value.LotNo);
 
                             #endregion
 

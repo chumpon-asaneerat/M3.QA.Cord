@@ -10,13 +10,16 @@ M3 QA Cord #298
 M3 QA Cord #297
 - 
 
+[commit]
 M3 QA Cord #296
-- 
+- Implements Cord Test Data #256
+  - Implements Cord Production #5
+    - Implements Export COA2
 
 [commit]
 M3 QA Cord #295
 - Implements Cord Test Data #255
-  - Implements Cord Production #6
+  - Implements Cord Production #4
     - COA4 add CP/CPK code.
 
 [commit]

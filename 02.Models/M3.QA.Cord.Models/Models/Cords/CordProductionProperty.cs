@@ -28,6 +28,8 @@ namespace M3.QA.Models
         {
             if (null == Tests) return;
 
+            decimal min = decimal.Zero;
+            decimal max = decimal.Zero;
             decimal total = decimal.Zero;
             int iCnt = 0;
 
@@ -41,6 +43,9 @@ namespace M3.QA.Models
                     {
                         if (item.Avg.HasValue)
                         {
+                            // update min/max
+                            min = Math.Min(min, item.Avg.Value);
+                            max = Math.Max(max, item.Avg.Value);
                             // Has N value and no R value so use N to calc avg
                             total += item.Avg.Value;
                             ++iCnt;
@@ -54,6 +59,8 @@ namespace M3.QA.Models
 
             // Calc average value.
             this.Avg = (iCnt > 0) ? (total / iCnt) : new decimal?();
+            this.MinTestValue = (iCnt > 0) ? min : new decimal?();
+            this.MaxTestValue = (iCnt > 0) ? max : new decimal?();
 
             #endregion
 
@@ -153,6 +160,18 @@ namespace M3.QA.Models
 
         #region Avg
 
+        /// <summary>Gets or sets Min Test value.</summary>
+        public decimal? MinTestValue
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets Max Test value.</summary>
+        public decimal? MaxTestValue
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
         /// <summary>Gets or sets Avg (or mean) value.</summary>
         public decimal? Avg
         {
