@@ -181,6 +181,9 @@
     <Compile Include="Pages\Cords\Properties\CordThicknessPage.xaml.cs">
       <DependentUpon>CordThicknessPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DIPSolutionProductionPage.xaml.cs">
+      <DependentUpon>DIPSolutionProductionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Solutions\DIPSolutionSampleTestDataPage.xaml.cs">
       <DependentUpon>DIPSolutionSampleTestDataPage.xaml</DependentUpon>
     </Compile>
@@ -390,6 +393,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Cords\Properties\CordThicknessPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DIPSolutionProductionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
