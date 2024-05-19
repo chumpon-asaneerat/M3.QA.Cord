@@ -10,6 +10,7 @@ using System.Reflection;
 using Dapper;
 using NLib;
 using NLib.Models;
+using OfficeOpenXml;
 
 #endregion
 
@@ -28,8 +29,9 @@ namespace M3.QA.Models
         {
             if (null == Tests) return;
 
-            decimal min = decimal.Zero;
-            decimal max = decimal.Zero;
+            decimal min = decimal.MaxValue; // set min value to Maximum
+            decimal max = decimal.MinValue; // set max value to Minimum
+
             decimal total = decimal.Zero;
             int iCnt = 0;
 
@@ -41,15 +43,64 @@ namespace M3.QA.Models
                 {
                     foreach (var item in this.Tests)
                     {
-                        if (item.Avg.HasValue)
+                        if (item.N1.HasValue)
                         {
                             // update min/max
-                            min = Math.Min(min, item.Avg.Value);
-                            max = Math.Max(max, item.Avg.Value);
-                            // Has N value and no R value so use N to calc avg
+                            min = Math.Min(min, item.N1.Value);
+                            max = Math.Max(max, item.N1.Value);
+
+                            // use N to calc avg
                             total += item.Avg.Value;
                             ++iCnt;
                         }
+                        if (item.N2.HasValue)
+                        {
+                            // update min/max
+                            min = Math.Min(min, item.N2.Value);
+                            max = Math.Max(max, item.N2.Value);
+
+                            // use N to calc avg
+                            total += item.Avg.Value;
+                            ++iCnt;
+                        }
+                        if (item.N3.HasValue)
+                        {
+                            // update min/max
+                            min = Math.Min(min, item.N3.Value);
+                            max = Math.Max(max, item.N3.Value);
+
+                            // use N to calc avg
+                            total += item.Avg.Value;
+                            ++iCnt;
+                        }
+                        if (item.N4.HasValue)
+                        {
+                            // update min/max
+                            min = Math.Min(min, item.N4.Value);
+                            max = Math.Max(max, item.N4.Value);
+
+                            // use N to calc avg
+                            total += item.Avg.Value;
+                            ++iCnt;
+                        }
+                        if (item.N5.HasValue)
+                        {
+                            // update min/max
+                            min = Math.Min(min, item.N5.Value);
+                            max = Math.Max(max, item.N5.Value);
+
+                            // use N to calc avg
+                            total += item.Avg.Value;
+                            ++iCnt;
+                        }
+                        /*
+                        if (item.Avg.HasValue)
+                        {
+                            // use N to calc avg
+                            total += item.Avg.Value;
+                            ++iCnt;
+                        }
+                        */
                     }
                 }
             }
@@ -72,19 +123,55 @@ namespace M3.QA.Models
             double sum2 = 0;
             lock (this)
             {
-                if (null != this.Tests && iCnt >= 1 && this.Avg.HasValue)
+                if (null != this.Tests && this.Avg.HasValue)
                 {
                     decimal avg = this.Avg.Value;
+                    iCnt = 0;
                     foreach (var item in this.Tests)
                     {
+                        if (item.N1.HasValue)
+                        {
+                            // calc sum squar
+                            sum2 += Math.Pow((double)(item.N1.Value - avg), 2);
+                            iCnt++;
+                        }
+                        if (item.N2.HasValue)
+                        {
+                            // calc sum squar
+                            sum2 += Math.Pow((double)(item.N2.Value - avg), 2);
+                            iCnt++;
+                        }
+                        if (item.N3.HasValue)
+                        {
+                            // calc sum squar
+                            sum2 += Math.Pow((double)(item.N3.Value - avg), 2);
+                            iCnt++;
+                        }
+                        if (item.N4.HasValue)
+                        {
+                            // calc sum squar
+                            sum2 += Math.Pow((double)(item.N4.Value - avg), 2);
+                            iCnt++;
+                        }
+                        if (item.N5.HasValue)
+                        {
+                            // calc sum squar
+                            sum2 += Math.Pow((double)(item.N5.Value - avg), 2);
+                            iCnt++;
+                        }
+                        /*
                         if (item.Avg.HasValue)
                         {
-                            // Has N value and no R value so use N to calc avg
                             sum2 += Math.Pow((double)(item.Avg.Value - avg), 2);
+                            iCnt++;
                         }
+                        */
                     }
 
-                    stddev = Convert.ToDecimal(Math.Sqrt(sum2 / (iCnt - 1)));
+                    if (iCnt - 1 > 0)
+                    {
+                        stddev = Convert.ToDecimal(Math.Sqrt(sum2 / (iCnt - 1)));
+                    }
                 }
             }
             this.StdDev = stddev;
@@ -102,12 +189,9 @@ namespace M3.QA.Models
                 decimal avg = this.Avg.Value;
                 if (Spec.USL.HasValue && Spec.LSL.HasValue)
                 {
-                    decimal? cpu = new decimal?();
-                    decimal? cpl = new decimal?();
-
                     cp = Spec.Delta.Value / (6 * stddev);
-                    cpu = (Spec.USL.Value - avg) / (3 * stddev);
-                    cpl = (avg - Spec.LSL.Value) / (3 * stddev);
+                    decimal? cpu = (Spec.USL.Value - avg) / (3 * stddev);
+                    decimal? cpl = (avg - Spec.LSL.Value) / (3 * stddev);
                     cpk = (cpu < cpl) ? cpu : cpl; // use min as cpk
                 }
                 else if (Spec.USL.HasValue && !Spec.LSL.HasValue)
@@ -211,6 +295,13 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Optional
+
+        /// <summary>Gets or sets Unit Id.</summary>
+        public string UnitId { get; set; }
+
+        #endregion
+
         #region Tests
 
         /// <summary>
@@ -285,6 +376,7 @@ namespace M3.QA.Models
                 inst.NoOfSample = rpt.NoSample;
 
                 inst.Spec = GetSpec(rpt); // Setup Spec.
+                inst.UnitId = rpt.UnitId; // keep Unit id in case Spec is null (especially for Elong at Load)
 
                 inst.Tests = CordProductionTest.Create(inst); // Load Tests
 
@@ -314,12 +406,21 @@ namespace M3.QA.Models
         /// <param name="propertyNo"></param>
         /// <returns></returns>
         public static CordProductionProperty FindByPropertyNo(this List<CordProductionProperty> items,
-            int propertyNo)
+            int propertyNo, string elongN = null)
         {
             if (null == items || items.Count <= 0)
                 return null;
-
-            return items.Find((x) => { return x.PropertyNo == propertyNo; });
+            if (string.IsNullOrEmpty(elongN))
+            {
+                return items.Find((x) => { return x.PropertyNo == propertyNo; });
+            }
+            else
+            {
+                return items.Find((x) => 
+                { 
+                    return x.PropertyNo == propertyNo && string.Compare(x.UnitId, elongN, true) == 0; 
+                });
+            }
         }
 
         #endregion
