@@ -24,12 +24,15 @@ namespace M3.QA.Models
     {
         #region Public Methods
 
-        public void CalcAverage()
+        public void CalcStat()
         {
             if (null == Tests) return;
 
             decimal total = decimal.Zero;
             int iCnt = 0;
+
+            #region Calc Avg
+
             lock (this)
             {
                 if (null != this.Tests)
@@ -52,7 +55,10 @@ namespace M3.QA.Models
             // Calc average value.
             this.Avg = (iCnt > 0) ? (total / iCnt) : new decimal?();
 
-            // calc deviation
+            #endregion
+
+            #region Calc Standard Deviation
+
             // formula:
             // stddev^2 = sum( (test - mean)^2) / (Count N - 1) )
             decimal? stddev = new decimal?();
@@ -75,6 +81,42 @@ namespace M3.QA.Models
                 }
             }
             this.StdDev = stddev;
+
+            #endregion
+
+            #region Calc Cp/Cpk
+
+            decimal? cp = new decimal?();
+            decimal? cpk = new decimal?();
+
+            if (null != Spec && 
+                stddev.HasValue && stddev != 0)
+            {
+                decimal avg = this.Avg.Value;
+                if (Spec.USL.HasValue && Spec.LSL.HasValue)
+                {
+                    decimal? cpu = new decimal?();
+                    decimal? cpl = new decimal?();
+
+                    cp = Spec.Delta.Value / (6 * stddev);
+                    cpu = (Spec.USL.Value - avg) / (3 * stddev);
+                    cpl = (avg - Spec.LSL.Value) / (3 * stddev);
+                    cpk = (cpu < cpl) ? cpu : cpl; // use min as cpk
+                }
+                else if (Spec.USL.HasValue && !Spec.LSL.HasValue)
+                {
+                    cpk = (Spec.USL.Value - avg) / (3 * stddev);
+                }
+                else if (!Spec.USL.HasValue && Spec.LSL.HasValue)
+                {
+                    cpk = (avg - Spec.LSL.Value) / (3 * stddev);
+                }
+            }
+
+            this.Cp = cp;
+            this.Cpk = cpk;
+
+            #endregion
         }
 
         #endregion
@@ -131,6 +173,18 @@ namespace M3.QA.Models
         }
         /// <summary>Gets or sets standard deviation.</summary>
         public decimal? StdDev
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets Cp.</summary>
+        public decimal? Cp
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets Cpk.</summary>
+        public decimal? Cpk
         {
             get { return Get<decimal?>(); }
             set { Set(value, () => { }); }
@@ -215,7 +269,7 @@ namespace M3.QA.Models
 
                 inst.Tests = CordProductionTest.Create(inst); // Load Tests
 
-                inst.CalcAverage(); // calc total avg
+                inst.CalcStat(); // calc related stat
 
                 results.Add(inst);
             }

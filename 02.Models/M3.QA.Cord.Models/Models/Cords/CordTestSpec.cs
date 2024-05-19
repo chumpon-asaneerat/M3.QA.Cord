@@ -872,6 +872,43 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Stat
+
+        /// <summary>Gets Upper Spec Limit.</summary>
+        public decimal? USL
+        {
+            get
+            {
+                decimal? ret = (VMax.HasValue) ?
+                    (VCenter.HasValue ? VCenter.Value + VMax.Value : VMax.Value) : new decimal?();
+                return ret;
+            }
+            set { }
+        }
+        /// <summary>Gets Lower Spec Limit.</summary>
+        public decimal? LSL
+        {
+            get
+            {
+                decimal? ret = (VMin.HasValue) ?
+                    (VCenter.HasValue ? VCenter.Value - VMin.Value : VMin.Value) : new decimal?();
+                return ret;
+            }
+            set { }
+        }
+        /// <summary>Gets Spec Limit delta (USL - LSL).</summary>
+        public decimal? Delta
+        {
+            get
+            {
+                decimal? ret = (USL.HasValue && LSL.HasValue) ? USL.Value - LSL.Value : new decimal?();
+                return ret;
+            }
+            set { }
+        }
+
+        #endregion
+
         #endregion
 
         #region Static Methods

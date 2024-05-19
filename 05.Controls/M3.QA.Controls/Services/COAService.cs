@@ -464,20 +464,16 @@ namespace M3.QA
                     ws.Cells["M" + iRow.ToString()].Value = (p.StdDev.HasValue) ? p.StdDev : decimal.Zero;
 
                     // CP/CPK
-                    if (!p.StdDev.HasValue || p.StdDev.Value == 0)
-                    {
-                        // StdDev is zero or no value so cannot calculate
-                        ws.Cells["N" + iRow.ToString()].Value = "-";
-                        ws.Cells["O" + iRow.ToString()].Value = "-";
-                    }
-                    else
-                    {
-                        // 
-                        ws.Cells["N" + iRow.ToString()].Value = "-";
-                        ws.Cells["O" + iRow.ToString()].Value = "-";
-                    }
+                    if (p.Cp.HasValue)
+                        ws.Cells["N" + iRow.ToString()].Value = p.Cp.Value;
+                    else ws.Cells["N" + iRow.ToString()].Value = "-";
+
+                    if (p.Cpk.HasValue)
+                        ws.Cells["O" + iRow.ToString()].Value = p.Cpk.Value;
+                    else ws.Cells["O" + iRow.ToString()].Value = "-";
                 }
             }
+
             private static void WriteJudge(ExcelWorksheet ws, string sCell, CordProductionProperty p)
             {
                 if (null != ws && null != p && null != p.Spec)
