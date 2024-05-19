@@ -146,6 +146,16 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <!--  PRODUCTION LOT  -->
+                                <GridViewColumn Header="Production Lot" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ProductionLot}"
+                                                       TextAlignment="Center"
+                                                       FontWeight="SemiBold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <!--  LOT NO  -->
                                 <GridViewColumn Header="Lot No" Width="100">
                                     <GridViewColumn.CellTemplate>

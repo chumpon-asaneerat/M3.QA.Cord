@@ -63,6 +63,15 @@
                                            DockPanel.Dock="Left"
                                            Text="{Binding LotNo}"
                                            Width="180" />
+                            <!--  PRODUCTION LOT  -->
+                            <ctrl:NTextBox x:Name="txtProductionLot"
+                                           CaptionText="Production Lot:"
+                                           DockPanel.Dock="Left"
+                                           Text="{Binding ProductionLot}"
+                                           Width="180" />
+                            <Grid />
+                        </DockPanel>
+                        <DockPanel DockPanel.Dock="Top">
                             <!--  RECEIVE DATE  -->
                             <ctrl:NInputGroup CaptionText="Receive Date/Time:"
                                               DockPanel.Dock="Left"
@@ -76,7 +85,7 @@
                             </ctrl:NInputGroup>
                             <Grid />
                         </DockPanel>
-                        <!--  LINE 2: CUSTOMER/CORD CODE  -->
+                        <!--  LINE 3: CUSTOMER/CORD CODE  -->
                         <DockPanel DockPanel.Dock="Top">
                             <!--  CUSTOMER  -->
                             <ctrl:NComboBox x:Name="cbCustomers"
@@ -94,7 +103,7 @@
                                             SelectionChanged="cbCodes_SelectionChanged" />
                             <Grid />
                         </DockPanel>
-                        <!--  LINE 3: PRODUCT TYPE WITH DIP MC  -->
+                        <!--  LINE 4: PRODUCT TYPE WITH DIP MC  -->
                         <DockPanel DockPanel.Dock="Top">
                             <DockPanel LastChildFill="True">
                                 <!--  PRODUCT TYPE  -->
@@ -136,7 +145,7 @@
                             </DockPanel>
                             <Grid />
                         </DockPanel>
-                        <!--  LINE 4: SPINDLE  -->
+                        <!--  LINE 5: SPINDLE  -->
                         <DockPanel DockPanel.Dock="Top">
                             <TextBlock Text="Spindle No: "
                                        DockPanel.Dock="Top"

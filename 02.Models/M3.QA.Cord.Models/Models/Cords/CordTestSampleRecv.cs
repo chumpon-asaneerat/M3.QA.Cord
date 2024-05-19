@@ -25,6 +25,8 @@ namespace M3.QA.Models
         #region Public Properties
 
         public string LotNo { get; set; }
+        public string ProductionLot { get; set; }
+
         public int? MasterId { get; set; }
 
         public int? SP1 { get; set; }
@@ -86,6 +88,8 @@ namespace M3.QA.Models
             var p = new DynamicParameters();
 
             p.Add("@LotNo", value.LotNo);
+            p.Add("@productlot", value.ProductionLot);
+
             p.Add("@MasterId", value.MasterId);
 
             p.Add("@SP1", value.SP1);
