@@ -11,6 +11,13 @@ using OfficeOpenXml;
 
 namespace M3.QA
 {
+    public enum JudgeStatus
+    {
+        NoSpec,
+        OK,
+        NG
+    }
+
     public class COAService
     {
         private static List<string> Codes = new List<string>()
@@ -167,13 +174,6 @@ namespace M3.QA
 
         public class COA2
         {
-            public enum JudgeStatus
-            {
-                NoSpec,
-                OK,
-                NG
-            }
-
             private static JudgeStatus WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
             {
                 JudgeStatus ret = JudgeStatus.NoSpec;
@@ -190,7 +190,7 @@ namespace M3.QA
                     }
 
                     // Unit Report
-                    ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
+                    ws.Cells["C" + iRow.ToString()].Value = (null != p.Spec) ? "(" + p.Spec.UnitReport + ")" : "(%)";
                     // SPEC
                     ws.Cells["D" + iRow.ToString()].Value = spec;
 
@@ -356,42 +356,52 @@ namespace M3.QA
 
         public class COA3
         {
-            private static void WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
+            private static JudgeStatus WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
             {
-                if (null != ws && null != p && null != p.Spec)
+                JudgeStatus ret = JudgeStatus.NoSpec;
+                if (null != ws && null != p)
                 {
-                    // Unit Report
-                    ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
-                    // SPEC
-                    ws.Cells["D" + iRow.ToString()].Value = p.Spec.ReportSpec;
+                    string spec = (null != p.Spec && p.Spec.SpecId > 0) ? p.Spec.ReportSpec : "-";
 
-                    // RESULT 1-5
-                    int iCnt = 1;
-                    foreach (var test in p.Tests)
+                    // Unit Report
+                    ws.Cells["C" + iRow.ToString()].Value = (null != p.Spec) ? "(" + p.Spec.UnitReport + ")" : "(%)";
+                    if (iRow == 25)
                     {
-                        if (iCnt == 1)
-                        {
-                            ws.Cells["G" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 2)
-                        {
-                            ws.Cells["H" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 3)
-                        {
-                            ws.Cells["I" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 4)
-                        {
-                            ws.Cells["J" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 5)
-                        {
-                            ws.Cells["K" + iRow.ToString()].Value = test.Avg;
-                        }
-                        iCnt++;
+                        // Custom for TWIST ONLY
+                        ws.Cells["A" + iRow.ToString()].Value = (null != p.Spec) ? "(" + p.Spec.UnitReport + ")" : "(%)";
                     }
+                    // SPEC
+                    ws.Cells["D" + iRow.ToString()].Value = spec;
+
+                    // RESULT (AVG)
+                    ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                    // MIN
+                    ws.Cells["F" + iRow.ToString()].Value = p.MinTestValue;
+                    // MAX
+                    ws.Cells["G" + iRow.ToString()].Value = p.MaxTestValue;
+                    // R
+                    ws.Cells["H" + iRow.ToString()].Value = p.MaxTestValue - p.MinTestValue;
+                    // Judge
+                    ret = (null != p.Spec) ? (p.Spec.IsOutOfSpec(p.Avg) ? JudgeStatus.NG : JudgeStatus.OK) : JudgeStatus.NoSpec;
+                    string sJudge;
+                    switch (ret)
+                    {
+                        case JudgeStatus.OK:
+                            sJudge = "OK";
+                            break;
+                        case JudgeStatus.NG:
+                            sJudge = "NG";
+                            break;
+                        default:
+                            sJudge = "-";
+                            break;
+                    }
+                    ws.Cells["I" + iRow.ToString()].Value = sJudge;
+                    // Test Method
+                    ws.Cells["J" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.TestMethod : null;
                 }
+
+                return ret;
             }
 
             public static void Export(CordProduction value)
@@ -425,62 +435,74 @@ namespace M3.QA
                         {
                             #region Write Cells
 
-                            /*
                             // DATE
-                            ws.Cells["M7"].Value = (value.InputDate.HasValue) ?
+                            ws.Cells["J8"].Value = (value.InputDate.HasValue) ?
                                 value.InputDate.Value.Date : new DateTime?();
                             // USER
-                            ws.Cells["B10"].Value = value.UserName;
+                            ws.Cells["B12"].Value = value.UserName;
+                            // PRODUCT
+                            ws.Cells["B13"].Value = value.ProductName;
                             // ITEM CODE
-                            ws.Cells["I10"].Value = value.ItemCode;
+                            ws.Cells["B14"].Value = value.ItemCode;
+                            // YARN TYPE
+                            ws.Cells["B15"].Value = value.YarnCode;
                             // LOT NO
-                            ws.Cells["N10"].Value = value.LotNo;
-                            */
+                            ws.Cells["B16"].Value = value.LotNo;
+                            // PRODUCT LOT
+                            ws.Cells["D17"].Value = value.ProductionLot;
 
-                            #endregion
-
-                            #region Write Lot 1-5
-                            /*
-                            ws.Cells["G14"].Value = string.Format("{0}-1", value.LotNo);
-                            ws.Cells["H14"].Value = string.Format("{0}-2", value.LotNo);
-                            ws.Cells["I14"].Value = string.Format("{0}-3", value.LotNo);
-                            ws.Cells["J14"].Value = string.Format("{0}-4", value.LotNo);
-                            ws.Cells["K14"].Value = string.Format("{0}-5", value.LotNo);
-                            */
                             #endregion
 
                             #region Write each properties
-                            /*
+
+                            int iCnt = 0, iOk = 0;
                             CordProductionProperty p;
                             // TENSILE STRENGTH (PropertyNo = 1)
                             p = value.Properties.FindByPropertyNo(1);
-                            WriteProperty(ws, 15, p);
+                            if (WriteProperty(ws, 21, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // ELONG AT BREAK (PropertyNo = 2)
                             p = value.Properties.FindByPropertyNo(2);
-                            WriteProperty(ws, 16, p);
-                            // ELONG AT LOAD (PropertyNo = 3)
-                            p = value.Properties.FindByPropertyNo(3);
-                            WriteProperty(ws, 17, p);
+                            if (WriteProperty(ws, 22, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
+                            // ELONG AT LOAD (PropertyNo = 3 AT 100 N)
+                            p = value.Properties.FindByPropertyNo(3, "100");
+                            if (WriteProperty(ws, 23, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // FIRST TWIST (PropertyNo = 7)
                             p = value.Properties.FindByPropertyNo(7);
-                            WriteProperty(ws, 18, p);
+                            if (WriteProperty(ws, 24, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // SECOND TWIST (PropertyNo = 8)
                             p = value.Properties.FindByPropertyNo(8);
-                            WriteProperty(ws, 19, p);
+                            if (WriteProperty(ws, 25, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // THERMAL SHRINKAGE (PropertyNo = 6)
                             p = value.Properties.FindByPropertyNo(6);
-                            WriteProperty(ws, 20, p);
-                            // SHRINKAGE FORCE (PropertyNo = 5)
-                            p = value.Properties.FindByPropertyNo(5);
-                            WriteProperty(ws, 21, p);
-                            // MOISTURE REGAIN (PropertyNo = 11)
-                            p = value.Properties.FindByPropertyNo(11);
-                            WriteProperty(ws, 22, p);
-                            // FINENESS (PropertyNo = 10)
+                            if (WriteProperty(ws, 26, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
+                            // WEIGHT (PropertyNo = 14)
+                            p = value.Properties.FindByPropertyNo(14);
+                            if (WriteProperty(ws, 27, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
+                            // DENIER (PropertyNo = 10)
                             p = value.Properties.FindByPropertyNo(10);
-                            WriteProperty(ws, 23, p);
-                            */
+                            if (WriteProperty(ws, 28, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             #endregion
+
+                            // Update overall judge
+                            ws.Cells["F13"].Value = (iCnt == iOk) ? "PASSED" : "NO PASSED";
+                            ws.Cells["F13"].Style.Font.Size = 36;
+                            ws.Cells["F13"].Style.Font.Bold = true;
                         }
 
                         package.Save();
