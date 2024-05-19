@@ -5,7 +5,6 @@ using System.Reflection;
 using M3.QA.Models;
 using NLib;
 using OfficeOpenXml;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 #endregion
 
@@ -459,6 +458,56 @@ namespace M3.QA
                         }
                         iCnt++;
                     }
+
+                    // Write AVG, STDDEV
+                    ws.Cells["L" + iRow.ToString()].Value = (p.Avg.HasValue) ? p.Avg : decimal.Zero;
+                    ws.Cells["M" + iRow.ToString()].Value = (p.StdDev.HasValue) ? p.StdDev : decimal.Zero;
+
+                    // CP/CPK
+                    if (!p.StdDev.HasValue || p.StdDev.Value == 0)
+                    {
+                        // StdDev is zero or no value so cannot calculate
+                        ws.Cells["N" + iRow.ToString()].Value = "-";
+                        ws.Cells["O" + iRow.ToString()].Value = "-";
+                    }
+                    else
+                    {
+                        // 
+                        ws.Cells["N" + iRow.ToString()].Value = "-";
+                        ws.Cells["O" + iRow.ToString()].Value = "-";
+                    }
+                }
+            }
+            private static void WriteJudge(ExcelWorksheet ws, string sCell, CordProductionProperty p)
+            {
+                if (null != ws && null != p && null != p.Spec)
+                {
+                    if (p.Spec.IsOutOfSpec(p.Avg))
+                    {
+                        ws.Cells[sCell].Value = "NO PASSED";
+                        ws.Cells[sCell].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        ws.Cells[sCell].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        ws.Cells[sCell].Style.Font.Bold = true;
+                        ws.Cells[sCell].Style.Font.Size = 12;
+                        ws.Cells[sCell].Style.Font.Color.SetColor(System.Drawing.Color.WhiteSmoke);
+                        ws.Cells[sCell].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        ws.Cells[sCell].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkRed);
+                    }
+                    else
+                    {
+                        ws.Cells[sCell].Value = "OK";
+                        ws.Cells[sCell].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        ws.Cells[sCell].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        ws.Cells[sCell].Style.Font.Bold = true;
+                        ws.Cells[sCell].Style.Font.Size = 12;
+                        ws.Cells[sCell].Style.Font.Color.SetColor(System.Drawing.Color.WhiteSmoke);
+                        ws.Cells[sCell].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        ws.Cells[sCell].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.ForestGreen);
+                    }
+                }
+                else
+                {
+                    ws.Cells[sCell].Value = "";
                 }
             }
 
@@ -501,17 +550,17 @@ namespace M3.QA
                             // ITEM CODE
                             ws.Cells["I10"].Value = value.ItemCode;
                             // LOT NO
-                            ws.Cells["N10"].Value = value.LotNo;
+                            ws.Cells["N10"].Value = value.ProductionLot;
 
                             #endregion
 
                             #region Write Lot 1-5
 
-                            ws.Cells["G14"].Value = string.Format("{0}-1", value.LotNo);
-                            ws.Cells["H14"].Value = string.Format("{0}-2", value.LotNo);
-                            ws.Cells["I14"].Value = string.Format("{0}-3", value.LotNo);
-                            ws.Cells["J14"].Value = string.Format("{0}-4", value.LotNo);
-                            ws.Cells["K14"].Value = string.Format("{0}-5", value.LotNo);
+                            ws.Cells["G14"].Value = string.Format("{0}-1", value.ProductionLot);
+                            ws.Cells["H14"].Value = string.Format("{0}-2", value.ProductionLot);
+                            ws.Cells["I14"].Value = string.Format("{0}-3", value.ProductionLot);
+                            ws.Cells["J14"].Value = string.Format("{0}-4", value.ProductionLot);
+                            ws.Cells["K14"].Value = string.Format("{0}-5", value.ProductionLot);
 
                             #endregion
 
@@ -521,27 +570,43 @@ namespace M3.QA
                             // TENSILE STRENGTH (PropertyNo = 1)
                             p = value.Properties.FindByPropertyNo(1);
                             WriteProperty(ws, 15, p);
+                            WriteJudge(ws, "J26", p); // Judge
+
                             // ELONG AT BREAK (PropertyNo = 2)
                             p = value.Properties.FindByPropertyNo(2);
                             WriteProperty(ws, 16, p);
+                            WriteJudge(ws, "J27", p); // Judge
+
                             // ELONG AT LOAD (PropertyNo = 3)
                             p = value.Properties.FindByPropertyNo(3);
                             WriteProperty(ws, 17, p);
+                            WriteJudge(ws, "K26", p); // Judge
+
                             // FIRST TWIST (PropertyNo = 7)
                             p = value.Properties.FindByPropertyNo(7);
                             WriteProperty(ws, 18, p);
+                            WriteJudge(ws, "K27", p); // Judge
+
                             // SECOND TWIST (PropertyNo = 8)
                             p = value.Properties.FindByPropertyNo(8);
                             WriteProperty(ws, 19, p);
+                            WriteJudge(ws, "L26", p); // Judge
+
                             // THERMAL SHRINKAGE (PropertyNo = 6)
                             p = value.Properties.FindByPropertyNo(6);
                             WriteProperty(ws, 20, p);
+                            WriteJudge(ws, "L27", p); // Judge
+
                             // SHRINKAGE FORCE (PropertyNo = 5)
                             p = value.Properties.FindByPropertyNo(5);
                             WriteProperty(ws, 21, p);
+                            WriteJudge(ws, "M26", p); // Judge
+
                             // MOISTURE REGAIN (PropertyNo = 11)
                             p = value.Properties.FindByPropertyNo(11);
                             WriteProperty(ws, 22, p);
+                            WriteJudge(ws, "M27", p); // Judge
+
                             // FINENESS (PropertyNo = 10)
                             p = value.Properties.FindByPropertyNo(10);
                             WriteProperty(ws, 23, p);

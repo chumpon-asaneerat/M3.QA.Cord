@@ -16,8 +16,11 @@ M3 QA Cord #296
 M3 QA Cord #295
 - 
 
+[commit]
 M3 QA Cord #294
-- 
+- Implements Cord Test Data #254
+  - Implements Cord Production #3
+    - COA4 add judge update code.
 
 [commit]
 M3 QA Cord #293

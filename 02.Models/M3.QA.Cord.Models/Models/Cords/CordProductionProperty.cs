@@ -54,12 +54,12 @@ namespace M3.QA.Models
 
             // calc deviation
             // formula:
-            // stddev^2 = sum( (test - mean)^2) / total test )
+            // stddev^2 = sum( (test - mean)^2) / (Count N - 1) )
             decimal? stddev = new decimal?();
             double sum2 = 0;
             lock (this)
             {
-                if (null != this.Tests && iCnt > 0 && this.Avg.HasValue)
+                if (null != this.Tests && iCnt >= 1 && this.Avg.HasValue)
                 {
                     decimal avg = this.Avg.Value;
                     foreach (var item in this.Tests)
@@ -71,7 +71,7 @@ namespace M3.QA.Models
                         }
                     }
 
-                    stddev = Convert.ToDecimal(Math.Sqrt(sum2 / iCnt));
+                    stddev = Convert.ToDecimal(Math.Sqrt(sum2 / (iCnt - 1)));
                 }
             }
             this.StdDev = stddev;
