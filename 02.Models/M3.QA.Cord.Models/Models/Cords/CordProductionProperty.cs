@@ -45,8 +45,36 @@ namespace M3.QA.Models
                     }
                 }
             }
+            // set total sum, total test
+            this.TotalSum = total;
+            this.TotalTest = iCnt;
+
             // Calc average value.
             this.Avg = (iCnt > 0) ? (total / iCnt) : new decimal?();
+
+            // calc deviation
+            // formula:
+            // stddev^2 = sum( (test - mean)^2) / total test )
+            decimal? stddev = new decimal?();
+            double sum2 = 0;
+            lock (this)
+            {
+                if (null != this.Tests && iCnt > 0 && this.Avg.HasValue)
+                {
+                    decimal avg = this.Avg.Value;
+                    foreach (var item in this.Tests)
+                    {
+                        if (item.Avg.HasValue)
+                        {
+                            // Has N value and no R value so use N to calc avg
+                            sum2 += Math.Pow((double)(item.Avg.Value - avg), 2);
+                        }
+                    }
+
+                    stddev = Convert.ToDecimal(Math.Sqrt(sum2 / iCnt));
+                }
+            }
+            this.StdDev = stddev;
         }
 
         #endregion
@@ -83,8 +111,26 @@ namespace M3.QA.Models
 
         #region Avg
 
-        /// <summary>Gets or sets Avg value.</summary>
+        /// <summary>Gets or sets Avg (or mean) value.</summary>
         public decimal? Avg
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets Sum of all test value.</summary>
+        public decimal? TotalSum
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets No. of test value.</summary>
+        public decimal? TotalTest
+        {
+            get { return Get<decimal?>(); }
+            set { Set(value, () => { }); }
+        }
+        /// <summary>Gets or sets standard deviation.</summary>
+        public decimal? StdDev
         {
             get { return Get<decimal?>(); }
             set { Set(value, () => { }); }

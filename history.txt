@@ -19,8 +19,12 @@ M3 QA Cord #295
 M3 QA Cord #294
 - 
 
+[commit]
 M3 QA Cord #293
-- 
+- Implements Cord Test Data #253
+  - Implements Cord Production #2
+    - Add StdDev calculation
+    - update COA4, implements COA2, COA3, COA5
 
 [commit]
 M3 QA Cord #292
