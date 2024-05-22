@@ -758,17 +758,87 @@ namespace M3.QA
                         if (null != ws)
                         {
                             #region Write Cells
-                            /*
+
                             // DATE
-                            ws.Cells["M7"].Value = (value.InputDate.HasValue) ?
+                            ws.Cells["G7"].Value = (value.InputDate.HasValue) ?
                                 value.InputDate.Value.Date : new DateTime?();
                             // USER
-                            ws.Cells["B10"].Value = value.UserName;
+                            ws.Cells["B11"].Value = value.UserName;
                             // ITEM CODE
-                            ws.Cells["I10"].Value = value.ItemCode;
+                            ws.Cells["B12"].Value = value.ItemCode;
                             // LOT NO
-                            ws.Cells["N10"].Value = value.LotNo;
-                            */
+                            ws.Cells["B13"].Value = value.LotNo;
+                            // MANUFACTURING DATE
+                            ws.Cells["C14"].Value = value.ManufacturingDate;
+                            // VALID DATE
+                            ws.Cells["B15"].Value = value.ValidDate;
+
+                            int iErr = 0;
+                            string judge = string.Empty;
+
+                            #endregion
+
+                            #region Properties
+
+                            // PH
+                            ws.Cells["C20"].Value = (null != value.PHSpec) ? value.PHSpec.UnitReport : string.Empty;
+                            ws.Cells["D20"].Value = (null != value.PHSpec) ? value.PHSpec.ReportSpec : string.Empty;
+                            ws.Cells["E20"].Value = value.PH;
+                            if (null != value.PHSpec && !value.PHSpec.IsOutOfSpec(value.PH))
+                            {
+                                ws.Cells["F20"].Value =  "PASSED";
+                            }
+                            else
+                            {
+                                ws.Cells["F20"].Value =  "NO PASSED";
+                                iErr++;
+                            }
+
+                            // TEMP
+                            ws.Cells["C21"].Value = (null != value.TempturatureSpec) ? value.TempturatureSpec.UnitReport : string.Empty;
+                            ws.Cells["D21"].Value = (null != value.TempturatureSpec) ? value.TempturatureSpec.ReportSpec : string.Empty;
+                            ws.Cells["E21"].Value = value.Tempturature;
+                            if (null != value.TempturatureSpec && !value.TempturatureSpec.IsOutOfSpec(value.Tempturature))
+                            {
+                                ws.Cells["F21"].Value = "PASSED";
+                            }
+                            else
+                            {
+                                ws.Cells["F21"].Value = "NO PASSED";
+                                iErr++;
+                            }
+
+                            // VISCOSITY
+                            ws.Cells["C22"].Value = (null != value.ViscositySpec) ? value.ViscositySpec.UnitReport : string.Empty;
+                            ws.Cells["D22"].Value = (null != value.ViscositySpec) ? value.ViscositySpec.ReportSpec : string.Empty;
+                            ws.Cells["E22"].Value = value.Viscosity;
+                            if (null != value.ViscositySpec && !value.ViscositySpec.IsOutOfSpec(value.Viscosity))
+                            {
+                                ws.Cells["F22"].Value = "PASSED";
+                            }
+                            else
+                            {
+                                ws.Cells["F22"].Value = "NO PASSED";
+                                iErr++;
+                            }
+
+                            // TSC
+                            ws.Cells["C23"].Value = (null != value.TSCSpec) ? value.TSCSpec.UnitReport : string.Empty;
+                            ws.Cells["D23"].Value = (null != value.TSCSpec) ? value.TSCSpec.ReportSpec : string.Empty;
+                            ws.Cells["E23"].Value = value.TSCAvg;
+                            if (null != value.TSCSpec && !value.TSCSpec.IsOutOfSpec(value.TSCAvg))
+                            {
+                                ws.Cells["F23"].Value = "PASSED";
+                            }
+                            else
+                            {
+                                ws.Cells["F23"].Value = "NO PASSED";
+                                iErr++;
+                            }
+
+                            // JUDGE - OVERALL
+                            ws.Cells["E12"].Value = (iErr > 0) ? "NO PASSED" : "PASSED";
+
                             #endregion
                         }
 
