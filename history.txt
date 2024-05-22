@@ -25,8 +25,11 @@ M3 QA Cord #303
 M3 QA Cord #302
 - 
 
+[commit]
 M3 QA Cord #301
-- 
+- Implements Cord Test Data #261
+  - change factor in Denier formula
+  - Update App build 301
 
 [commit]
 M3 QA Cord #300

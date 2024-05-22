@@ -178,13 +178,12 @@ namespace M3.QA.Models
                     StandardDenierD.R1 = (YarnWeightAfterDrying.R1.HasValue) ?
                         YarnWeightAfterDrying.R1.Value * dFactor : new decimal?();
 
-                    // Polyester: StandardDenierDtex = YarnWeightAfterDrying * 418
-                    decimal dtexFactor = (decimal)418;
+                    // Polyester: StandardDenierDtex = YarnWeightAfterDrying * 444.18
+                    decimal dtexFactor = (decimal)444.18;
                     StandardDenierDtex.N1 = (YarnWeightAfterDrying.N1.HasValue) ?
                         YarnWeightAfterDrying.N1.Value * dtexFactor : new decimal?();
                     StandardDenierDtex.R1 = (YarnWeightAfterDrying.R1.HasValue) ?
                         YarnWeightAfterDrying.R1.Value * dtexFactor : new decimal?();
-
                     // Raise events
                     Raise(() => this.StandardDenierD);
                     Raise(() => this.StandardDenierDtex);
@@ -193,8 +192,8 @@ namespace M3.QA.Models
                 }
                 else if (!string.IsNullOrWhiteSpace(YarnType) && string.Compare(YarnType, "Nylon", true) == 0)
                 {
-                    // Nylon: StandardDenierD = YarnWeightAfterDrying * 444.18
-                    decimal dFactor = (decimal)444.18;
+                    // Nylon: StandardDenierD = YarnWeightAfterDrying * 418
+                    decimal dFactor = (decimal)418;
                     StandardDenierD.N1 = (YarnWeightAfterDrying.N1.HasValue) ?
                         YarnWeightAfterDrying.N1.Value * dFactor : new decimal?();
                     StandardDenierD.R1 = (YarnWeightAfterDrying.R1.HasValue) ?
