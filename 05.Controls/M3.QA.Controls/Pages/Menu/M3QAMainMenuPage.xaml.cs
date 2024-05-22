@@ -153,7 +153,7 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
-        // Not implements
+        // Dip Solution Production
         private void cmdDipSolutionProduction_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -167,6 +167,9 @@ namespace M3.QA.Pages
                 msgbox.ShowDialog();
                 return;
             }
+            var page = M3QAApp.Pages.DIPSolutionProduction;
+            page.Setup();
+            PageContentManager.Instance.Current = page;
         }
 
         #endregion

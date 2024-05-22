@@ -127,6 +127,14 @@ namespace M3.QA
                     return GetPage<DIPSolutionSampleTestDataPage>();
                 }
             }
+            /// <summary>Gets M3 DIP Solution Production Page.</summary>
+            public static DIPSolutionProductionPage DIPSolutionProduction
+            {
+                get
+                {
+                    return GetPage<DIPSolutionProductionPage>();
+                }
+            }
 
             #endregion
 
