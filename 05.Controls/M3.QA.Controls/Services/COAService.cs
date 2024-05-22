@@ -728,45 +728,7 @@ namespace M3.QA
 
         public class COA5
         {
-            private static void WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
-            {
-                if (null != ws && null != p && null != p.Spec)
-                {
-                    // Unit Report
-                    ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
-                    // SPEC
-                    ws.Cells["D" + iRow.ToString()].Value = p.Spec.ReportSpec;
-
-                    // RESULT 1-5
-                    int iCnt = 1;
-                    foreach (var test in p.Tests)
-                    {
-                        if (iCnt == 1)
-                        {
-                            ws.Cells["G" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 2)
-                        {
-                            ws.Cells["H" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 3)
-                        {
-                            ws.Cells["I" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 4)
-                        {
-                            ws.Cells["J" + iRow.ToString()].Value = test.Avg;
-                        }
-                        else if (iCnt == 5)
-                        {
-                            ws.Cells["K" + iRow.ToString()].Value = test.Avg;
-                        }
-                        iCnt++;
-                    }
-                }
-            }
-
-            public static void Export(CordProduction value)
+            public static void Export(DIPSolutionProduction value)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -806,49 +768,6 @@ namespace M3.QA
                             ws.Cells["I10"].Value = value.ItemCode;
                             // LOT NO
                             ws.Cells["N10"].Value = value.LotNo;
-                            */
-                            #endregion
-
-                            #region Write Lot 1-5
-                            /*
-                            ws.Cells["G14"].Value = string.Format("{0}-1", value.LotNo);
-                            ws.Cells["H14"].Value = string.Format("{0}-2", value.LotNo);
-                            ws.Cells["I14"].Value = string.Format("{0}-3", value.LotNo);
-                            ws.Cells["J14"].Value = string.Format("{0}-4", value.LotNo);
-                            ws.Cells["K14"].Value = string.Format("{0}-5", value.LotNo);
-                            */
-                            #endregion
-
-                            #region Write each properties
-                            /*
-                            CordProductionProperty p;
-                            // TENSILE STRENGTH (PropertyNo = 1)
-                            p = value.Properties.FindByPropertyNo(1);
-                            WriteProperty(ws, 15, p);
-                            // ELONG AT BREAK (PropertyNo = 2)
-                            p = value.Properties.FindByPropertyNo(2);
-                            WriteProperty(ws, 16, p);
-                            // ELONG AT LOAD (PropertyNo = 3)
-                            p = value.Properties.FindByPropertyNo(3);
-                            WriteProperty(ws, 17, p);
-                            // FIRST TWIST (PropertyNo = 7)
-                            p = value.Properties.FindByPropertyNo(7);
-                            WriteProperty(ws, 18, p);
-                            // SECOND TWIST (PropertyNo = 8)
-                            p = value.Properties.FindByPropertyNo(8);
-                            WriteProperty(ws, 19, p);
-                            // THERMAL SHRINKAGE (PropertyNo = 6)
-                            p = value.Properties.FindByPropertyNo(6);
-                            WriteProperty(ws, 20, p);
-                            // SHRINKAGE FORCE (PropertyNo = 5)
-                            p = value.Properties.FindByPropertyNo(5);
-                            WriteProperty(ws, 21, p);
-                            // MOISTURE REGAIN (PropertyNo = 11)
-                            p = value.Properties.FindByPropertyNo(11);
-                            WriteProperty(ws, 22, p);
-                            // FINENESS (PropertyNo = 10)
-                            p = value.Properties.FindByPropertyNo(10);
-                            WriteProperty(ws, 23, p);
                             */
                             #endregion
                         }

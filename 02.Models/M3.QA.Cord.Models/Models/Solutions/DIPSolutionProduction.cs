@@ -14,7 +14,6 @@ using NLib.Models;
 
 using Dapper;
 using Newtonsoft.Json;
-using M3.QA.Models.Solutions;
 
 #endregion
 
