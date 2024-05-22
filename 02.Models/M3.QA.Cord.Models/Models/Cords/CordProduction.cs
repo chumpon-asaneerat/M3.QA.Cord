@@ -28,7 +28,6 @@ namespace M3.QA.Models
 
         #endregion
 
-
         #region Public Properties
 
         public int? MasterId { get; set; }

@@ -96,6 +96,7 @@
     <Compile Include="Models\Masters\MCordTestSpec.cs" />
     <Compile Include="Models\Masters\ProductType.cs" />
     <Compile Include="Models\Masters\YarnType.cs" />
+    <Compile Include="Models\Solutions\DIPSolutionProduction.cs" />
     <Compile Include="Models\Solutions\DIPSolutionSampleRecv.cs" />
     <Compile Include="Models\Solutions\SolutionProperties\DIPSolutionTSC.cs" />
     <Compile Include="Models\Solutions\SolutionProperties\DIPSolutionPH.cs" />

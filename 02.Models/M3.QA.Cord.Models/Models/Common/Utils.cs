@@ -975,4 +975,39 @@ namespace M3.QA.Models
     }
 
     #endregion
+
+    #region Utils ExtensionMethods
+
+    public static class UtilsExtensionMethods
+    {
+        #region Find By Property No
+
+        /// <summary>
+        /// Find By Property No.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="propertyNo"></param>
+        /// <returns></returns>
+        public static M_GetReportTestSpecByMasterid FindByPropertyNo(this List<M_GetReportTestSpecByMasterid> items,
+            int propertyNo, string elongN = null)
+        {
+            if (null == items || items.Count <= 0)
+                return null;
+            if (string.IsNullOrEmpty(elongN))
+            {
+                return items.Find((x) => { return x.PropertyNo == propertyNo; });
+            }
+            else
+            {
+                return items.Find((x) =>
+                {
+                    return x.PropertyNo == propertyNo && string.Compare(x.UnitId, elongN, true) == 0;
+                });
+            }
+        }
+
+        #endregion
+    }
+
+    #endregion
 }

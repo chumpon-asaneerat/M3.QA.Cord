@@ -33,7 +33,7 @@ namespace M3.QA.Pages
 
         #region Internal Variables
 
-        public List<CordProduction> searchs = null;
+        public List<DIPSolutionProduction> searchs = null;
 
         #endregion
 
@@ -54,22 +54,11 @@ namespace M3.QA.Pages
             ClearSearch();
         }
 
-        private void cmdView_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            var ctx = (null != sender && sender is Button) ? (sender as Button).DataContext : null;
-            var item = (null != ctx) ? ctx as CordProduction : null;
-            Edit(item);
-            */
-        }
-
         private void cmdExport_Click(object sender, RoutedEventArgs e)
         {
-            /*
             var ctx = (null != sender && sender is Button) ? (sender as Button).DataContext : null;
-            var item = (null != ctx) ? ctx as CordProduction : null;
+            var item = (null != ctx) ? ctx as DIPSolutionProduction : null;
             Export(item);
-            */
         }
 
         #endregion
@@ -135,7 +124,7 @@ namespace M3.QA.Pages
             string lotNo = txtLotNo.Text.Trim();
 
             grid.ItemsSource = null;
-            searchs = CordProduction.Gets(lotNo, from, to).Value();
+            searchs = DIPSolutionProduction.Gets(lotNo, from, to).Value();
             grid.ItemsSource = searchs;
         }
 
@@ -146,7 +135,7 @@ namespace M3.QA.Pages
             dtDateFrom.Value = DateTime.Today;
 
             grid.ItemsSource = null;
-            searchs = new List<CordProduction>();
+            searchs = new List<DIPSolutionProduction>();
             grid.ItemsSource = searchs;
 
             this.InvokeAction(() =>
@@ -155,58 +144,12 @@ namespace M3.QA.Pages
             });
         }
 
-        private void Edit(CordProduction item)
-        {
-            if (null == item)
-                return;
-            /*
-            var win = M3QAApp.Windows.CordProductionTestView;
-            win.Setup(item);
-            if (win.ShowDialog() == true)
-            {
-
-            }
-            */
-        }
-
-        private void Export(CordProduction item)
+        private void Export(DIPSolutionProduction item)
         {
             if (null == item)
                 return;
 
-            if (!item.CoaNo.HasValue) return;
-
-            //COAService.COA1.Export(item);
-            //COAService.COA2.Export(item);
-            //COAService.COA3.Export(item);
-            //COAService.COA4.Export(item);
-            switch (item.CoaNo.Value)
-            {
-                case 1:
-                    {
-                        COAService.COA1.Export(item);
-                        break;
-                    }
-                case 2:
-                    {
-                        COAService.COA2.Export(item);
-                        break;
-                    }
-                case 3:
-                    {
-                        COAService.COA3.Export(item);
-                        break;
-                    }
-                case 4:
-                    {
-                        COAService.COA4.Export(item);
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
-            }
+            COAService.COA5.Export(item);
         }
 
         #endregion

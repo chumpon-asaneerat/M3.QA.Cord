@@ -112,24 +112,12 @@
                         <GridView>
                             <GridView.Columns>
                                 <!--  BUTTONS  -->
-                                <GridViewColumn Header="" Width="90">
+                                <GridViewColumn Header="" Width="45">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center">
-                                                <!--  VIEW  -->
-                                                <Button x:Name="cmdView"
-                                                        DockPanel.Dock="Left"
-                                                        Style="{StaticResource InlineButton}"
-                                                        Margin="2,0"
-                                                        Width="30"
-                                                        Height="30"
-                                                        Click="cmdView_Click">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Style="{StaticResource fa-search}" FontSize="14" />
-                                                    </StackPanel>
-                                                </Button>
                                                 <!--  EXPORT  -->
                                                 <Button x:Name="cmdExport"
                                                         DockPanel.Dock="Left"
@@ -143,16 +131,6 @@
                                                     </StackPanel>
                                                 </Button>
                                             </StackPanel>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--  PRODUCTION LOT  -->
-                                <GridViewColumn Header="Production Lot" Width="150">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding ProductionLot}"
-                                                       TextAlignment="Center"
-                                                       FontWeight="SemiBold" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -186,36 +164,6 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <!--  YARN CODE  -->
-                                <GridViewColumn Header="Yarn Code" Width="200">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding YarnCode}"
-                                                       TextAlignment="Center"
-                                                       FontWeight="SemiBold" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--  SPINDLE NO  -->
-                                <GridViewColumn Header="Spindle No" Width="200">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding SpindleNo}"
-                                                       TextAlignment="Left"
-                                                       FontWeight="SemiBold" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <!--  PiNo SL  -->
-                                <GridViewColumn Header="PI No.SL" Width="120">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding PiNoSL}"
-                                                       TextAlignment="Center"
-                                                       FontWeight="SemiBold" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
                                 <!--  INPUT DATE  -->
                                 <GridViewColumn Header="Input Date" Width="180">
                                     <GridViewColumn.CellTemplate>
@@ -226,11 +174,81 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <!--  INPUT TEST BY  -->
+                                <!--  VALID DATE  -->
+                                <GridViewColumn Header="Valid Date" Width="180">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ValidDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}"
+                                                       TextAlignment="Center"
+                                                       FontWeight="SemiBold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--  MANUFACTURING DATE  -->
+                                <GridViewColumn Header="Manufacturing Date" Width="180">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ManufacturingDate, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}"
+                                                       TextAlignment="Center"
+                                                       FontWeight="SemiBold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--  INPUT BY  -->
                                 <GridViewColumn Header="Input By" Width="200">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding InputTestBy}"
+                                            <TextBlock Text="{Binding SaveBy}"
+                                                       TextAlignment="Left"
+                                                       FontWeight="SemiBold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--  PH  -->
+                                <GridViewColumn Header="PH" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding PH, StringFormat='{}{0:#,##0.###}'}"
+                                                       TextAlignment="Left"
+                                                       FontWeight="SemiBold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--  TEMP  -->
+                                <GridViewColumn Header="Temp." Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Tempturature, StringFormat='{}{0:#,##0.###}', TargetNullValue=''}"
+                                                       TextAlignment="Left"
+                                                       FontWeight="SemiBold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--  VISCOSITY  -->
+                                <GridViewColumn Header="Viscosity" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Viscosity, StringFormat='{}{0:#,##0.###}', TargetNullValue=''}"
+                                                       TextAlignment="Left"
+                                                       FontWeight="SemiBold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--  TSCN1  -->
+                                <GridViewColumn Header="Viscosity" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding TSCN1, StringFormat='{}{0:#,##0.###}', TargetNullValue=''}"
+                                                       TextAlignment="Left"
+                                                       FontWeight="SemiBold" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--  TSCN2  -->
+                                <GridViewColumn Header="Viscosity" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding TSCN2, StringFormat='{}{0:#,##0.###}', TargetNullValue=''}"
                                                        TextAlignment="Left"
                                                        FontWeight="SemiBold" />
                                         </DataTemplate>
