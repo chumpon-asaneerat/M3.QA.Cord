@@ -138,6 +138,19 @@ namespace M3.QA
 
             #endregion
 
+            #region Auto Transfer
+
+            /// <summary>Gets M3 Auto Transfer Tensile Strength/Elongation Import Page.</summary>
+            public static ExcelTensileElongationImportPage ExcelTensileElongationImport
+            {
+                get
+                {
+                    return GetPage<ExcelTensileElongationImportPage>();
+                }
+            }
+
+            #endregion
+
             #region Master
 
             /// <summary>Gets M3 Cord Code Setting Page.</summary>
