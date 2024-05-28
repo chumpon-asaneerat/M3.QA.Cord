@@ -6,6 +6,7 @@
              xmlns:ctrl="clr-namespace:NLib.Wpf.Controls;assembly=NLib.Wpf.Controls"
              xmlns:util="clr-namespace:NLib.Wpf.Controls.Utils;assembly=NLib.Wpf.Controls"
              xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
+             xmlns:prop="clr-namespace:M3.QA.Pages"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignHeight="450"
@@ -44,7 +45,7 @@
                 <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
-            <DockPanel LastChildFill="True">
+            <DockPanel LastChildFill="True" DockPanel.Dock="Top">
                 <!--  LINE 1 BROWSE FILE  -->
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center"
@@ -168,6 +169,14 @@
                 <Grid DockPanel.Dock="Top" Height="10" />
                 <Grid />
             </DockPanel>
+            <!--  WORK AREA  -->
+            <TabControl x:Name="tabs"
+                        TabStripPlacement="Left"
+                        Margin="0,5">
+                <TabItem Header="Tensile Strength">
+                    <prop:UniTestTensileStrengthPage />
+                </TabItem>
+            </TabControl>
         </DockPanel>
     </page:NPage>
 </UserControl>
