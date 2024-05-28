@@ -53,21 +53,41 @@ namespace M3.QA
 
         public class COA1
         {
-            private static void WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
+            private static JudgeStatus WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
             {
-                if (null != ws && null != p && null != p.Spec)
+                JudgeStatus ret = JudgeStatus.NoSpec;
+
+                if (null != ws && null != p)
                 {
                     // Unit Report
                     ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
                     // SPEC
-                    ws.Cells["D" + iRow.ToString()].Value = p.Spec.ReportSpec;
+                    ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpec : "(%)";
                     // RESULT
                     ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+
+                    // Judge
+                    ret = (null != p.Spec) ? (p.Spec.IsOutOfSpec(p.Avg) ? JudgeStatus.NG : JudgeStatus.OK) : JudgeStatus.NoSpec;
+                    string sJudge;
+                    switch (ret)
+                    {
+                        case JudgeStatus.OK:
+                            sJudge = "OK";
+                            break;
+                        case JudgeStatus.NG:
+                            sJudge = "NG";
+                            break;
+                        default:
+                            sJudge = "-";
+                            break;
+                    }
                     // JUDGE
-                    ws.Cells["G" + iRow.ToString()].Value = p.Spec.IsOutOfSpec(p.Avg) ? "NG" : "OK";
+                    ws.Cells["G" + iRow.ToString()].Value = sJudge;
                     // Test Method
                     ws.Cells["H" + iRow.ToString()].Value = p.Spec.TestMethod;
                 }
+
+                return ret;
             }
 
             public static void Export(CordProduction value)
@@ -121,39 +141,65 @@ namespace M3.QA
 
                             #region Write each properties
 
+                            int iCnt = 0, iOk = 0;
                             CordProductionProperty p;
+
                             // TENSILE STRENGTH (PropertyNo = 1)
                             p = value.Properties.FindByPropertyNo(1);
-                            WriteProperty(ws, 20, p);
+                            if (WriteProperty(ws, 20, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // ELONG AT BREAK (PropertyNo = 2)
                             p = value.Properties.FindByPropertyNo(2);
-                            WriteProperty(ws, 21, p);
+                            if (WriteProperty(ws, 21, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // ELONG AT LOAD (PropertyNo = 3)
                             p = value.Properties.FindByPropertyNo(3);
-                            WriteProperty(ws, 22, p);
+                            if (WriteProperty(ws, 22, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // NO OF TWIST (PropertyNo = 7)
                             p = value.Properties.FindByPropertyNo(7);
-                            WriteProperty(ws, 23, p);
+                            if (WriteProperty(ws, 23, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // CORD GAUGE (PropertyNo = 9)
                             p = value.Properties.FindByPropertyNo(9);
-                            WriteProperty(ws, 24, p);
+                            if (WriteProperty(ws, 24, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // THERMAL SHRINKAGE (PropertyNo = 6)
                             p = value.Properties.FindByPropertyNo(6);
-                            WriteProperty(ws, 25, p);
+                            if (WriteProperty(ws, 25, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // CORD SIZE (PropertyNo = 10)
                             p = value.Properties.FindByPropertyNo(10);
-                            WriteProperty(ws, 26, p);
+                            if (WriteProperty(ws, 26, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // MOISTURE REGAIN (PropertyNo = 11)
                             p = value.Properties.FindByPropertyNo(11);
-                            WriteProperty(ws, 27, p);
+                            if (WriteProperty(ws, 27, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // RPU (PropertyNo = 12)
                             p = value.Properties.FindByPropertyNo(12);
-                            WriteProperty(ws, 28, p);
+                            if (WriteProperty(ws, 28, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
+
                             // ADHESION FORCE (PEEL) (PropertyNo = 4)
                             p = value.Properties.FindByPropertyNo(4);
-                            WriteProperty(ws, 29, p);
+                            if (WriteProperty(ws, 29, p) == JudgeStatus.OK) iOk++;
+                            iCnt++;
 
                             #endregion
+
+                            // Update overall judge
+                            ws.Cells["E12"].Value = (iCnt == iOk) ? "PASSED" : "NO PASSED";
+                            ws.Cells["E12"].Style.Font.Size = 36;
+                            ws.Cells["E12"].Style.Font.Bold = true;
                         }
 
                         package.Save();
