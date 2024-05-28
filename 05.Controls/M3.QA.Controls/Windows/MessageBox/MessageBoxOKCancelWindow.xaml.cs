@@ -56,7 +56,7 @@ namespace M3.QA.Windows
         /// </summary>
         /// <param name="msg">The message.</param>
         /// <param name="title">The title.</param>
-        public void Setup(string msg, string title = "M3 Cord")
+        public void Setup(string msg, string title = "M3 QA Cord")
         {
             this.Title = title;
             txtMsg.Text = msg;

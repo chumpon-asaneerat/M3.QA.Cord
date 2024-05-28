@@ -68,12 +68,14 @@ namespace M3.QA.Pages
                 txtExcelFileName.Text = file;
 
                 var ret = UniTestTensileElongation.Import(file);
-                if (null != ret)
+                if (null == ret || !ret.IsValid)
                 {
-
+                    string errMsg = null == ret ? "Error open excel file." : ret.ErrMsg;
+                    M3QAApp.Windows.ShowMessage(errMsg);
+                    return;
                 }
                 // update item
-                item = ret;
+                item = ret.Value;
                 // bind to data context
                 this.DataContext = item;
             }
