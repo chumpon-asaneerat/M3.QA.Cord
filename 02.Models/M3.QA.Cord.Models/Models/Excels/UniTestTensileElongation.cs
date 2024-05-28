@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using NLib;
 using NLib.Components;
 using NLib.Data;
+using NLib.Models;
 using NLib.Reflection;
 
 #endregion
@@ -331,18 +332,6 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets ElongN.</summary>
-        public string ElongN
-        {
-            get { return Get<string>(); }
-            set
-            {
-                Set(value, () =>
-                {
-                    ValueChange();
-                });
-            }
-        }
 
         #endregion
 
@@ -472,23 +461,92 @@ namespace M3.QA.Models
 
     #endregion
 
-    #region UniTestElongationAtBreak
+    #region UniTestElongationSubProperty
 
     /// <summary>
-    /// The UniTestElongationAtBreak class.
+    /// The UniTestElongationSubProperty class.
     /// </summary>
-    public class UniTestElongationAtBreak : NInpc
+    public class UniTestElongationSubProperty : ImportNTestProperty
     {
+        #region Public Properties
 
+        /// <summary>Gets Property Text.</summary>
+        public virtual string PropertyText { get { return "unknown"; } set { } }
+        /// <summary>Gets or sets LoadN.</summary>
+        public string LoadN { get; set; }
+
+        #endregion
     }
 
     #endregion
 
-    #region UniTestElongationAtLoad
+    #region UniTestElongationSubProperty Extension Methods
 
-    public class UniTestElongationAtLoad
+    public static class UniTestElongationSubPropertyExtensionMethods
     {
+        public static UniTestElongationSubProperty FindByElong(this List<UniTestElongationSubProperty> values, string loadN)
+        {
+            if (null == values || values.Count <= 0)
+                return null;
 
+            return values.Find(x => string.Compare(x.LoadN, loadN, true) == 0);
+        }
+    }
+
+    #endregion
+
+    #region UniTestElongationBreakProperty
+
+    /// <summary>
+    /// The UniTestElongationBreakProperty class.
+    /// </summary>
+    public class UniTestElongationBreakProperty : UniTestElongationSubProperty
+    {
+        #region Public Properties
+
+        /// <summary>Gets Property Text.</summary>
+        public override string PropertyText { get { return "at Break"; } set { } }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region UniTestElongationLoadProperty
+
+    /// <summary>
+    /// The UniTestElongationLoadProperty class.
+    /// </summary>
+    public class UniTestElongationLoadProperty : UniTestElongationSubProperty
+    {
+        #region Public Properties
+
+        /// <summary>Gets Property Text.</summary>
+        public override string PropertyText { get { return "at Load"; } set { } }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region UniTestElongation
+
+    /// <summary>
+    /// The UniTestElongation class.
+    /// </summary>
+    public class UniTestElongation : NInpc
+    {
+        #region Public Properties
+
+        public string LotNo { get; set; }
+        public int? SPNo { get; set; }
+        public int NoOfSample { get; set; }
+        public string ELongLoadN { get; set; }
+        public string YarnType { get; set; }
+
+        public List<UniTestElongationSubProperty> SubProperties { get; set; }
+
+        #endregion
     }
 
     #endregion
@@ -568,15 +626,12 @@ namespace M3.QA.Models
             Raise(() => this.SP5);
             Raise(() => this.SP6);
             Raise(() => this.SP7);
-
-            PrepareProperties();
         }
 
-        private void PrepareProperties()
+        public void PrepareProperties()
         {
             PrepareTensileStrengths();
-            PrepareUniTestElongationAtBreak();
-            PrepareUniTestElongationAtLoad();
+            PrepareUniTestElongations();
         }
 
         private void PrepareTensileStrengths()
@@ -634,14 +689,86 @@ namespace M3.QA.Models
             }
         }
 
-        private void PrepareUniTestElongationAtBreak()
+        private void PrepareUniTestElongations()
         {
+            Elongations = new List<UniTestElongation>();
+            for (int i = 0; i < NoOfSP; i++)
+            {
+                bool valid = false;
+                var inst = new UniTestElongation();
 
-        }
+                inst.LotNo = this.LotNo;
+                inst.YarnType = this.YarnType;
+                inst.NoOfSample = this.NoOfSample;
 
-        private void PrepareUniTestElongationAtLoad()
-        {
+                switch (i)
+                {
+                    case 0:
+                        {
+                            inst.SPNo = this.SP1;
+                            valid = true;
+                            break;
+                        }
+                    case 1:
+                        {
+                            inst.SPNo = this.SP2;
+                            valid = true;
+                            break;
+                        }
+                    case 2:
+                        {
+                            inst.SPNo = this.SP3;
+                            valid = true;
+                            break;
+                        }
+                    case 3:
+                        {
+                            inst.SPNo = this.SP4;
+                            valid = true;
+                            break;
+                        }
+                    case 4:
+                        {
+                            inst.SPNo = this.SP5;
+                            valid = true;
+                            break;
+                        }
+                    case 5:
+                        {
+                            inst.SPNo = this.SP6;
+                            valid = true;
+                            break;
+                        }
+                    case 6:
+                        {
+                            inst.SPNo = this.SP7;
+                            valid = true;
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
 
+                if (valid)
+                {
+                    var elongBreak = new UniTestElongationBreakProperty();
+                    elongBreak.SPNo = inst.SPNo;
+                    elongBreak.LotNo = inst.LotNo;
+                    inst.SubProperties.Add(elongBreak);
+                    foreach (string elong in this.ElongNs)
+                    {
+                        var elongLoad = new UniTestElongationLoadProperty();
+                        elongLoad.LoadN = elong;
+                        elongLoad.SPNo = inst.SPNo;
+                        elongLoad.LotNo = inst.LotNo;
+                        inst.SubProperties.Add(elongLoad);
+                    }
+                    // Append to List
+                    Elongations.Add(inst);
+                }
+            }
         }
 
         #endregion
@@ -677,6 +804,7 @@ namespace M3.QA.Models
         public string TestType { get; set; }
 
         public int NoOfSample { get; set; } = 3; // Fixed
+        public List<string> ElongNs { get; set; } = new List<string>();
 
         public string YarnType { get; set; }
 
@@ -698,6 +826,7 @@ namespace M3.QA.Models
         #region Test Properties
 
         public List<UniTestTensileStrength> TensileStrengths { get; set; }
+        public List<UniTestElongation> Elongations { get; set; }
 
         #endregion
 
@@ -816,6 +945,10 @@ namespace M3.QA.Models
                             }
                         }
 
+                        // update elongNs to inst
+                        inst.ElongNs = elongNs;
+                        inst.PrepareProperties(); // prepare properties
+
                         // Loop data row.
                         int iSP = 0;
                         int iCnt = 1;
@@ -827,71 +960,123 @@ namespace M3.QA.Models
 
                             #region Tensile Strengths
 
-                            N = decimal.TryParse(row["F2"].ToString(), out d) ? d : new decimal?();
-
-                            switch (iCnt)
+                            if (null != inst.TensileStrengths &&
+                                inst.TensileStrengths.Count > 0 && iSP < inst.TensileStrengths.Count &&
+                                null != inst.Elongations[iSP])
                             {
-                                case 1:
-                                    {
-                                        inst.TensileStrengths[iSP].N1 = N;
-                                        break;
-                                    }
-                                case 2:
-                                    {
-                                        inst.TensileStrengths[iSP].N2 = N;
-                                        break;
-                                    }
-                                case 3:
-                                    {
-                                        inst.TensileStrengths[iSP].N3 = N;
-                                        break;
-                                    }
+                                N = decimal.TryParse(row["F2"].ToString(), out d) ? d : new decimal?();
+
+                                switch (iCnt)
+                                {
+                                    case 1:
+                                        {
+                                            inst.TensileStrengths[iSP].N1 = N;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            inst.TensileStrengths[iSP].N2 = N;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            inst.TensileStrengths[iSP].N3 = N;
+                                            break;
+                                        }
+                                }
                             }
 
                             #endregion
 
                             #region At-Break
 
-                            N = decimal.TryParse(row["F3"].ToString(), out d) ? d : new decimal?();
-
-                            switch (iCnt)
+                            if (null != inst.Elongations &&
+                                inst.Elongations.Count > 0 && iSP < inst.Elongations.Count &&
+                                null != inst.Elongations[iSP])
                             {
-                                case 1:
-                                    {
-                                        break;
-                                    }
-                                case 2:
-                                    {
-                                        break;
-                                    }
-                                case 3:
-                                    {
-                                        break;
-                                    }
+                                var subProps = inst.Elongations[iSP].SubProperties;
+                                var atBreak = (null != subProps && subProps.Count > 0) ? subProps[0] : null;
+
+                                N = decimal.TryParse(row["F3"].ToString(), out d) ? d : new decimal?();
+                                switch (iCnt)
+                                {
+                                    case 1:
+                                        {
+                                            if (null != atBreak)
+                                            {
+                                                atBreak.N1 = N;
+                                            }
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            if (null != atBreak)
+                                            {
+                                                atBreak.N2 = N;
+                                            }
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            if (null != atBreak)
+                                            {
+                                                // At Break
+                                                atBreak.N3 = N;
+                                            }
+                                            break;
+                                        }
+                                }
                             }
 
                             #endregion
 
                             #region At-Load
 
-                            foreach (DataColumn col in elongCols)
+                            if (null != inst.Elongations &&
+                                inst.Elongations.Count > 0 && iSP < inst.Elongations.Count &&
+                                null != inst.Elongations[iSP])
                             {
-                                N = decimal.TryParse(row[col].ToString(), out d) ? d : new decimal?();
+                                var subProps = inst.Elongations[iSP].SubProperties;
 
-                                switch (iCnt)
+                                int iCol = 0;
+                                foreach (DataColumn col in elongCols)
                                 {
-                                    case 1:
+                                    var atLoad = subProps.FindByElong(elongNs[iCol]);
+
+                                    if (null != atLoad)
+                                    {
+                                        N = decimal.TryParse(row[col].ToString(), out d) ? d : new decimal?();
+
+                                        switch (iCnt)
                                         {
-                                            break;
+                                            case 1:
+                                                {
+                                                    if (null != atLoad)
+                                                    {
+                                                        atLoad.N1 = N;
+                                                    }
+                                                    break;
+                                                }
+                                            case 2:
+                                                {
+                                                    if (null != atLoad)
+                                                    {
+                                                        atLoad.N2 = N;
+                                                    }
+                                                    break;
+                                                }
+                                            case 3:
+                                                {
+                                                    if (null != atLoad)
+                                                    {
+                                                        atLoad.N3 = N;
+                                                    }
+                                                    break;
+                                                }
                                         }
-                                    case 2:
-                                        {
-                                            break;
-                                        }
-                                    case 3:
-                                        {
-                                            break;
-                                        }
+                                    }
+
+                                    iCol++;
                                 }
                             }
 
