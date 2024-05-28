@@ -67,6 +67,16 @@ namespace M3.QA
             }
         }
 
+        private void cmdBrowseExcel2_Click(object sender, RoutedEventArgs e)
+        {
+            string file = ExcelModel.Dialogs.OpenDialog(this);
+            if (!string.IsNullOrWhiteSpace(file))
+            {
+                txtExcelFile.Text = file;
+                ProcessExcelFile2(file);
+            }
+        }
+
         private void cmdConnect_Click(object sender, RoutedEventArgs e)
         {
             Connect();
@@ -198,6 +208,11 @@ namespace M3.QA
             conn.Disconnect();
             conn.Dispose();
             conn = null;
+        }
+
+        private void ProcessExcelFile2(string fileName)
+        {
+            pgrid.SelectedObject = UniTestTensileCond.Import(fileName);
         }
 
         #endregion

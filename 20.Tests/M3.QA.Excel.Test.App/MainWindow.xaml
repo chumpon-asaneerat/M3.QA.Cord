@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Excel Test App."
         Height="450"
@@ -12,46 +13,6 @@
     <TabControl x:Name="tabs"
                 FontSize="24"
                 Margin="5,2">
-        <TabItem Header="Excel">
-            <DockPanel LastChildFill="True">
-                <DockPanel LastChildFill="True" DockPanel.Dock="Top">
-                    <!--  BROWSE EXCEL FILE  -->
-                    <DockPanel LastChildFill="True" DockPanel.Dock="Top">
-                        <TextBlock DockPanel.Dock="Left"
-                                   Text="File Name:"
-                                   Margin="5,0"
-                                   FontSize="24"
-                                   VerticalAlignment="Center" />
-                        <Button x:Name="cmdBrowseExcel"
-                                DockPanel.Dock="Right"
-                                Margin="5,0"
-                                Width="100"
-                                Content="Browse"
-                                FontSize="24"
-                                VerticalAlignment="Center"
-                                Click="cmdBrowseExcel_Click" />
-                        <TextBlock x:Name="txtExcelFile"
-                                   Text="-"
-                                   Margin="5,0"
-                                   FontSize="24"
-                                   MinWidth="300"
-                                   TextTrimming="CharacterEllipsis"
-                                   VerticalAlignment="Center" />
-                    </DockPanel>
-                    <Grid />
-                </DockPanel>
-                <TabControl>
-                    <TabItem Header="UnitTest">
-                        <!--  EXCEL DATA GRID (UnitTest)  -->
-                        <DataGrid x:Name="gridExcel1" AutoGenerateColumns="True" />
-                    </TabItem>
-                    <TabItem Header="Data">
-                        <!--  EXCEL DATA GRID (Data)  -->
-                        <DataGrid x:Name="gridExcel2" AutoGenerateColumns="True" />
-                    </TabItem>
-                </TabControl>
-            </DockPanel>
-        </TabItem>
         <TabItem Header="SQL Server">
             <DockPanel LastChildFill="True">
                 <DockPanel LastChildFill="True" DockPanel.Dock="Top">
@@ -101,6 +62,82 @@
                         <Grid />
                     </DockPanel>
                     <DataGrid x:Name="gridDB" AutoGenerateColumns="True" />
+                </DockPanel>
+                <Grid />
+            </DockPanel>
+        </TabItem>
+        <TabItem Header="Excel">
+            <DockPanel LastChildFill="True">
+                <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                    <!--  BROWSE EXCEL FILE  -->
+                    <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="File Name:"
+                                   Margin="5,0"
+                                   FontSize="24"
+                                   VerticalAlignment="Center" />
+                        <Button x:Name="cmdBrowseExcel"
+                                DockPanel.Dock="Right"
+                                Margin="5,0"
+                                Width="100"
+                                Content="Browse"
+                                FontSize="24"
+                                VerticalAlignment="Center"
+                                Click="cmdBrowseExcel_Click" />
+                        <TextBlock x:Name="txtExcelFile"
+                                   Text="-"
+                                   Margin="5,0"
+                                   FontSize="24"
+                                   MinWidth="300"
+                                   TextTrimming="CharacterEllipsis"
+                                   VerticalAlignment="Center" />
+                    </DockPanel>
+                    <Grid />
+                </DockPanel>
+                <TabControl>
+                    <TabItem Header="UnitTest">
+                        <!--  EXCEL DATA GRID (UnitTest)  -->
+                        <DataGrid x:Name="gridExcel1" AutoGenerateColumns="True" />
+                    </TabItem>
+                    <TabItem Header="Data">
+                        <!--  EXCEL DATA GRID (Data)  -->
+                        <DataGrid x:Name="gridExcel2" AutoGenerateColumns="True" />
+                    </TabItem>
+                </TabControl>
+            </DockPanel>
+        </TabItem>
+        <TabItem Header="Excel 2">
+            <DockPanel LastChildFill="True">
+                <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                    <!--  BROWSE EXCEL FILE  -->
+                    <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="File Name:"
+                                   Margin="5,0"
+                                   FontSize="24"
+                                   VerticalAlignment="Center" />
+                        <Button x:Name="cmdBrowseExcel2"
+                                DockPanel.Dock="Right"
+                                Margin="5,0"
+                                Width="100"
+                                Content="Browse"
+                                FontSize="24"
+                                VerticalAlignment="Center"
+                                Click="cmdBrowseExcel2_Click" />
+                        <TextBlock x:Name="txtExcelFile2"
+                                   Text="-"
+                                   Margin="5,0"
+                                   FontSize="24"
+                                   MinWidth="300"
+                                   TextTrimming="CharacterEllipsis"
+                                   VerticalAlignment="Center" />
+                    </DockPanel>
+                    <Grid />
+                </DockPanel>
+                <DockPanel LastChildFill="True"
+                           DockPanel.Dock="Left"
+                           Width="400">
+                    <xctk:PropertyGrid x:Name="pgrid" />
                 </DockPanel>
                 <Grid />
             </DockPanel>
