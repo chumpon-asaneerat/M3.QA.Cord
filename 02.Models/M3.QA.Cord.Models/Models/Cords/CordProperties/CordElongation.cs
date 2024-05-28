@@ -558,6 +558,32 @@ namespace M3.QA.Models
             var exists = (value.MasterId.HasValue) ? CordElongationSubProperty.GetsByLotNo(
                 value.LotNo).Value() : null;
 
+            // In case No items need to check has some import data
+            if (null == exists || exists.Count <= 0)
+            {
+                var imports = Utils.Ex_GetElongationByLot.Gets(value.LotNo).Value();
+                if (null != imports && imports.Count > 0)
+                {
+                    exists = new List<CordElongationSubProperty>();
+                    foreach (var item in imports)
+                    {
+                        var imp = new CordElongationSubProperty()
+                        {
+                            LotNo = item.LotNo,
+                            PropertyNo = item.PropertyNo,
+                            SPNo = item.SPNo,
+                            LoadN = item.LoadN,
+                            //YarnType = value.YarnType,
+                            N1 = item.N1,
+                            N2 = item.N2,
+                            N3 = item.N3,
+                        };
+
+                        exists.Add(imp);
+                    }
+                }
+            }
+
             if (null != exists && null != allItems)
             {
                 int idx = -1;
