@@ -145,6 +145,9 @@
     <Compile Include="Pages\Cords\CordCodeSettingPage.xaml.cs">
       <DependentUpon>CordCodeSettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Imports\Excels\UniTestElongationPage.xaml.cs">
+      <DependentUpon>UniTestElongationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Imports\Excels\UniTestTensileStrengthPage.xaml.cs">
       <DependentUpon>UniTestTensileStrengthPage.xaml</DependentUpon>
     </Compile>
@@ -353,6 +356,10 @@
     <Page Include="Pages\Cords\CordCodeSettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Imports\Excels\UniTestElongationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Imports\Excels\UniTestTensileStrengthPage.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -176,6 +176,9 @@
                 <TabItem Header="Tensile Strength">
                     <prop:UniTestTensileStrengthPage />
                 </TabItem>
+                <TabItem Header="Elongation">
+                    <prop:UniTestElongationPage />
+                </TabItem>
             </TabControl>
         </DockPanel>
     </page:NPage>

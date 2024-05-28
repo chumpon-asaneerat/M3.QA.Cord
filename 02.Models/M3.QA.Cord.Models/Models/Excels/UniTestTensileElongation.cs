@@ -7,6 +7,7 @@ using System.Data.OleDb;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 using NLib;
 using NLib.Components;
@@ -470,6 +471,14 @@ namespace M3.QA.Models
     {
         #region Public Properties
 
+        /// <summary>Gets is Need Eload.</summary>
+        public virtual bool NeedEload { get; set; } = true;
+        /// <summary>Gets is show Eload.</summary>
+        public Visibility ShowEload
+        {
+            get { return NeedEload ? Visibility.Visible : Visibility.Hidden; }
+            set { }
+        }
         /// <summary>Gets Property Text.</summary>
         public virtual string PropertyText { get { return "unknown"; } set { } }
         /// <summary>Gets or sets LoadN.</summary>
@@ -504,6 +513,12 @@ namespace M3.QA.Models
     {
         #region Public Properties
 
+        /// <summary>Gets is Need Eload.</summary>
+        public override bool NeedEload
+        {
+            get { return false; }
+            set { }
+        }
         /// <summary>Gets Property Text.</summary>
         public override string PropertyText { get { return "at Break"; } set { } }
 
@@ -521,6 +536,12 @@ namespace M3.QA.Models
     {
         #region Public Properties
 
+        /// <summary>Gets is Need Eload.</summary>
+        public override bool NeedEload
+        {
+            get { return true; }
+            set { }
+        }
         /// <summary>Gets Property Text.</summary>
         public override string PropertyText { get { return "at Load"; } set { } }
 
@@ -544,7 +565,7 @@ namespace M3.QA.Models
         public string ELongLoadN { get; set; }
         public string YarnType { get; set; }
 
-        public List<UniTestElongationSubProperty> SubProperties { get; set; }
+        public List<UniTestElongationSubProperty> SubProperties { get; set; } = new List<UniTestElongationSubProperty>();
 
         #endregion
     }
