@@ -91,7 +91,7 @@
     <Compile Include="Models\Cords\CordTestSampleRecv.cs" />
     <Compile Include="Models\Cords\CordCode.cs" />
     <Compile Include="Models\Excels\ExcelModels.cs" />
-    <Compile Include="Models\Excels\UniTestTensileCond.cs" />
+    <Compile Include="Models\Excels\UniTestTensileElongation.cs" />
     <Compile Include="Models\Masters\COAReportType.cs" />
     <Compile Include="Models\Masters\Customer.cs" />
     <Compile Include="Models\Masters\MCordTestSpec.cs" />

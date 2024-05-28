@@ -4,21 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 using NLib;
 using NLib.Components;
 using NLib.Data;
 using NLib.Reflection;
-using OfficeOpenXml;
-using static NLib.IO.Folders;
 
 #endregion
 
@@ -467,6 +459,39 @@ namespace M3.QA.Models
 
     #endregion
 
+    #region UniTestTensileStrength
+
+    /// <summary>
+    /// The UniTestTensileStrength class.
+    /// </summary>
+    public class UniTestTensileStrength : ImportNTestProperty
+    {
+
+    }
+
+    #endregion
+
+    #region UniTestElongationAtBreak
+
+    /// <summary>
+    /// The UniTestElongationAtBreak class.
+    /// </summary>
+    public class UniTestElongationAtBreak : NInpc
+    {
+
+    }
+
+    #endregion
+
+    #region UniTestElongationAtLoad
+
+    public class UniTestElongationAtLoad
+    {
+
+    }
+
+    #endregion
+
     #region UniTestTensileElongation
 
     public class UniTestTensileElongation : NInpc
@@ -477,6 +502,21 @@ namespace M3.QA.Models
         {
             string[] sps = Comment1.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             NoOfSample = (null != sps) ? sps.Length : 0;
+
+            // Clear SPs.
+            SP1 = new int?();
+            SP2 = new int?();
+            SP3 = new int?();
+            SP4 = new int?();
+            SP5 = new int?();
+            SP6 = new int?();
+            SP7 = new int?();
+
+            // Raise NoOfSample Change Events
+            Raise(() => this.NoOfSample);
+
+            if (NoOfSample <= 0) return;
+
             int sp;
             for (int i = 0; i < sps.Length; i++) 
             { 
@@ -519,11 +559,95 @@ namespace M3.QA.Models
                         }
                 }
             }
+            // Raise SP? Change Events
+            Raise(() => this.SP1);
+            Raise(() => this.SP2);
+            Raise(() => this.SP3);
+            Raise(() => this.SP4);
+            Raise(() => this.SP5);
+            Raise(() => this.SP6);
+            Raise(() => this.SP7);
+
+            PrepareProperties();
+        }
+
+        private void PrepareProperties()
+        {
+            PrepareTensileStrengths();
+            PrepareUniTestElongationAtBreak();
+            PrepareUniTestElongationAtLoad();
+        }
+
+        private void PrepareTensileStrengths()
+        {
+            TensileStrengths = new List<UniTestTensileStrength>();
+            for (int i = 0; i < TensileStrengths.Count; i++) 
+            {
+                var inst = new UniTestTensileStrength();
+
+                inst.LotNo = this.LotNo;
+                inst.YarnType = this.YarnType;
+                inst.NoOfSample = this.NoOfSample;
+                
+                switch (i)
+                {
+                    case 0: 
+                        {
+                            inst.SPNo = this.SP1;
+                            break;
+                        }
+                    case 1:
+                        {
+                            inst.SPNo = this.SP2;
+                            break;
+                        }
+                    case 2:
+                        {
+                            inst.SPNo = this.SP3;
+                            break;
+                        }
+                    case 3:
+                        {
+                            inst.SPNo = this.SP4;
+                            break;
+                        }
+                    case 4:
+                        {
+                            inst.SPNo = this.SP5;
+                            break;
+                        }
+                    case 5:
+                        {
+                            inst.SPNo = this.SP6;
+                            break;
+                        }
+                    case 6:
+                        {
+                            inst.SPNo = this.SP7;
+                            break;
+                        }
+                }
+
+
+                TensileStrengths.Add(inst);
+            }
+        }
+
+        private void PrepareUniTestElongationAtBreak()
+        {
+
+        }
+
+        private void PrepareUniTestElongationAtLoad()
+        {
+
         }
 
         #endregion
 
         #region Public Properties
+
+        #region Common
 
         /// <summary>Gets or sets Test Date.</summary>
         public DateTime? TestDate { get; set; }
@@ -552,6 +676,11 @@ namespace M3.QA.Models
         public string TestType { get; set; }
 
         public int NoOfSample { get; set; }
+        public string YarnType { get; set; }
+
+        #endregion
+
+        #region SP
 
         public int? SP1 { get; set; }
         public int? SP2 { get; set; }
@@ -560,6 +689,14 @@ namespace M3.QA.Models
         public int? SP5 { get; set; }
         public int? SP6 { get; set; }
         public int? SP7 { get; set; }
+
+        #endregion
+
+        #region Test Properties
+
+        public List<UniTestTensileStrength> TensileStrengths { get; set; }
+
+        #endregion
 
         #endregion
 
