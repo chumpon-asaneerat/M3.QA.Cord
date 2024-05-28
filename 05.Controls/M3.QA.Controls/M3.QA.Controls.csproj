@@ -261,6 +261,14 @@
     <None Include="Resources\Original\COA Format.xlsx" />
     <EmbeddedResource Include="Resources\Excels\COA1.xlsx" />
     <EmbeddedResource Include="Resources\Excels\COA4.xlsx" />
+    <None Include="Resources\Original\Example UnitTest Excels\4673 24D09B1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\4673 24D11B1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\P1100TT 24A19A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\P1100TT 24E10A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\P1671T 24E05A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\P1671T 24E11A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\P1671TT 24E19A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\P1671TT 24E20A1.xls" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\00.NLib\NLib.Reports\NLib.Reports.csproj">
