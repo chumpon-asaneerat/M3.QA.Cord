@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -174,6 +175,35 @@ namespace M3.QA.Models
             }
 
             var existItems = (value.MasterId.HasValue) ? GetsByLotNo(value.LotNo).Value() : null;
+
+            // In case No items need to check has some import data
+            if (null == existItems || existItems.Count == 0)
+            {
+                var imports = Utils.Ex_GetTensileDataByLot.Gets(value.LotNo).Value();
+                if (null != imports && imports.Count > 0)
+                {
+                    existItems = new List<CordTensileStrength>();
+                    foreach (var item in imports)
+                    {
+                        var imp = new CordTensileStrength()
+                        {
+                            LotNo = item.LotNo,
+                            PropertyNo = 1, // Tensile Strength = 1
+                            SPNo = item.SPNo,
+                            NeedSP = true,
+                            Spec = spec,
+                            YarnType = value.YarnType,
+                            NoOfSample = noOfSample,
+                            N1 = item.N1,
+                            N2 = item.N2,
+                            N3 = item.N3,
+                        };
+
+                        existItems.Add(imp);
+                    }
+                }
+            }
+
             if (null != existItems && null != results)
             {
                 int idx = -1;
