@@ -501,7 +501,7 @@ namespace M3.QA.Models
         private void ParseComment1()
         {
             string[] sps = Comment1.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            NoOfSample = (null != sps) ? sps.Length : 0;
+            NoOfSP = (null != sps) ? sps.Length : 0;
 
             // Clear SPs.
             SP1 = new int?();
@@ -512,13 +512,13 @@ namespace M3.QA.Models
             SP6 = new int?();
             SP7 = new int?();
 
-            // Raise NoOfSample Change Events
-            Raise(() => this.NoOfSample);
+            // Raise NoOfSP Change Events
+            Raise(() => this.NoOfSP);
 
-            if (NoOfSample <= 0) return;
+            if (NoOfSP <= 0) return;
 
             int sp;
-            for (int i = 0; i < sps.Length; i++) 
+            for (int i = 0; i < NoOfSP; i++) 
             { 
                 switch (i)
                 {
@@ -581,7 +581,7 @@ namespace M3.QA.Models
         private void PrepareTensileStrengths()
         {
             TensileStrengths = new List<UniTestTensileStrength>();
-            for (int i = 0; i < TensileStrengths.Count; i++) 
+            for (int i = 0; i < NoOfSP; i++) 
             {
                 var inst = new UniTestTensileStrength();
 
@@ -628,7 +628,7 @@ namespace M3.QA.Models
                         }
                 }
 
-
+                // Append to List
                 TensileStrengths.Add(inst);
             }
         }
@@ -675,13 +675,15 @@ namespace M3.QA.Models
 
         public string TestType { get; set; }
 
-        public int NoOfSample { get; set; }
+        public int NoOfSample { get; set; } = 3; // Fixed
+
         public string YarnType { get; set; }
 
         #endregion
 
         #region SP
 
+        public int NoOfSP { get; set; }
         public int? SP1 { get; set; }
         public int? SP2 { get; set; }
         public int? SP3 { get; set; }

@@ -100,10 +100,8 @@
                                                 <DockPanel LastChildFill="True">
                                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                         <StackPanel Orientation="Vertical"
-                                                                    ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
-                                                                    Visibility="{Binding VisibleN}">
+                                                                    ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}">
                                                             <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorN}"
                                                                        Text="{Binding CaptionN}" />
                                                             <TextBox Style="{StaticResource NInput}" />
                                                         </StackPanel>

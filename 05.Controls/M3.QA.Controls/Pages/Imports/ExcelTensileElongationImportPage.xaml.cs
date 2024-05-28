@@ -33,6 +33,8 @@ namespace M3.QA.Pages
 
         #region Internal Variables
 
+        private UniTestTensileElongation item;
+
         #endregion
 
         #region Button Handlers
@@ -61,9 +63,19 @@ namespace M3.QA.Pages
             string file = ExcelModel.Dialogs.OpenDialog();
             if (!string.IsNullOrWhiteSpace(file))
             {
+                this.DataContext = null;
+
                 txtExcelFileName.Text = file;
 
-                this.DataContext = UniTestTensileElongation.Import(file);
+                var ret = UniTestTensileElongation.Import(file);
+                if (null != ret)
+                {
+
+                }
+                // update item
+                item = ret;
+                // bind to data context
+                this.DataContext = item;
             }
         }
 
