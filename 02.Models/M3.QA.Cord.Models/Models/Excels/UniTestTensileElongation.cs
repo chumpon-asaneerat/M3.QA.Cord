@@ -561,7 +561,7 @@ namespace M3.QA.Models
 
         public string LotNo { get; set; }
         public int? SPNo { get; set; }
-        public int NoOfSample { get; set; }
+        public int NoOfSample { get; set; } = 3;
         public string ELongLoadN { get; set; }
         public string YarnType { get; set; }
 
@@ -777,6 +777,7 @@ namespace M3.QA.Models
                     var elongBreak = new UniTestElongationBreakProperty();
                     elongBreak.SPNo = inst.SPNo;
                     elongBreak.LotNo = inst.LotNo;
+                    elongBreak.NoOfSample = inst.NoOfSample;
                     inst.SubProperties.Add(elongBreak);
                     foreach (string elong in this.ElongNs)
                     {
@@ -784,6 +785,7 @@ namespace M3.QA.Models
                         elongLoad.LoadN = elong;
                         elongLoad.SPNo = inst.SPNo;
                         elongLoad.LotNo = inst.LotNo;
+                        elongLoad.NoOfSample = inst.NoOfSample;
                         inst.SubProperties.Add(elongLoad);
                     }
                     // Append to List
