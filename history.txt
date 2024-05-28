@@ -10,8 +10,10 @@ M3 QA Cord #318
 M3 QA Cord #317
 - 
 
+[commit]
 M3 QA Cord #316
-- 
+- Implements Cord Test Data #276
+  - Implement import UnitTest.TensileStrength #8
 
 [commit]
 M3 QA Cord #315

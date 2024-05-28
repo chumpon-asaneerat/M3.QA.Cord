@@ -85,8 +85,7 @@
                                 <!--  EACH N  -->
                                 <ItemsControl ItemsSource="{Binding Items}"
                                               Focusable="False"
-                                              DockPanel.Dock="Left"
-                                              IsEnabled="{Binding EnableTest}">
+                                              DockPanel.Dock="Left">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <VirtualizingStackPanel Orientation="Horizontal"
@@ -99,10 +98,8 @@
                                             <Border Margin="0,0,5,0">
                                                 <DockPanel LastChildFill="True">
                                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical"
-                                                                    ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}">
-                                                            <TextBlock TextAlignment="Center"
-                                                                       Text="{Binding CaptionN}" />
+                                                        <StackPanel Orientation="Vertical" ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}">
+                                                            <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
                                                             <TextBox Style="{StaticResource NInput}" />
                                                         </StackPanel>
                                                     </StackPanel>

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -794,14 +795,117 @@ namespace M3.QA.Models
                         return inst;
                     }
 
-
                     #region Data
 
                     string sheetName2 = "Data";
                     var table2 = conn.Query("Select * from [" + sheetName2 + "$]").Result;
                     if (null != table2)
                     {
+                        List<DataColumn> elongCols = new List<DataColumn>();
+                        List<string> elongNs = new List<string>();
 
+                        DataRow headerRow = table2.Rows[0];
+                        foreach (DataColumn col in table2.Columns)
+                        {
+                            string hdrTxt = headerRow[col].ToString();
+                            if (hdrTxt.StartsWith("At-Load-"))
+                            {
+                                string elongN = hdrTxt.Replace("At-Load-", "");
+                                elongCols.Add(col);
+                                elongNs.Add(elongN);
+                            }
+                        }
+
+                        // Loop data row.
+                        int iSP = 0;
+                        int iCnt = 1;
+                        decimal? N;
+                        decimal d;
+                        for (int iRow = 3; iRow < table2.Rows.Count; iRow++)
+                        {
+                            DataRow row = table2.Rows[iRow];
+
+                            #region Tensile Strengths
+
+                            N = decimal.TryParse(row["F2"].ToString(), out d) ? d : new decimal?();
+
+                            switch (iCnt)
+                            {
+                                case 1:
+                                    {
+                                        inst.TensileStrengths[iSP].N1 = N;
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        inst.TensileStrengths[iSP].N2 = N;
+                                        break;
+                                    }
+                                case 3:
+                                    {
+                                        inst.TensileStrengths[iSP].N3 = N;
+                                        break;
+                                    }
+                            }
+
+                            #endregion
+
+                            #region At-Break
+
+                            N = decimal.TryParse(row["F3"].ToString(), out d) ? d : new decimal?();
+
+                            switch (iCnt)
+                            {
+                                case 1:
+                                    {
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        break;
+                                    }
+                                case 3:
+                                    {
+                                        break;
+                                    }
+                            }
+
+                            #endregion
+
+                            #region At-Load
+
+                            foreach (DataColumn col in elongCols)
+                            {
+                                N = decimal.TryParse(row[col].ToString(), out d) ? d : new decimal?();
+
+                                switch (iCnt)
+                                {
+                                    case 1:
+                                        {
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            break;
+                                        }
+                                }
+                            }
+
+                            #endregion
+
+                            iCnt++;
+
+                            if (iCnt > 3)
+                            {
+                                iCnt = 1; // Reset to N1
+
+                                iSP++; // next sp
+                            }
+                        }
                     }
                     table2 = null;
 
