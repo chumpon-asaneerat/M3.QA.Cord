@@ -7,8 +7,10 @@ M3 QA Cord #329
 M3 QA Cord #328
 - 
 
+[commit]
 M3 QA Cord #327
-- 
+- Implements Cord Test Data #287
+- Rebuild all solution
 
 [commit]
 M3 QA Cord #326
