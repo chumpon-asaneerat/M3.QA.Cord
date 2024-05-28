@@ -776,40 +776,39 @@ namespace M3.QA.Models
                 int iCnt = 0;
                 foreach (var r in value.Elongations)
                 {
-
                     foreach (var s in r.SubProperties)
                     {
                         p = new DynamicParameters();
 
                         p.Add("@LotNo", s.LotNo);
                         // Elongation Break Proepty No = 2, Elongation Load Proepty No = 3
-                        p.Add("@propertyno", (s.NeedEload == false) ? 2 :3);
+                        p.Add("@propertyno", s.PropertyNo);
                         p.Add("@spno", s.SPNo);
                         p.Add("@loadn", s.LoadN);
                         p.Add("@n1", s.N1);
                         p.Add("@n2", s.N2);
                         p.Add("@n3", s.N3);
-                    }
 
-                    p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                    p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+                        p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                        p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
 
-                    try
-                    {
-                        cnn.Execute("Ex_SaveElongation", p, commandType: CommandType.StoredProcedure);
-                        ret.Success();
-                        // Set error number/message
-                        ret.ErrNum = p.Get<int>("@errNum");
-                        ret.ErrMsg = p.Get<string>("@errMsg");
+                        try
+                        {
+                            cnn.Execute("Ex_SaveElongation", p, commandType: CommandType.StoredProcedure);
+                            ret.Success();
+                            // Set error number/message
+                            ret.ErrNum = p.Get<int>("@errNum");
+                            ret.ErrMsg = p.Get<string>("@errMsg");
 
-                        if (ret.ErrNum == 0) iCnt++;
-                    }
-                    catch (Exception ex)
-                    {
-                        med.Err(ex);
-                        // Set error number/message
-                        ret.ErrNum = 9999;
-                        ret.ErrMsg = ex.Message;
+                            if (ret.ErrNum == 0) iCnt++;
+                        }
+                        catch (Exception ex)
+                        {
+                            med.Err(ex);
+                            // Set error number/message
+                            ret.ErrNum = 9999;
+                            ret.ErrMsg = ex.Message;
+                        }
                     }
                 }
                 if (iCnt == value.Elongations.Count)

@@ -36,6 +36,8 @@ namespace M3.QA.Models
             get { return NeedEload ? Visibility.Visible : Visibility.Hidden; }
             set { }
         }
+        /// <summary>Gets Proeprty No.</summary>
+        public virtual int PropertyNo { get; set; }
         /// <summary>Gets Property Text.</summary>
         public virtual string PropertyText { get { return "unknown"; } set { } }
         /// <summary>Gets or sets LoadN.</summary>
@@ -76,6 +78,9 @@ namespace M3.QA.Models
             get { return false; }
             set { }
         }
+        /// <summary>Gets Proeprty No.</summary>
+        public override int PropertyNo { get { return 2; } set { } }
+
         /// <summary>Gets Property Text.</summary>
         public override string PropertyText { get { return "at Break"; } set { } }
 
@@ -99,6 +104,9 @@ namespace M3.QA.Models
             get { return true; }
             set { }
         }
+        /// <summary>Gets Proeprty No.</summary>
+        public override int PropertyNo { get { return 3; } set { } }
+
         /// <summary>Gets Property Text.</summary>
         public override string PropertyText { get { return "at Load"; } set { } }
 
