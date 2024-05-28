@@ -145,7 +145,10 @@
     <Compile Include="Pages\Cords\CordCodeSettingPage.xaml.cs">
       <DependentUpon>CordCodeSettingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Cords\ExcelTensileElongationImportPage.xaml.cs">
+    <Compile Include="Pages\Imports\Excels\UniTestTensileStrengthPage.xaml.cs">
+      <DependentUpon>UniTestTensileStrengthPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Imports\ExcelTensileElongationImportPage.xaml.cs">
       <DependentUpon>ExcelTensileElongationImportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Cords\Properties\CordDenierMoistureWeightPage.xaml.cs">
@@ -351,7 +354,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Cords\ExcelTensileElongationImportPage.xaml">
+    <Page Include="Pages\Imports\Excels\UniTestTensileStrengthPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Imports\ExcelTensileElongationImportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -464,8 +471,6 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Cords\Excels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
