@@ -972,6 +972,141 @@ namespace M3.QA.Models
         }
 
         #endregion
+
+        #region Ex_GetTensileDataByLot
+
+        public class Ex_GetTensileDataByLot
+        {
+            #region Public Properties
+
+            public string LotNo { get; set; }
+            public int? SPNo { get; set; }
+
+            public decimal? N1 { get; set; }
+            public decimal? N2 { get; set; }
+            public decimal? N3 { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<Ex_GetTensileDataByLot>> Gets(
+                string lotNo)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<Ex_GetTensileDataByLot>> ret = new NDbResult<List<Ex_GetTensileDataByLot>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@lotNo", lotNo);
+
+                try
+                {
+                    var items = cnn.Query<Ex_GetTensileDataByLot>("Ex_GetTensileDataByLot", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
+
+        #region Ex_GetElongationByLot
+
+        public class Ex_GetElongationByLot
+        {
+            #region Public Properties
+
+            public string LotNo { get; set; }
+            public int PropertyNo { get; set; }
+
+            public int? SPNo { get; set; }
+            public string LoadN { get; set; }
+
+            public decimal? N1 { get; set; }
+            public decimal? N2 { get; set; }
+            public decimal? N3 { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<Ex_GetElongationByLot>> Gets(
+                string lotNo)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<Ex_GetElongationByLot>> ret = new NDbResult<List<Ex_GetElongationByLot>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@lotNo", lotNo);
+
+                try
+                {
+                    var items = cnn.Query<Ex_GetElongationByLot>("Ex_GetElongationByLot", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
     }
 
     #endregion
