@@ -62,6 +62,8 @@ namespace M3.QA.Pages
             if (!string.IsNullOrWhiteSpace(file))
             {
                 txtExcelFileName.Text = file;
+
+                this.DataContext = UniTestTensileElongation.Import(file);
             }
         }
 
