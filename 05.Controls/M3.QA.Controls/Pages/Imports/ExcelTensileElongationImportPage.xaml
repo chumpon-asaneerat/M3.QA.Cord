@@ -74,13 +74,13 @@
                     <ctrl:NTextBox x:Name="txtLotNo"
                                    CaptionText="Lot No:"
                                    DockPanel.Dock="Left"
-                                   Text="{Binding LotNo}"
+                                   Text="{Binding LotNo, TargetNullValue=''}"
                                    Width="180" />
                     <!--  CORD CODE  -->
                     <ctrl:NTextBox x:Name="txtCordCode"
                                    CaptionText="Cord Code:"
                                    DockPanel.Dock="Left"
-                                   Text=""
+                                   Text="{Binding SampleName, TargetNullValue=''}"
                                    Width="180" />
                     <!--  TEST DATE  -->
                     <ctrl:NInputGroup CaptionText="Test Date:"
@@ -89,17 +89,23 @@
                         <xctk:DateTimePicker x:Name="dtTestDate"
                                              Format="Custom"
                                              FormatString="dd/MM/yyyy"
-                                             Value="{Binding TestDate}"
+                                             Value="{Binding TestDate, TargetNullValue=''}"
                                              TimePickerAllowSpin="False"
                                              TimePickerShowButtonSpinner="False"
                                              AutoCloseCalendar="True"
                                              AutoCloseCalendarOnTimeSelection="True" />
                     </ctrl:NInputGroup>
+                    <!--  TEST BY ID  -->
+                    <ctrl:NTextBox x:Name="txtTestById"
+                                   CaptionText="Test By Id:"
+                                   DockPanel.Dock="Left"
+                                   Text="{Binding TestById, TargetNullValue=''}"
+                                   Width="180" />
                     <!--  TEST BY  -->
                     <ctrl:NTextBox x:Name="txtTestBy"
                                    CaptionText="Test By:"
                                    DockPanel.Dock="Left"
-                                   Text="{Binding Operator}"
+                                   Text="{Binding Operator, TargetNullValue=''}"
                                    Width="180" />
                     <Grid />
                 </DockPanel>

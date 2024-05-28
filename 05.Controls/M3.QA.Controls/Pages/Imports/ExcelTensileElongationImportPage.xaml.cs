@@ -83,12 +83,26 @@ namespace M3.QA.Pages
 
         private void Save()
         {
-
+            if (null != item)
+            {
+                var ret = UniTestTensileElongation.Save(item, M3QAApp.Current.User);
+                if (null == ret || !ret.Ok)
+                {
+                    M3QAApp.Windows.SaveFailed();
+                }
+                else
+                {
+                    M3QAApp.Windows.SaveSuccess();
+                    ClearInput();
+                }
+            }
         }
 
         private void ClearInput()
         {
             txtExcelFileName.Text = string.Empty;
+            this.DataContext = null;
+            tabs.SelectedIndex = 0;
         }
 
         #endregion

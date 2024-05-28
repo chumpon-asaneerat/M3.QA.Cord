@@ -15,6 +15,8 @@ using NLib.Data;
 using NLib.Models;
 using NLib.Reflection;
 
+using Dapper;
+
 #endregion
 
 namespace M3.QA.Models
@@ -291,6 +293,8 @@ namespace M3.QA.Models
         public List<string> ElongNs { get; set; } = new List<string>();
 
         public string YarnType { get; set; }
+
+        public int TestById { get; set; }
 
         #endregion
 
@@ -641,6 +645,180 @@ namespace M3.QA.Models
             conn = null;
 
             return result;
+        }
+
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="value">The UniTestTensileElongation item to save.</param>
+        /// <returns></returns>
+        public static NDbResult Save(UniTestTensileElongation value, UserInfo user)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult ret = new NDbResult();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            int totalSP = 0;
+            if (value.SP1.HasValue) totalSP++;
+            if (value.SP2.HasValue) totalSP++;
+            if (value.SP3.HasValue) totalSP++;
+            if (value.SP4.HasValue) totalSP++;
+            if (value.SP5.HasValue) totalSP++;
+            if (value.SP6.HasValue) totalSP++;
+            if (value.SP7.HasValue) totalSP++;
+
+            var p = new DynamicParameters();
+
+            p.Add("@LotNo", value.LotNo);
+            p.Add("@itemcode", value.SampleName);
+
+            p.Add("@SP1", value.SP1);
+            p.Add("@SP2", value.SP2);
+            p.Add("@SP3", value.SP3);
+            p.Add("@SP4", value.SP4);
+            p.Add("@SP5", value.SP5);
+            p.Add("@SP6", value.SP6);
+            p.Add("@SP7", value.SP7);
+
+            p.Add("@TotalSP", totalSP);
+
+            p.Add("@testdate", value.TestDate);
+
+            p.Add("@testbyid", value.TestById);
+            p.Add("@testbyname", value.Operator);
+
+            p.Add("@loaddate", DateTime.Now);
+            p.Add("@loadby", (null != user) ? user.FullName : null);
+
+            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+            try
+            {
+                cnn.Execute("Ex_SaveTensileElongationHead", p, commandType: CommandType.StoredProcedure);
+                ret.Success();
+                // Set error number/message
+                ret.ErrNum = p.Get<int>("@errNum");
+                ret.ErrMsg = p.Get<string>("@errMsg");
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            // Save Tensile Strength
+            //if (ret.ErrNum != 0) return ret;
+
+            if (null != value.TensileStrengths  &&  value.TensileStrengths.Count > 0)
+            {
+                int iCnt = 0;
+                foreach (var r in value.TensileStrengths) 
+                {
+                    p = new DynamicParameters();
+                    p.Add("@LotNo", r.LotNo);
+                    p.Add("@spno", r.SPNo);
+                    p.Add("@n1", r.N1);
+                    p.Add("@n2", r.N2);
+                    p.Add("@n3", r.N3);
+                    p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+                    try
+                    {
+                        cnn.Execute("Ex_SaveTensile", p, commandType: CommandType.StoredProcedure);
+                        ret.Success();
+                        // Set error number/message
+                        ret.ErrNum = p.Get<int>("@errNum");
+                        ret.ErrMsg = p.Get<string>("@errMsg");
+
+                        if (ret.ErrNum == 0) iCnt++;
+                    }
+                    catch (Exception ex)
+                    {
+                        med.Err(ex);
+                        // Set error number/message
+                        ret.ErrNum = 9999;
+                        ret.ErrMsg = ex.Message;
+                    }
+                }
+                if (iCnt == value.TensileStrengths.Count)
+                {
+                    ret.Success();
+                }
+            }
+
+            // Save Elongation
+            //if (ret.ErrNum != 0) return ret;
+            
+            if (null != value.Elongations && value.Elongations.Count > 0)
+            {
+                int iCnt = 0;
+                foreach (var r in value.Elongations)
+                {
+
+                    foreach (var s in r.SubProperties)
+                    {
+                        p = new DynamicParameters();
+
+                        p.Add("@LotNo", s.LotNo);
+                        // Elongation Break Proepty No = 2, Elongation Load Proepty No = 3
+                        p.Add("@propertyno", (s.NeedEload == false) ? 2 :3);
+                        p.Add("@spno", s.SPNo);
+                        p.Add("@loadn", s.LoadN);
+                        p.Add("@n1", s.N1);
+                        p.Add("@n2", s.N2);
+                        p.Add("@n3", s.N3);
+                    }
+
+                    p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+                    try
+                    {
+                        cnn.Execute("Ex_SaveElongation", p, commandType: CommandType.StoredProcedure);
+                        ret.Success();
+                        // Set error number/message
+                        ret.ErrNum = p.Get<int>("@errNum");
+                        ret.ErrMsg = p.Get<string>("@errMsg");
+
+                        if (ret.ErrNum == 0) iCnt++;
+                    }
+                    catch (Exception ex)
+                    {
+                        med.Err(ex);
+                        // Set error number/message
+                        ret.ErrNum = 9999;
+                        ret.ErrMsg = ex.Message;
+                    }
+                }
+                if (iCnt == value.Elongations.Count)
+                {
+                    ret.Success();
+                }
+            }
+
+            return ret;
         }
 
         #endregion
