@@ -25,8 +25,11 @@ M3 QA Cord #333
 M3 QA Cord #332
 - 
 
+[commit]
 M3 QA Cord #331
-- 
+- Implements Cord Test Data #291
+  - COA1 update check judgement overall
+  - Update app build 331
 
 [commit]
 M3 QA Cord #330

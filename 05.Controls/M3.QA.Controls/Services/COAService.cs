@@ -141,63 +141,53 @@ namespace M3.QA
 
                             #region Write each properties
 
-                            int iCnt = 0, iOk = 0;
+                            int iNG = 0;
                             CordProductionProperty p;
 
                             // TENSILE STRENGTH (PropertyNo = 1)
                             p = value.Properties.FindByPropertyNo(1);
-                            if (WriteProperty(ws, 20, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 20, p) == JudgeStatus.NG) iNG++;
 
                             // ELONG AT BREAK (PropertyNo = 2)
                             p = value.Properties.FindByPropertyNo(2);
-                            if (WriteProperty(ws, 21, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 21, p) == JudgeStatus.NG) iNG++;
 
                             // ELONG AT LOAD (PropertyNo = 3)
                             p = value.Properties.FindByPropertyNo(3);
-                            if (WriteProperty(ws, 22, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 22, p) == JudgeStatus.NG) iNG++;
 
                             // NO OF TWIST (PropertyNo = 7)
                             p = value.Properties.FindByPropertyNo(7);
-                            if (WriteProperty(ws, 23, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 23, p) == JudgeStatus.NG) iNG++;
 
                             // CORD GAUGE (PropertyNo = 9)
                             p = value.Properties.FindByPropertyNo(9);
-                            if (WriteProperty(ws, 24, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 24, p) == JudgeStatus.NG) iNG++;
 
                             // THERMAL SHRINKAGE (PropertyNo = 6)
                             p = value.Properties.FindByPropertyNo(6);
-                            if (WriteProperty(ws, 25, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 25, p) == JudgeStatus.NG) iNG++;
 
                             // CORD SIZE (PropertyNo = 10)
                             p = value.Properties.FindByPropertyNo(10);
-                            if (WriteProperty(ws, 26, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 26, p) == JudgeStatus.NG) iNG++;
 
                             // MOISTURE REGAIN (PropertyNo = 11)
                             p = value.Properties.FindByPropertyNo(11);
-                            if (WriteProperty(ws, 27, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 27, p) == JudgeStatus.NG) iNG++;
 
                             // RPU (PropertyNo = 12)
                             p = value.Properties.FindByPropertyNo(12);
-                            if (WriteProperty(ws, 28, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 28, p) == JudgeStatus.NG) iNG++;
 
                             // ADHESION FORCE (PEEL) (PropertyNo = 4)
                             p = value.Properties.FindByPropertyNo(4);
-                            if (WriteProperty(ws, 29, p) == JudgeStatus.OK) iOk++;
-                            iCnt++;
+                            if (WriteProperty(ws, 29, p) == JudgeStatus.NG) iNG++;
 
                             #endregion
 
                             // Update overall judge
-                            ws.Cells["E12"].Value = (iCnt == iOk) ? "PASSED" : "NO PASSED";
+                            ws.Cells["E12"].Value = (iNG > 0) ? "NO PASSED" : "PASSED";
                             ws.Cells["E12"].Style.Font.Size = 36;
                             ws.Cells["E12"].Style.Font.Bold = true;
                         }
