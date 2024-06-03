@@ -60,7 +60,6 @@ namespace M3.QA.Pages
 
         private void Browse()
         {
-            /*
             string file = ExcelModel.Dialogs.OpenDialog();
             if (!string.IsNullOrWhiteSpace(file))
             {
@@ -75,12 +74,13 @@ namespace M3.QA.Pages
                     M3QAApp.Windows.ShowMessage(errMsg);
                     return;
                 }
+                /*
                 // update item
                 item = ret.Value;
                 // bind to data context
                 this.DataContext = item;
+                */
             }
-            */
         }
 
         private void Save()
@@ -104,11 +104,9 @@ namespace M3.QA.Pages
 
         private void ClearInput()
         {
-            /*
             txtExcelFileName.Text = string.Empty;
             this.DataContext = null;
             tabs.SelectedIndex = 0;
-            */
         }
 
         #endregion

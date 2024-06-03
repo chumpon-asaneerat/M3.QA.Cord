@@ -21,9 +21,12 @@ using Dapper;
 
 namespace M3.QA.Models
 {
-    #region UniTestTensileElongation
+    #region UnitTestAdhesionForce
 
-    public class UniTestTensileElongation : NInpc
+    /// <summary>
+    /// The UnitTestAdhesionForce class.
+    /// </summary>
+    public class UnitTestAdhesionForce : NInpc
     {
         #region Private Methods
 
@@ -47,11 +50,11 @@ namespace M3.QA.Models
             if (NoOfSP <= 0) return;
 
             int sp;
-            for (int i = 0; i < NoOfSP; i++) 
-            { 
+            for (int i = 0; i < NoOfSP; i++)
+            {
                 switch (i)
                 {
-                    case 0: 
+                    case 0:
                         {
                             SP1 = int.TryParse(sps[i], out sp) ? sp : new int?();
                             break;
@@ -98,26 +101,20 @@ namespace M3.QA.Models
             Raise(() => this.SP7);
         }
 
-        public void PrepareProperties()
+        private void PrepareAdhesionForces()
         {
-            PrepareTensileStrengths();
-            PrepareUniTestElongations();
-        }
-
-        private void PrepareTensileStrengths()
-        {
-            TensileStrengths = new List<UniTestTensileStrength>();
-            for (int i = 0; i < NoOfSP; i++) 
+            AdhesionForces = new List<UnitTestAdhesionForce>();
+            for (int i = 0; i < NoOfSP; i++)
             {
-                var inst = new UniTestTensileStrength();
+                var inst = new UnitTestAdhesionForce();
 
                 inst.LotNo = this.LotNo;
                 inst.YarnType = this.YarnType;
                 inst.NoOfSample = this.NoOfSample;
-                
+
                 switch (i)
                 {
-                    case 0: 
+                    case 0:
                         {
                             inst.SPNo = this.SP1;
                             break;
@@ -155,92 +152,13 @@ namespace M3.QA.Models
                 }
 
                 // Append to List
-                TensileStrengths.Add(inst);
+                AdhesionForces.Add(inst);
             }
         }
 
-        private void PrepareUniTestElongations()
+        public void PrepareProperties()
         {
-            Elongations = new List<UniTestElongation>();
-            for (int i = 0; i < NoOfSP; i++)
-            {
-                bool valid = false;
-                var inst = new UniTestElongation();
-
-                inst.LotNo = this.LotNo;
-                inst.YarnType = this.YarnType;
-                inst.NoOfSample = this.NoOfSample;
-
-                switch (i)
-                {
-                    case 0:
-                        {
-                            inst.SPNo = this.SP1;
-                            valid = true;
-                            break;
-                        }
-                    case 1:
-                        {
-                            inst.SPNo = this.SP2;
-                            valid = true;
-                            break;
-                        }
-                    case 2:
-                        {
-                            inst.SPNo = this.SP3;
-                            valid = true;
-                            break;
-                        }
-                    case 3:
-                        {
-                            inst.SPNo = this.SP4;
-                            valid = true;
-                            break;
-                        }
-                    case 4:
-                        {
-                            inst.SPNo = this.SP5;
-                            valid = true;
-                            break;
-                        }
-                    case 5:
-                        {
-                            inst.SPNo = this.SP6;
-                            valid = true;
-                            break;
-                        }
-                    case 6:
-                        {
-                            inst.SPNo = this.SP7;
-                            valid = true;
-                            break;
-                        }
-                    default:
-                        {
-                            break;
-                        }
-                }
-
-                if (valid)
-                {
-                    var elongBreak = new UniTestElongationBreakProperty();
-                    elongBreak.SPNo = inst.SPNo;
-                    elongBreak.LotNo = inst.LotNo;
-                    elongBreak.NoOfSample = inst.NoOfSample;
-                    inst.SubProperties.Add(elongBreak);
-                    foreach (string elong in this.ElongNs)
-                    {
-                        var elongLoad = new UniTestElongationLoadProperty();
-                        elongLoad.LoadN = elong;
-                        elongLoad.SPNo = inst.SPNo;
-                        elongLoad.LotNo = inst.LotNo;
-                        elongLoad.NoOfSample = inst.NoOfSample;
-                        inst.SubProperties.Add(elongLoad);
-                    }
-                    // Append to List
-                    Elongations.Add(inst);
-                }
-            }
+            PrepareAdhesionForces();
         }
 
         #endregion
@@ -261,12 +179,12 @@ namespace M3.QA.Models
 
         public string Operator { get; set; }
 
-        public string Comment1 
-        { 
+        public string Comment1
+        {
             get { return Get<string>(); }
-            set 
+            set
             {
-                Set(value, () => 
+                Set(value, () =>
                 {
                     ParseComment1();
                 });
@@ -299,8 +217,7 @@ namespace M3.QA.Models
 
         #region Test Properties
 
-        public List<UniTestTensileStrength> TensileStrengths { get; set; }
-        public List<UniTestElongation> Elongations { get; set; }
+        public List<UnitTestAdhesionForce> AdhesionForces { get; set; }
 
         #endregion
 
@@ -308,16 +225,16 @@ namespace M3.QA.Models
 
         #region Static Methods
 
-        public static UniTestImportResult<UniTestTensileElongation> Import(string fileName)
+        public static UniTestImportResult<UnitTestAdhesionForce> Import(string fileName)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
-            UniTestImportResult<UniTestTensileElongation> result = new UniTestImportResult<UniTestTensileElongation>();
+            UniTestImportResult<UnitTestAdhesionForce> result = new UniTestImportResult<UnitTestAdhesionForce>();
             result.IsValid = false;
             result.ErrMsg = "unknown";
             result.Value = null;
 
-            UniTestTensileElongation inst = null;
+            UnitTestAdhesionForce inst = null;
 
             var cfg = new ExcelConfig();
             cfg.DataSource.FileName = fileName;
@@ -337,7 +254,7 @@ namespace M3.QA.Models
                     var table1 = conn.Query("Select * from [" + sheetName1 + "$]").Result;
                     if (null != table1)
                     {
-                        inst = new UniTestTensileElongation();
+                        inst = new UnitTestAdhesionForce();
                         foreach (DataRow row in table1.Rows)
                         {
                             if (null == row) continue;
@@ -347,7 +264,7 @@ namespace M3.QA.Models
 
                             if (pName == "Test date")
                             {
-                                inst.TestDate = (null != pValue) ? 
+                                inst.TestDate = (null != pValue) ?
                                     DateTime.ParseExact(pValue.ToString(), "yyyy/MM/dd", DateTimeFormatInfo.InvariantInfo) : new DateTime?();
                             }
                             else if (pName == "Temperature")
@@ -455,9 +372,8 @@ namespace M3.QA.Models
 
                             #region Tensile Strengths
 
-                            if (null != inst.TensileStrengths &&
-                                inst.TensileStrengths.Count > 0 && iSP < inst.TensileStrengths.Count &&
-                                null != inst.Elongations[iSP])
+                            if (null != inst.AdhesionForces &&
+                                inst.AdhesionForces.Count > 0 && iSP < inst.AdhesionForces.Count)
                             {
                                 N = decimal.TryParse(row["F2"].ToString(), out d) ? d : new decimal?();
 
@@ -465,119 +381,21 @@ namespace M3.QA.Models
                                 {
                                     case 1:
                                         {
-                                            inst.TensileStrengths[iSP].N1 = N;
+                                            inst.AdhesionForces[iSP].N1 = N;
                                             break;
                                         }
                                     case 2:
                                         {
-                                            inst.TensileStrengths[iSP].N2 = N;
+                                            inst.AdhesionForces[iSP].N2 = N;
                                             break;
                                         }
                                     case 3:
                                         {
-                                            inst.TensileStrengths[iSP].N3 = N;
+                                            inst.AdhesionForces[iSP].N3 = N;
                                             break;
                                         }
                                 }
                             }
-
-                            #endregion
-
-                            #region Elongation
-
-                            #region At-Break
-
-                            if (null != inst.Elongations &&
-                                inst.Elongations.Count > 0 && iSP < inst.Elongations.Count &&
-                                null != inst.Elongations[iSP])
-                            {
-                                var subProps = inst.Elongations[iSP].SubProperties;
-                                var atBreak = (null != subProps && subProps.Count > 0) ? subProps[0] : null;
-
-                                N = decimal.TryParse(row["F3"].ToString(), out d) ? d : new decimal?();
-                                switch (iCnt)
-                                {
-                                    case 1:
-                                        {
-                                            if (null != atBreak)
-                                            {
-                                                atBreak.N1 = N;
-                                            }
-                                            break;
-                                        }
-                                    case 2:
-                                        {
-                                            if (null != atBreak)
-                                            {
-                                                atBreak.N2 = N;
-                                            }
-                                            break;
-                                        }
-                                    case 3:
-                                        {
-                                            if (null != atBreak)
-                                            {
-                                                // At Break
-                                                atBreak.N3 = N;
-                                            }
-                                            break;
-                                        }
-                                }
-                            }
-
-                            #endregion
-
-                            #region At-Load
-
-                            if (null != inst.Elongations &&
-                                inst.Elongations.Count > 0 && iSP < inst.Elongations.Count &&
-                                null != inst.Elongations[iSP])
-                            {
-                                var subProps = inst.Elongations[iSP].SubProperties;
-
-                                int iCol = 0;
-                                foreach (DataColumn col in elongCols)
-                                {
-                                    var atLoad = subProps.FindByElong(elongNs[iCol]);
-
-                                    if (null != atLoad)
-                                    {
-                                        N = decimal.TryParse(row[col].ToString(), out d) ? d : new decimal?();
-
-                                        switch (iCnt)
-                                        {
-                                            case 1:
-                                                {
-                                                    if (null != atLoad)
-                                                    {
-                                                        atLoad.N1 = N;
-                                                    }
-                                                    break;
-                                                }
-                                            case 2:
-                                                {
-                                                    if (null != atLoad)
-                                                    {
-                                                        atLoad.N2 = N;
-                                                    }
-                                                    break;
-                                                }
-                                            case 3:
-                                                {
-                                                    if (null != atLoad)
-                                                    {
-                                                        atLoad.N3 = N;
-                                                    }
-                                                    break;
-                                                }
-                                        }
-                                    }
-
-                                    iCol++;
-                                }
-                            }
-
-                            #endregion
 
                             #endregion
 
@@ -636,9 +454,9 @@ namespace M3.QA.Models
         /// <summary>
         /// Save
         /// </summary>
-        /// <param name="value">The UniTestTensileElongation item to save.</param>
+        /// <param name="value">The UnitTestAdhesionForce item to save.</param>
         /// <returns></returns>
-        public static NDbResult Save(UniTestTensileElongation value, UserInfo user)
+        public static NDbResult Save(UnitTestAdhesionForce value, UserInfo user)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -713,13 +531,13 @@ namespace M3.QA.Models
                 ret.ErrMsg = ex.Message;
             }
 
-            // Save Tensile Strength
+            // Save Adhesion Force
             //if (ret.ErrNum != 0) return ret;
 
-            if (null != value.TensileStrengths  &&  value.TensileStrengths.Count > 0)
+            if (null != value.AdhesionForces && value.AdhesionForces.Count > 0)
             {
                 int iCnt = 0;
-                foreach (var r in value.TensileStrengths) 
+                foreach (var r in value.AdhesionForces)
                 {
                     p = new DynamicParameters();
                     p.Add("@LotNo", r.LotNo);
@@ -748,56 +566,7 @@ namespace M3.QA.Models
                         ret.ErrMsg = ex.Message;
                     }
                 }
-                if (iCnt == value.TensileStrengths.Count)
-                {
-                    ret.Success();
-                }
-            }
-
-            // Save Elongation
-            //if (ret.ErrNum != 0) return ret;
-            
-            if (null != value.Elongations && value.Elongations.Count > 0)
-            {
-                int iCnt = 0;
-                foreach (var r in value.Elongations)
-                {
-                    foreach (var s in r.SubProperties)
-                    {
-                        p = new DynamicParameters();
-
-                        p.Add("@LotNo", s.LotNo);
-                        // Elongation Break Proepty No = 2, Elongation Load Proepty No = 3
-                        p.Add("@propertyno", s.PropertyNo);
-                        p.Add("@spno", s.SPNo);
-                        p.Add("@loadn", s.LoadN);
-                        p.Add("@n1", s.N1);
-                        p.Add("@n2", s.N2);
-                        p.Add("@n3", s.N3);
-
-                        p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                        p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
-
-                        try
-                        {
-                            cnn.Execute("Ex_SaveElongation", p, commandType: CommandType.StoredProcedure);
-                            ret.Success();
-                            // Set error number/message
-                            ret.ErrNum = p.Get<int>("@errNum");
-                            ret.ErrMsg = p.Get<string>("@errMsg");
-
-                            if (ret.ErrNum == 0) iCnt++;
-                        }
-                        catch (Exception ex)
-                        {
-                            med.Err(ex);
-                            // Set error number/message
-                            ret.ErrNum = 9999;
-                            ret.ErrMsg = ex.Message;
-                        }
-                    }
-                }
-                if (iCnt == value.Elongations.Count)
+                if (iCnt == value.AdhesionForces.Count)
                 {
                     ret.Success();
                 }
