@@ -94,6 +94,7 @@
     <Compile Include="Models\Excels\ExcelModels.cs" />
     <Compile Include="Models\Excels\ImportNProperties\ImportNTestProperties.cs" />
     <Compile Include="Models\Excels\ImportNProperties\UniTestElongation.cs" />
+    <Compile Include="Models\Excels\ImportNProperties\UnitTestAdhesionForce.cs" />
     <Compile Include="Models\Excels\ImportNProperties\UnitTestTensileStrength.cs" />
     <Compile Include="Models\Excels\UniTestTensileElongation.cs" />
     <Compile Include="Models\Excels\UnitTestAdhesionForce.cs" />

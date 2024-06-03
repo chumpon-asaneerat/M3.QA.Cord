@@ -1,5 +1,37 @@
-M3 QA Cord #340
+M3 QA Cord #380
 - 
+
+M3 QA Cord #349
+- 
+
+M3 QA Cord #348
+- 
+
+M3 QA Cord #347
+- 
+
+M3 QA Cord #346
+- 
+
+M3 QA Cord #345
+- 
+
+M3 QA Cord #344
+- 
+
+M3 QA Cord #343
+- 
+
+M3 QA Cord #342
+- 
+
+M3 QA Cord #341
+- 
+
+[commit]
+M3 QA Cord #340
+- Implements Cord Test Data #300
+  - Implements Auto Import Adhesion Force #8
 
 [commit]
 M3 QA Cord #339

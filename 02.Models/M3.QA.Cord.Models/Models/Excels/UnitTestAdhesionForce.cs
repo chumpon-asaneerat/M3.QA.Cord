@@ -103,10 +103,10 @@ namespace M3.QA.Models
 
         private void PrepareAdhesionForces()
         {
-            AdhesionForces = new List<UnitTestAdhesionForce>();
+            AdhesionForces = new List<UnitTestAdhesionForceProperty>();
             for (int i = 0; i < NoOfSP; i++)
             {
-                var inst = new UnitTestAdhesionForce();
+                var inst = new UnitTestAdhesionForceProperty();
 
                 inst.LotNo = this.LotNo;
                 inst.YarnType = this.YarnType;
@@ -217,7 +217,7 @@ namespace M3.QA.Models
 
         #region Test Properties
 
-        public List<UnitTestAdhesionForce> AdhesionForces { get; set; }
+        public List<UnitTestAdhesionForceProperty> AdhesionForces { get; set; }
 
         #endregion
 
