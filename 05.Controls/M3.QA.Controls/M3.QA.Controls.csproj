@@ -208,6 +208,9 @@
     <Compile Include="Pages\Menu\M3QAMainMenuPage.xaml.cs">
       <DependentUpon>M3QAMainMenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Imports\Excels\UnitTestAdhesionForcePage.xaml.cs">
+      <DependentUpon>UnitTestAdhesionForcePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -453,6 +456,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Menu\M3QAMainMenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Imports\Excels\UnitTestAdhesionForcePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
