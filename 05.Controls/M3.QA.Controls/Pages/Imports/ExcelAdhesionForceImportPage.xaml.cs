@@ -33,7 +33,7 @@ namespace M3.QA.Pages
 
         #region Internal Variables
 
-        //private UniTestTensileElongation item;
+        private UniTestTensileElongation item;
 
         #endregion
 

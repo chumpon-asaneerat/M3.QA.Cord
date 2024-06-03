@@ -21,9 +21,9 @@ using Dapper;
 
 namespace M3.QA.Models
 {
-    #region UniTestTensileElongation
+    #region UnitTestTensileElongation
 
-    public class UniTestTensileElongation : NInpc
+    public class UnitTestTensileElongation : NInpc
     {
         #region Private Methods
 
@@ -308,16 +308,16 @@ namespace M3.QA.Models
 
         #region Static Methods
 
-        public static UniTestImportResult<UniTestTensileElongation> Import(string fileName)
+        public static UniTestImportResult<UnitTestTensileElongation> Import(string fileName)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
-            UniTestImportResult<UniTestTensileElongation> result = new UniTestImportResult<UniTestTensileElongation>();
+            UniTestImportResult<UnitTestTensileElongation> result = new UniTestImportResult<UnitTestTensileElongation>();
             result.IsValid = false;
             result.ErrMsg = "unknown";
             result.Value = null;
 
-            UniTestTensileElongation inst = null;
+            UnitTestTensileElongation inst = null;
 
             var cfg = new ExcelConfig();
             cfg.DataSource.FileName = fileName;
@@ -337,7 +337,7 @@ namespace M3.QA.Models
                     var table1 = conn.Query("Select * from [" + sheetName1 + "$]").Result;
                     if (null != table1)
                     {
-                        inst = new UniTestTensileElongation();
+                        inst = new UnitTestTensileElongation();
                         foreach (DataRow row in table1.Rows)
                         {
                             if (null == row) continue;
@@ -638,7 +638,7 @@ namespace M3.QA.Models
         /// </summary>
         /// <param name="value">The UniTestTensileElongation item to save.</param>
         /// <returns></returns>
-        public static NDbResult Save(UniTestTensileElongation value, UserInfo user)
+        public static NDbResult Save(UnitTestTensileElongation value, UserInfo user)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 

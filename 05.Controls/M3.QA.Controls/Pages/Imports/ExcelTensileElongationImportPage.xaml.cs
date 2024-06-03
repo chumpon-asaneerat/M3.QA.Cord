@@ -33,7 +33,7 @@ namespace M3.QA.Pages
 
         #region Internal Variables
 
-        private UniTestTensileElongation item;
+        private UnitTestTensileElongation item;
 
         #endregion
 
@@ -67,7 +67,7 @@ namespace M3.QA.Pages
 
                 txtExcelFileName.Text = file;
 
-                var ret = UniTestTensileElongation.Import(file);
+                var ret = UnitTestTensileElongation.Import(file);
                 if (null == ret || !ret.IsValid)
                 {
                     string errMsg = null == ret ? "Error open excel file." : ret.ErrMsg;
@@ -85,7 +85,7 @@ namespace M3.QA.Pages
         {
             if (null != item)
             {
-                var ret = UniTestTensileElongation.Save(item, M3QAApp.Current.User);
+                var ret = UnitTestTensileElongation.Save(item, M3QAApp.Current.User);
                 if (null == ret || !ret.Ok)
                 {
                     M3QAApp.Windows.SaveFailed();
