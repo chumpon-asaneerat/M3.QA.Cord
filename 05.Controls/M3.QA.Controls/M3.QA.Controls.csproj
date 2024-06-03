@@ -261,14 +261,18 @@
     <None Include="Resources\Original\COA Format.xlsx" />
     <EmbeddedResource Include="Resources\Excels\COA1.xlsx" />
     <EmbeddedResource Include="Resources\Excels\COA4.xlsx" />
-    <None Include="Resources\Original\Example UnitTest Excels\4673 24D09B1.xls" />
-    <None Include="Resources\Original\Example UnitTest Excels\4673 24D11B1.xls" />
-    <None Include="Resources\Original\Example UnitTest Excels\P1100TT 24A19A1.xls" />
-    <None Include="Resources\Original\Example UnitTest Excels\P1100TT 24E10A1.xls" />
-    <None Include="Resources\Original\Example UnitTest Excels\P1671T 24E05A1.xls" />
-    <None Include="Resources\Original\Example UnitTest Excels\P1671T 24E11A1.xls" />
-    <None Include="Resources\Original\Example UnitTest Excels\P1671TT 24E19A1.xls" />
-    <None Include="Resources\Original\Example UnitTest Excels\P1671TT 24E20A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Adhesion Peel\File Excel Test Adhesion %28Peel%29%281%29.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Adhesion Peel\KT3R1624E21B1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Adhesion Peel\KT3R1624E23B1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Adhesion Peel\KT3S7124E19B1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Tensile Strength\4673 24D09B1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Tensile Strength\4673 24D11B1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Tensile Strength\P1100TT 24A19A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Tensile Strength\P1100TT 24E10A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Tensile Strength\P1671T 24E05A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Tensile Strength\P1671T 24E11A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Tensile Strength\P1671TT 24E19A1.xls" />
+    <None Include="Resources\Original\Example UnitTest Excels\Tensile Strength\P1671TT 24E20A1.xls" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\00.NLib\NLib.Reports\NLib.Reports.csproj">

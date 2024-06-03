@@ -22,8 +22,10 @@ M3 QA Cord #334
 M3 QA Cord #333
 - 
 
+[commit]
 M3 QA Cord #332
-- 
+- Implements Cord Test Data #292
+  - Update more excel sample file for Adhesion (Peel)
 
 [commit]
 M3 QA Cord #331
