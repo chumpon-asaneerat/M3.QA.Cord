@@ -230,6 +230,14 @@
                                 <Run Text="Elongation" />
                             </TextBlock>
                         </Button>
+                        <Button x:Name="cmdAdhesionForce" Style="{StaticResource AutoButtonStyle}"
+                                Click="cmdAdhesionForce_Click">
+                            <TextBlock TextAlignment="Center">
+                                <Run Text="Adhesion / " />
+                                <LineBreak />
+                                <Run Text="Force" />
+                            </TextBlock>
+                        </Button>
                         <Button x:Name="cmdPHMeter" Style="{StaticResource AutoButtonStyle}"
                                 Click="cmdPHMeter_Click">
                             <TextBlock TextAlignment="Center">

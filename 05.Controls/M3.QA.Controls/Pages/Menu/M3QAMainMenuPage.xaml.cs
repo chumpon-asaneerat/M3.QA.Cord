@@ -195,7 +195,26 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
+        // Adhesion Force
+        private void cmdAdhesionForce_Click(object sender, RoutedEventArgs e)
+        {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
 
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
+            /*
+            var page = M3QAApp.Pages.ExcelTensileElongationImport;
+            page.Setup();
+            PageContentManager.Instance.Current = page;
+            */
+        }
         // PH Meter
         private void cmdPHMeter_Click(object sender, RoutedEventArgs e)
         {
