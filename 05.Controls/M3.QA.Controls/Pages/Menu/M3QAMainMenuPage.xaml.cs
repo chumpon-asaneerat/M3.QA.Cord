@@ -209,11 +209,10 @@ namespace M3.QA.Pages
                 msgbox.ShowDialog();
                 return;
             }
-            /*
-            var page = M3QAApp.Pages.ExcelTensileElongationImport;
+
+            var page = M3QAApp.Pages.ExcelAdhesionForceImport;
             page.Setup();
             PageContentManager.Instance.Current = page;
-            */
         }
         // PH Meter
         private void cmdPHMeter_Click(object sender, RoutedEventArgs e)

@@ -149,6 +149,15 @@ namespace M3.QA
                 }
             }
 
+            /// <summary>Gets M3 Auto Transfer Adhesion Force Import Page.</summary>
+            public static ExcelAdhesionForceImportPage ExcelAdhesionForceImport
+            {
+                get
+                {
+                    return GetPage<ExcelAdhesionForceImportPage>();
+                }
+            }
+
             #endregion
 
             #region Master
