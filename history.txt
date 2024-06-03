@@ -4,12 +4,14 @@ M3 QA Cord #340
 M3 QA Cord #339
 - 
 
+[commit]
 M3 QA Cord #338
-- 
+- Implements Cord Test Data #298
+  - Implements Auto Import Adhesion Force #6
 
 [commit]
 M3 QA Cord #337
-- Implements Cord Test Data #294
+- Implements Cord Test Data #297
   - Implements Auto Import Adhesion Force #5
 
 [commit]

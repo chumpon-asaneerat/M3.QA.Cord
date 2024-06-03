@@ -148,11 +148,11 @@
     <Compile Include="Pages\Imports\ExcelAdhesionForceImportPage.xaml.cs">
       <DependentUpon>ExcelAdhesionForceImportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Imports\Excels\UniTestElongationPage.xaml.cs">
-      <DependentUpon>UniTestElongationPage.xaml</DependentUpon>
+    <Compile Include="Pages\Imports\Excels\UnitTestElongationPage.xaml.cs">
+      <DependentUpon>UnitTestElongationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Imports\Excels\UniTestTensileStrengthPage.xaml.cs">
-      <DependentUpon>UniTestTensileStrengthPage.xaml</DependentUpon>
+    <Compile Include="Pages\Imports\Excels\UnitTestTensileStrengthPage.xaml.cs">
+      <DependentUpon>UnitTestTensileStrengthPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Imports\ExcelTensileElongationImportPage.xaml.cs">
       <DependentUpon>ExcelTensileElongationImportPage.xaml</DependentUpon>
@@ -379,11 +379,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Imports\Excels\UniTestElongationPage.xaml">
+    <Page Include="Pages\Imports\Excels\UnitTestElongationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Imports\Excels\UniTestTensileStrengthPage.xaml">
+    <Page Include="Pages\Imports\Excels\UnitTestTensileStrengthPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -20,16 +20,16 @@ using System.Windows.Shapes;
 namespace M3.QA.Pages
 {
     /// <summary>
-    /// Interaction logic for UniTestElongationPage.xaml
+    /// Interaction logic for UnitTestTensileStrengthPage.xaml
     /// </summary>
-    public partial class UniTestElongationPage : UserControl
+    public partial class UnitTestTensileStrengthPage : UserControl
     {
         #region Constructor
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public UniTestElongationPage()
+        public UnitTestTensileStrengthPage()
         {
             InitializeComponent();
         }

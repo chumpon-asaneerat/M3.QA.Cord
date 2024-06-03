@@ -180,10 +180,10 @@
                         TabStripPlacement="Left"
                         Margin="0,5">
                 <TabItem Header="Tensile Strength">
-                    <prop:UniTestTensileStrengthPage />
+                    <prop:UnitTestTensileStrengthPage />
                 </TabItem>
                 <TabItem Header="Elongation">
-                    <prop:UniTestElongationPage />
+                    <prop:UnitTestElongationPage />
                 </TabItem>
             </TabControl>
         </DockPanel>

@@ -1,12 +1,184 @@
 ﻿<UserControl x:Class="M3.QA.Pages.UnitTestAdhesionForcePage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:M3.QA.Pages"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
+             xmlns:util="clr-namespace:NLib.Wpf.Controls.Utils;assembly=NLib.Wpf.Controls"
+             xmlns:conv="clr-namespace:NLib.Wpf.Controls.Converters;assembly=NLib.Wpf.Controls"
+             xmlns:ctrl="clr-namespace:M3.QA.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <UserControl.Resources>
+        <!--  SPNo  -->
+        <Style x:Key="SPNo"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <Setter Property="Text" Value="{Binding SPNo, TargetNullValue=''}" />
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  N INPUT  -->
+        <Style x:Key="NInput"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyN}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  AVG  -->
+        <Style x:Key="AVG"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding AdhesionForce.Avg, StringFormat='{}{0:#,##0.##}', TargetNullValue=''}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    <page:NPage HeaderText="Adhesion Force"
+                HeaderBackground="Violet"
+                HeaderBorderBrush="Violet">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ItemsControl MinHeight="100"
+                          Focusable="False"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.VirtualizationMode="Recycling"
+                          ItemsSource="{Binding AdhesionForces}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5"
+                                BorderBrush="Silver"
+                                BorderThickness="1"
+                                Padding="5">
+                            <DockPanel LastChildFill="True">
+                                <!--  SP No.  -->
+                                <Border Margin="0,0,5,0" DockPanel.Dock="Left">
+                                    <StackPanel Orientation="Vertical" Width="100">
+                                        <TextBlock Text="Spindle No" TextAlignment="Center" />
+                                        <TextBox Style="{StaticResource SPNo}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Margin="0,0,5,0" DockPanel.Dock="Left">
+                                    <StackPanel Orientation="Vertical">
+                                        <!--  Peak Point  -->
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="Peak point"
+                                                       TextAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3,0,10,0"
+                                                       Width="120"
+                                                       DockPanel.Dock="Left" />
+                                            <!--  EACH Peak Point N  -->
+                                            <ItemsControl ItemsSource="{Binding PeakPoint.Items}"
+                                                          Focusable="False"
+                                                          DockPanel.Dock="Left">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Margin="0,0,5,0">
+                                                            <DockPanel LastChildFill="True">
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}">
+                                                                        <TextBlock TextAlignment="Center"
+                                                                                   Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <Grid />
+                                        </DockPanel>
+                                        <Grid Height="10" />
+                                        <!--  Adhesion Force  -->
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="Adhesin force"
+                                                       TextAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3,0,10,0"
+                                                       Width="120"
+                                                       DockPanel.Dock="Left" />
+                                            <!--  EACH AdhesionForce N  -->
+                                            <ItemsControl ItemsSource="{Binding AdhesionForce.Items}"
+                                                          Focusable="False"
+                                                          DockPanel.Dock="Left">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Margin="0,0,5,0">
+                                                            <DockPanel LastChildFill="True">
+                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}">
+                                                                        <TextBlock TextAlignment="Center"
+                                                                                   Text="{Binding CaptionN}" />
+                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <!--  AVG.  -->
+                                            <Border Margin="0,0,5,0" DockPanel.Dock="Left">
+                                                <StackPanel Orientation="Vertical" Width="100">
+                                                    <TextBlock Text="AVG" TextAlignment="Center" />
+                                                    <TextBox Style="{StaticResource AVG}" />
+                                                </StackPanel>
+                                            </Border>
+                                            <Grid />
+                                        </DockPanel>
+                                    </StackPanel>
+                                </Border>
+                                <Grid />
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </page:NPage>
 </UserControl>

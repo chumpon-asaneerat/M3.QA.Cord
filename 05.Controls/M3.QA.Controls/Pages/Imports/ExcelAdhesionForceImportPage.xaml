@@ -180,7 +180,7 @@
                         TabStripPlacement="Left"
                         Margin="0,5">
                 <TabItem Header="Adhesion Force">
-                    <prop:UniTestAdhesionForcePage />
+                    <prop:UnitTestAdhesionForcePage />
                 </TabItem>
             </TabControl>
         </DockPanel>
