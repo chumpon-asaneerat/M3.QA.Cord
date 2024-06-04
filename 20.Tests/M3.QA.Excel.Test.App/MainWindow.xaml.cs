@@ -212,7 +212,7 @@ namespace M3.QA
 
         private void ProcessExcelFile2(string fileName)
         {
-            pgrid.SelectedObject = UniTestTensileElongation.Import(fileName);
+            pgrid.SelectedObject = UnitTestTensileElongation.Import(fileName);
         }
 
         #endregion

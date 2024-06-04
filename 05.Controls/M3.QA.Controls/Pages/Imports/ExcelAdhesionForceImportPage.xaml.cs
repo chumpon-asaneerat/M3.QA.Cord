@@ -33,7 +33,7 @@ namespace M3.QA.Pages
 
         #region Internal Variables
 
-        private UniTestTensileElongation item;
+        private UnitTestAdhesionForce item;
 
         #endregion
 
@@ -67,28 +67,25 @@ namespace M3.QA.Pages
 
                 txtExcelFileName.Text = file;
 
-                var ret = UniTestTensileElongation.Import(file);
+                var ret = UnitTestAdhesionForce.Import(file);
                 if (null == ret || !ret.IsValid)
                 {
                     string errMsg = null == ret ? "Error open excel file." : ret.ErrMsg;
                     M3QAApp.Windows.ShowMessage(errMsg);
                     return;
                 }
-                /*
                 // update item
                 item = ret.Value;
                 // bind to data context
                 this.DataContext = item;
-                */
             }
         }
 
         private void Save()
         {
-            /*
             if (null != item)
             {
-                var ret = UniTestTensileElongation.Save(item, M3QAApp.Current.User);
+                var ret = UnitTestAdhesionForce.Save(item, M3QAApp.Current.User);
                 if (null == ret || !ret.Ok)
                 {
                     M3QAApp.Windows.SaveFailed();
@@ -99,7 +96,6 @@ namespace M3.QA.Pages
                     ClearInput();
                 }
             }
-            */
         }
 
         private void ClearInput()

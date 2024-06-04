@@ -32,7 +32,6 @@
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
             <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
-            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyN}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
             <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
@@ -68,7 +67,7 @@
                           Focusable="False"
                           VirtualizingPanel.IsVirtualizing="True"
                           VirtualizingPanel.VirtualizationMode="Recycling"
-                          ItemsSource="{Binding AdhesionForces}">
+                          ItemsSource="{Binding Items}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Margin="5"

@@ -103,7 +103,7 @@ namespace M3.QA.Models
 
         private void PrepareAdhesionForces()
         {
-            AdhesionForces = new List<UnitTestAdhesionForceProperty>();
+            Items = new List<UnitTestAdhesionForceProperty>();
             for (int i = 0; i < NoOfSP; i++)
             {
                 var inst = new UnitTestAdhesionForceProperty();
@@ -152,7 +152,7 @@ namespace M3.QA.Models
                 }
 
                 // Append to List
-                AdhesionForces.Add(inst);
+                Items.Add(inst);
             }
         }
 
@@ -193,7 +193,7 @@ namespace M3.QA.Models
 
         public string TestType { get; set; }
 
-        public int NoOfSample { get; set; } = 3; // Fixed
+        public int NoOfSample { get; set; } = 2; // Fixed
         public List<string> ElongNs { get; set; } = new List<string>();
 
         public string YarnType { get; set; }
@@ -217,7 +217,14 @@ namespace M3.QA.Models
 
         #region Test Properties
 
-        public List<UnitTestAdhesionForceProperty> AdhesionForces { get; set; }
+        #region Items
+
+        /// <summary>
+        /// Gets or sets each Items Properties
+        /// </summary>
+        public List<UnitTestAdhesionForceProperty> Items { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -327,11 +334,11 @@ namespace M3.QA.Models
                         return result;
                     }
 
-                    if (string.IsNullOrWhiteSpace(inst.TestType) || inst.TestType != "Tension test")
+                    if (string.IsNullOrWhiteSpace(inst.TestType) || inst.TestType != "Peeling test")
                     {
                         // 
                         result.IsValid = false;
-                        result.ErrMsg = "Invalid file , Not Tension test file.";
+                        result.ErrMsg = "Invalid file , Not Peeling test file.";
                         result.Value = null;
                         return result;
                     }
@@ -342,23 +349,6 @@ namespace M3.QA.Models
                     var table2 = conn.Query("Select * from [" + sheetName2 + "$]").Result;
                     if (null != table2)
                     {
-                        List<DataColumn> elongCols = new List<DataColumn>();
-                        List<string> elongNs = new List<string>();
-
-                        DataRow headerRow = table2.Rows[0];
-                        foreach (DataColumn col in table2.Columns)
-                        {
-                            string hdrTxt = headerRow[col].ToString();
-                            if (hdrTxt.StartsWith("At-Load-"))
-                            {
-                                string elongN = hdrTxt.Replace("At-Load-", "");
-                                elongCols.Add(col);
-                                elongNs.Add(elongN);
-                            }
-                        }
-
-                        // update elongNs to inst
-                        inst.ElongNs = elongNs;
                         inst.PrepareProperties(); // prepare properties
 
                         // Loop data row.
@@ -370,28 +360,23 @@ namespace M3.QA.Models
                         {
                             DataRow row = table2.Rows[iRow];
 
-                            #region Tensile Strengths
+                            #region Items
 
-                            if (null != inst.AdhesionForces &&
-                                inst.AdhesionForces.Count > 0 && iSP < inst.AdhesionForces.Count)
+                            if (null != inst.Items &&
+                                inst.Items.Count > 0 && iSP < inst.Items.Count)
                             {
-                                N = decimal.TryParse(row["F2"].ToString(), out d) ? d : new decimal?();
+                                N = decimal.TryParse(row["F4"].ToString(), out d) ? d : new decimal?();
 
                                 switch (iCnt)
                                 {
                                     case 1:
                                         {
-                                            inst.AdhesionForces[iSP].N1 = N;
+                                            inst.Items[iSP].PeakPoint.N1 = N;
                                             break;
                                         }
                                     case 2:
                                         {
-                                            inst.AdhesionForces[iSP].N2 = N;
-                                            break;
-                                        }
-                                    case 3:
-                                        {
-                                            inst.AdhesionForces[iSP].N3 = N;
+                                            inst.Items[iSP].PeakPoint.N2 = N;
                                             break;
                                         }
                                 }
@@ -401,9 +386,11 @@ namespace M3.QA.Models
 
                             iCnt++;
 
-                            if (iCnt > 3)
+                            if (iCnt > 2)
                             {
                                 iCnt = 1; // Reset to N1
+
+                                inst.Items[iSP].UpdateProperties(); // calculate formula
 
                                 iSP++; // next sp
                             }
@@ -517,7 +504,7 @@ namespace M3.QA.Models
 
             try
             {
-                cnn.Execute("Ex_SaveTensileElongationHead", p, commandType: CommandType.StoredProcedure);
+                cnn.Execute("Ex_SaveAdhesionForceHead", p, commandType: CommandType.StoredProcedure);
                 ret.Success();
                 // Set error number/message
                 ret.ErrNum = p.Get<int>("@errNum");
@@ -534,23 +521,24 @@ namespace M3.QA.Models
             // Save Adhesion Force
             //if (ret.ErrNum != 0) return ret;
 
-            if (null != value.AdhesionForces && value.AdhesionForces.Count > 0)
+            if (null != value.Items && value.Items.Count > 0)
             {
                 int iCnt = 0;
-                foreach (var r in value.AdhesionForces)
+                foreach (var r in value.Items)
                 {
                     p = new DynamicParameters();
                     p.Add("@LotNo", r.LotNo);
                     p.Add("@spno", r.SPNo);
-                    p.Add("@n1", r.N1);
-                    p.Add("@n2", r.N2);
-                    p.Add("@n3", r.N3);
+                    p.Add("@peakn1", (null != r.PeakPoint) ? r.PeakPoint.N1 : new decimal?());
+                    p.Add("@peakn2", (null != r.PeakPoint) ? r.PeakPoint.N2 : new decimal?());
+                    p.Add("@adhesionn1", (null != r.AdhesionForce) ? r.AdhesionForce.N1 : new decimal?());
+                    p.Add("@adhesionn2", (null != r.AdhesionForce) ? r.AdhesionForce.N2 : new decimal?());
                     p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
 
                     try
                     {
-                        cnn.Execute("Ex_SaveTensile", p, commandType: CommandType.StoredProcedure);
+                        cnn.Execute("Ex_SaveAdhesionForce", p, commandType: CommandType.StoredProcedure);
                         ret.Success();
                         // Set error number/message
                         ret.ErrNum = p.Get<int>("@errNum");
@@ -566,7 +554,7 @@ namespace M3.QA.Models
                         ret.ErrMsg = ex.Message;
                     }
                 }
-                if (iCnt == value.AdhesionForces.Count)
+                if (iCnt == value.Items.Count)
                 {
                     ret.Success();
                 }
