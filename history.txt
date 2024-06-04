@@ -13,11 +13,14 @@ M3 QA Cord #347
 M3 QA Cord #346
 - 
 
+[commit]
 M3 QA Cord #345
-- 
+- Implements Cord Test Data #305
+  - Update App build 345
 
 [commit]
 M3 QA Cord #344
+- Implements Cord Test Data #304
 - Rebuild all projects
 
 [commit]
