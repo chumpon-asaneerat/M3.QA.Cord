@@ -296,6 +296,40 @@ namespace M3.QA.Models
             }
 
             var existItems = (value.MasterId.HasValue) ? GetsByLotNo(value.LotNo).Value() : null;
+
+            // In case No items need to check has some import data
+            if (null == existItems || existItems.Count == 0)
+            {
+                var imports = Utils.Ex_GetAdhesionDataByLot.Gets(value.LotNo).Value();
+                if (null != imports && imports.Count > 0)
+                {
+                    existItems = new List<CordAdhesionForce>();
+                    foreach (var item in imports)
+                    {
+                        var imp = new CordAdhesionForce()
+                        {
+                            LotNo = item.LotNo,
+                            PropertyNo = 4, // Adhesion Force = 4
+                            SPNo = item.SPNo,
+                            NeedSP = true,
+                            Spec = spec,
+                            YarnType = value.YarnType,
+                            NoOfSample = noOfSample
+                        };
+
+                        if (null == imp.PeakPoint) imp.PeakPoint = new NRTestProperty();
+                        imp.PeakPoint.N1 = item.PeakN1;
+                        imp.PeakPoint.N2 = item.PeakN2;
+                        
+                        if (null == imp.AdhesionForce) imp.AdhesionForce = new NRTestProperty();
+                        imp.AdhesionForce.N1 = item.AdhesionN1;
+                        imp.AdhesionForce.N2 = item.AdhesionN2;
+
+                        existItems.Add(imp);
+                    }
+                }
+            }
+
             if (null != existItems && null != results)
             {
                 int idx = -1;
