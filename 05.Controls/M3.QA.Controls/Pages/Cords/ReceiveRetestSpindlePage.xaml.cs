@@ -208,6 +208,9 @@ namespace M3.QA.Pages
 
             int failCnt = 0;
             string remark = txtRemark.Text.Trim();
+            string saveBy = (null != M3QAApp.Current.User) ? M3QAApp.Current.User.FullName : null;
+            DateTime saveDate = DateTime.Now;
+
             foreach (var item in items)
             {
                 // Retest 1
@@ -215,7 +218,7 @@ namespace M3.QA.Pages
                 if (r1.HasValue)
                 {
                     var ret1 = Models.Utils.M_SaveReceiveSP.Save(sample.LotNo, sample.ProductionLot,
-                        sample.ReceiveBy, sample.ReceiveDate,
+                        saveBy, saveDate,
                         r1, item.GroupSP, item.SP, remark);
                     if (null == ret1 || !ret1.Ok) failCnt++;
                 }
@@ -225,7 +228,7 @@ namespace M3.QA.Pages
                 if (r2.HasValue)
                 {
                     var ret2 = Models.Utils.M_SaveReceiveSP.Save(sample.LotNo, sample.ProductionLot,
-                        sample.ReceiveBy, sample.ReceiveDate,
+                        saveBy, saveDate,
                         r2, item.GroupSP, item.SP, remark);
                     if (null == ret2 || !ret2.Ok) failCnt++;
                 }
