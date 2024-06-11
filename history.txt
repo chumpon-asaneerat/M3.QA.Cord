@@ -16,8 +16,10 @@ M3 QA Cord #386
 M3 QA Cord #385
 - 
 
+[commit]
 M3 QA Cord #384
-- 
+- Implements Cord Test Data #314
+  - Implements Reveive Retest Spindle #5
 
 [commit]
 M3 QA Cord #383

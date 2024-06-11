@@ -101,15 +101,20 @@
                     <!--  REMARK  -->
                     <ctrl:NInputGroup CaptionText="Receive Date/Time:"
                                       DockPanel.Dock="Left"
-                                      HorizontalContentAlignment="Stretch"
-                                      Width="Auto">
-                        <DockPanel LastChildFill="True">
+                                      Height="100"
+                                      Width="420">
+                        <DockPanel LastChildFill="True"
+                                   VerticalAlignment="Stretch"
+                                   HorizontalAlignment="Stretch">
                             <TextBox x:Name="txtRemark"
+                                     DockPanel.Dock="Left"
                                      Margin="5"
                                      AcceptsReturn="True"
                                      TextWrapping="Wrap"
+                                     VerticalContentAlignment="Stretch"
+                                     HorizontalContentAlignment="Stretch"
                                      Height="60"
-                                     Width="500"
+                                     Width="400"
                                      Style="{StaticResource CommonTextBox}" />
                             <Grid />
                         </DockPanel>
@@ -124,92 +129,94 @@
                                VerticalAlignment="Bottom"
                                FontWeight="SemiBold"
                                FontSize="18" />
-                    <ItemsControl x:Name="spindles"
-                                  HorizontalContentAlignment="Stretch"
-                                  MinHeight="100"
-                                  Focusable="False"
-                                  VirtualizingPanel.IsVirtualizing="True"
-                                  VirtualizingPanel.VirtualizationMode="Recycling">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Margin="5"
-                                        BorderBrush="Silver"
-                                        BorderThickness="1"
-                                        Padding="5">
-                                    <DockPanel LastChildFill="True">
-                                        <!--  Original SP No.  -->
-                                        <Border Margin="0,0,5,0"
-                                                DockPanel.Dock="Left"
-                                                Width="110">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Original SP" TextAlignment="Center" />
-                                                <TextBox Style="{StaticResource SPStyle}"
-                                                         IsReadOnly="True"
-                                                         Text="{Binding SP}" />
-                                            </StackPanel>
-                                        </Border>
-                                        <!--  Active SP No.  -->
-                                        <Border Margin="0,0,5,0"
-                                                DockPanel.Dock="Left"
-                                                Width="110">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Active SP" TextAlignment="Center" />
-                                                <TextBox Style="{StaticResource SPStyle}"
-                                                         IsReadOnly="True"
-                                                         Text="{Binding GroupSP}" />
-                                            </StackPanel>
-                                        </Border>
-                                        <!--  Retest SP No 1.  -->
-                                        <Border Margin="0,0,5,0"
-                                                DockPanel.Dock="Left"
-                                                Visibility="{Binding RetestVisibility}"
-                                                Width="110"
-                                                IsVisibleChanged="Border_IsVisibleChanged">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Retest SP 1" TextAlignment="Center" />
-                                                <TextBox Style="{StaticResource SPStyle}"
-                                                         IsReadOnly="False"
-                                                         Text="{Binding RetestSP1}" />
-                                            </StackPanel>
-                                        </Border>
-                                        <!--  Retest SP No 2.  -->
-                                        <Border Margin="0,0,5,0"
-                                                DockPanel.Dock="Left"
-                                                Visibility="{Binding RetestVisibility}"
-                                                Width="110">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Retest SP 2" TextAlignment="Center" />
-                                                <TextBox Style="{StaticResource SPStyle}"
-                                                         IsReadOnly="False"
-                                                         Text="{Binding RetestSP2}" />
-                                            </StackPanel>
-                                        </Border>
-                                        <Button x:Name="cmdEnable"
-                                                DockPanel.Dock="Left"
-                                                Visibility="{Binding EnableVisibility}"
-                                                VerticalAlignment="Bottom"
-                                                Margin="0,5,0,0"
-                                                Height="28"
-                                                Width="90"
-                                                Content="Retest"
-                                                Style="{StaticResource InlineButton}"
-                                                Click="cmdEnable_Click" />
-                                        <Button x:Name="cmdDisable"
-                                                DockPanel.Dock="Left"
-                                                Visibility="{Binding CancelVisibility}"
-                                                VerticalAlignment="Bottom"
-                                                Margin="0,5,0,0"
-                                                Height="28"
-                                                Width="90"
-                                                Content="Cancel"
-                                                Style="{StaticResource InlineButton}"
-                                                Click="cmdDisable_Click" />
-                                        <Grid />
-                                    </DockPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="spindles"
+                                      HorizontalContentAlignment="Stretch"
+                                      MinHeight="100"
+                                      Focusable="False"
+                                      VirtualizingPanel.IsVirtualizing="True"
+                                      VirtualizingPanel.VirtualizationMode="Recycling">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="5"
+                                            BorderBrush="Silver"
+                                            BorderThickness="1"
+                                            Padding="5">
+                                        <DockPanel LastChildFill="True">
+                                            <!--  Original SP No.  -->
+                                            <Border Margin="0,0,5,0"
+                                                    DockPanel.Dock="Left"
+                                                    Width="110">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="Original SP" TextAlignment="Center" />
+                                                    <TextBox Style="{StaticResource SPStyle}"
+                                                             IsReadOnly="True"
+                                                             Text="{Binding SP, TargetNullValue=''}" />
+                                                </StackPanel>
+                                            </Border>
+                                            <!--  Active SP No.  -->
+                                            <Border Margin="0,0,5,0"
+                                                    DockPanel.Dock="Left"
+                                                    Width="110">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="Active SP" TextAlignment="Center" />
+                                                    <TextBox Style="{StaticResource SPStyle}"
+                                                             IsReadOnly="True"
+                                                             Text="{Binding GroupSP, TargetNullValue=''}" />
+                                                </StackPanel>
+                                            </Border>
+                                            <!--  Retest SP No 1.  -->
+                                            <Border Margin="0,0,5,0"
+                                                    DockPanel.Dock="Left"
+                                                    Visibility="{Binding RetestVisibility}"
+                                                    Width="110"
+                                                    IsVisibleChanged="Border_IsVisibleChanged">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="Retest SP 1" TextAlignment="Center" />
+                                                    <TextBox Style="{StaticResource SPStyle}"
+                                                             IsReadOnly="False"
+                                                             Text="{Binding RetestSP1, TargetNullValue=''}" />
+                                                </StackPanel>
+                                            </Border>
+                                            <!--  Retest SP No 2.  -->
+                                            <Border Margin="0,0,5,0"
+                                                    DockPanel.Dock="Left"
+                                                    Visibility="{Binding RetestVisibility}"
+                                                    Width="110">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="Retest SP 2" TextAlignment="Center" />
+                                                    <TextBox Style="{StaticResource SPStyle}"
+                                                             IsReadOnly="False"
+                                                             Text="{Binding RetestSP2, TargetNullValue=''}" />
+                                                </StackPanel>
+                                            </Border>
+                                            <Button x:Name="cmdEnable"
+                                                    DockPanel.Dock="Left"
+                                                    Visibility="{Binding EnableVisibility}"
+                                                    VerticalAlignment="Bottom"
+                                                    Margin="0,5,0,0"
+                                                    Height="28"
+                                                    Width="90"
+                                                    Content="Retest"
+                                                    Style="{StaticResource InlineButton}"
+                                                    Click="cmdEnable_Click" />
+                                            <Button x:Name="cmdDisable"
+                                                    DockPanel.Dock="Left"
+                                                    Visibility="{Binding CancelVisibility}"
+                                                    VerticalAlignment="Bottom"
+                                                    Margin="0,5,0,0"
+                                                    Height="28"
+                                                    Width="90"
+                                                    Content="Cancel"
+                                                    Style="{StaticResource InlineButton}"
+                                                    Click="cmdDisable_Click" />
+                                            <Grid />
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
                 </DockPanel>
                 <Grid Height="10" />
             </DockPanel>

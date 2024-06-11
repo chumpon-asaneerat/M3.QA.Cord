@@ -1184,7 +1184,7 @@ namespace M3.QA.Models
 
             public static NDbResult Save(string lotNo, string productlot,
                 string receiveBy, DateTime? receiveDate,
-                int? sp, int? retestsp = new int?(), string remark = null)
+                int? sp, int? groupsp, int? retestsp = new int?(), string remark = null)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -1213,7 +1213,7 @@ namespace M3.QA.Models
                 p.Add("@productlot", productlot);
 
                 p.Add("@sp", sp);
-                p.Add("@groupsp", sp);
+                p.Add("@groupsp", groupsp);
                 p.Add("@retestsp", retestsp);
 
                 p.Add("@receiveremark", string.IsNullOrEmpty(remark) ? null : remark);
@@ -1259,6 +1259,8 @@ namespace M3.QA.Models
 
             public int? RetestSP1 { get; set; }
             public int? RetestSP2 { get; set; }
+
+            public string Remark { get; set; }
 
             public Visibility EnableVisibility
             {

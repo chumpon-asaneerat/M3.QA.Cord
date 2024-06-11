@@ -124,37 +124,37 @@ namespace M3.QA.Models
                     if (value.SP1.HasValue)
                     {
                         Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                            value.SP1, new int?(), null);
+                            value.SP1, value.SP1, new int?(), null);
                     }
                     if (value.SP2.HasValue)
                     {
                         Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                            value.SP2, new int?(), null);
+                            value.SP2, value.SP2, new int?(), null);
                     }
                     if (value.SP3.HasValue)
                     {
                         Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                            value.SP3, new int?(), null);
+                            value.SP3, value.SP3, new int?(), null);
                     }
                     if (value.SP4.HasValue)
                     {
                         Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                            value.SP4, new int?(), null);
+                            value.SP4, value.SP4, new int?(), null);
                     }
                     if (value.SP5.HasValue)
                     {
                         Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                            value.SP5, new int?(), null);
+                            value.SP5, value.SP5, new int?(), null);
                     }
                     if (value.SP6.HasValue)
                     {
                         Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                            value.SP6, new int?(), null);
+                            value.SP6, value.SP6, new int?(), null);
                     }
                     if (value.SP7.HasValue)
                     {
                         Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                            value.SP7, new int?(), null);
+                            value.SP7, value.SP7, new int?(), null);
                     }
                 }
             }

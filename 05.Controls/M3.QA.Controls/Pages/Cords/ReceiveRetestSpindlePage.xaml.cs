@@ -11,6 +11,9 @@ using NLib.Models;
 using M3.QA.Models;
 using System.Windows.Media.Effects;
 using System.Windows.Media;
+using static OfficeOpenXml.ExcelErrorValue;
+using Xceed.Wpf.Toolkit;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 #endregion
 
@@ -166,9 +169,15 @@ namespace M3.QA.Pages
         private void ClearInputs()
         {
             this.DataContext = null;
+            spindles.ItemsSource = null;
+
             txtLotNo.Text = string.Empty;
+            txtRemark.Text = string.Empty;
             sample = null;
+            items = null;
+            
             this.DataContext = sample;
+            spindles.ItemsSource = items;
 
             this.InvokeAction(() => 
             {
@@ -178,7 +187,59 @@ namespace M3.QA.Pages
 
         private void Save() 
         {
+            if (string.IsNullOrEmpty(txtRemark.Text)) 
+            {
+                string msg = string.Empty;
+                msg += "Remark is required.";
 
+                M3QAApp.Windows.ShowMessage(msg);
+
+                this.InvokeAction(() =>
+                {
+                    txtRemark.SelectAll();
+                    txtRemark.Focus();
+                });
+
+                return;
+            }
+
+            if (null == items) return;
+            if (null == sample) return;
+
+            int failCnt = 0;
+            string remark = txtRemark.Text.Trim();
+            foreach (var item in items)
+            {
+                // Retest 1
+                int? r1 = (item.IsEnableRetest && item.RetestSP1.HasValue) ? item.RetestSP1 : new int?();
+                if (r1.HasValue)
+                {
+                    var ret1 = Models.Utils.M_SaveReceiveSP.Save(sample.LotNo, sample.ProductionLot,
+                        sample.ReceiveBy, sample.ReceiveDate,
+                        r1, item.GroupSP, item.SP, remark);
+                    if (null == ret1 || !ret1.Ok) failCnt++;
+                }
+
+                // Retest 2
+                int? r2 = (item.IsEnableRetest && item.RetestSP2.HasValue) ? item.RetestSP2 : new int?();
+                if (r2.HasValue)
+                {
+                    var ret2 = Models.Utils.M_SaveReceiveSP.Save(sample.LotNo, sample.ProductionLot,
+                        sample.ReceiveBy, sample.ReceiveDate,
+                        r2, item.GroupSP, item.SP, remark);
+                    if (null == ret2 || !ret2.Ok) failCnt++;
+                }
+            }
+
+            if (failCnt > 0)
+            {
+                M3QAApp.Windows.SaveFailed();
+            }
+            else
+            {
+                M3QAApp.Windows.SaveSuccess();
+                ClearInputs();
+            }
         }
 
         #endregion
