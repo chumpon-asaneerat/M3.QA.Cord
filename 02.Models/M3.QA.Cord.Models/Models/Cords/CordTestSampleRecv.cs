@@ -121,48 +121,40 @@ namespace M3.QA.Models
                 // Now save receive SP
                 if (ret.ErrNum == 0)
                 {
-                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                        value.SP1, new int?(), null);
-                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                        value.SP2, new int?(), null);
-                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                        value.SP3, new int?(), null);
-                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                        value.SP4, new int?(), null);
-                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                        value.SP5, new int?(), null);
-                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                        value.SP6, new int?(), null);
-                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
-                        value.SP7, new int?(), null);
-
                     if (value.SP1.HasValue)
                     {
-
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                            value.SP1, new int?(), null);
                     }
                     if (value.SP2.HasValue)
                     {
-
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                            value.SP2, new int?(), null);
                     }
                     if (value.SP3.HasValue)
                     {
-
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                            value.SP3, new int?(), null);
                     }
                     if (value.SP4.HasValue)
                     {
-
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                            value.SP4, new int?(), null);
                     }
                     if (value.SP5.HasValue)
                     {
-
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                            value.SP5, new int?(), null);
                     }
                     if (value.SP6.HasValue)
                     {
-
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                            value.SP6, new int?(), null);
                     }
                     if (value.SP7.HasValue)
                     {
-
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                            value.SP7, new int?(), null);
                     }
                 }
             }

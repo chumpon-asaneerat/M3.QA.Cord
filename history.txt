@@ -4,8 +4,10 @@ M3 QA Cord #380
 M3 QA Cord #349
 - 
 
+[commit]
 M3 QA Cord #348
-- 
+- Implements Cord Test Data #308
+  - Implements Save Receive SP #2
 
 [commit]
 M3 QA Cord #347
