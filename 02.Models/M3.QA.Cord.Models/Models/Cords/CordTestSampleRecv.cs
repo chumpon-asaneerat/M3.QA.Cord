@@ -117,6 +117,54 @@ namespace M3.QA.Models
                 // Set error number/message
                 ret.ErrNum = p.Get<int>("@errNum");
                 ret.ErrMsg = p.Get<string>("@errMsg");
+
+                // Now save receive SP
+                if (ret.ErrNum == 0)
+                {
+                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        value.SP1, new int?(), null);
+                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        value.SP2, new int?(), null);
+                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        value.SP3, new int?(), null);
+                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        value.SP4, new int?(), null);
+                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        value.SP5, new int?(), null);
+                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        value.SP6, new int?(), null);
+                    Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        value.SP7, new int?(), null);
+
+                    if (value.SP1.HasValue)
+                    {
+
+                    }
+                    if (value.SP2.HasValue)
+                    {
+
+                    }
+                    if (value.SP3.HasValue)
+                    {
+
+                    }
+                    if (value.SP4.HasValue)
+                    {
+
+                    }
+                    if (value.SP5.HasValue)
+                    {
+
+                    }
+                    if (value.SP6.HasValue)
+                    {
+
+                    }
+                    if (value.SP7.HasValue)
+                    {
+
+                    }
+                }
             }
             catch (Exception ex)
             {
