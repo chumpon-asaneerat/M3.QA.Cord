@@ -77,6 +77,11 @@ namespace M3.QA.Models
 
         public bool CanEditStartDate { get; set; }
 
+        public string ProductionLotNo { get; set; }
+        public string ReceiveBy { get; set; }
+        public DateTime? ReceiveDate { get; set; }
+        public string Customer { get; set; }
+
         #endregion
 
         #region Test Tab Visibility

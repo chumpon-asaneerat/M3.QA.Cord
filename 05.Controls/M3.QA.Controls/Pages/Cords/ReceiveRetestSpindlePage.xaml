@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="M3.QA.Pages.ReceiveRetestSpindlePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ctrl="clr-namespace:NLib.Wpf.Controls;assembly=NLib.Wpf.Controls"
+             xmlns:util="clr-namespace:NLib.Wpf.Controls.Utils;assembly=NLib.Wpf.Controls"
+             xmlns:page="clr-namespace:NLib.Wpf.Pages;assembly=NLib.Wpf.Controls"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="1000">
+    <UserControl.Resources>
+        <Style x:Key="SPStyle"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <Style.Setters>
+                <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+                <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+                <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+                <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+                <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+                <Setter Property="Margin" Value="3,0" />
+                <Setter Property="Width" Value="100" />
+            </Style.Setters>
+        </Style>
+    </UserControl.Resources>
+    <page:NPage HeaderText="Receive Retest Spindle">
+        <DockPanel LastChildFill="True" Margin="5">
+            <!--  BUTTON BARS  -->
+            <DockPanel LastChildFill="True"
+                       DockPanel.Dock="Bottom"
+                       Height="40">
+                <ctrl:FontAwesomeButton x:Name="cmdCancel"
+                                        DockPanel.Dock="Left"
+                                        IconType="Save"
+                                        Text="Save"
+                                        Click="cmdSave_Click" />
+                <ctrl:FontAwesomeButton x:Name="cmdBack"
+                                        DockPanel.Dock="Right"
+                                        IconType="Home"
+                                        Text="Back"
+                                        Click="cmdBack_Click" />
+                <Grid />
+            </DockPanel>
+            <!--  WORK AREA  -->
+            <ScrollViewer Grid.Column="0"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <DockPanel LastChildFill="True">
+                    <!--  LINE 1: LOT/DATE  -->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                        <!--  LOT NO  -->
+                        <ctrl:NTextBox x:Name="txtLotNo"
+                                       CaptionText="Lot No:"
+                                       DockPanel.Dock="Left"
+                                       Text=""
+                                       Width="180" 
+                                       KeyDown="txtLotNo_KeyDown"/>
+                        <!--  PRODUCTION LOT  -->
+                        <ctrl:NTextBox x:Name="txtProductionLot"
+                                       CaptionText="Production Lot:"
+                                       DockPanel.Dock="Left"
+                                       IsReadOnly="True"
+                                       Text="{Binding ProductionLot}"
+                                       Width="180" />
+                        <Grid />
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                        <!--  RECEIVE DATE  -->
+                        <ctrl:NInputGroup CaptionText="Receive Date/Time:"
+                                          DockPanel.Dock="Left"
+                                          Width="200">
+                            <xctk:DateTimePicker x:Name="dtRecv"
+                                                 IsEnabled="False"
+                                                 Format="Custom"
+                                                 FormatString="dd/MM/yyyy HH:mm"
+                                                 Value="{Binding ReceiveDate}"
+                                                 AutoCloseCalendar="True"
+                                                 AutoCloseCalendarOnTimeSelection="True" />
+                        </ctrl:NInputGroup>
+                        <Grid />
+                    </DockPanel>
+                    <!--  LINE 3: CUSTOMER/CORD CODE  -->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                        <!--  CUSTOMER  -->
+                        <ctrl:NComboBox x:Name="cbCustomers"
+                                        DockPanel.Dock="Left"
+                                        IsEnabled="False"
+                                        CaptionText="Customer:"
+                                        DisplayMemberPath="Customer"
+                                        Width="180"
+                                        SelectionChanged="cbCustomers_SelectionChanged" />
+                        <!--  CORD CODE  -->
+                        <ctrl:NComboBox x:Name="cbCodes"
+                                        DockPanel.Dock="Left"
+                                        IsEnabled="False"
+                                        CaptionText="Cord Code:"
+                                        DisplayMemberPath="ItemCode"
+                                        Width="200"
+                                        SelectionChanged="cbCodes_SelectionChanged" />
+                        <Grid />
+                    </DockPanel>
+                    <!--  LINE 4: REMARK  -->
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                        <!--  REMARK  -->
+                        <ctrl:NInputGroup CaptionText="Receive Date/Time:"
+                                          DockPanel.Dock="Left"
+                                          Width="Auto">
+                            <DockPanel LastChildFill="True">
+                                <TextBox x:Name="txtRemark"
+                                         Margin="5"
+                                         AcceptsReturn="True"
+                                         TextWrapping="Wrap"
+                                         Height="60"
+                                         Width="500"
+                                         Style="{StaticResource CommonTextBox}" />
+                                <Grid />
+                            </DockPanel>
+                        </ctrl:NInputGroup>
+                        <Grid />
+                    </DockPanel>
+                    <!--  LINE 5: SPINDLE  -->
+                    <DockPanel DockPanel.Dock="Top">
+                        <TextBlock Text="Spindle No: "
+                                   DockPanel.Dock="Top"
+                                   Margin="5"
+                                   VerticalAlignment="Bottom"
+                                   FontWeight="SemiBold"
+                                   FontSize="18" />
+                        <Grid />
+                    </DockPanel>
+                    <Grid Height="10" />
+                </DockPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </page:NPage>
+</UserControl>
