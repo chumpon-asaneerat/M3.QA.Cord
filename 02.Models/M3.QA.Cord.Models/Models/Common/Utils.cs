@@ -1249,13 +1249,66 @@ namespace M3.QA.Models
 
         #region P_GetActiveSPByLot
 
-        public class P_GetActiveSPByLot
+        public class P_GetActiveSPByLot : NInpc
         {
             #region Public Properties
 
             public string LotNo { get; set; }
             public int? SP { get; set; }
             public int? GroupSP { get; set; }
+
+            public int? RetestSP1 { get; set; }
+            public int? RetestSP2 { get; set; }
+
+            public Visibility EnableVisibility
+            {
+                get { return (IsEnableRetest) ? Visibility.Collapsed : Visibility.Visible; }
+                set { }
+            }
+
+            public Visibility CancelVisibility
+            {
+                get { return (IsEnableRetest) ? Visibility.Visible : Visibility.Collapsed; }
+                set { }
+            }
+
+            public Visibility RetestVisibility
+            {
+                get { return (IsEnableRetest) ? Visibility.Visible : Visibility.Collapsed; }
+                set { }
+            }
+
+            public bool IsEnableRetest { get; private set; }
+
+            #endregion
+
+            #region Public Methods
+
+            public void EnableRetest()
+            {
+                IsEnableRetest = true;
+                Raise(() => this.IsEnableRetest);
+
+                Raise(() => this.RetestVisibility);
+                Raise(() => this.EnableVisibility);
+                Raise(() => this.CancelVisibility);
+
+                Raise(() => this.RetestSP1);
+                Raise(() => this.RetestSP2);
+            }
+
+            public void CancelRetest()
+            {
+                IsEnableRetest = false;
+                Raise(() => this.IsEnableRetest);
+
+                Raise(() => this.RetestVisibility);
+                Raise(() => this.EnableVisibility);
+                Raise(() => this.CancelVisibility);
+
+                Raise(() => this.RetestSP1);
+                Raise(() => this.RetestSP2);
+            }
 
             #endregion
 

@@ -44,94 +44,175 @@
                 <Grid />
             </DockPanel>
             <!--  WORK AREA  -->
-            <ScrollViewer Grid.Column="0"
-                          VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollBarVisibility="Disabled">
-                <DockPanel LastChildFill="True">
-                    <!--  LINE 1: LOT/DATE  -->
-                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-                        <!--  LOT NO  -->
-                        <ctrl:NTextBox x:Name="txtLotNo"
-                                       CaptionText="Lot No:"
-                                       DockPanel.Dock="Left"
-                                       Text=""
-                                       Width="180"
-                                       KeyDown="txtLotNo_KeyDown" />
-                        <!--  PRODUCTION LOT  -->
-                        <ctrl:NTextBox x:Name="txtProductionLot"
-                                       CaptionText="Production Lot:"
-                                       DockPanel.Dock="Left"
-                                       IsReadOnly="True"
-                                       Text="{Binding ProductionLot}"
-                                       Width="180" />
-                        <Grid />
-                    </DockPanel>
-                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-                        <!--  RECEIVE DATE  -->
-                        <ctrl:NInputGroup CaptionText="Receive Date/Time:"
-                                          DockPanel.Dock="Left"
-                                          Width="200">
-                            <xctk:DateTimePicker x:Name="dtRecv"
-                                                 IsEnabled="False"
-                                                 Format="Custom"
-                                                 FormatString="dd/MM/yyyy HH:mm"
-                                                 Value="{Binding ReceiveDate}"
-                                                 AutoCloseCalendar="True"
-                                                 AutoCloseCalendarOnTimeSelection="True" />
-                        </ctrl:NInputGroup>
-                        <Grid />
-                    </DockPanel>
-                    <!--  LINE 3: CUSTOMER/CORD CODE  -->
-                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-                        <!--  CUSTOMER  -->
-                        <ctrl:NTextBox x:Name="txtCustomer"
-                                       DockPanel.Dock="Left"
-                                       IsReadOnly="False"
-                                       CaptionText="Customer:"
-                                       Text="{Binding Customer}"
-                                       Width="180" />
-                        <!--  CORD CODE  -->
-                        <ctrl:NTextBox x:Name="txtItemCode"
-                                       DockPanel.Dock="Left"
-                                       IsReadOnly="False"
-                                       CaptionText="Cord Code:"
-                                       Text="{Binding ItemCode}"
-                                       Width="200" />
-                        <Grid />
-                    </DockPanel>
-                    <!--  LINE 4: REMARK  -->
-                    <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-                        <!--  REMARK  -->
-                        <ctrl:NInputGroup CaptionText="Receive Date/Time:"
-                                          DockPanel.Dock="Left"
-                                          HorizontalContentAlignment="Stretch"
-                                          Width="Auto">
-                            <DockPanel LastChildFill="True">
-                                <TextBox x:Name="txtRemark"
-                                         Margin="5"
-                                         AcceptsReturn="True"
-                                         TextWrapping="Wrap"
-                                         Height="60"
-                                         Width="500"
-                                         Style="{StaticResource CommonTextBox}" />
-                                <Grid />
-                            </DockPanel>
-                        </ctrl:NInputGroup>
-                        <Grid />
-                    </DockPanel>
-                    <!--  LINE 5: SPINDLE  -->
-                    <DockPanel DockPanel.Dock="Top">
-                        <TextBlock Text="Spindle No: "
-                                   DockPanel.Dock="Top"
-                                   Margin="5"
-                                   VerticalAlignment="Bottom"
-                                   FontWeight="SemiBold"
-                                   FontSize="18" />
-                        <Grid />
-                    </DockPanel>
-                    <Grid Height="10" />
+            <DockPanel LastChildFill="True">
+                <!--  LINE 1: LOT/DATE  -->
+                <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                    <!--  LOT NO  -->
+                    <ctrl:NTextBox x:Name="txtLotNo"
+                                   CaptionText="Lot No:"
+                                   DockPanel.Dock="Left"
+                                   Text=""
+                                   Width="180"
+                                   KeyDown="txtLotNo_KeyDown" />
+                    <!--  PRODUCTION LOT  -->
+                    <ctrl:NTextBox x:Name="txtProductionLot"
+                                   CaptionText="Production Lot:"
+                                   DockPanel.Dock="Left"
+                                   IsReadOnly="True"
+                                   Text="{Binding ProductionLot}"
+                                   Width="180" />
+                    <Grid />
                 </DockPanel>
-            </ScrollViewer>
+                <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                    <!--  RECEIVE DATE  -->
+                    <ctrl:NInputGroup CaptionText="Receive Date/Time:"
+                                      DockPanel.Dock="Left"
+                                      Width="200">
+                        <xctk:DateTimePicker x:Name="dtRecv"
+                                             IsEnabled="False"
+                                             Format="Custom"
+                                             FormatString="dd/MM/yyyy HH:mm"
+                                             Value="{Binding ReceiveDate}"
+                                             AutoCloseCalendar="True"
+                                             AutoCloseCalendarOnTimeSelection="True" />
+                    </ctrl:NInputGroup>
+                    <Grid />
+                </DockPanel>
+                <!--  LINE 3: CUSTOMER/CORD CODE  -->
+                <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                    <!--  CUSTOMER  -->
+                    <ctrl:NTextBox x:Name="txtCustomer"
+                                   DockPanel.Dock="Left"
+                                   IsReadOnly="False"
+                                   CaptionText="Customer:"
+                                   Text="{Binding Customer}"
+                                   Width="180" />
+                    <!--  CORD CODE  -->
+                    <ctrl:NTextBox x:Name="txtItemCode"
+                                   DockPanel.Dock="Left"
+                                   IsReadOnly="False"
+                                   CaptionText="Cord Code:"
+                                   Text="{Binding ItemCode}"
+                                   Width="200" />
+                    <Grid />
+                </DockPanel>
+                <!--  LINE 4: REMARK  -->
+                <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                    <!--  REMARK  -->
+                    <ctrl:NInputGroup CaptionText="Receive Date/Time:"
+                                      DockPanel.Dock="Left"
+                                      HorizontalContentAlignment="Stretch"
+                                      Width="Auto">
+                        <DockPanel LastChildFill="True">
+                            <TextBox x:Name="txtRemark"
+                                     Margin="5"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     Height="60"
+                                     Width="500"
+                                     Style="{StaticResource CommonTextBox}" />
+                            <Grid />
+                        </DockPanel>
+                    </ctrl:NInputGroup>
+                    <Grid />
+                </DockPanel>
+                <!--  LINE 5: SPINDLE  -->
+                <DockPanel DockPanel.Dock="Top">
+                    <TextBlock Text="Spindle No: "
+                               DockPanel.Dock="Top"
+                               Margin="5"
+                               VerticalAlignment="Bottom"
+                               FontWeight="SemiBold"
+                               FontSize="18" />
+                    <ItemsControl x:Name="spindles"
+                                  HorizontalContentAlignment="Stretch"
+                                  MinHeight="100"
+                                  Focusable="False"
+                                  VirtualizingPanel.IsVirtualizing="True"
+                                  VirtualizingPanel.VirtualizationMode="Recycling">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="5"
+                                        BorderBrush="Silver"
+                                        BorderThickness="1"
+                                        Padding="5">
+                                    <DockPanel LastChildFill="True">
+                                        <!--  Original SP No.  -->
+                                        <Border Margin="0,0,5,0"
+                                                DockPanel.Dock="Left"
+                                                Width="110">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Original SP" TextAlignment="Center" />
+                                                <TextBox Style="{StaticResource SPStyle}"
+                                                         IsReadOnly="True"
+                                                         Text="{Binding SP}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <!--  Active SP No.  -->
+                                        <Border Margin="0,0,5,0"
+                                                DockPanel.Dock="Left"
+                                                Width="110">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Active SP" TextAlignment="Center" />
+                                                <TextBox Style="{StaticResource SPStyle}"
+                                                         IsReadOnly="True"
+                                                         Text="{Binding GroupSP}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <!--  Retest SP No 1.  -->
+                                        <Border Margin="0,0,5,0"
+                                                DockPanel.Dock="Left"
+                                                Visibility="{Binding RetestVisibility}"
+                                                Width="110"
+                                                IsVisibleChanged="Border_IsVisibleChanged">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Retest SP 1" TextAlignment="Center" />
+                                                <TextBox Style="{StaticResource SPStyle}"
+                                                         IsReadOnly="False"
+                                                         Text="{Binding RetestSP1}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <!--  Retest SP No 2.  -->
+                                        <Border Margin="0,0,5,0"
+                                                DockPanel.Dock="Left"
+                                                Visibility="{Binding RetestVisibility}"
+                                                Width="110">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Retest SP 2" TextAlignment="Center" />
+                                                <TextBox Style="{StaticResource SPStyle}"
+                                                         IsReadOnly="False"
+                                                         Text="{Binding RetestSP2}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Button x:Name="cmdEnable"
+                                                DockPanel.Dock="Left"
+                                                Visibility="{Binding EnableVisibility}"
+                                                VerticalAlignment="Bottom"
+                                                Margin="0,5,0,0"
+                                                Height="28"
+                                                Width="90"
+                                                Content="Retest"
+                                                Style="{StaticResource InlineButton}"
+                                                Click="cmdEnable_Click" />
+                                        <Button x:Name="cmdDisable"
+                                                DockPanel.Dock="Left"
+                                                Visibility="{Binding CancelVisibility}"
+                                                VerticalAlignment="Bottom"
+                                                Margin="0,5,0,0"
+                                                Height="28"
+                                                Width="90"
+                                                Content="Cancel"
+                                                Style="{StaticResource InlineButton}"
+                                                Click="cmdDisable_Click" />
+                                        <Grid />
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DockPanel>
+                <Grid Height="10" />
+            </DockPanel>
         </DockPanel>
     </page:NPage>
 </UserControl>
