@@ -55,8 +55,8 @@
                                        CaptionText="Lot No:"
                                        DockPanel.Dock="Left"
                                        Text=""
-                                       Width="180" 
-                                       KeyDown="txtLotNo_KeyDown"/>
+                                       Width="180"
+                                       KeyDown="txtLotNo_KeyDown" />
                         <!--  PRODUCTION LOT  -->
                         <ctrl:NTextBox x:Name="txtProductionLot"
                                        CaptionText="Production Lot:"
@@ -84,21 +84,19 @@
                     <!--  LINE 3: CUSTOMER/CORD CODE  -->
                     <DockPanel DockPanel.Dock="Top" LastChildFill="True">
                         <!--  CUSTOMER  -->
-                        <ctrl:NComboBox x:Name="cbCustomers"
-                                        DockPanel.Dock="Left"
-                                        IsEnabled="False"
-                                        CaptionText="Customer:"
-                                        DisplayMemberPath="Customer"
-                                        Width="180"
-                                        SelectionChanged="cbCustomers_SelectionChanged" />
+                        <ctrl:NTextBox x:Name="txtCustomer"
+                                       DockPanel.Dock="Left"
+                                       IsReadOnly="False"
+                                       CaptionText="Customer:"
+                                       Text="{Binding Customer}"
+                                       Width="180" />
                         <!--  CORD CODE  -->
-                        <ctrl:NComboBox x:Name="cbCodes"
-                                        DockPanel.Dock="Left"
-                                        IsEnabled="False"
-                                        CaptionText="Cord Code:"
-                                        DisplayMemberPath="ItemCode"
-                                        Width="200"
-                                        SelectionChanged="cbCodes_SelectionChanged" />
+                        <ctrl:NTextBox x:Name="txtItemCode"
+                                       DockPanel.Dock="Left"
+                                       IsReadOnly="False"
+                                       CaptionText="Cord Code:"
+                                       Text="{Binding ItemCode}"
+                                       Width="200" />
                         <Grid />
                     </DockPanel>
                     <!--  LINE 4: REMARK  -->
@@ -106,6 +104,7 @@
                         <!--  REMARK  -->
                         <ctrl:NInputGroup CaptionText="Receive Date/Time:"
                                           DockPanel.Dock="Left"
+                                          HorizontalContentAlignment="Stretch"
                                           Width="Auto">
                             <DockPanel LastChildFill="True">
                                 <TextBox x:Name="txtRemark"

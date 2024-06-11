@@ -35,8 +35,6 @@ namespace M3.QA.Pages
         #region Internal Variables
 
         private CordSampleTestData sample = null;
-        private List<MCustomer> customers = null;
-        private List<CordCode> cordCodes = null;
 
         #endregion
 
@@ -72,64 +70,7 @@ namespace M3.QA.Pages
 
         #endregion
 
-        #region Combobox Handlers
-
-        private void cbCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var customer = cbCustomers.SelectedItem as MCustomer;
-            if (null == customer) return;
-            LoadCordCodes(customer);
-        }
-
-        private void cbCodes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        #endregion
-
         #region Private Methods
-
-        private void LoadCustomers()
-        {
-            cbCustomers.ItemsSource = null;
-
-            // get cord customers
-            customers = MCustomer.Gets("Cord").Value();
-            cbCustomers.ItemsSource = customers;
-            if (null != customers && customers.Count > 0)
-            {
-                this.InvokeAction(() =>
-                {
-                    cbCustomers.SelectedIndex = 0;
-                });
-            }
-            else
-            {
-                LoadCordCodes(null);
-            }
-        }
-
-        private void LoadCordCodes(MCustomer customer)
-        {
-            cbCodes.ItemsSource = null;
-
-            if (null == customer) return;
-            // get cord code by customer
-            cordCodes = CordCode.Gets(customer.Customer).Value();
-            cbCodes.ItemsSource = cordCodes;
-            if (null != cordCodes && cordCodes.Count > 0)
-            {
-                this.InvokeAction(() =>
-                {
-                    cbCodes.SelectedIndex = 0;
-                });
-            }
-            else
-            {
-
-            }
-        }
 
         private void Search()
         {
@@ -176,7 +117,6 @@ namespace M3.QA.Pages
 
         public void Setup()
         {
-            LoadCustomers();
             ClearInputs();
         }
 

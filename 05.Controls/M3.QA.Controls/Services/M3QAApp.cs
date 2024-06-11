@@ -90,6 +90,14 @@ namespace M3.QA
                     return GetPage<ReceiveCordTestSamplePage>();
                 }
             }
+            /// <summary>Gets M3 Receive Retest Spindle Page.</summary>
+            public static ReceiveRetestSpindlePage ReceiveRetestSpindle
+            {
+                get
+                {
+                    return GetPage<ReceiveRetestSpindlePage>();
+                }
+            }
             /// <summary>Gets M3 Cord Sample Test Data Page.</summary>
             public static CordSampleTestDataPage CordSampleTestData
             {

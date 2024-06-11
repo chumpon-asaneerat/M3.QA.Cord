@@ -90,11 +90,9 @@ namespace M3.QA.Pages
                 return;
             }
             // Receive Retest Spindle
-            /*
-            var page = M3QAApp.Pages.ReceiveCordSampleTest;
+            var page = M3QAApp.Pages.ReceiveRetestSpindle;
             page.Setup();
             PageContentManager.Instance.Current = page;
-            */
         }
         // Cord Test Data
         private void cmdCordTestData_Click(object sender, RoutedEventArgs e)
