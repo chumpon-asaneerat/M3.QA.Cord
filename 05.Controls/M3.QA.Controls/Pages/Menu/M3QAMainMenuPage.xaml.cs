@@ -75,6 +75,27 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
+        // Cord Receive Retest Spindle
+        private void cmdReceiveRetestSpindle_Click(object sender, RoutedEventArgs e)
+        {
+            // Sign In
+            var win = M3QAApp.Windows.SignIn;
+            if (win.ShowDialog() == false) return;
+
+            if (null == M3QAApp.Current.User)
+            {
+                var msgbox = M3QAApp.Windows.MessageBox;
+                msgbox.Setup("ไม่พบข้อมูลผู้ใช้ในระบบ");
+                msgbox.ShowDialog();
+                return;
+            }
+            // Receive Retest Spindle
+            /*
+            var page = M3QAApp.Pages.ReceiveCordSampleTest;
+            page.Setup();
+            PageContentManager.Instance.Current = page;
+            */
+        }
         // Cord Test Data
         private void cmdCordTestData_Click(object sender, RoutedEventArgs e)
         {

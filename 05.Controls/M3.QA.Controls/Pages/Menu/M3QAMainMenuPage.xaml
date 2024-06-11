@@ -165,6 +165,15 @@
                                 <Run Text="Test Sample" />
                             </TextBlock>
                         </Button>
+                        <Button x:Name="cmdReceiveRetestSpindle"
+                                Style="{StaticResource CordButtonStyle}"
+                                Click="cmdReceiveRetestSpindle_Click">
+                            <TextBlock TextAlignment="Center">
+                                <Run Text="Receive Retest" />
+                                <LineBreak />
+                                <Run Text="Spindle" />
+                            </TextBlock>
+                        </Button>
                         <Button x:Name="cmdCordTestData"
                                 Style="{StaticResource CordButtonStyle}"
                                 Click="cmdCordTestData_Click">
