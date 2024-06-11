@@ -151,7 +151,7 @@
                                                     <TextBlock Text="Original SP" TextAlignment="Center" />
                                                     <TextBox Style="{StaticResource SPStyle}"
                                                              IsReadOnly="True"
-                                                             Text="{Binding SP, TargetNullValue=''}" />
+                                                             Text="{Binding GroupSP, TargetNullValue=''}" />
                                                 </StackPanel>
                                             </Border>
                                             <!--  Active SP No.  -->
@@ -162,7 +162,7 @@
                                                     <TextBlock Text="Active SP" TextAlignment="Center" />
                                                     <TextBox Style="{StaticResource SPStyle}"
                                                              IsReadOnly="True"
-                                                             Text="{Binding GroupSP, TargetNullValue=''}" />
+                                                             Text="{Binding SP, TargetNullValue=''}" />
                                                 </StackPanel>
                                             </Border>
                                             <!--  Retest SP No 1.  -->

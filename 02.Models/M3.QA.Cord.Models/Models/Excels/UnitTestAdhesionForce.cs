@@ -50,8 +50,38 @@ namespace M3.QA.Models
             if (NoOfSP <= 0) return;
 
             int sp;
+            int rt = 0;
             for (int i = 0; i < NoOfSP; i++)
             {
+                if (sps[i].Contains("+"))
+                {
+                    var eachs = sps[i].Split(new string[] { "+" }, StringSplitOptions.RemoveEmptyEntries);
+                    if (eachs.Length > 0)
+                    {
+                        if (!int.TryParse(eachs[0], out sp))
+                        {
+                            sp = -1;
+                        }
+                        rt = 0; // update retest counter
+                    }
+                    if (eachs.Length > 1) 
+                    {
+                        if (!int.TryParse(eachs[1], out rt))
+                        {
+                            rt = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!int.TryParse(sps[i], out sp))
+                    {
+                        sp = -1;
+                    }
+                    rt = 0; // no retest counter
+                }
+
+
                 switch (i)
                 {
                     case 0:
@@ -212,6 +242,18 @@ namespace M3.QA.Models
         public int? SP5 { get; set; }
         public int? SP6 { get; set; }
         public int? SP7 { get; set; }
+
+        #endregion
+
+        #region Retest Cnt
+
+        public int Retest1 { get; set; }
+        public int Retest2 { get; set; }
+        public int Retest3 { get; set; }
+        public int Retest4 { get; set; }
+        public int Retest5 { get; set; }
+        public int Retest6 { get; set; }
+        public int Retest7 { get; set; }
 
         #endregion
 

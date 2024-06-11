@@ -331,8 +331,10 @@ namespace M3.QA.Models
 
             p.Add("@masterid", value.MasterId);
 
-            p.Add("@cordcode", (value.IsNew) ? value.NewItemCode : value.ItemCode);
-            p.Add("@customer", (value.IsNew) ? value.NewCustomer : value.Customer);
+            p.Add("@cordcode", (value.IsNew && !string.IsNullOrWhiteSpace(value.NewItemCode)) ? 
+                value.NewItemCode : value.ItemCode);
+            p.Add("@customer", (value.IsNew && !string.IsNullOrWhiteSpace(value.NewCustomer)) ? 
+                value.NewCustomer : value.Customer);
             p.Add("@Username", value.UserName);
             p.Add("@coano", value.CoaNo);
             p.Add("@fmqc", value.FMQC);

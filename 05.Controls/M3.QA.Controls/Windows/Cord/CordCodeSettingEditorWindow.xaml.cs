@@ -54,6 +54,18 @@ namespace M3.QA.Windows
             // Update value from controls to item.
             UpdateControlsToItem();
 
+            // Check required
+            if (string.IsNullOrEmpty(item.Customer) && string.IsNullOrEmpty(item.NewCustomer))
+            {
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += "Plase enter Customer !";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+
             // Set current user
             var user = M3QAApp.Current.User;
             NDbResult ret;

@@ -55,6 +55,12 @@ namespace M3.QA.Models
             Raise(() => this.N);
         }
 
+        protected internal void RaiseRChanges()
+        {
+            // Raise relelated events
+            Raise(() => this.R);
+        }
+
         #endregion
 
         #region Protected Properties
@@ -68,6 +74,9 @@ namespace M3.QA.Models
         // N Gets/Sets
         protected internal Func<decimal?> GetN { get; set; }
         protected internal Action<decimal?> SetN { get; set; }
+        // R Gets/Sets
+        protected internal Func<decimal?> GetR { get; set; }
+        protected internal Action<decimal?> SetR { get; set; }
 
         #endregion
 
@@ -112,12 +121,51 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region CaptionN (For Runtime binding)
+        #region R
+
+        /// <summary>Gets or sets ReTest Value.</summary>
+        public decimal? R
+        {
+            get { return (null != GetR) ? GetR() : new decimal?(); }
+            set
+            {
+                if (null != SetR)
+                {
+                    SetR(value);
+                    Raise(() => this.R);
+                }
+            }
+        }
+
+        #endregion
+
+        #region CaptionN/R (For Runtime binding)
 
         /// <summary>Gets N Display Caption.</summary>
         public string CaptionN
         {
             get { return "N" + No.ToString(); }
+            set { }
+        }
+        /// <summary>Gets R Display Caption.</summary>
+        public string CaptionR
+        {
+            get { return "R" + No.ToString(); }
+            set { }
+        }
+
+        #endregion
+
+        #region VisibleR
+
+        /// <summary>Gets Visibility of Re Test.</summary>
+        public Visibility VisibleR
+        {
+            get
+            {
+                // Note: In some case some row has only R data so need to display it.
+                return (R.HasValue) ? Visibility.Visible : Visibility.Collapsed;
+            }
             set { }
         }
 
@@ -141,6 +189,8 @@ namespace M3.QA.Models
         private Func<string> _GetYarnType;
         private List<Func<decimal?>> _GetNs;
         private List<Action<decimal?>> _SetNs;
+        private List<Func<decimal?>> _GetRs;
+        private List<Action<decimal?>> _SetRs;
 
         #endregion
 
@@ -179,6 +229,28 @@ namespace M3.QA.Models
                 (value) => { this.N6 = value; },
                 (value) => { this.N7 = value; }
             };
+            // Get R
+            _GetRs = new List<Func<decimal?>>()
+            {
+                () => { return this.R1; },
+                () => { return this.R2; },
+                () => { return this.R3; },
+                () => { return this.R4; },
+                () => { return this.R5; },
+                () => { return this.R6; },
+                () => { return this.R7; }
+            };
+            // Set R
+            _SetRs = new List<Action<decimal?>>()
+            {
+                (value) => { this.R1 = value; },
+                (value) => { this.R2 = value; },
+                (value) => { this.R3 = value; },
+                (value) => { this.R4 = value; },
+                (value) => { this.R5 = value; },
+                (value) => { this.R6 = value; },
+                (value) => { this.R7 = value; }
+            };
 
             #endregion
 
@@ -208,6 +280,9 @@ namespace M3.QA.Models
                     // assign method pointer to Get/Set N
                     item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
                     item.SetN = (null != _SetNs) ? _SetNs[i - 1] : null;
+                    // assign method pointer to Get/Set R
+                    item.GetR = (null != _GetRs) ? _GetRs[i - 1] : null;
+                    item.SetR = (null != _SetRs) ? _SetRs[i - 1] : null;
 
                     Items.Add(item);
                 }
@@ -232,6 +307,21 @@ namespace M3.QA.Models
 
                     if (idx < 0 || idx >= this.Items.Count) return;
                     this.Items[idx].RaiseNChanges();
+
+                    CalcAvg();
+                }
+            }
+            if (propertyName.StartsWith("R"))
+            {
+                string sIdx = propertyName.Replace("R", string.Empty);
+                int idx;
+                if (int.TryParse(sIdx, out idx))
+                {
+                    // Note: R1 -> index must be 0, R2  -> index must be 1 so need decrease index by 1.
+                    idx--; // remove by 1 for zero based
+
+                    if (idx < 0 || idx >= this.Items.Count) return;
+                    this.Items[idx].RaiseRChanges();
 
                     CalcAvg();
                 }
@@ -268,10 +358,16 @@ namespace M3.QA.Models
                 {
                     foreach (var item in this.Items)
                     {
-                        if (item.N.HasValue)
+                        if (item.N.HasValue && !item.R.HasValue)
                         {
                             // Has N value and no R value so use N to calc avg
                             total += item.N.Value;
+                            ++iCnt;
+                        }
+                        if (item.R.HasValue)
+                        {
+                            // Either N has value or not but when R value exists so use R to calc avg
+                            total += item.R.Value;
                             ++iCnt;
                         }
                     }
@@ -412,6 +508,95 @@ namespace M3.QA.Models
         }
         /// <summary>Gets or sets N7 value.</summary>
         public decimal? N7
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+
+        #endregion
+
+        #region Re Test (1-7)
+
+        /// <summary>Gets or sets R1 value.</summary>
+        public decimal? R1
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets R2 value.</summary>
+        public decimal? R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets R3 value.</summary>
+        public decimal? R3
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets R4 value.</summary>
+        public decimal? R4
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets R5 value.</summary>
+        public decimal? R5
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets R6 value.</summary>
+        public decimal? R6
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets R7 value.</summary>
+        public decimal? R7
         {
             get { return Get<decimal?>(); }
             set
