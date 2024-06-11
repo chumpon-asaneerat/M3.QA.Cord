@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using System.Security.Permissions;
 using System.Windows;
 using Dapper;
 
@@ -1229,6 +1230,69 @@ namespace M3.QA.Models
                     // Set error number/message
                     ret.ErrNum = p.Get<int>("@errNum");
                     ret.ErrMsg = p.Get<string>("@errMsg");
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
+
+        #region P_GetActiveSPByLot
+
+        public class P_GetActiveSPByLot
+        {
+            #region Public Properties
+
+            public string LotNo { get; set; }
+            public int? SP { get; set; }
+            public int? GroupSP { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<P_GetActiveSPByLot>> Gets(
+                string lotNo)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<P_GetActiveSPByLot>> ret = new NDbResult<List<P_GetActiveSPByLot>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                p.Add("@lotNo", lotNo);
+
+                try
+                {
+                    var items = cnn.Query<P_GetActiveSPByLot>("P_GetActiveSPByLot", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
                 }
                 catch (Exception ex)
                 {

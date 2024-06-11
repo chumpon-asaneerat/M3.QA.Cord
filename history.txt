@@ -1,8 +1,11 @@
 M3 QA Cord #380
 - 
 
+[commit]
 M3 QA Cord #349
-- 
+- Implements Cord Test Data #309
+  - Update Cord Test Data #1
+    - read Active SP List from P_GetActiveSPByLot
 
 [commit]
 M3 QA Cord #348

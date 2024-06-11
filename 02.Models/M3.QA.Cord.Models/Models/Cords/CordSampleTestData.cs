@@ -196,6 +196,54 @@ namespace M3.QA.Models
             Specs = (null != specs) ? specs : new List<CordTestSpec>();
         }
 
+        public void InitSPs()
+        {
+            // clear sp
+            this.SP1 = new int?();
+            this.SP2 = new int?();
+            this.SP3 = new int?();
+            this.SP4 = new int?();
+            this.SP5 = new int?();
+            this.SP6 = new int?();
+            this.SP7 = new int?();
+
+            var activeSPs = Utils.P_GetActiveSPByLot.Gets(this.LotNo).Value();
+            if (null == activeSPs || activeSPs.Count <= 0) return;
+            int iCnt = 1;
+            foreach (var sp in activeSPs) 
+            {
+                if (iCnt == 1)
+                {
+                    this.SP1 = sp.SP;
+                }
+                else if (iCnt == 2)
+                {
+                    this.SP2 = sp.SP;
+                }
+                else if (iCnt == 3)
+                {
+                    this.SP3 = sp.SP;
+                }
+                else if (iCnt == 4)
+                {
+                    this.SP4 = sp.SP;
+                }
+                else if (iCnt == 5)
+                {
+                    this.SP5 = sp.SP;
+                }
+                else if (iCnt == 6)
+                {
+                    this.SP6 = sp.SP;
+                }
+                else if (iCnt == 7)
+                {
+                    this.SP7 = sp.SP;
+                }
+                iCnt++;
+            }
+        }
+
         private void InitTestProperties()
         {
             ShowTensileStrengths = false;
@@ -350,7 +398,9 @@ namespace M3.QA.Models
                     data.CanEditStartDate = (data.StartTestDate.HasValue) ? false : true;
                     // Init spec
                     data.InitSpecs();
-                    // Init relatedd properties
+                    // Init SPs
+                    data.InitSPs();
+                    // Init related properties
                     data.InitTestProperties();
                 }
 
