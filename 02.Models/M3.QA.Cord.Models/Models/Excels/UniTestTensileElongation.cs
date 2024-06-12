@@ -297,6 +297,18 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Retest Cnt
+
+        public int RCnt1 { get; set; }
+        public int RCnt2 { get; set; }
+        public int RCnt3 { get; set; }
+        public int RCnt4 { get; set; }
+        public int RCnt5 { get; set; }
+        public int RCnt6 { get; set; }
+        public int RCnt7 { get; set; }
+
+        #endregion
+
         #region Test Properties
 
         public List<UniTestTensileStrength> TensileStrengths { get; set; }
@@ -420,7 +432,7 @@ namespace M3.QA.Models
                     }
 
                     #region Data
-
+                    /*
                     string sheetName2 = "Data";
                     var table2 = conn.Query("Select * from [" + sheetName2 + "$]").Result;
                     if (null != table2)
@@ -603,7 +615,7 @@ namespace M3.QA.Models
                         result.Value = null;
                     }
                     table2 = null;
-
+                    */
                     #endregion
                 }
                 catch (Exception ex)

@@ -98,6 +98,7 @@
     <Compile Include="Models\Excels\ImportNProperties\UnitTestTensileStrength.cs" />
     <Compile Include="Models\Excels\UniTestTensileElongation.cs" />
     <Compile Include="Models\Excels\UnitTestAdhesionForce.cs" />
+    <Compile Include="Models\Excels\UnitTestSPParsers.cs" />
     <Compile Include="Models\Masters\COAReportType.cs" />
     <Compile Include="Models\Masters\Customer.cs" />
     <Compile Include="Models\Masters\MCordTestSpec.cs" />

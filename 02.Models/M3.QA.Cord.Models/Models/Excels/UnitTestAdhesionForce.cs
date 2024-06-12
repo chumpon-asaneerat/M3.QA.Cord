@@ -247,13 +247,13 @@ namespace M3.QA.Models
 
         #region Retest Cnt
 
-        public int Retest1 { get; set; }
-        public int Retest2 { get; set; }
-        public int Retest3 { get; set; }
-        public int Retest4 { get; set; }
-        public int Retest5 { get; set; }
-        public int Retest6 { get; set; }
-        public int Retest7 { get; set; }
+        public int RCnt1 { get; set; }
+        public int RCnt2 { get; set; }
+        public int RCnt3 { get; set; }
+        public int RCnt4 { get; set; }
+        public int RCnt5 { get; set; }
+        public int RCnt6 { get; set; }
+        public int RCnt7 { get; set; }
 
         #endregion
 
@@ -386,7 +386,7 @@ namespace M3.QA.Models
                     }
 
                     #region Data
-
+                    /*
                     string sheetName2 = "Data";
                     var table2 = conn.Query("Select * from [" + sheetName2 + "$]").Result;
                     if (null != table2)
@@ -437,7 +437,7 @@ namespace M3.QA.Models
                                 iSP++; // next sp
                             }
                         }
-
+                        
                         // Success
                         result.IsValid = true;
                         result.ErrMsg = "Success";
@@ -450,7 +450,7 @@ namespace M3.QA.Models
                         result.Value = null;
                     }
                     table2 = null;
-
+                    */
                     #endregion
                 }
                 catch (Exception ex)
