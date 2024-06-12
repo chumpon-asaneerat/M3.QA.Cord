@@ -29,8 +29,8 @@ namespace M3.QA.Models
 
         private void ParseComment1()
         {
-            string[] sps = Comment1.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            NoOfSP = (null != sps) ? sps.Length : 0;
+            var p = UniTestSPParser.Parse(Comment1);
+            NoOfSP = (null != p) ? p.Items.Count : 0;
 
             // Clear SPs.
             SP1 = new int?();
@@ -46,48 +46,62 @@ namespace M3.QA.Models
 
             if (NoOfSP <= 0) return;
 
-            int sp;
             for (int i = 0; i < NoOfSP; i++) 
-            { 
+            {
                 switch (i)
                 {
-                    case 0: 
+                    case 0:
                         {
-                            SP1 = int.TryParse(sps[i], out sp) ? sp : new int?();
+                            SP1 = p.Items[i].SP;
+                            NCnt1 = p.Items[i].NCnt;
+                            RCnt1 = p.Items[i].RCnt;
                             break;
                         }
                     case 1:
                         {
-                            SP2 = int.TryParse(sps[i], out sp) ? sp : new int?();
+                            SP2 = p.Items[i].SP;
+                            NCnt2 = p.Items[i].NCnt;
+                            RCnt2 = p.Items[i].RCnt;
                             break;
                         }
                     case 2:
                         {
-                            SP3 = int.TryParse(sps[i], out sp) ? sp : new int?();
+                            SP3 = p.Items[i].SP;
+                            NCnt3 = p.Items[i].NCnt;
+                            RCnt3 = p.Items[i].RCnt;
                             break;
                         }
                     case 3:
                         {
-                            SP4 = int.TryParse(sps[i], out sp) ? sp : new int?();
+                            SP4 = p.Items[i].SP;
+                            NCnt4 = p.Items[i].NCnt;
+                            RCnt4 = p.Items[i].RCnt;
                             break;
                         }
                     case 4:
                         {
-                            SP5 = int.TryParse(sps[i], out sp) ? sp : new int?();
+                            SP5 = p.Items[i].SP;
+                            NCnt5 = p.Items[i].NCnt;
+                            RCnt5 = p.Items[i].RCnt;
                             break;
                         }
                     case 5:
                         {
-                            SP6 = int.TryParse(sps[i], out sp) ? sp : new int?();
+                            SP6 = p.Items[i].SP;
+                            NCnt6 = p.Items[i].NCnt;
+                            RCnt6 = p.Items[i].RCnt;
                             break;
                         }
                     case 6:
                         {
-                            SP7 = int.TryParse(sps[i], out sp) ? sp : new int?();
+                            SP7 = p.Items[i].SP;
+                            NCnt7 = p.Items[i].NCnt;
+                            RCnt7 = p.Items[i].RCnt;
                             break;
                         }
                 }
             }
+
             // Raise SP? Change Events
             Raise(() => this.SP1);
             Raise(() => this.SP2);
@@ -96,6 +110,22 @@ namespace M3.QA.Models
             Raise(() => this.SP5);
             Raise(() => this.SP6);
             Raise(() => this.SP7);
+
+            Raise(() => this.NCnt1);
+            Raise(() => this.NCnt2);
+            Raise(() => this.NCnt3);
+            Raise(() => this.NCnt4);
+            Raise(() => this.NCnt5);
+            Raise(() => this.NCnt6);
+            Raise(() => this.NCnt7);
+
+            Raise(() => this.RCnt1);
+            Raise(() => this.RCnt2);
+            Raise(() => this.RCnt3);
+            Raise(() => this.RCnt4);
+            Raise(() => this.RCnt5);
+            Raise(() => this.RCnt6);
+            Raise(() => this.RCnt7);
         }
 
         public void PrepareProperties()
@@ -294,6 +324,18 @@ namespace M3.QA.Models
         public int? SP5 { get; set; }
         public int? SP6 { get; set; }
         public int? SP7 { get; set; }
+
+        #endregion
+
+        #region Test Cnt
+
+        public int NCnt1 { get; set; } = 3;
+        public int NCnt2 { get; set; } = 3;
+        public int NCnt3 { get; set; } = 3;
+        public int NCnt4 { get; set; } = 3;
+        public int NCnt5 { get; set; } = 3;
+        public int NCnt6 { get; set; } = 3;
+        public int NCnt7 { get; set; } = 3;
 
         #endregion
 
