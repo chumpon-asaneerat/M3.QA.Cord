@@ -32,7 +32,6 @@ namespace M3.QA.Models
         /// </summary>
         private UniTestSPParserItem() : base() 
         {
-            NCnt = 3;
             RCnt = 0;
         }
 
@@ -42,8 +41,6 @@ namespace M3.QA.Models
 
         /// <summary>Gets or sets SP No.</summary>
         public int SP { get; set; }
-        /// <summary>Gets or sets Test Count.</summary>
-        public int NCnt { get; set; }
         /// <summary>Gets or sets Retest Count.</summary>
         public int RCnt { get; set; }
 

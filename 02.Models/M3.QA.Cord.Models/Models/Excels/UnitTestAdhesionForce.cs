@@ -49,6 +49,7 @@ namespace M3.QA.Models
 
             if (NoOfSP <= 0) return;
 
+            int NCnt = 2;
             for (int i = 0; i < NoOfSP; i++)
             {
                 switch (i)
@@ -56,49 +57,49 @@ namespace M3.QA.Models
                     case 0:
                         {
                             SP1 = p.Items[i].SP;
-                            NCnt1 = p.Items[i].NCnt;
+                            NCnt1 = NCnt;
                             RCnt1 = p.Items[i].RCnt;
                             break;
                         }
                     case 1:
                         {
                             SP2 = p.Items[i].SP;
-                            NCnt2 = p.Items[i].NCnt;
+                            NCnt2 = NCnt;
                             RCnt2 = p.Items[i].RCnt;
                             break;
                         }
                     case 2:
                         {
                             SP3 = p.Items[i].SP;
-                            NCnt3 = p.Items[i].NCnt;
+                            NCnt3 = NCnt;
                             RCnt3 = p.Items[i].RCnt;
                             break;
                         }
                     case 3:
                         {
                             SP4 = p.Items[i].SP;
-                            NCnt4 = p.Items[i].NCnt;
+                            NCnt4 = NCnt;
                             RCnt4 = p.Items[i].RCnt;
                             break;
                         }
                     case 4:
                         {
                             SP5 = p.Items[i].SP;
-                            NCnt5 = p.Items[i].NCnt;
+                            NCnt5 = NCnt;
                             RCnt5 = p.Items[i].RCnt;
                             break;
                         }
                     case 5:
                         {
                             SP6 = p.Items[i].SP;
-                            NCnt6 = p.Items[i].NCnt;
+                            NCnt6 = NCnt;
                             RCnt6 = p.Items[i].RCnt;
                             break;
                         }
                     case 6:
                         {
                             SP7 = p.Items[i].SP;
-                            NCnt7 = p.Items[i].NCnt;
+                            NCnt7 = NCnt;
                             RCnt7 = p.Items[i].RCnt;
                             break;
                         }
@@ -397,7 +398,7 @@ namespace M3.QA.Models
                     }
 
                     #region Data
-                    /*
+                    
                     string sheetName2 = "Data";
                     var table2 = conn.Query("Select * from [" + sheetName2 + "$]").Result;
                     if (null != table2)
@@ -406,12 +407,46 @@ namespace M3.QA.Models
 
                         // Loop data row.
                         int iSP = 0;
-                        int iCnt = 1;
+                        int iMax = 2;
                         decimal? N;
                         decimal d;
                         for (int iRow = 3; iRow < table2.Rows.Count; iRow++)
                         {
                             DataRow row = table2.Rows[iRow];
+
+                            int iCnt = 1;
+
+                            #region Find Max Test + Retest
+
+                            switch (iSP)
+                            {
+                                case 0:
+                                    iMax = inst.NCnt1 + inst.RCnt1 + 1;
+                                    break;
+                                case 1:
+                                    iMax = inst.NCnt2 + inst.RCnt2 + 1;
+                                    break;
+                                case 2:
+                                    iMax = inst.NCnt3 + inst.RCnt3 + 1;
+                                    break;
+                                case 3:
+                                    iMax = inst.NCnt4 + inst.RCnt4 + 1;
+                                    break;
+                                case 4:
+                                    iMax = inst.NCnt5 + inst.RCnt5 + 1;
+                                    break;
+                                case 5:
+                                    iMax = inst.NCnt6 + inst.RCnt6 + 1;
+                                    break;
+                                case 6:
+                                    iMax = inst.NCnt7 + inst.RCnt7 + 1;
+                                    break;
+                                default:
+                                    iMax = 3;
+                                    break;
+                            }
+
+                            #endregion
 
                             #region Items
 
@@ -432,6 +467,16 @@ namespace M3.QA.Models
                                             inst.Items[iSP].PeakPoint.N2 = N;
                                             break;
                                         }
+                                    case 3:
+                                        {
+                                            inst.Items[iSP].PeakPoint.R1 = N;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            inst.Items[iSP].PeakPoint.R2 = N;
+                                            break;
+                                        }
                                 }
                             }
 
@@ -439,7 +484,7 @@ namespace M3.QA.Models
 
                             iCnt++;
 
-                            if (iCnt > 2)
+                            if (iCnt > iMax)
                             {
                                 iCnt = 1; // Reset to N1
 
@@ -461,7 +506,7 @@ namespace M3.QA.Models
                         result.Value = null;
                     }
                     table2 = null;
-                    */
+                    
                     #endregion
                 }
                 catch (Exception ex)
