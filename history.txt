@@ -4,8 +4,10 @@ M3 QA Cord #400
 M3 QA Cord #399
 - 
 
+[commit]
 M3 QA Cord #398
-- 
+- Implements Cord Test Data #328
+  - COA Report change LOT NO to PRODUCT LOT NO
 
 [commit]
 M3 QA Cord #397

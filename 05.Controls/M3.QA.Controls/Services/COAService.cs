@@ -132,8 +132,8 @@ namespace M3.QA
                             ws.Cells["B13"].Value = value.ItemCode;
                             // YARN TYPE
                             ws.Cells["B14"].Value = value.YarnCode;
-                            // LOT NO
-                            ws.Cells["B15"].Value = value.LotNo;
+                            // PRODUCT LOT NO
+                            ws.Cells["B15"].Value = value.ProductionLot;
                             // PI NO 
                             ws.Cells["B16"].Value = value.PiNoSL;
 
@@ -307,7 +307,7 @@ namespace M3.QA
                             ws.Cells["B14"].Value = "7 179 172 90";
                             // YARN TYPE
                             ws.Cells["B15"].Value = value.YarnCode;
-                            // PRODUCT LOT
+                            // PRODUCT LOT NO
                             ws.Cells["B16"].Value = value.ProductionLot;
                             // VALID DATE
                             var dt = COAService.GetDateFromLot(value.ProductionLot);
@@ -484,7 +484,7 @@ namespace M3.QA
                             ws.Cells["B15"].Value = value.YarnCode;
                             // LOT NO
                             ws.Cells["B16"].Value = value.LotNo;
-                            // PRODUCT LOT
+                            // PRODUCT LOT NO
                             ws.Cells["D17"].Value = value.ProductionLot;
 
                             #endregion
@@ -681,7 +681,7 @@ namespace M3.QA
                             ws.Cells["B10"].Value = value.UserName;
                             // ITEM CODE
                             ws.Cells["I10"].Value = value.ItemCode;
-                            // LOT NO
+                            // PRODUCT LOT NO
                             ws.Cells["N10"].Value = value.ProductionLot;
 
                             #endregion
