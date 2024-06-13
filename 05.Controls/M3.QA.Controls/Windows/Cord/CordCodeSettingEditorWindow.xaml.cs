@@ -55,6 +55,8 @@ namespace M3.QA.Windows
             UpdateControlsToItem();
 
             // Check required
+            #region Customer
+
             if (string.IsNullOrEmpty(item.Customer) && string.IsNullOrEmpty(item.NewCustomer))
             {
                 string msg = string.Empty;
@@ -65,6 +67,98 @@ namespace M3.QA.Windows
 
                 return;
             }
+
+            #endregion
+
+            #region UserName
+
+            if (string.IsNullOrEmpty(item.UserName))
+            {
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += "Plase enter UserName !";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+
+            #endregion
+
+            #region ProductType
+
+            if (string.IsNullOrEmpty(item.ProductType))
+            {
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += "Plase enter Product Type !";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+
+            #endregion
+
+            #region ProductName
+
+            if (string.IsNullOrEmpty(item.ProductName))
+            {
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += "Plase enter Product Name !";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+
+            #endregion
+
+            #region YarnType
+
+            if (string.IsNullOrEmpty(item.YarnType))
+            {
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += "Plase enter Yarn Type !";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+
+            #endregion
+
+            #region YarnType
+
+            if (string.IsNullOrEmpty(item.YarnCode))
+            {
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += "Plase enter Yarn Code !";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+
+            #endregion
+
+            #region Coa
+
+            if (string.IsNullOrEmpty(item.FMQC))
+            {
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += "Plase enter Coa !";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+
+            #endregion
 
             // Set current user
             var user = M3QAApp.Current.User;
@@ -198,7 +292,7 @@ namespace M3.QA.Windows
 
                 idx = (null != coaReports) ? coaReports.FindIndex(x =>
                 {
-                    return (x.CoaNo == item.CoaNo) && (string.Compare(x.FMQC, item.FMQC, true) == 0);
+                    return (x.CoaNo == item.CoaNo) /* && (string.Compare(x.FMQC, item.FMQC, true) == 0) */;
                 }) : -1;
                 cbCoaReports.SelectedIndex = idx;
             });

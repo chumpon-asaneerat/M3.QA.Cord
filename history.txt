@@ -10,8 +10,10 @@ M3 QA Cord #398
 M3 QA Cord #397
 - 
 
+[commit]
 M3 QA Cord #396
-- 
+- Implements Cord Test Data #326
+  - Update Cord Code Setting add check input required  #2
 
 [commit]
 M3 QA Cord #395
