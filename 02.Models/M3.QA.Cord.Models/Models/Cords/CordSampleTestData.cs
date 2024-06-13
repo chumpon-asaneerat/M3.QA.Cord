@@ -526,88 +526,118 @@ namespace M3.QA.Models
 
                 NDbResult res = null;
 
-                value.TensileStrengths.ForEach(x =>
+                if (value.ShowTensileStrengths)
                 {
-                    x.EditBy = (null != user) ? user.FullName : null;
-                    x.EditDate = DateTime.Now;
-                    res = CordTensileStrength.Save(x);
-                    if (null == res || !res.Ok) return;
-                });
-
-                value.Elongations.ForEach(x =>
-                {
-                    foreach (var item in x.SubProperties)
+                    value.TensileStrengths.ForEach(x =>
                     {
-                        item.EditBy = (null != user) ? user.FullName : null;
-                        item.EditDate = DateTime.Now;
-                        res = CordElongationSubProperty.Save(item);
+                        x.EditBy = (null != user) ? user.FullName : null;
+                        x.EditDate = DateTime.Now;
+                        res = CordTensileStrength.Save(x);
                         if (null == res || !res.Ok) return;
-                    }
-                });
+                    });
+                }
 
-                value.AdhesionForces.ForEach(x =>
+                if (value.ShowElongations)
                 {
-                    x.EditBy = (null != user) ? user.FullName : null;
-                    x.EditDate = DateTime.Now;
-                    res = CordAdhesionForce.Save(x);
-                    if (null == res || !res.Ok) return;
-                });
+                    value.Elongations.ForEach(x =>
+                    {
+                        foreach (var item in x.SubProperties)
+                        {
+                            item.EditBy = (null != user) ? user.FullName : null;
+                            item.EditDate = DateTime.Now;
+                            res = CordElongationSubProperty.Save(item);
+                            if (null == res || !res.Ok) return;
+                        }
+                    });
+                }
 
-                value.ShrinkageForces.ForEach(x =>
+                if (value.ShowAdhesionForces)
                 {
-                    x.EditBy = (null != user) ? user.FullName : null;
-                    x.EditDate = DateTime.Now;
-                    res = CordShrinkageForce.Save(x);
-                    if (null == res || !res.Ok) return;
-                });
+                    value.AdhesionForces.ForEach(x =>
+                    {
+                        x.EditBy = (null != user) ? user.FullName : null;
+                        x.EditDate = DateTime.Now;
+                        res = CordAdhesionForce.Save(x);
+                        if (null == res || !res.Ok) return;
+                    });
+                }
 
-                value.Thicknesses.ForEach(x =>
+                if (value.ShowShrinkageForces)
                 {
-                    x.EditBy = (null != user) ? user.FullName : null;
-                    x.EditDate = DateTime.Now;
-                    res = CordThickness.Save(x);
-                    if (null == res || !res.Ok) return;
-                });
+                    value.ShrinkageForces.ForEach(x =>
+                    {
+                        x.EditBy = (null != user) ? user.FullName : null;
+                        x.EditDate = DateTime.Now;
+                        res = CordShrinkageForce.Save(x);
+                        if (null == res || !res.Ok) return;
+                    });
+                }
 
-                value.Cord1stTwistingNumbers.ForEach(x =>
+                if (value.ShowThicknesses)
                 {
-                    x.EditBy = (null != user) ? user.FullName : null;
-                    x.EditDate = DateTime.Now;
-                    res = Cord1stTwistingNumber.Save(x);
-                    if (null == res || !res.Ok) return;
-                });
+                    value.Thicknesses.ForEach(x =>
+                    {
+                        x.EditBy = (null != user) ? user.FullName : null;
+                        x.EditDate = DateTime.Now;
+                        res = CordThickness.Save(x);
+                        if (null == res || !res.Ok) return;
+                    });
+                }
 
-                value.Cord2ndTwistingNumbers.ForEach(x =>
+                if (value.ShowCord1stTwistingNumbers)
                 {
-                    x.EditBy = (null != user) ? user.FullName : null;
-                    x.EditDate = DateTime.Now;
-                    res = Cord2ndTwistingNumber.Save(x);
-                    if (null == res || !res.Ok) return;
-                });
+                    value.Cord1stTwistingNumbers.ForEach(x =>
+                    {
+                        x.EditBy = (null != user) ? user.FullName : null;
+                        x.EditDate = DateTime.Now;
+                        res = Cord1stTwistingNumber.Save(x);
+                        if (null == res || !res.Ok) return;
+                    });
+                }
 
-                value.RPUs.ForEach(x =>
+                if (value.ShowCord2ndTwistingNumbers)
                 {
-                    x.EditBy = (null != user) ? user.FullName : null;
-                    x.EditDate = DateTime.Now;
-                    res = CordRPU.Save(x);
-                    if (null == res || !res.Ok) return;
-                });
+                    value.Cord2ndTwistingNumbers.ForEach(x =>
+                    {
+                        x.EditBy = (null != user) ? user.FullName : null;
+                        x.EditDate = DateTime.Now;
+                        res = Cord2ndTwistingNumber.Save(x);
+                        if (null == res || !res.Ok) return;
+                    });
+                }
 
-                value.ShrinkagePcts.ForEach(x =>
+                if (value.ShowRPUs)
                 {
-                    x.EditBy = (null != user) ? user.FullName : null;
-                    x.EditDate = DateTime.Now;
-                    res = CordShrinkagePct.Save(x);
-                    if (null == res || !res.Ok) return;
-                });
+                    value.RPUs.ForEach(x =>
+                    {
+                        x.EditBy = (null != user) ? user.FullName : null;
+                        x.EditDate = DateTime.Now;
+                        res = CordRPU.Save(x);
+                        if (null == res || !res.Ok) return;
+                    });
+                }
 
-                value.DenierMoistureWeights.ForEach(x =>
+                if (value.ShowShrinkagePcts)
                 {
-                    x.EditBy = (null != user) ? user.FullName : null;
-                    x.EditDate = DateTime.Now;
-                    res = CordDenierMoistureWeight.Save(x);
-                    if (null == res || !res.Ok) return;
-                });
+                    value.ShrinkagePcts.ForEach(x =>
+                    {
+                        x.EditBy = (null != user) ? user.FullName : null;
+                        x.EditDate = DateTime.Now;
+                        res = CordShrinkagePct.Save(x);
+                        if (null == res || !res.Ok) return;
+                    });
+                }
+
+                if (value.ShowDenierMoistureWeights)
+                {
+                    value.DenierMoistureWeights.ForEach(x =>
+                    {
+                        x.EditBy = (null != user) ? user.FullName : null;
+                        x.EditDate = DateTime.Now;
+                        res = CordDenierMoistureWeight.Save(x);
+                        if (null == res || !res.Ok) return;
+                    });
+                }
 
                 if (null == res || !res.Ok)
                 {

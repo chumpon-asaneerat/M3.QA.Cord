@@ -13,8 +13,10 @@ M3 QA Cord #397
 M3 QA Cord #396
 - 
 
+[commit]
 M3 QA Cord #395
-- 
+- Implements Cord Test Data #325
+  - Implements Excel import data with retest #10
 
 [commit]
 M3 QA Cord #394
