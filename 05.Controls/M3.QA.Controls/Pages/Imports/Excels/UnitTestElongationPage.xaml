@@ -53,6 +53,7 @@
             <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
             <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
             <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="IsReadOnly" Value="True" />
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
@@ -68,6 +69,7 @@
             <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
             <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
             <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="IsReadOnly" Value="True" />
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>

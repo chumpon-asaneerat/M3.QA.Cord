@@ -320,10 +320,14 @@ namespace M3.QA.Models
                         if (null == imp.PeakPoint) imp.PeakPoint = new NRTestProperty();
                         imp.PeakPoint.N1 = item.PeakN1;
                         imp.PeakPoint.N2 = item.PeakN2;
-                        
+                        imp.PeakPoint.R1 = item.PeakR1;
+                        imp.PeakPoint.R2 = item.PeakR2;
+
                         if (null == imp.AdhesionForce) imp.AdhesionForce = new NRTestProperty();
                         imp.AdhesionForce.N1 = item.AdhesionN1;
                         imp.AdhesionForce.N2 = item.AdhesionN2;
+                        imp.AdhesionForce.R1 = item.AdhesionR1;
+                        imp.AdhesionForce.R2 = item.AdhesionR2;
 
                         existItems.Add(imp);
                     }

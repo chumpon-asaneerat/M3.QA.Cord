@@ -577,6 +577,9 @@ namespace M3.QA.Models
                             N1 = item.N1,
                             N2 = item.N2,
                             N3 = item.N3,
+                            R1 = item.R1,
+                            R2 = item.R2,
+                            R3 = item.R3
                         };
 
                         exists.Add(imp);

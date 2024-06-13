@@ -987,6 +987,10 @@ namespace M3.QA.Models
             public decimal? N2 { get; set; }
             public decimal? N3 { get; set; }
 
+            public decimal? R1 { get; set; }
+            public decimal? R2 { get; set; }
+            public decimal? R3 { get; set; }
+
             #endregion
 
             #region Static Methods
@@ -1056,6 +1060,10 @@ namespace M3.QA.Models
             public decimal? N2 { get; set; }
             public decimal? N3 { get; set; }
 
+            public decimal? R1 { get; set; }
+            public decimal? R2 { get; set; }
+            public decimal? R3 { get; set; }
+
             #endregion
 
             #region Static Methods
@@ -1120,8 +1128,12 @@ namespace M3.QA.Models
 
             public decimal? PeakN1 { get; set; }
             public decimal? PeakN2 { get; set; }
+            public decimal? PeakR1 { get; set; }
+            public decimal? PeakR2 { get; set; }
             public decimal? AdhesionN1 { get; set; }
             public decimal? AdhesionN2 { get; set; }
+            public decimal? AdhesionR1 { get; set; }
+            public decimal? AdhesionR2 { get; set; }
 
             #endregion
 
