@@ -41,6 +41,21 @@
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
+        <!--  R INPUT  -->
+        <Style x:Key="RInput"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
         <!--  AVG  -->
         <Style x:Key="AVG"
                TargetType="TextBox"
@@ -82,7 +97,7 @@
                                         <TextBox Style="{StaticResource SPNo}" />
                                     </StackPanel>
                                 </Border>
-                                <!--  EACH N  -->
+                                <!--  EACH N/R  -->
                                 <ItemsControl ItemsSource="{Binding Items}"
                                               Focusable="False"
                                               DockPanel.Dock="Left">
@@ -101,6 +116,14 @@
                                                         <StackPanel Orientation="Vertical" ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}">
                                                             <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
                                                             <TextBox Style="{StaticResource NInput}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                        <StackPanel Orientation="Vertical"
+                                                                    ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                    Visibility="{Binding VisibleR}">
+                                                            <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
+                                                            <TextBox Style="{StaticResource RInput}" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                     <Grid />
