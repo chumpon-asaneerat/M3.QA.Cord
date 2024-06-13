@@ -407,6 +407,7 @@ namespace M3.QA.Models
 
                         // Loop data row.
                         int iSP = 0;
+                        int iCnt = 1;
                         int iMax = 2;
                         decimal? N;
                         decimal d;
@@ -414,32 +415,30 @@ namespace M3.QA.Models
                         {
                             DataRow row = table2.Rows[iRow];
 
-                            int iCnt = 1;
-
                             #region Find Max Test + Retest
 
                             switch (iSP)
                             {
                                 case 0:
-                                    iMax = inst.NCnt1 + inst.RCnt1 + 1;
+                                    iMax = inst.NCnt1 + inst.RCnt1;
                                     break;
                                 case 1:
-                                    iMax = inst.NCnt2 + inst.RCnt2 + 1;
+                                    iMax = inst.NCnt2 + inst.RCnt2;
                                     break;
                                 case 2:
-                                    iMax = inst.NCnt3 + inst.RCnt3 + 1;
+                                    iMax = inst.NCnt3 + inst.RCnt3;
                                     break;
                                 case 3:
-                                    iMax = inst.NCnt4 + inst.RCnt4 + 1;
+                                    iMax = inst.NCnt4 + inst.RCnt4;
                                     break;
                                 case 4:
-                                    iMax = inst.NCnt5 + inst.RCnt5 + 1;
+                                    iMax = inst.NCnt5 + inst.RCnt5;
                                     break;
                                 case 5:
-                                    iMax = inst.NCnt6 + inst.RCnt6 + 1;
+                                    iMax = inst.NCnt6 + inst.RCnt6;
                                     break;
                                 case 6:
-                                    iMax = inst.NCnt7 + inst.RCnt7 + 1;
+                                    iMax = inst.NCnt7 + inst.RCnt7;
                                     break;
                                 default:
                                     iMax = 3;
