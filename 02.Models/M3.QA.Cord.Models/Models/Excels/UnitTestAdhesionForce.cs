@@ -628,8 +628,12 @@ namespace M3.QA.Models
                     p.Add("@spno", r.SPNo);
                     p.Add("@peakn1", (null != r.PeakPoint) ? r.PeakPoint.N1 : new decimal?());
                     p.Add("@peakn2", (null != r.PeakPoint) ? r.PeakPoint.N2 : new decimal?());
+                    p.Add("@peakr1", (null != r.PeakPoint) ? r.PeakPoint.R1 : new decimal?());
+                    p.Add("@peakr2", (null != r.PeakPoint) ? r.PeakPoint.R2 : new decimal?());
                     p.Add("@adhesionn1", (null != r.AdhesionForce) ? r.AdhesionForce.N1 : new decimal?());
                     p.Add("@adhesionn2", (null != r.AdhesionForce) ? r.AdhesionForce.N2 : new decimal?());
+                    p.Add("@adhesionr1", (null != r.AdhesionForce) ? r.AdhesionForce.R1 : new decimal?());
+                    p.Add("@adhesionr2", (null != r.AdhesionForce) ? r.AdhesionForce.R2 : new decimal?());
                     p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
 

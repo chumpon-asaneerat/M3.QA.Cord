@@ -883,6 +883,9 @@ namespace M3.QA.Models
                     p.Add("@n1", r.N1);
                     p.Add("@n2", r.N2);
                     p.Add("@n3", r.N3);
+                    p.Add("@r1", r.R1);
+                    p.Add("@r2", r.R2);
+                    p.Add("@r3", r.R3);
                     p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
 
@@ -930,6 +933,9 @@ namespace M3.QA.Models
                         p.Add("@n1", s.N1);
                         p.Add("@n2", s.N2);
                         p.Add("@n3", s.N3);
+                        p.Add("@r1", s.R1);
+                        p.Add("@r2", s.R2);
+                        p.Add("@r3", s.R3);
 
                         p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
                         p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
