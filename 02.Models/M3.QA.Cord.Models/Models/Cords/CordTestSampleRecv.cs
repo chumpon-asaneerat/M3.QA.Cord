@@ -20,12 +20,51 @@ namespace M3.QA.Models
     /// <summary>
     /// The Cord Test Sample Recv
     /// </summary>
-    public class CordTestSampleRecv
+    public class CordTestSampleRecv : NInpc
     {
         #region Public Properties
 
-        public string LotNo { get; set; }
-        public string ProductionLot { get; set; }
+        /// <summary>
+        /// Gets or sets Lot No.
+        /// </summary>
+        public string LotNo 
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () => 
+                {
+                    // if empty use LotNo but remove last char.
+                    if (string.IsNullOrEmpty(ProductionLot))
+                    {
+                        if (!string.IsNullOrEmpty(value) && value.Length >= 1)
+                        {
+                            try
+                            {
+                                ProductionLot = value.Substring(0, value.Length - 1);
+                            }
+                            catch (Exception) 
+                            {
+                                ProductionLot = null;
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        /// <summary>
+        /// Gets or sets Production Lot.
+        /// </summary>
+        public string ProductionLot 
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                });
+            }
+        }
 
         public int? MasterId { get; set; }
 

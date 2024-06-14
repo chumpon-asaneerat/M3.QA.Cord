@@ -61,7 +61,7 @@
                             <ctrl:NTextBox x:Name="txtLotNo"
                                            CaptionText="Lot No:"
                                            DockPanel.Dock="Left"
-                                           Text="{Binding LotNo}"
+                                           Text="{Binding LotNo, UpdateSourceTrigger=LostFocus}"
                                            Width="180" />
                             <!--  PRODUCTION LOT  -->
                             <ctrl:NTextBox x:Name="txtProductionLot"

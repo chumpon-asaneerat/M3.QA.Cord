@@ -25,8 +25,11 @@ M3 QA Cord #403
 M3 QA Cord #402
 - 
 
+[commit]
 M3 QA Cord #401
-- 
+- Implements Cord Test Data #331
+  - Update Receive Cord Sample page
+    - When LotNo changed auto update ProductionLot if ProductionLot is empty.
 
 [commit]
 M3 QA Cord #400
