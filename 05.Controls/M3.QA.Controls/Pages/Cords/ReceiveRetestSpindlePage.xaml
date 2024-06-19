@@ -99,7 +99,7 @@
                 <!--  LINE 4: REMARK  -->
                 <DockPanel DockPanel.Dock="Top" LastChildFill="True">
                     <!--  REMARK  -->
-                    <ctrl:NInputGroup CaptionText="Receive Date/Time:"
+                    <ctrl:NInputGroup CaptionText="Remark:"
                                       DockPanel.Dock="Left"
                                       Height="100"
                                       Width="420">

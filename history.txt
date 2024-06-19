@@ -16,8 +16,10 @@ M3 QA Cord #406
 M3 QA Cord #405
 - 
 
+[commit]
 M3 QA Cord #404
-- 
+- Implements Cord Test Data #334
+  - Fixed wording in Receive Retest
 
 [commit]
 M3 QA Cord #403

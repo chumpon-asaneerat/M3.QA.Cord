@@ -288,6 +288,10 @@
       <Project>{5879d92a-f850-4a70-8d88-99d29f6a46f3}</Project>
       <Name>NLib.Reports</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\00.NLib\NLib.Serial.Devices\NLib.Serial.Devices.csproj">
+      <Project>{32fae440-947b-4b8f-a710-2cb8887136d5}</Project>
+      <Name>NLib.Serial.Devices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\00.NLib\NLib.Utils\NLib.Utils.csproj">
       <Project>{93acb478-4570-4f67-9442-2839d1a46ec9}</Project>
       <Name>NLib.Utils</Name>
