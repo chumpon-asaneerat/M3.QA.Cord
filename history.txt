@@ -13,8 +13,10 @@ M3 QA Cord #407
 M3 QA Cord #406
 - 
 
+[commit]
 M3 QA Cord #405
-- 
+- Implements Cord Test Data #335
+  - Fixed invalid TotalSP in Cord Sample Test data class
 
 [commit]
 M3 QA Cord #404

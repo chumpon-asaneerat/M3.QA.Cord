@@ -212,8 +212,12 @@ namespace M3.QA.Models
             this.SP6 = new int?();
             this.SP7 = new int?();
 
+            this.TotalSP = new int?();
             var activeSPs = Utils.P_GetActiveSPByLot.Gets(this.LotNo).Value();
-            if (null == activeSPs || activeSPs.Count <= 0) return;
+            if (null == activeSPs || activeSPs.Count <= 0) 
+                return;
+
+            this.TotalSP = activeSPs.Count; // assign Total SP
             int iCnt = 1;
             foreach (var sp in activeSPs) 
             {
