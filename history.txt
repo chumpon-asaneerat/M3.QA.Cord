@@ -7,8 +7,10 @@ M3 QA Cord #409
 M3 QA Cord #408
 - 
 
+[commit]
 M3 QA Cord #407
-- 
+- Implements Cord Test Data #337
+  - NRTestProperty, NRTestPropertyItem implements supports MultiPropertyRetest #1
 
 [commit]
 M3 QA Cord #406

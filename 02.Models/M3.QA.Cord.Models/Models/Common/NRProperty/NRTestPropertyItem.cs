@@ -272,6 +272,17 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region MultiPropertyRetest
+
+        /// <summary>Check is Enable Multi Property Retest.</summary>
+        public bool MultiPropertyRetest 
+        {
+            get; 
+            set; 
+        }
+
+        #endregion
+
         #region EnableN/EnableR/CaptionN/CaptionR (For Runtime binding)
 
         /// <summary>Check is Enable Normal Test.</summary>
@@ -288,10 +299,19 @@ namespace M3.QA.Models
         public bool EnableR 
         { 
             get 
-            { 
-                bool ret = (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R.HasValue) : ((N.HasValue && NOut) || R.HasValue);
-                bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                return ret && allowR;
+            {
+                if (MultiPropertyRetest)
+                {
+                    bool ret = (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R.HasValue) : ((N.HasValue && NOut) || R.HasValue);
+                    bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
+                    return ret && allowR;
+                }
+                else
+                {
+                    bool ret = (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R.HasValue) : ((N.HasValue && NOut) || R.HasValue);
+                    bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
+                    return ret && allowR;
+                }
             } 
             set { } 
         }
@@ -307,9 +327,18 @@ namespace M3.QA.Models
         { 
             get 
             {
-                bool ret = (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue;
-                bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                return ret && allowR;
+                if (MultiPropertyRetest)
+                {
+                    bool ret = (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue;
+                    bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
+                    return ret && allowR;
+                }
+                else
+                {
+                    bool ret = (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue;
+                    bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
+                    return ret && allowR;
+                }
             } 
             set { } 
         }
@@ -325,10 +354,17 @@ namespace M3.QA.Models
         { 
             get 
             {
-                //return (EnableR || R.HasValue) ? Visibility.Visible : Visibility.Collapsed;
+                if (MultiPropertyRetest)
+                {
+                    return (EnableR || R.HasValue) ? Visibility.Visible : Visibility.Collapsed;
+                }
+                else
+                {
+                    //return (EnableR || R.HasValue) ? Visibility.Visible : Visibility.Collapsed;
 
-                // Note: In some case some row has only R data so need to display it.
-                return (EnableR || R.HasValue) ? Visibility.Visible : Visibility.Collapsed; 
+                    // Note: In some case some row has only R data so need to display it.
+                    return (EnableR || R.HasValue) ? Visibility.Visible : Visibility.Collapsed;
+                }
             } 
             set { } 
         }
