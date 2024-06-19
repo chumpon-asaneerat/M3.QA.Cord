@@ -19,8 +19,10 @@ M3 QA Cord #405
 M3 QA Cord #404
 - 
 
+[commit]
 M3 QA Cord #403
-- 
+- Implements Cord Test Data #333
+  - Add project NLib.Serial.Devices
 
 [commit]
 M3 QA Cord #402
