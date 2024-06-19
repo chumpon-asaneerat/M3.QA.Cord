@@ -14,7 +14,7 @@
         Height="500"
         Width="900"
         mc:Ignorable="d">
-    <page:NPage HeaderText="Cord Code Setting">
+    <page:NPage HeaderText="Cord/Solution Setting">
         <DockPanel LastChildFill="True">
             <!--  NAV BUTTON  -->
             <DockPanel DockPanel.Dock="Bottom"
@@ -60,18 +60,18 @@
                     <ctrl:NComboBox x:Name="cbCustomers"
                                     Width="200"
                                     CaptionText="Customer:"
-                                    DisplayMemberPath="Customer" 
-                                    SelectionChanged="cbCustomers_SelectionChanged"/>
+                                    DisplayMemberPath="Customer"
+                                    SelectionChanged="cbCustomers_SelectionChanged" />
                     <ctrl:NTextBox x:Name="txtNewCustomer"
                                    Width="200"
                                    CaptionText="Customer (New):"
                                    Text="{Binding NewCustomer}"
-                                   Visibility="{Binding NewVisible}" 
-                                   TextChanged="txtNewCustomer_TextChanged"/>
+                                   Visibility="{Binding NewVisible}"
+                                   TextChanged="txtNewCustomer_TextChanged" />
                     <ctrl:NTextBox x:Name="txtUserName"
                                    Width="200"
                                    CaptionText="UserName:"
-                                   Text="{Binding UserName}"/>
+                                   Text="{Binding UserName}" />
                 </StackPanel>
                 <!--  PRODUCTS AND YARNS  -->
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
@@ -79,7 +79,8 @@
                     <ctrl:NComboBox x:Name="cbProductTypes"
                                     Width="200"
                                     CaptionText="Product Type:"
-                                    DisplayMemberPath="Text" />
+                                    DisplayMemberPath="Text" 
+                                    SelectionChanged="cbProductTypes_SelectionChanged"/>
                     <!--  PRODUCT NAME  -->
                     <ctrl:NTextBox x:Name="txtProductName"
                                    Width="200"
@@ -93,28 +94,32 @@
                     <!--  YARN CODE  -->
                     <ctrl:NTextBox x:Name="txtYarnCode"
                                    Width="200"
-                                   Text="{Binding YarnCode}"
+                                   Text="{Binding YarnCode, TargetNullValue=''}"
                                    CaptionText="Yarn Code:" />
                 </StackPanel>
                 <!--  TOTAL TEST CH / ELONGN AT LOAD  -->
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                     <ctrl:NTextBox x:Name="txtNoTestCH"
                                    Width="200"
-                                   Text="{Binding NoTestCH}"
+                                   Text="{Binding NoTestCH, TargetNullValue=''}"
                                    CaptionText="Total Test Ch:" />
                     <ctrl:NTextBox x:Name="txtELongLoadN"
                                    Width="200"
-                                   Text="{Binding ELongLoadN}"
+                                   Text="{Binding ELongLoadN, TargetNullValue=''}"
                                    CaptionText="Elongation At Load:" />
+                    <ctrl:NTextBox x:Name="txtValidDays"
+                                   Width="200"
+                                   Text="{Binding ValidDays, TargetNullValue=''}"
+                                   CaptionText="Valid Days (Solution):" />
                 </StackPanel>
-                <!--  COA REPORTS -->
+                <!--  COA REPORTS  -->
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                     <ctrl:NComboBox x:Name="cbCoaReports"
                                     Width="200"
                                     CaptionText="COA Report:"
                                     DisplayMemberPath="CoaReportCode" />
                 </StackPanel>
-               <Grid />
+                <Grid />
             </DockPanel>
         </DockPanel>
     </page:NPage>

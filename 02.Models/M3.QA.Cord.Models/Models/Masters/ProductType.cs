@@ -29,7 +29,8 @@ namespace M3.QA.Models
             var ret = new List<ProductType>() 
             { 
                 new ProductType() { Id = "Twist", Text = "Twist" },
-                new ProductType() { Id = "Dip", Text = "Dip" }
+                new ProductType() { Id = "Dip", Text = "Dip" },
+                new ProductType() { Id = "Solution", Text = "Solution" }
             };
 
             return ret;

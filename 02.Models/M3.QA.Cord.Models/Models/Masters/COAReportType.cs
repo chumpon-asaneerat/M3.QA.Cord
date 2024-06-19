@@ -37,7 +37,8 @@ namespace M3.QA.Models
                 new CoaReportType() { CoaNo = 1, FMQC = "27-02" },
                 new CoaReportType() { CoaNo = 2, FMQC = "27-02" },
                 new CoaReportType() { CoaNo = 3, FMQC = "31-02" },
-                new CoaReportType() { CoaNo = 4, FMQC = "29-02" }
+                new CoaReportType() { CoaNo = 4, FMQC = "29-02" },
+                new CoaReportType() { CoaNo = 5, FMQC = "28" }
             };
 
             return ret;

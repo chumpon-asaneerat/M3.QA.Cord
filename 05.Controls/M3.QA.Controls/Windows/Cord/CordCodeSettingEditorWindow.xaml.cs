@@ -117,7 +117,7 @@ namespace M3.QA.Windows
 
             #region YarnType
 
-            if (string.IsNullOrEmpty(item.YarnType))
+            if (item.ProductType != "Solution" && string.IsNullOrEmpty(item.YarnType))
             {
                 string msg = string.Empty;
                 msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
@@ -130,9 +130,9 @@ namespace M3.QA.Windows
 
             #endregion
 
-            #region YarnType
+            #region YarnCode
 
-            if (string.IsNullOrEmpty(item.YarnCode))
+            if (item.ProductType != "Solution" && string.IsNullOrEmpty(item.YarnCode))
             {
                 string msg = string.Empty;
                 msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
@@ -153,6 +153,28 @@ namespace M3.QA.Windows
                 msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
                 msg += Environment.NewLine;
                 msg += "Plase enter Coa !";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+
+            // Check when ProductType is Solution must Coa must be 5 (28) only
+            if (item.ProductType == "Solution" && item.CoaNo != 5)
+            {
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += "Solution must use Coa = 5 only.";
+                M3QAApp.Windows.ShowMessage(msg);
+
+                return;
+            }
+            else if (item.ProductType != "Solution" && item.CoaNo == 5)
+            {
+                string msg = string.Empty;
+                msg += "Save Failed" + Environment.NewLine + "บันทึกข้อมูลไม่สำเร็จ";
+                msg += Environment.NewLine;
+                msg += "Cord must use Coa = 1 to 4 only.";
                 M3QAApp.Windows.ShowMessage(msg);
 
                 return;
@@ -194,6 +216,25 @@ namespace M3.QA.Windows
             if (null != cbCustomers.SelectedItem)
             {
                 txtNewCustomer.Text = string.Empty;
+            }
+        }
+
+        private void cbProductTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ProductType ptype = cbProductTypes.SelectedItem as ProductType;
+            if (null != ptype)
+            {
+                var enabled = true;
+                if (ptype.Id == "Solution")
+                {
+                    enabled = false;
+                }
+                cbYarnTypes.IsEditable = enabled;
+                txtYarnCode.IsEnabled = enabled;
+                txtELongLoadN.IsEnabled = enabled;
+                txtNoTestCH.IsEnabled = enabled;
+
+                txtValidDays.IsEnabled = !enabled; // enable only Solution
             }
         }
 

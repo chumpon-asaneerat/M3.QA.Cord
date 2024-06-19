@@ -137,6 +137,12 @@ namespace M3.QA.Models
             get { return Get<int>(); }
             set { Set(value, () => { }); }
         }
+        /// <summary>Gets or set ValidDays.</summary>
+        public int? ValidDays
+        {
+            get { return Get<int?>(); }
+            set { Set(value, () => { }); }
+        }
 
 
 

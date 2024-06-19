@@ -262,9 +262,9 @@
                                 Style="{StaticResource OtherButtonStyle}"
                                 Click="cmdCordCodeSetting_Click">
                             <TextBlock TextAlignment="Center">
-                                <Run Text="Cord" />
+                                <Run Text="Cord &amp; " />
                                 <LineBreak />
-                                <Run Text="Code Setting" />
+                                <Run Text="Solution" />
                             </TextBlock>
                         </Button>
                         <Button x:Name="cmdCordTestSpecification"

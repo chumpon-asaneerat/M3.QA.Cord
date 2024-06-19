@@ -46,6 +46,7 @@ namespace M3.QA.Pages
             M3QAApp.Pages.GotoQAMainMenu();
         }
 
+        // not used.
         private void cmdSearch_Click(object sender, RoutedEventArgs e)
         {
             Search();
@@ -113,7 +114,7 @@ namespace M3.QA.Pages
             {
                 cbProductTypes.ItemsSource = productTypes;
                 cbProductTypes.SelectedIndex = (null != productTypes && productTypes.Count > 0) ? 0 : -1;
-                //cbProductTypes.SelectedIndex = -1;
+                cbProductTypes.SelectedIndex = -1;
             });
         }
 

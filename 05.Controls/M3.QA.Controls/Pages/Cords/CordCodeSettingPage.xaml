@@ -35,6 +35,9 @@
         <DataTemplate x:Key="YarnType">
             <TextBlock Text="{Binding Path=YarnType, Mode=OneWay}" TextAlignment="Center" />
         </DataTemplate>
+        <DataTemplate x:Key="ValidDays">
+            <TextBlock Text="{Binding Path=ValidDays, Mode=OneWay}" TextAlignment="Center" />
+        </DataTemplate>
         <DataTemplate x:Key="ELongLoadN">
             <TextBlock Text="{Binding Path=ELongLoadN, Mode=OneWay}" TextAlignment="Left" />
         </DataTemplate>
@@ -65,7 +68,7 @@
                     <!--  CORD CODE  -->
                     <ctrl:NComboBox x:Name="cbCordCode"
                                     Margin="0,0,5,0"
-                                    CaptionText="Cord Code:"
+                                    CaptionText="Code:"
                                     Width="150"
                                     DisplayMemberPath="ItemCode"
                                     SelectionChanged="cbCordCode_SelectionChanged" />
@@ -83,6 +86,7 @@
                                     Width="150"
                                     DisplayMemberPath="Text"
                                     SelectionChanged="cbProductTypes_SelectionChanged" />
+                    <!--
                     <ctrl:FontAwesomeButton x:Name="cmdSearch"
                                             Width="120"
                                             Height="40"
@@ -91,6 +95,7 @@
                                             Text="Search"
                                             VerticalAlignment="Bottom"
                                             Click="cmdSearch_Click" />
+                    -->
                 </StackPanel>
                 <Grid />
             </DockPanel>
@@ -149,6 +154,9 @@
                         <GridViewColumn Header="Yarn Type"
                                         Width="100"
                                         CellTemplate="{StaticResource YarnType}" />
+                        <GridViewColumn Header="Valid Days"
+                                        Width="100"
+                                        CellTemplate="{StaticResource ValidDays}" />
                         <GridViewColumn Header="Elong Load N"
                                         Width="120"
                                         CellTemplate="{StaticResource ELongLoadN}" />

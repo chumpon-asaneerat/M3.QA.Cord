@@ -10,8 +10,10 @@ M3 QA Cord #408
 M3 QA Cord #407
 - 
 
+[commit]
 M3 QA Cord #406
-- 
+- Implements Cord Test Data #336
+  - Implements CordCode setting (include Solution).
 
 [commit]
 M3 QA Cord #405
