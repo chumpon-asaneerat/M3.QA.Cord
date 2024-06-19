@@ -37,6 +37,10 @@ namespace M3.QA.Models
         private List<Func<bool>> _GetROuts;
         private List<Action<bool>> _SetROuts;
 
+        private Func<bool> _GetMultiPropertyRetest;
+        private Action<bool> _SetMultiPropertyRetest;
+        private Func<bool> _GetMultiOut;
+
         private Func<bool> _GetCustomAllowR;
 
         #endregion
@@ -147,6 +151,13 @@ namespace M3.QA.Models
             // Get Custom Allow Retest
             _GetCustomAllowR = () => { return (null != AllowReTest) ? AllowReTest() : true; };
 
+            // Get Multi Property Re test
+            _GetMultiPropertyRetest = () => { return EnableMultiPropertyTest; };
+            // Set Multi Property Re test
+            _SetMultiPropertyRetest = (value) => { EnableMultiPropertyTest = value; };
+
+            _GetMultiOut = () => { return (null != GetNMultiOut) ? GetNMultiOut() : false; };
+
             #endregion
 
             BuildItems(0); // create empty items.
@@ -188,6 +199,11 @@ namespace M3.QA.Models
 
                     // common for all test N
                     item.CustomAllowR = (null != _GetCustomAllowR) ? _GetCustomAllowR : null;
+
+                    item.GetMultiPropertyRetest = (null != _GetMultiPropertyRetest) ? _GetMultiPropertyRetest : null;
+                    item.SetMultiPropertyRetest = (null != _SetMultiPropertyRetest) ? _SetMultiPropertyRetest : null;
+
+                    item.GetNMultiOut = (null != _GetMultiOut) ? _GetMultiOut : null;
 
                     Items.Add(item);
                 }
@@ -351,6 +367,7 @@ namespace M3.QA.Models
         #region Callback Actions
 
         internal Action ValueChanges { get; set; }
+        internal Func<bool> GetNMultiOut { get; set; }
 
         #endregion
 
@@ -422,6 +439,18 @@ namespace M3.QA.Models
 
         #region Enable Test (Normal/Re Test)
 
+        /// <summary>Gets or sets is enable to Multi Property test data.</summary>
+        public bool EnableMultiPropertyTest
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    
+                });
+            }
+        }
         /// <summary>Gets or sets is enable to enter test data.</summary>
         public bool EnableTest
         {
@@ -862,6 +891,8 @@ namespace M3.QA.Models
             dst.ROut5 = src.ROut5;
             dst.ROut6 = src.ROut6;
             dst.ROut7 = src.ROut7;
+
+            dst.EnableMultiPropertyTest = src.EnableMultiPropertyTest;
         }
 
         #endregion

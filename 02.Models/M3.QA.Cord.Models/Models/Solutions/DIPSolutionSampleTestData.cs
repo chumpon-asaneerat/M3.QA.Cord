@@ -58,7 +58,33 @@ namespace M3.QA.Models
         private bool AloowRetest()
         {
             // Case RF: not allow retest
-            return (string.IsNullOrEmpty(Compounds) ? false : Compounds.Trim() != "RF");
+            bool isFinal = (string.IsNullOrEmpty(Compounds) ? false : Compounds.Trim() != "RF");
+
+            bool ret = false;
+            if (isFinal)
+            {
+                ret = IsMultiout();
+            }
+            return ret;
+        }
+
+        #endregion
+
+        #region IsMultiout
+
+        private bool IsMultiout()
+        {
+            // Case one of property is out of spec so need to allow to enter retest in related properties
+            bool ret = false;
+            if (null != Ph)
+            {
+                ret |= Ph.NOut1;
+            }
+            if (null != Temperature)
+            {
+                ret |= Temperature.NOut1;
+            }
+            return ret;
         }
 
         #endregion
@@ -81,6 +107,24 @@ namespace M3.QA.Models
         {
             var specs = CordTestSpec.GetsByMasterId(this.MasterId).Value();
             Specs = (null != specs) ? specs : new List<CordTestSpec>();
+        }
+
+        private void AfterCalcAvg(string caller)
+        {
+            if (caller == "PH")
+            {
+                if (null != Temperature)
+                {
+                    Temperature.RaiseNOutChanges();
+                }
+            }
+            else if (caller == "TEMP")
+            {
+                if (null != Ph)
+                {
+                    Ph.RaiseNOutChanges();
+                }
+            }
         }
 
         #endregion
@@ -183,9 +227,15 @@ namespace M3.QA.Models
                     ret.InitSpecs();
                     ret.Ph = DIPSolutionPH.Create(ret, PhN, PhR);
                     ret.Ph.AllowReTest = ret.AloowRetest;
+                    ret.Ph.EnableMultiPropertyTest = true;
+                    ret.Ph.GetNMultiOut = ret.IsMultiout;
+                    ret.Ph.CalcAvgCallback = ret.AfterCalcAvg;
 
                     ret.Temperature = DIPSolutionTempurature.Create(ret, TempN, TempR);
                     ret.Temperature.AllowReTest = ret.AloowRetest;
+                    ret.Temperature.EnableMultiPropertyTest = true;
+                    ret.Temperature.GetNMultiOut = ret.IsMultiout;
+                    ret.Temperature.CalcAvgCallback = ret.AfterCalcAvg;
 
                     ret.Viscosity = DIPSolutionViscosity.Create(ret, ViscosityN, ViscosityR);
                     ret.Viscosity.AllowReTest = ret.AloowRetest;

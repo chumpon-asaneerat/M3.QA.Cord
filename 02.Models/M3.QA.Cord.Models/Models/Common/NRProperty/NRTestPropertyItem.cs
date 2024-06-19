@@ -28,7 +28,10 @@ namespace M3.QA.Models
         /// <summary>
         /// Constructor.
         /// </summary>
-        public NRTestPropertyItem() : base() { }
+        public NRTestPropertyItem() : base() 
+        {
+            MultiPropertyRetest = false; // default is false
+        }
 
         #endregion
 
@@ -158,6 +161,12 @@ namespace M3.QA.Models
         // CustomAllowR Gets
         protected internal Func<bool> CustomAllowR { get; set; }
 
+        // MultiPropertyRetest Gets/Sets
+        protected internal Func<bool> GetMultiPropertyRetest { get; set; }
+        protected internal Action<bool> SetMultiPropertyRetest { get; set; }
+        // NMultiOut Gets
+        protected internal Func<bool> GetNMultiOut { get; set; }
+
         #endregion
 
         #region Public Properties
@@ -253,7 +262,12 @@ namespace M3.QA.Models
                 }
             }
         }
-
+        /// <summary>Gets or sets Normal (Multi) Out of spec Value.</summary>
+        public bool NMultiOut
+        {
+            get { return (null != GetNMultiOut) ? GetNMultiOut() : false; }
+            set { }
+        }
         /// <summary>Gets or sets Re Test Out of spec Value.</summary>
         public bool ROut
         {
@@ -277,8 +291,14 @@ namespace M3.QA.Models
         /// <summary>Check is Enable Multi Property Retest.</summary>
         public bool MultiPropertyRetest 
         {
-            get; 
-            set; 
+            get { return (null != GetMultiPropertyRetest) ? GetMultiPropertyRetest() : false; }
+            set
+            {
+                if (null != SetMultiPropertyRetest)
+                {
+                    SetMultiPropertyRetest(value);
+                }
+            }
         }
 
         #endregion
@@ -302,7 +322,7 @@ namespace M3.QA.Models
             {
                 if (MultiPropertyRetest)
                 {
-                    bool ret = (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R.HasValue) : ((N.HasValue && NOut) || R.HasValue);
+                    bool ret = (NeedSP) ? SPNo.HasValue && GetNMultiOut() : (null != GetNMultiOut) ? GetNMultiOut() : false;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
                     return ret && allowR;
                 }
@@ -329,7 +349,7 @@ namespace M3.QA.Models
             {
                 if (MultiPropertyRetest)
                 {
-                    bool ret = (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue;
+                    bool ret = (NeedSP) ? !SPNo.HasValue && !GetNMultiOut() : (null != GetNMultiOut) ? (!GetNMultiOut()) : true;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
                     return ret && allowR;
                 }
@@ -356,6 +376,10 @@ namespace M3.QA.Models
             {
                 if (MultiPropertyRetest)
                 {
+                    if (!EnableR)
+                    {
+                        Console.WriteLine("disable");
+                    }
                     return (EnableR || R.HasValue) ? Visibility.Visible : Visibility.Collapsed;
                 }
                 else

@@ -54,9 +54,13 @@ namespace M3.QA.Models
             // Raise items events
             this.RaiseNOutChanges();
             this.RaiseROutChanges();
+
+            if (null != CalcAvgCallback) CalcAvgCallback("PH");
         }
 
         #endregion
+
+        internal Action<string> CalcAvgCallback { get; set; }
 
         #region Public Properties
 
