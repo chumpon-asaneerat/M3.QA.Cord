@@ -11,6 +11,7 @@ using Dapper;
 
 using NLib;
 using NLib.Models;
+using static NLib.IO.Folders;
 
 #endregion
 
@@ -30,12 +31,27 @@ namespace M3.QA.Models
         private Func<string> _GetYarnType;
         private List<Func<decimal?>> _GetNs;
         private List<Action<decimal?>> _SetNs;
-        private List<Func<decimal?>> _GetRs;
-        private List<Action<decimal?>> _SetRs;
+
+        private List<Func<decimal?>> _GetR1s;
+        private List<Action<decimal?>> _SetR1s;
+
+        private List<Func<decimal?>> _GetR2s;
+        private List<Action<decimal?>> _SetR2s;
+
         private List<Func<bool>> _GetNOuts;
         private List<Action<bool>> _SetNOuts;
-        private List<Func<bool>> _GetROuts;
-        private List<Action<bool>> _SetROuts;
+
+        private List<Func<bool>> _GetR1Outs;
+        private List<Action<bool>> _SetR1Outs;
+
+        private List<Func<bool>> _GetR2Outs;
+        private List<Action<bool>> _SetR2Outs;
+
+        private List<Func<bool>> _GetR1Flags;
+        private List<Action<bool>> _SetR1Flags;
+
+        private List<Func<bool>> _GetR2Flags;
+        private List<Action<bool>> _SetR2Flags;
 
         private Func<bool> _GetMultiPropertyRetest;
         private Action<bool> _SetMultiPropertyRetest;
@@ -82,72 +98,162 @@ namespace M3.QA.Models
                 (value) => { this.N6 = value; },
                 (value) => { this.N7 = value; }
             };
-            // Get R
-            _GetRs = new List<Func<decimal?>>()
+            // Get R1
+            _GetR1s = new List<Func<decimal?>>()
             {
-                () => { return this.R1; },
-                () => { return this.R2; },
-                () => { return this.R3; },
-                () => { return this.R4; },
-                () => { return this.R5; },
-                () => { return this.R6; },
-                () => { return this.R7; }
+                () => { return this.N1R1; },
+                () => { return this.N2R1; },
+                () => { return this.N3R1; },
+                () => { return this.N4R1; },
+                () => { return this.N5R1; },
+                () => { return this.N6R1; },
+                () => { return this.N7R1; }
             };
-            // Set R
-            _SetRs = new List<Action<decimal?>>()
+            // Set R1
+            _SetR1s = new List<Action<decimal?>>()
             {
-                (value) => { this.R1 = value; },
-                (value) => { this.R2 = value; },
-                (value) => { this.R3 = value; },
-                (value) => { this.R4 = value; },
-                (value) => { this.R5 = value; },
-                (value) => { this.R6 = value; },
-                (value) => { this.R7 = value; }
+                (value) => { this.N1R1 = value; },
+                (value) => { this.N2R1 = value; },
+                (value) => { this.N3R1 = value; },
+                (value) => { this.N4R1 = value; },
+                (value) => { this.N5R1 = value; },
+                (value) => { this.N6R1 = value; },
+                (value) => { this.N7R1 = value; }
+            };
+            // Get R2
+            _GetR2s = new List<Func<decimal?>>()
+            {
+                () => { return this.N1R2; },
+                () => { return this.N2R2; },
+                () => { return this.N3R2; },
+                () => { return this.N4R2; },
+                () => { return this.N5R2; },
+                () => { return this.N6R2; },
+                () => { return this.N7R2; }
+            };
+            // Set R2
+            _SetR2s = new List<Action<decimal?>>()
+            {
+                (value) => { this.N1R2 = value; },
+                (value) => { this.N2R2 = value; },
+                (value) => { this.N3R2 = value; },
+                (value) => { this.N4R2 = value; },
+                (value) => { this.N5R2 = value; },
+                (value) => { this.N6R2 = value; },
+                (value) => { this.N7R2 = value; }
             };
             // Get N Out
             _GetNOuts = new List<Func<bool>>()
             {
-                () => { return this.NOut1; },
-                () => { return this.NOut2; },
-                () => { return this.NOut3; },
-                () => { return this.NOut4; },
-                () => { return this.NOut5; },
-                () => { return this.NOut6; },
-                () => { return this.NOut7; }
+                () => { return this.N1Out; },
+                () => { return this.N2Out; },
+                () => { return this.N3Out; },
+                () => { return this.N4Out; },
+                () => { return this.N5Out; },
+                () => { return this.N6Out; },
+                () => { return this.N7Out; }
             };
             // Set N Out
             _SetNOuts = new List<Action<bool>>()
             {
-                (value) => { this.NOut1 = value; },
-                (value) => { this.NOut2 = value; },
-                (value) => { this.NOut3 = value; },
-                (value) => { this.NOut4 = value; },
-                (value) => { this.NOut5 = value; },
-                (value) => { this.NOut6 = value; },
-                (value) => { this.NOut7 = value; }
+                (value) => { this.N1Out = value; },
+                (value) => { this.N2Out = value; },
+                (value) => { this.N3Out = value; },
+                (value) => { this.N4Out = value; },
+                (value) => { this.N5Out = value; },
+                (value) => { this.N6Out = value; },
+                (value) => { this.N7Out = value; }
             };
-            // Get R Out
-            _GetROuts = new List<Func<bool>>()
+            // Get R1 Out
+            _GetR1Outs = new List<Func<bool>>()
             {
-                () => { return this.ROut1; },
-                () => { return this.ROut2; },
-                () => { return this.ROut3; },
-                () => { return this.ROut4; },
-                () => { return this.ROut5; },
-                () => { return this.ROut6; },
-                () => { return this.ROut7; }
+                () => { return this.N1R1Out; },
+                () => { return this.N2R1Out; },
+                () => { return this.N3R1Out; },
+                () => { return this.N4R1Out; },
+                () => { return this.N5R1Out; },
+                () => { return this.N6R1Out; },
+                () => { return this.N7R1Out; }
             };
-            // Set R Out
-            _SetROuts = new List<Action<bool>>()
+            // Set R1 Out
+            _SetR1Outs = new List<Action<bool>>()
             {
-                (value) => { this.ROut1 = value; },
-                (value) => { this.ROut2 = value; },
-                (value) => { this.ROut3 = value; },
-                (value) => { this.ROut4 = value; },
-                (value) => { this.ROut5 = value; },
-                (value) => { this.ROut6 = value; },
-                (value) => { this.ROut7 = value; }
+                (value) => { this.N1R1Out = value; },
+                (value) => { this.N2R1Out = value; },
+                (value) => { this.N3R1Out = value; },
+                (value) => { this.N4R1Out = value; },
+                (value) => { this.N5R1Out = value; },
+                (value) => { this.N6R1Out = value; },
+                (value) => { this.N7R1Out = value; }
             };
+            // Get R2 Out
+            _GetR2Outs = new List<Func<bool>>()
+            {
+                () => { return this.N1R2Out; },
+                () => { return this.N2R2Out; },
+                () => { return this.N3R2Out; },
+                () => { return this.N4R2Out; },
+                () => { return this.N5R2Out; },
+                () => { return this.N6R2Out; },
+                () => { return this.N7R2Out; }
+            };
+            // Set R2 Out
+            _SetR2Outs = new List<Action<bool>>()
+            {
+                (value) => { this.N1R2Out = value; },
+                (value) => { this.N2R2Out = value; },
+                (value) => { this.N3R2Out = value; },
+                (value) => { this.N4R2Out = value; },
+                (value) => { this.N5R2Out = value; },
+                (value) => { this.N6R2Out = value; },
+                (value) => { this.N7R2Out = value; }
+            };
+
+            // Get R1 Flag
+            _GetR1Flags = new List<Func<bool>>()
+            {
+                () => { return this.N1R1Flag; },
+                () => { return this.N2R1Flag; },
+                () => { return this.N3R1Flag; },
+                () => { return this.N4R1Flag; },
+                () => { return this.N5R1Flag; },
+                () => { return this.N6R1Flag; },
+                () => { return this.N7R1Flag; }
+            };
+            // Set R1 Flag
+            _SetR1Flags = new List<Action<bool>>()
+            {
+                (value) => { this.N1R1Flag = value; },
+                (value) => { this.N2R1Flag = value; },
+                (value) => { this.N3R1Flag = value; },
+                (value) => { this.N4R1Flag = value; },
+                (value) => { this.N5R1Flag = value; },
+                (value) => { this.N6R1Flag = value; },
+                (value) => { this.N7R1Flag = value; }
+            };
+            // Get R2 Flag
+            _GetR2Flags = new List<Func<bool>>()
+            {
+                () => { return this.N1R2Flag; },
+                () => { return this.N2R2Flag; },
+                () => { return this.N3R2Flag; },
+                () => { return this.N4R2Flag; },
+                () => { return this.N5R2Flag; },
+                () => { return this.N6R2Flag; },
+                () => { return this.N7R2Flag; }
+            };
+            // Set R2 Flag
+            _SetR2Flags = new List<Action<bool>>()
+            {
+                (value) => { this.N1R2Flag = value; },
+                (value) => { this.N2R2Flag = value; },
+                (value) => { this.N3R2Flag = value; },
+                (value) => { this.N4R2Flag = value; },
+                (value) => { this.N5R2Flag = value; },
+                (value) => { this.N6R2Flag = value; },
+                (value) => { this.N7R2Flag = value; }
+            };
+
             // Get Custom Allow Retest
             _GetCustomAllowR = () => { return (null != AllowReTest) ? AllowReTest() : true; };
 
@@ -187,15 +293,28 @@ namespace M3.QA.Models
                     // assign method pointer to Get/Set N
                     item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
                     item.SetN = (null != _SetNs) ? _SetNs[i - 1] : null;
-                    // assign method pointer to Get/Set R
-                    item.GetR = (null != _GetRs) ? _GetRs[i - 1] : null;
-                    item.SetR = (null != _SetRs) ? _SetRs[i - 1] : null;
+                    // assign method pointer to Get/Set R1
+                    item.GetR1 = (null != _GetR1s) ? _GetR1s[i - 1] : null;
+                    item.SetR1 = (null != _SetR1s) ? _SetR1s[i - 1] : null;
+                    // assign method pointer to Get/Set R2
+                    item.GetR2 = (null != _GetR2s) ? _GetR2s[i - 1] : null;
+                    item.SetR2 = (null != _SetR2s) ? _SetR2s[i - 1] : null;
                     // assign method pointer to Get/Set O
                     item.GetNOut = (null != _GetNOuts) ? _GetNOuts[i - 1] : null;
                     item.SetNOut = (null != _SetNOuts) ? _SetNOuts[i - 1] : null;
+                    // assign method pointer to Get/Set R1Out
+                    item.GetR1Out = (null != _GetR1Outs) ? _GetR1Outs[i - 1] : null;
+                    item.SetR1Out = (null != _SetR1Outs) ? _SetR1Outs[i - 1] : null;
+                    // assign method pointer to Get/Set R2Out
+                    item.GetR2Out = (null != _GetR2Outs) ? _GetR2Outs[i - 1] : null;
+                    item.SetR2Out = (null != _SetR2Outs) ? _SetR2Outs[i - 1] : null;
 
-                    item.GetROut = (null != _GetROuts) ? _GetROuts[i - 1] : null;
-                    item.SetROut = (null != _SetROuts) ? _SetROuts[i - 1] : null;
+                    // assign method pointer to Get/Set R1Flag
+                    item.GetR1Flag = (null != _GetR1Flags) ? _GetR1Flags[i - 1] : null;
+                    item.SetR1Flag = (null != _SetR1Flags) ? _SetR1Flags[i - 1] : null;
+                    // assign method pointer to Get/Set R2Flag
+                    item.GetR2Flag = (null != _GetR2Flags) ? _GetR2Flags[i - 1] : null;
+                    item.SetR2Flag = (null != _SetR2Flags) ? _SetR2Flags[i - 1] : null;
 
                     // common for all test N
                     item.CustomAllowR = (null != _GetCustomAllowR) ? _GetCustomAllowR : null;
@@ -217,60 +336,72 @@ namespace M3.QA.Models
             if (null == this.Items)
                 return; // No items.
 
-            if (propertyName.StartsWith("N")) 
+            if (propertyName.StartsWith("N") && propertyName.Length > 1)
             {
-                string sIdx = propertyName.Replace("N", string.Empty);
+                string sIdx = propertyName.Substring(1, 1);
+
+                // Note: N1 -> index must be 0, N2  -> index must be 1 so need decrease index by 1.
                 int idx;
                 if (int.TryParse(sIdx, out idx))
                 {
-                    // Note: N1 -> index must be 0, N2  -> index must be 1 so need decrease index by 1.
-                    idx--; // remove by 1 for zero based
-
                     if (idx < 0 || idx >= this.Items.Count) return;
-                    this.Items[idx].RaiseNChanges();
-                    CheckSpec();
-                    CalcAvg();
-                }
-            }
-            else if (propertyName.StartsWith("R")) 
-            {
-                string sIdx = propertyName.Replace("R", string.Empty);
-                int idx;
-                if (int.TryParse(sIdx, out idx))
-                {
-                    // Note: R1 -> index must be 0, R2  -> index must be 1 so need decrease index by 1.
-                    idx--; // remove by 1 for zero based
-
-                    if (idx < 0 || idx >= this.Items.Count) return;
-                    this.Items[idx].RaiseRChanges();
-                    CheckSpec();
-                    CalcAvg();
-                }
-            }
-            else if (propertyName.StartsWith("NOut"))
-            {
-                string sIdx = propertyName.Replace("NOut", string.Empty);
-                int idx;
-                if (int.TryParse(sIdx, out idx))
-                {
-                    // Note: O1 -> index must be 0, O2  -> index must be 1 so need decrease index by 1.
-                    idx--; // remove by 1 for zero based
-
-                    if (idx < 0 || idx >= this.Items.Count) return;
-                    this.Items[idx].RaiseNOutChanges();
-                }
-            }
-            else if (propertyName.StartsWith("ROut"))
-            {
-                string sIdx = propertyName.Replace("ROut", string.Empty);
-                int idx;
-                if (int.TryParse(sIdx, out idx))
-                {
-                    // Note: O1 -> index must be 0, O2  -> index must be 1 so need decrease index by 1.
-                    idx--; // remove by 1 for zero based
-
-                    if (idx < 0 || idx >= this.Items.Count) return;
-                    this.Items[idx].RaiseROutChanges();
+                    if (propertyName.Contains("R1"))
+                    {
+                        if (propertyName.Contains("Out"))
+                        {
+                            // R1 Out
+                            this.Items[idx].RaiseR1OutChanges();
+                        }
+                        else if (propertyName.Contains("Flag"))
+                        {
+                            // R1 Flag
+                            this.Items[idx].RaiseR1FlagChanges();
+                            CalcAvg();
+                        }
+                        else
+                        {
+                            // R1 only
+                            this.Items[idx].RaiseR1Changes();
+                            CheckSpec();
+                            CalcAvg();
+                        }
+                    }
+                    else if (propertyName.Contains("R2"))
+                    {
+                        if (propertyName.Contains("Out"))
+                        {
+                            // R2 Out
+                            this.Items[idx].RaiseR2OutChanges();
+                        }
+                        else if (propertyName.Contains("Flag"))
+                        {
+                            // R2 Flag
+                            this.Items[idx].RaiseR2FlagChanges();
+                            CalcAvg();
+                        }
+                        else
+                        {
+                            // R2 only
+                            this.Items[idx].RaiseR2Changes();
+                            CheckSpec();
+                            CalcAvg();
+                        }
+                    }
+                    else
+                    {
+                        if (propertyName.Contains("Out"))
+                        {
+                            // N Out only
+                            this.Items[idx].RaiseNOutChanges();
+                        }
+                        else
+                        {
+                            // N only
+                            this.Items[idx].RaiseNChanges();
+                            CheckSpec();
+                            CalcAvg();
+                        }
+                    }
                 }
             }
             else if (propertyName.StartsWith("SPNo")) 
@@ -317,16 +448,22 @@ namespace M3.QA.Models
                 {
                     foreach (var item in this.Items)
                     {
-                        if (item.N.HasValue && !item.R.HasValue)
+                        if (item.N.HasValue && !item.R1.HasValue && !item.R2.HasValue)
                         {
                             // Has N value and no R value so use N to calc avg
                             total += item.N.Value;
                             ++iCnt;
                         }
-                        if (item.R.HasValue)
+                        if (item.R1Flag && item.R1.HasValue)
                         {
                             // Either N has value or not but when R value exists so use R to calc avg
-                            total += item.R.Value;
+                            total += item.R1.Value;
+                            ++iCnt;
+                        }
+                        if (item.R2Flag && item.R2.HasValue)
+                        {
+                            // Either N has value or not but when R value exists so use R to calc avg
+                            total += item.R2.Value;
                             ++iCnt;
                         }
                     }
@@ -356,10 +493,28 @@ namespace M3.QA.Models
                 item.RaiseNOutChanges();
         }
 
-        protected internal void RaiseROutChanges()
+        protected internal void RaiseR1OutChanges()
         {
             foreach (var item in Items) 
-                item.RaiseROutChanges();
+                item.RaiseR1OutChanges();
+        }
+
+        protected internal void RaiseR2OutChanges()
+        {
+            foreach (var item in Items)
+                item.RaiseR2OutChanges();
+        }
+
+        protected internal void RaiseR1FlagChanges()
+        {
+            foreach (var item in Items)
+                item.RaiseR1FlagChanges();
+        }
+
+        protected internal void RaiseR2FlagChanges()
+        {
+            foreach (var item in Items)
+                item.RaiseR2FlagChanges();
         }
 
         #endregion
@@ -551,10 +706,10 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region Re Test (1-7)
+        #region Re Test 1 (1-7)
 
-        /// <summary>Gets or sets R1 value.</summary>
-        public decimal? R1
+        /// <summary>Gets or sets N1R1 value.</summary>
+        public decimal? N1R1
         {
             get { return Get<decimal?>(); }
             set
@@ -565,8 +720,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets R2 value.</summary>
-        public decimal? R2
+        /// <summary>Gets or sets N2R1 value.</summary>
+        public decimal? N2R1
         {
             get { return Get<decimal?>(); }
             set
@@ -577,8 +732,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets R3 value.</summary>
-        public decimal? R3
+        /// <summary>Gets or sets N3R1 value.</summary>
+        public decimal? N3R1
         {
             get { return Get<decimal?>(); }
             set
@@ -589,8 +744,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets R4 value.</summary>
-        public decimal? R4
+        /// <summary>Gets or sets N4R1 value.</summary>
+        public decimal? N4R1
         {
             get { return Get<decimal?>(); }
             set
@@ -601,8 +756,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets R5 value.</summary>
-        public decimal? R5
+        /// <summary>Gets or sets N5R1 value.</summary>
+        public decimal? N5R1
         {
             get { return Get<decimal?>(); }
             set
@@ -613,8 +768,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets R6 value.</summary>
-        public decimal? R6
+        /// <summary>Gets or sets N6R1 value.</summary>
+        public decimal? N6R1
         {
             get { return Get<decimal?>(); }
             set
@@ -625,8 +780,97 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets R7 value.</summary>
-        public decimal? R7
+        /// <summary>Gets or sets N7R1 value.</summary>
+        public decimal? N7R1
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+
+        #endregion
+
+        #region Re Test 2 (1-7)
+
+        /// <summary>Gets or sets N1R2 value.</summary>
+        public decimal? N1R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N2R2 value.</summary>
+        public decimal? N2R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N3R2 value.</summary>
+        public decimal? N3R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N4R2 value.</summary>
+        public decimal? N4R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N5R2 value.</summary>
+        public decimal? N5R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N6R2 value.</summary>
+        public decimal? N6R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N7R2 value.</summary>
+        public decimal? N7R2
         {
             get { return Get<decimal?>(); }
             set
@@ -643,7 +887,7 @@ namespace M3.QA.Models
         #region Normal OutSpec (1-7)
 
         /// <summary>Gets or sets Normal OutSpec1 value.</summary>
-        public bool NOut1
+        public bool N1Out
         {
             get { return Get<bool>(); }
             set
@@ -654,8 +898,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Normal OutSpec2 value.</summary>
-        public bool NOut2
+        /// <summary>Gets or sets Normal OutSpec 2 value.</summary>
+        public bool N2Out
         {
             get { return Get<bool>(); }
             set
@@ -666,8 +910,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Normal OutSpec3 value.</summary>
-        public bool NOut3
+        /// <summary>Gets or sets Normal OutSpec 3 value.</summary>
+        public bool N3Out
         {
             get { return Get<bool>(); }
             set
@@ -678,8 +922,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Normal OutSpec4 value.</summary>
-        public bool NOut4
+        /// <summary>Gets or sets Normal OutSpec 4 value.</summary>
+        public bool N4Out
         {
             get { return Get<bool>(); }
             set
@@ -690,8 +934,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Normal OutSpec5 value.</summary>
-        public bool NOut5
+        /// <summary>Gets or sets Normal OutSpec 5 value.</summary>
+        public bool N5Out
         {
             get { return Get<bool>(); }
             set
@@ -702,8 +946,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Normal OutSpec6 value.</summary>
-        public bool NOut6
+        /// <summary>Gets or sets Normal OutSpec 6 value.</summary>
+        public bool N6Out
         {
             get { return Get<bool>(); }
             set
@@ -714,8 +958,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Normal OutSpec7 value.</summary>
-        public bool NOut7
+        /// <summary>Gets or sets Normal OutSpec 7 value.</summary>
+        public bool N7Out
         {
             get { return Get<bool>(); }
             set
@@ -729,10 +973,10 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region Re-Test OutSpec (1-7)
+        #region Re-Test 1 OutSpec (1-7)
 
-        /// <summary>Gets or sets Re-Test OutSpec1 value.</summary>
-        public bool ROut1
+        /// <summary>Gets or sets Re-Test 1 OutSpec1 value.</summary>
+        public bool N1R1Out
         {
             get { return Get<bool>(); }
             set
@@ -743,8 +987,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Re-Test OutSpec2 value.</summary>
-        public bool ROut2
+        /// <summary>Gets or sets Re-Test 1 OutSpec2 value.</summary>
+        public bool N2R1Out
         {
             get { return Get<bool>(); }
             set
@@ -755,8 +999,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Re-Test OutSpec3 value.</summary>
-        public bool ROut3
+        /// <summary>Gets or sets Re-Test 1 OutSpec3 value.</summary>
+        public bool N3R1Out
         {
             get { return Get<bool>(); }
             set
@@ -767,8 +1011,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Re-Test OutSpec4 value.</summary>
-        public bool ROut4
+        /// <summary>Gets or sets Re-Test 1 OutSpec4 value.</summary>
+        public bool N4R1Out
         {
             get { return Get<bool>(); }
             set
@@ -779,8 +1023,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Re-Test OutSpec5 value.</summary>
-        public bool ROut5
+        /// <summary>Gets or sets Re-Test 1 OutSpec5 value.</summary>
+        public bool N5R1Out
         {
             get { return Get<bool>(); }
             set
@@ -791,8 +1035,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Re-Test OutSpec6 value.</summary>
-        public bool ROut6
+        /// <summary>Gets or sets Re-Test 1 OutSpec6 value.</summary>
+        public bool N6R1Out
         {
             get { return Get<bool>(); }
             set
@@ -803,8 +1047,275 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Re-Test OutSpec7 value.</summary>
-        public bool ROut7
+        /// <summary>Gets or sets Re-Test 1 OutSpec7 value.</summary>
+        public bool N7R1Out
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+
+        #endregion
+
+        #region Re-Test 2 OutSpec (1-7)
+
+        /// <summary>Gets or sets Re-Test 2 OutSpec1 value.</summary>
+        public bool N1R2Out
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 OutSpec2 value.</summary>
+        public bool N2R2Out
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 OutSpec3 value.</summary>
+        public bool N3R2Out
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 OutSpec4 value.</summary>
+        public bool N4R2Out
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 OutSpec5 value.</summary>
+        public bool N5R2Out
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 OutSpec6 value.</summary>
+        public bool N6R2Out
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 OutSpec7 value.</summary>
+        public bool N7R2Out
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+
+        #endregion
+
+        #region Re-Test 1 Flag (1-7)
+
+        /// <summary>Gets or sets Re-Test 1 Flag 1 value.</summary>
+        public bool N1R1Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 1 Flag 2 value.</summary>
+        public bool N2R1Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 1 Flag 3 value.</summary>
+        public bool N3R1Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 1 Flag 4 value.</summary>
+        public bool N4R1Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 1 Flag 5 value.</summary>
+        public bool N5R1Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 1 Flag 6 value.</summary>
+        public bool N6R1Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 1 Flag 7 value.</summary>
+        public bool N7R1Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+
+        #endregion
+
+        #region Re-Test 2 Flag (1-7)
+
+        /// <summary>Gets or sets Re-Test 2 Flag 1 value.</summary>
+        public bool N1R2Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 Flag 2 value.</summary>
+        public bool N2R2Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 Flag 3 value.</summary>
+        public bool N3R2Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 Flag 4 value.</summary>
+        public bool N4R2Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 Flag 5 value.</summary>
+        public bool N5R2Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 Flag 6 value.</summary>
+        public bool N6R2Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Re-Test 2 Flag 7 value.</summary>
+        public bool N7R2Flag
         {
             get { return Get<bool>(); }
             set
@@ -868,29 +1379,45 @@ namespace M3.QA.Models
             dst.N6 = src.N6;
             dst.N7 = src.N7;
 
-            dst.R1 = src.R1;
-            dst.R2 = src.R2;
-            dst.R3 = src.R3;
-            dst.R4 = src.R4;
-            dst.R5 = src.R5;
-            dst.R6 = src.R6;
-            dst.R7 = src.R7;
+            dst.N1R1 = src.N1R1;
+            dst.N2R1 = src.N2R1;
+            dst.N3R1 = src.N3R1;
+            dst.N4R1 = src.N4R1;
+            dst.N5R1 = src.N5R1;
+            dst.N6R1 = src.N6R1;
+            dst.N7R1 = src.N7R1;
 
-            dst.NOut1 = src.NOut1;
-            dst.NOut2 = src.NOut2;
-            dst.NOut3 = src.NOut3;
-            dst.NOut4 = src.NOut4;
-            dst.NOut5 = src.NOut5;
-            dst.NOut6 = src.NOut6;
-            dst.NOut7 = src.NOut7;
+            dst.N1R2 = src.N1R2;
+            dst.N2R2 = src.N2R2;
+            dst.N3R2 = src.N3R2;
+            dst.N4R2 = src.N4R2;
+            dst.N5R2 = src.N5R2;
+            dst.N6R2 = src.N6R2;
+            dst.N7R2 = src.N7R2;
 
-            dst.ROut1 = src.ROut1;
-            dst.ROut2 = src.ROut2;
-            dst.ROut3 = src.ROut3;
-            dst.ROut4 = src.ROut4;
-            dst.ROut5 = src.ROut5;
-            dst.ROut6 = src.ROut6;
-            dst.ROut7 = src.ROut7;
+            dst.N1Out = src.N1Out;
+            dst.N2Out = src.N2Out;
+            dst.N3Out = src.N3Out;
+            dst.N4Out = src.N4Out;
+            dst.N5Out = src.N5Out;
+            dst.N6Out = src.N6Out;
+            dst.N7Out = src.N7Out;
+
+            dst.N1R1Out = src.N1R1Out;
+            dst.N2R1Out = src.N2R1Out;
+            dst.N3R1Out = src.N3R1Out;
+            dst.N4R1Out = src.N4R1Out;
+            dst.N5R1Out = src.N5R1Out;
+            dst.N6R1Out = src.N6R1Out;
+            dst.N7R1Out = src.N7R1Out;
+
+            dst.N1R2Out = src.N1R2Out;
+            dst.N2R2Out = src.N2R2Out;
+            dst.N3R2Out = src.N3R2Out;
+            dst.N4R2Out = src.N4R2Out;
+            dst.N5R2Out = src.N5R2Out;
+            dst.N6R2Out = src.N6R2Out;
+            dst.N7R2Out = src.N7R2Out;
 
             dst.EnableMultiPropertyTest = src.EnableMultiPropertyTest;
         }

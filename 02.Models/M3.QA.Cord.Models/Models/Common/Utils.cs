@@ -1268,7 +1268,10 @@ namespace M3.QA.Models
             public string LotNo { get; set; }
             public int? SP { get; set; }
             public int? GroupSP { get; set; }
+            public string SampleType { get; set; } // S = Sample, F = Full CH
+            public int? RetestSP { get; set; } // ?????
 
+            // use for runtime edit and save only not return from SP.
             public int? RetestSP1 { get; set; }
             public int? RetestSP2 { get; set; }
 
