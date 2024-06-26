@@ -12,6 +12,7 @@ using M3.QA.Models;
 using NLib.Serial.Terminals;
 using System.Reflection;
 using NLib.Serial;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 #endregion
 
@@ -206,7 +207,7 @@ namespace M3.QA.Pages
                 {
                     var val = PHMeterTerminal.Instance.Value;
                     txtPH.Text = val.pH.ToString("n2");
-                    txtTemp.Text = val.TempC.ToString("n2");
+                    txtTemp.Text = val.TempC.ToString("n1");
                 }
             });
         }
@@ -216,6 +217,11 @@ namespace M3.QA.Pages
             this.DataContext = null;
 
             txtLotNo.Text = string.Empty;
+
+            if (null != cbDIPSolution.ItemsSource && null != solutions && solutions.Count > 0)
+                cbDIPSolution.SelectedIndex = 0;
+            else cbDIPSolution.SelectedIndex = -1;
+
             if (null != cbCompound.ItemsSource && null != compounds && compounds.Count > 0)
                 cbCompound.SelectedIndex = 0;
             else cbCompound.SelectedIndex = -1;
@@ -233,8 +239,68 @@ namespace M3.QA.Pages
 
         private void Save()
         {
+            // Check Lot No.
+            if (string.IsNullOrEmpty(txtLotNo.Text))
+            {
+                M3QAApp.Windows.ShowMessage("กรุณาใส่ Lot No");
+                this.InvokeAction(() =>
+                {
+                    txtLotNo.FocusControl();
+                });
+                return;
+            }
+
+            // Check Item Code value.
+            var solution = cbDIPSolution.SelectedItem as Models.Utils.M_GetSolutionList;
+            if (null == solution)
+            {
+                M3QAApp.Windows.ShowMessage("กรุณาใส่ เลือกประเภท DIP Solution");
+                this.InvokeAction(() =>
+                {
+                    cbDIPSolution.FocusControl();
+                });
+                return;
+            }
+
+            // Check compound value.
+            var compound = cbCompound.SelectedItem as CompoundType;
+            if (null == compound)
+            {
+                M3QAApp.Windows.ShowMessage("กรุณาใส่ เลือกประเภท Compound");
+                this.InvokeAction(() =>
+                {
+                    cbCompound.FocusControl();
+                });
+                return;
+            }
+
             if (null != item)
             {
+                // Set Lot/MasterId/ItemCode/Compound
+                item.LotNo = txtLotNo.Text;
+                item.MasterId = solution.MasterId;
+                item.ItemCode = solution.ItemCode;
+                item.Compounds = compound.Compound;
+
+                // Set pH/Temp
+                decimal ph;
+                item.Ph = decimal.Zero;
+                if (decimal.TryParse(txtPH.Text, out ph))
+                {
+                    item.Ph = ph;
+                }
+
+                decimal temp;
+                item.Temperature = decimal.Zero;
+                if (decimal.TryParse(txtTemp.Text, out temp))
+                {
+                    item.Temperature = temp;
+                }
+
+                // Set TestType/LinkType
+                item.TestType = (rbRetest.IsChecked.HasValue && rbRetest.IsChecked.Value) ? "RETEST" : "NORMAL";
+                item.LinkType = (chkManual.IsChecked.HasValue && chkManual.IsChecked.Value) ? "Manual" : null;
+
                 // Set current user
                 var user = M3QAApp.Current.User;
                 NDbResult ret;
