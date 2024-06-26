@@ -156,13 +156,20 @@ namespace M3.QA
                     return GetPage<ExcelTensileElongationImportPage>();
                 }
             }
-
             /// <summary>Gets M3 Auto Transfer Adhesion Force Import Page.</summary>
             public static ExcelAdhesionForceImportPage ExcelAdhesionForceImport
             {
                 get
                 {
                     return GetPage<ExcelAdhesionForceImportPage>();
+                }
+            }
+            /// <summary>Gets M3 Auto Transfer DI PSolution Record PH Meter Page.</summary>
+            public static DIPSolutionRecordPHMeterPage DIPSolutionRecordPHMeter
+            {
+                get
+                {
+                    return GetPage<DIPSolutionRecordPHMeterPage>();
                 }
             }
 

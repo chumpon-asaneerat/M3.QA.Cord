@@ -247,6 +247,10 @@ namespace M3.QA.Pages
                 msgbox.ShowDialog();
                 return;
             }
+
+            var page = M3QAApp.Pages.DIPSolutionRecordPHMeter;
+            page.Setup();
+            PageContentManager.Instance.Current = page;
         }
 
         #endregion

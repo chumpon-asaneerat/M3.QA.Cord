@@ -73,7 +73,7 @@ namespace NLib.Serial
 
         private static string ConfigFileName
         {
-            get { return "JIK6CABConfig.config.json"; }
+            get { return "PHMeterConfig.config.json"; }
         }
 
         #endregion

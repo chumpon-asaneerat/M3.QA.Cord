@@ -250,7 +250,7 @@
                         <Button x:Name="cmdPHMeter" Style="{StaticResource AutoButtonStyle}"
                                 Click="cmdPHMeter_Click">
                             <TextBlock TextAlignment="Center">
-                                <Run Text="PH Meter" />
+                                <Run Text="pH Meter" />
                             </TextBlock>
                         </Button>
                     </ctrl:NGroupMenuItem>

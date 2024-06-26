@@ -16,7 +16,7 @@ using NLib.Models;
 
 namespace M3.QA.Models
 {
-    public class DIPSolitionPHTestData
+    public class DIPSolitionPHTestData : NInpc
     {
         #region Public Properties
 
@@ -43,8 +43,22 @@ namespace M3.QA.Models
 
         #region Test Properties
 
-        public decimal Ph { get; set; }
-        public decimal Temperature { get; set; }
+        public decimal Ph 
+        {
+            get { return Get<decimal>(); }
+            set 
+            { 
+                Set(value, () => { }); 
+            }
+        }
+        public decimal Temperature
+        {
+            get { return Get<decimal>(); }
+            set
+            {
+                Set(value, () => { });
+            }
+        }
 
         #endregion
 

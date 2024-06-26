@@ -18,16 +18,16 @@ using NLib.Serial;
 namespace M3.QA.Pages
 {
     /// <summary>
-    /// Interaction logic for DIPSolutionRecordPHMeter.xaml
+    /// Interaction logic for DIPSolutionRecordPHMeterPage.xaml
     /// </summary>
-    public partial class DIPSolutionRecordPHMeter : UserControl
+    public partial class DIPSolutionRecordPHMeterPage : UserControl
     {
         #region Constructor
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public DIPSolutionRecordPHMeter()
+        public DIPSolutionRecordPHMeterPage()
         {
             InitializeComponent();
         }
@@ -198,12 +198,13 @@ namespace M3.QA.Pages
 
         private void UpdateTextBox()
         {
+            if (null == item) 
+                return;
             this.InvokeAction(() =>
             {
                 if (chkManual.IsChecked == false)
                 {
                     var val = PHMeterTerminal.Instance.Value;
-
                     txtPH.Text = val.pH.ToString("n2");
                     txtTemp.Text = val.TempC.ToString("n2");
                 }
