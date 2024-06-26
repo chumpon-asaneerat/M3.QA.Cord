@@ -145,7 +145,7 @@
     <Compile Include="Pages\Cords\CordCodeSettingPage.xaml.cs">
       <DependentUpon>CordCodeSettingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DIPSolutionRecordPHMeter.xaml.cs">
+    <Compile Include="Pages\Solutions\DIPSolutionRecordPHMeter.xaml.cs">
       <DependentUpon>DIPSolutionRecordPHMeter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Imports\ExcelAdhesionForceImportPage.xaml.cs">
@@ -386,7 +386,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\DIPSolutionRecordPHMeter.xaml">
+    <Page Include="Pages\Solutions\DIPSolutionRecordPHMeter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
