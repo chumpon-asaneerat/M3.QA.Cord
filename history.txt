@@ -25,8 +25,10 @@ M3 QA Cord #413
 M3 QA Cord #412
 - 
 
+[commit]
 M3 QA Cord #411
-- 
+- Implements Cord Test Data #341
+  - Implements PH/Temp Meter #1
 
 [commit]
 M3 QA Cord #410

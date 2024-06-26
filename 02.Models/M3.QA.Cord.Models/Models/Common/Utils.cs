@@ -1376,6 +1376,78 @@ namespace M3.QA.Models
         }
 
         #endregion
+
+        #region M_GetSolutionList
+
+        public class M_GetSolutionList
+        {
+            #region Public Properties
+
+            public int MasterId { get; set; }
+            public string Customer { get; set; }
+            public string ItemCode { get; set; }
+            public string UserName { get; set; }
+
+            public int Coa { get; set; }
+            public string FMQC { get; set; }
+
+            public string ProductType { get; set; }
+            public string YarnType { get; set; }
+            public string ElongLoadN { get; set; }
+
+            public int NoTestCH { get; set; }
+            public string YarnCode { get; set; }
+            public int ValidDays { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<M_GetSolutionList>> Gets()
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<M_GetSolutionList>> ret = new NDbResult<List<M_GetSolutionList>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+
+                try
+                {
+                    var items = cnn.Query<M_GetSolutionList>("M_GetSolutionList", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
     }
 
     #endregion
