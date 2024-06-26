@@ -1462,7 +1462,7 @@ namespace M3.QA.Models
             public string LinkType { get; set; }
 
             public decimal? Ph { get; set; }
-            public decimal? Temptuature { get; set; }
+            public decimal? Tempturature { get; set; }
 
             public string TestBy { get; set; }
             public DateTime? TestDate { get; set; }

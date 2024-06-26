@@ -222,6 +222,26 @@ namespace M3.QA.Models
                 beakWAHR1 = item.BeakerW_AHR1;
                 beakWAHR2 = item.BeakerW_AHR2;
 
+
+                // Read from PLC
+                var plcs = Models.Utils.Plc_GetPhTemperatureByLot.Gets(lotNo, compound).Value();
+                if (null != plcs && plcs.Count > 0)
+                {
+                    foreach (var plc in plcs) 
+                    {
+                        if (plc.TestType == "NORMAL")
+                        {
+                            if (plc.Ph.HasValue) PhN = plc.Ph.Value;
+                            if (plc.Tempturature.HasValue) TempN = plc.Tempturature.Value;
+                        }
+                        else if (plc.TestType == "RETEST")
+                        {
+                            if (plc.Ph.HasValue) PhR = plc.Ph.Value;
+                            if (plc.Tempturature.HasValue) TempR = plc.Tempturature.Value;
+                        }
+                    }
+                }
+
                 if (null != ret && ret.MasterId.HasValue)
                 {
                     ret.InitSpecs();
