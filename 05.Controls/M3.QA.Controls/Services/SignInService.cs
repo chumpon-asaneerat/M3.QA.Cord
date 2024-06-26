@@ -84,6 +84,8 @@ namespace M3.QA
             }
 
             User = UserInfo.Get(userName, password).Value();
+            // Update Model Current User
+            ModelCurrent.User = User;
 
             if (null != User)
             {
@@ -102,6 +104,9 @@ namespace M3.QA
         public void Signout()
         {
             this.User = null;
+            // Update Model Current User
+            ModelCurrent.User = User;
+
             // Raise Event.
             UserChanged.Call(this, EventArgs.Empty);
         }

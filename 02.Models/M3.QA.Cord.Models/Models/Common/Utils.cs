@@ -1556,4 +1556,13 @@ namespace M3.QA.Models
     }
 
     #endregion
+
+    #region 
+
+    public static class ModelCurrent
+    {
+        public static UserInfo User { get; set; } 
+    }
+
+    #endregion
 }
