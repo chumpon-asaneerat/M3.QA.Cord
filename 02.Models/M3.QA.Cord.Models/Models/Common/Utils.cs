@@ -1448,6 +1448,76 @@ namespace M3.QA.Models
         }
 
         #endregion
+
+        #region Plc_GetPhTemperatureByLot
+
+        public class Plc_GetPhTemperatureByLot
+        {
+            #region Public Properties
+
+            public string LotNo { get; set; }
+            public int MasterId { get; set; }
+            public string Compound { get; set; }
+            public string TestType { get; set; }
+            public string LinkType { get; set; }
+
+            public decimal? Ph { get; set; }
+            public decimal? Temptuature { get; set; }
+
+            public string TestBy { get; set; }
+            public DateTime? TestDate { get; set; }
+
+            #endregion
+
+            #region Static Methods
+
+            public static NDbResult<List<Plc_GetPhTemperatureByLot>> Gets(string lotNo, string coupound)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult<List<Plc_GetPhTemperatureByLot>> ret = new NDbResult<List<Plc_GetPhTemperatureByLot>>();
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+                p.Add("@lotNo", lotNo);
+                p.Add("@compound", coupound);
+
+                try
+                {
+                    var items = cnn.Query<Plc_GetPhTemperatureByLot>("Plc_GetPhTemperatureByLot", p, commandType: CommandType.StoredProcedure);
+                    var data = (null != items) ? items.ToList() : null;
+
+                    ret.Success(data);
+                    // Set error number/message
+                    ret.ErrNum = 0;
+                    ret.ErrMsg = "Success";
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
     }
 
     #endregion
