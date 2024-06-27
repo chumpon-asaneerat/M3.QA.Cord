@@ -42,13 +42,29 @@
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
-        <!--  R INPUT  -->
+        <!--  R INPUT 1  -->
         <Style x:Key="RInput1"
                TargetType="TextBox"
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
             <Setter Property="Text" Value="{Binding R1, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
             <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR1}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  R INPUT 2  -->
+        <Style x:Key="RInput2"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding R2, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR2}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
             <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
@@ -167,7 +183,10 @@
                                                     <DataTemplate>
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <!--  N  -->
+                                                                <StackPanel Orientation="Horizontal"
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
@@ -177,7 +196,10 @@
                                                                         <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <StackPanel Orientation="Horizontal"
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
+                                                                    <!--  R1  -->
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleR1}">
@@ -185,6 +207,16 @@
                                                                                    Foreground="{Binding ForegroundColorR1}"
                                                                                    Text="{Binding CaptionR1}" />
                                                                         <TextBox Style="{StaticResource RInput1}" />
+                                                                    </StackPanel>
+                                                                    <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                                    <!--  R2  -->
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR1}">
+                                                                        <TextBlock TextAlignment="Center"
+                                                                                   Foreground="{Binding ForegroundColorR2}"
+                                                                                   Text="{Binding CaptionR2}" />
+                                                                        <TextBox Style="{StaticResource RInput2}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
@@ -220,24 +252,60 @@
                                                     <DataTemplate>
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <!--  N  -->
+                                                                <StackPanel Orientation="Horizontal"
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
                                                                         <TextBlock TextAlignment="Center"
                                                                                    Foreground="{Binding ForegroundColorN}"
                                                                                    Text="{Binding CaptionN}" />
-                                                                        <TextBox Style="{StaticResource NInput}" />
+                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
                                                                     </StackPanel>
                                                                 </StackPanel>
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <StackPanel Orientation="Horizontal"
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
+                                                                    <!--  R1  -->
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleR1}">
-                                                                        <TextBlock TextAlignment="Center"
-                                                                                   Foreground="{Binding ForegroundColorR1}"
-                                                                                   Text="{Binding CaptionR1}" />
-                                                                        <TextBox Style="{StaticResource RInput1}" />
+                                                                        <TextBlock Height="5" />
+                                                                        <CheckBox HorizontalAlignment="Center"
+                                                                                  HorizontalContentAlignment="Center"
+                                                                                  VerticalAlignment="Center"
+                                                                                  VerticalContentAlignment="Center"
+                                                                                  Height="25"
+                                                                                  IsChecked="{Binding R1Flag}"
+                                                                                  IsThreeState="False"
+                                                                                  Foreground="{Binding ForegroundColorR1}"
+                                                                                  Content="{Binding CaptionR1}"
+                                                                                  Style="{StaticResource CommonCheckBox}" />
+                                                                        <TextBlock Height="2" />
+                                                                        <TextBox Style="{StaticResource RInput1}" IsReadOnly="True" />
+                                                                        <TextBlock Height="5" />
+                                                                    </StackPanel>
+                                                                    <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                                    <!--  R2  -->
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR2}">
+                                                                        <TextBlock Height="5" />
+                                                                        <CheckBox HorizontalAlignment="Center"
+                                                                                  HorizontalContentAlignment="Center"
+                                                                                  VerticalAlignment="Center"
+                                                                                  VerticalContentAlignment="Center"
+                                                                                  Height="25"
+                                                                                  IsChecked="{Binding R2Flag}"
+                                                                                  IsThreeState="False"
+                                                                                  Foreground="{Binding ForegroundColorR2}"
+                                                                                  Content="{Binding CaptionR2}"
+                                                                                  Style="{StaticResource CommonCheckBox}" />
+                                                                        <TextBlock Height="2" />
+                                                                        <TextBox Style="{StaticResource RInput2}" IsReadOnly="True" />
+                                                                        <TextBlock Height="5" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
@@ -280,7 +348,10 @@
                                                     <DataTemplate>
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <!--  N  -->
+                                                                <StackPanel Orientation="Horizontal"
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
@@ -290,14 +361,47 @@
                                                                         <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
                                                                     </StackPanel>
                                                                 </StackPanel>
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <StackPanel Orientation="Horizontal"
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
+                                                                    <!--  R1  -->
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleR1}">
-                                                                        <TextBlock TextAlignment="Center"
-                                                                                   Foreground="{Binding ForegroundColorR1}"
-                                                                                   Text="{Binding CaptionR1}" />
+                                                                        <TextBlock Height="5" />
+                                                                        <CheckBox HorizontalAlignment="Center"
+                                                                                  HorizontalContentAlignment="Center"
+                                                                                  VerticalAlignment="Center"
+                                                                                  VerticalContentAlignment="Center"
+                                                                                  Height="25"
+                                                                                  IsChecked="{Binding R1Flag}"
+                                                                                  IsThreeState="False"
+                                                                                  Foreground="{Binding ForegroundColorR1}"
+                                                                                  Content="{Binding CaptionR1}"
+                                                                                  Style="{StaticResource CommonCheckBox}" />
+                                                                        <TextBlock Height="2" />
                                                                         <TextBox Style="{StaticResource RInput1}" IsReadOnly="True" />
+                                                                        <TextBlock Height="5" />
+                                                                    </StackPanel>
+                                                                    <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                                    <!--  R2  -->
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR2}">
+                                                                        <TextBlock Height="5" />
+                                                                        <CheckBox HorizontalAlignment="Center"
+                                                                                  HorizontalContentAlignment="Center"
+                                                                                  VerticalAlignment="Center"
+                                                                                  VerticalContentAlignment="Center"
+                                                                                  Height="25"
+                                                                                  IsChecked="{Binding R2Flag}"
+                                                                                  IsThreeState="False"
+                                                                                  Foreground="{Binding ForegroundColorR2}"
+                                                                                  Content="{Binding CaptionR2}"
+                                                                                  Style="{StaticResource CommonCheckBox}" />
+                                                                        <TextBlock Height="2" />
+                                                                        <TextBox Style="{StaticResource RInput2}" IsReadOnly="True" />
+                                                                        <TextBlock Height="5" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />

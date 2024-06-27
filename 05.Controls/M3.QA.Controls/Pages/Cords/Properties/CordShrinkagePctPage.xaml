@@ -166,7 +166,9 @@
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
                                                                 <!--  N  -->
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <StackPanel Orientation="Horizontal" 
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
@@ -176,7 +178,9 @@
                                                                         <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <StackPanel Orientation="Horizontal" 
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
                                                                     <!--  R1  -->
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
@@ -231,7 +235,9 @@
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
                                                                 <!--  N  -->
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <StackPanel Orientation="Horizontal" 
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
                                                                                 Visibility="{Binding VisibleN}">
@@ -241,7 +247,9 @@
                                                                         <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <StackPanel Orientation="Horizontal" 
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
                                                                     <!--  R1  -->
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
