@@ -29,6 +29,7 @@ namespace M3.QA.Models
         private Func<int?> _GetSPNo;
         private Func<bool> _GetNeedSP;
         private Func<string> _GetYarnType;
+        private Func<string> _GetSampleType;
         private List<Func<decimal?>> _GetNs;
         private List<Action<decimal?>> _SetNs;
 
@@ -76,6 +77,8 @@ namespace M3.QA.Models
             _GetNeedSP = () => { return this.NeedSP; };
             // Get Yarn Type
             _GetYarnType = () => { return this.YarnType; };
+            // Get Sample Type
+            _GetSampleType = () => { return this.SampleType; };
             // Get N
             _GetNs = new List<Func<decimal?>>()
             {
@@ -290,6 +293,7 @@ namespace M3.QA.Models
                     item.GetSPNo = (null != _GetSPNo) ? _GetSPNo : null;
                     item.GetNeedSP = (null != _GetNeedSP) ? _GetNeedSP : null;
                     item.GetYarnType = (null != _GetYarnType) ? _GetYarnType : null;
+                    item.GetSampleType = (null != _GetSampleType) ? _GetSampleType : null;
                     // assign method pointer to Get/Set N
                     item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
                     item.SetN = (null != _SetNs) ? _SetNs[i - 1] : null;
@@ -436,6 +440,17 @@ namespace M3.QA.Models
                     }
                 }
             }
+            else if (propertyName.StartsWith("SampleType"))
+            {
+                this.Raise(() => this.EnableTest);
+                lock (this)
+                {
+                    foreach (var item in Items)
+                    {
+                        item.RaiseSampleTypeChanges();
+                    }
+                }
+            }
         }
 
         private void CalcAvg()
@@ -528,7 +543,7 @@ namespace M3.QA.Models
 
         #region Public Properties
 
-        #region LotNo/PropertyNo/SPNo/NoOfSample
+        #region LotNo/PropertyNo/SPNo/NoOfSample/SampleType
 
         /// <summary>Gets or sets Lot No.</summary>
         public string LotNo { get; set; }
@@ -572,6 +587,18 @@ namespace M3.QA.Models
         }
         /// <summary>Gets or sets Yarn Type.</summary>
         public string YarnType
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets Yarn Type.</summary>
+        public string SampleType
         {
             get { return Get<string>(); }
             set
@@ -1368,6 +1395,7 @@ namespace M3.QA.Models
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
             dst.YarnType = src.YarnType;
+            dst.SampleType = src.SampleType;
 
             dst.Spec = src.Spec;
 

@@ -138,13 +138,24 @@ namespace M3.QA.Models
             public int? SPNo { get; set; }
             public decimal? PeakN1 { get; set; }
             public decimal? PeakN2 { get; set; }
-            public decimal? PeakR1 { get; set; }
-            public decimal? PeakR2 { get; set; }
+            public decimal? PeakN1R1 { get; set; }
+            public decimal? PeakN1R2 { get; set; }
+            public decimal? PeakN2R1 { get; set; }
+            public decimal? PeakN2R2 { get; set; }
 
             public decimal? AdhesionN1 { get; set; }
             public decimal? AdhesionN2 { get; set; }
-            public decimal? AdhesionR1 { get; set; }
-            public decimal? AdhesionR2 { get; set; }
+            public decimal? AdhesionN1R1 { get; set; }
+            public decimal? AdhesionN1R2 { get; set; }
+            public decimal? AdhesionN2R1 { get; set; }
+            public decimal? AdhesionN2R2 { get; set; }
+
+            public bool? AdhesionN1R1Flag { get; set; }
+            public bool? AdhesionN1R2Flag { get; set; }
+            public bool? AdhesionN2R1Flag { get; set; }
+            public bool? AdhesionN2R2Flag { get; set; }
+
+            public string SampleType { get; set; }
 
             public string InputBy { get; set; }
             public DateTime? InputDate { get; set; }
@@ -987,9 +998,19 @@ namespace M3.QA.Models
             public decimal? N2 { get; set; }
             public decimal? N3 { get; set; }
 
-            public decimal? R1 { get; set; }
-            public decimal? R2 { get; set; }
-            public decimal? R3 { get; set; }
+            public decimal? N1R1 { get; set; }
+            public decimal? N1R2 { get; set; }
+            public decimal? N2R1 { get; set; }
+            public decimal? N2R2 { get; set; }
+            public decimal? N3R1 { get; set; }
+            public decimal? N3R2 { get; set; }
+
+            public bool? N1R1Flag { get; set; }
+            public bool? N1R2Flag { get; set; }
+            public bool? N2R1Flag { get; set; }
+            public bool? N2R2Flag { get; set; }
+            public bool? N3R1Flag { get; set; }
+            public bool? N3R2Flag { get; set; }
 
             #endregion
 
@@ -1128,19 +1149,26 @@ namespace M3.QA.Models
 
             public decimal? PeakN1 { get; set; }
             public decimal? PeakN2 { get; set; }
-            public decimal? PeakR1 { get; set; }
-            public decimal? PeakR2 { get; set; }
+            public decimal? PeakN1R1 { get; set; }
+            public decimal? PeakN1R2 { get; set; }
+            public decimal? PeakN2R1 { get; set; }
+            public decimal? PeakN2R2 { get; set; }
+
             public decimal? AdhesionN1 { get; set; }
             public decimal? AdhesionN2 { get; set; }
-            public decimal? AdhesionR1 { get; set; }
-            public decimal? AdhesionR2 { get; set; }
+            public decimal? AdhesionN1R1 { get; set; }
+            public decimal? AdhesionN1R2 { get; set; }
+            public decimal? AdhesionN2R1 { get; set; }
+            public decimal? AdhesionN2R2 { get; set; }
+
+            public string SampleType { get; set; }
 
             #endregion
 
             #region Static Methods
 
             public static NDbResult<List<Ex_GetAdhesionDataByLot>> Gets(
-                string lotNo)
+                string lotNo, string sampleType)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
 

@@ -33,25 +33,33 @@ namespace M3.QA.Models
             if (null == Spec || Spec.SpecId <= 0) 
                 return;
 
-            this.NOut1 = (N1.HasValue) ? Spec.IsOutOfSpec(N1.Value) : false;
-            this.NOut2 = (N2.HasValue) ? Spec.IsOutOfSpec(N2.Value) : false;
-            this.NOut3 = (N3.HasValue) ? Spec.IsOutOfSpec(N3.Value) : false;
-            this.NOut4 = (N4.HasValue) ? Spec.IsOutOfSpec(N4.Value) : false;
-            this.NOut5 = (N5.HasValue) ? Spec.IsOutOfSpec(N5.Value) : false;
-            this.NOut6 = (N6.HasValue) ? Spec.IsOutOfSpec(N6.Value) : false;
-            this.NOut7 = (N7.HasValue) ? Spec.IsOutOfSpec(N7.Value) : false;
+            this.N1Out = (N1.HasValue) ? Spec.IsOutOfSpec(N1.Value) : false;
+            this.N2Out = (N2.HasValue) ? Spec.IsOutOfSpec(N2.Value) : false;
+            this.N3Out = (N3.HasValue) ? Spec.IsOutOfSpec(N3.Value) : false;
+            this.N4Out = (N4.HasValue) ? Spec.IsOutOfSpec(N4.Value) : false;
+            this.N5Out = (N5.HasValue) ? Spec.IsOutOfSpec(N5.Value) : false;
+            this.N6Out = (N6.HasValue) ? Spec.IsOutOfSpec(N6.Value) : false;
+            this.N7Out = (N7.HasValue) ? Spec.IsOutOfSpec(N7.Value) : false;
 
-            this.ROut1 = (R1.HasValue) ? Spec.IsOutOfSpec(R1.Value) : false;
-            this.ROut2 = (R2.HasValue) ? Spec.IsOutOfSpec(R2.Value) : false;
-            this.ROut3 = (R3.HasValue) ? Spec.IsOutOfSpec(R3.Value) : false;
-            this.ROut4 = (R4.HasValue) ? Spec.IsOutOfSpec(R4.Value) : false;
-            this.ROut5 = (R5.HasValue) ? Spec.IsOutOfSpec(R5.Value) : false;
-            this.ROut6 = (R6.HasValue) ? Spec.IsOutOfSpec(R6.Value) : false;
-            this.ROut7 = (R7.HasValue) ? Spec.IsOutOfSpec(R7.Value) : false;
+            this.N1R1Out = (N1R1.HasValue) ? Spec.IsOutOfSpec(N1R1.Value) : false;
+            this.N1R2Out = (N2R2.HasValue) ? Spec.IsOutOfSpec(N2R2.Value) : false;
+            this.N2R1Out = (N2R1.HasValue) ? Spec.IsOutOfSpec(N2R1.Value) : false;
+            this.N2R2Out = (N2R2.HasValue) ? Spec.IsOutOfSpec(N2R2.Value) : false;
+            this.N3R1Out = (N3R1.HasValue) ? Spec.IsOutOfSpec(N3R1.Value) : false;
+            this.N3R2Out = (N3R2.HasValue) ? Spec.IsOutOfSpec(N3R2.Value) : false;
+            this.N4R1Out = (N4R1.HasValue) ? Spec.IsOutOfSpec(N4R1.Value) : false;
+            this.N4R2Out = (N4R2.HasValue) ? Spec.IsOutOfSpec(N4R2.Value) : false;
+            this.N5R1Out = (N5R1.HasValue) ? Spec.IsOutOfSpec(N5R1.Value) : false;
+            this.N5R2Out = (N5R2.HasValue) ? Spec.IsOutOfSpec(N5R2.Value) : false;
+            this.N6R1Out = (N6R1.HasValue) ? Spec.IsOutOfSpec(N6R1.Value) : false;
+            this.N6R2Out = (N6R2.HasValue) ? Spec.IsOutOfSpec(N6R2.Value) : false;
+            this.N7R1Out = (N7R1.HasValue) ? Spec.IsOutOfSpec(N7R1.Value) : false;
+            this.N7R2Out = (N7R2.HasValue) ? Spec.IsOutOfSpec(N7R2.Value) : false;
 
             // Raise items events
             this.RaiseNOutChanges();
-            this.RaiseROutChanges();
+            this.RaiseR1OutChanges();
+            this.RaiseR2OutChanges();
         }
 
         #endregion
@@ -102,7 +110,10 @@ namespace M3.QA.Models
                     if (i < dst.Items.Count && i < src.Items.Count)
                     {
                         dst.Items[i].N = src.Items[i].N;
-                        dst.Items[i].R = src.Items[i].R;
+                        dst.Items[i].R1 = src.Items[i].R1;
+                        dst.Items[i].R2 = src.Items[i].R2;
+                        dst.Items[i].R1Flag = src.Items[i].R1Flag;
+                        dst.Items[i].R2Flag = src.Items[i].R2Flag;
                     }
                 }
             }
@@ -197,9 +208,12 @@ namespace M3.QA.Models
                             N1 = item.N1,
                             N2 = item.N2,
                             N3 = item.N3,
-                            R1 = item.R1,
-                            R2 = item.R2,
-                            R3 = item.R3
+                            N1R1 = item.N1R1,
+                            N1R2 = item.N1R2,
+                            N2R1 = item.N2R1,
+                            N2R2 = item.N2R2,
+                            N3R1 = item.N3R1,
+                            N3R2 = item.N3R2
                         };
 
                         existItems.Add(imp);
@@ -326,9 +340,23 @@ namespace M3.QA.Models
             p.Add("@n1", value.N1);
             p.Add("@n2", value.N2);
             p.Add("@n3", value.N3);
-            p.Add("@r1", value.R1);
-            p.Add("@r2", value.R2);
-            p.Add("@r3", value.R3);
+
+            p.Add("@n1r1", value.N1R1);
+            p.Add("@n1r2", value.N1R2);
+            p.Add("@n2r1", value.N2R1);
+            p.Add("@n2r2", value.N2R2);
+            p.Add("@n3r1", value.N3R1);
+            p.Add("@n3r2", value.N3R2);
+
+            p.Add("@n1r1flag", value.N1R1Flag);
+            p.Add("@n1r2flag", value.N1R2Flag);
+            p.Add("@n2r1flag", value.N2R1Flag);
+            p.Add("@n2r2flag", value.N2R2Flag);
+            p.Add("@n3r1flag", value.N3R1Flag);
+            p.Add("@n3r2flag", value.N3R2Flag);
+
+
+            p.Add("@sampletype", value.SampleType);
 
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);

@@ -46,24 +46,31 @@ namespace M3.QA.Models
             if (null != Spec && null != PeakPoint && null != AdhesionForce)
             {
                 // Check AdhesionForce Range.
-                AdhesionForce.NOut1 = (AdhesionForce.N1.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N1.Value) : false;
-                AdhesionForce.NOut2 = (AdhesionForce.N2.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N2.Value) : false;
+                AdhesionForce.N1Out = (AdhesionForce.N1.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N1.Value) : false;
+                AdhesionForce.N2Out = (AdhesionForce.N2.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N2.Value) : false;
 
-                AdhesionForce.ROut1 = (AdhesionForce.R1.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.R1.Value) : false;
-                AdhesionForce.ROut2 = (AdhesionForce.R2.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.R2.Value) : false;
+                AdhesionForce.N1R1Out = (AdhesionForce.N1R1.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N1R1.Value) : false;
+                AdhesionForce.N1R2Out = (AdhesionForce.N1R2.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N1R2.Value) : false;
+                AdhesionForce.N2R1Out = (AdhesionForce.N2R1.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N2R1.Value) : false;
+                AdhesionForce.N2R2Out = (AdhesionForce.N2R2.HasValue) ? Spec.IsOutOfSpec(AdhesionForce.N2R2.Value) : false;
+
                 // set out of range flag to PeakPoint object
-                PeakPoint.NOut1 = AdhesionForce.NOut1;
-                PeakPoint.NOut2 = AdhesionForce.NOut2;
+                PeakPoint.N1Out = AdhesionForce.N1Out;
+                PeakPoint.N2Out = AdhesionForce.N2Out;
 
-                PeakPoint.ROut1 = AdhesionForce.ROut1;
-                PeakPoint.ROut2 = AdhesionForce.ROut2;
+                PeakPoint.N1R1Out = AdhesionForce.N1R1Out;
+                PeakPoint.N1R2Out = AdhesionForce.N1R2Out;
+                PeakPoint.N2R1Out = AdhesionForce.N2R1Out;
+                PeakPoint.N2R2Out = AdhesionForce.N2R2Out;
 
                 // Raise items events
                 AdhesionForce.RaiseNOutChanges();
-                AdhesionForce.RaiseROutChanges();
+                AdhesionForce.RaiseR1OutChanges();
+                AdhesionForce.RaiseR2OutChanges();
 
                 PeakPoint.RaiseNOutChanges();
-                PeakPoint.RaiseROutChanges();
+                PeakPoint.RaiseR1OutChanges();
+                PeakPoint.RaiseR2OutChanges();
             }
         }
 
@@ -73,8 +80,10 @@ namespace M3.QA.Models
             {
                 AdhesionForce.N1 = (PeakPoint.N1.HasValue) ? PeakPoint.N1.Value / 5 : new decimal?();
                 AdhesionForce.N2 = (PeakPoint.N2.HasValue) ? PeakPoint.N2.Value / 5 : new decimal?();
-                AdhesionForce.R1 = (PeakPoint.R1.HasValue) ? PeakPoint.R1.Value / 5 : new decimal?();
-                AdhesionForce.R2 = (PeakPoint.R2.HasValue) ? PeakPoint.R2.Value / 5 : new decimal?();
+                AdhesionForce.N1R1 = (PeakPoint.N1R1.HasValue) ? PeakPoint.N1R1.Value / 5 : new decimal?();
+                AdhesionForce.N1R2 = (PeakPoint.N1R2.HasValue) ? PeakPoint.N1R2.Value / 5 : new decimal?();
+                AdhesionForce.N2R1 = (PeakPoint.N2R1.HasValue) ? PeakPoint.N2R1.Value / 5 : new decimal?();
+                AdhesionForce.N2R2 = (PeakPoint.N2R2.HasValue) ? PeakPoint.N2R2.Value / 5 : new decimal?();
                 // Raise events
                 Raise(() => this.AdhesionForce);
 
@@ -115,7 +124,7 @@ namespace M3.QA.Models
 
         #region Public Properties
 
-        #region LotNo/PropertyNo/SPNo/NoOfSample/YarnType
+        #region LotNo/PropertyNo/SPNo/NoOfSample/YarnType/SampleType
 
         /// <summary>Gets or sets Lot No.</summary>
         public string LotNo
@@ -179,6 +188,18 @@ namespace M3.QA.Models
         }
         /// <summary>Gets or sets Yarn Type.</summary>
         public string YarnType
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    UpdateProperties();
+                });
+            }
+        }
+        /// <summary>Gets or sets Sample Type.</summary>
+        public string SampleType
         {
             get { return Get<string>(); }
             set
@@ -300,7 +321,8 @@ namespace M3.QA.Models
             // In case No items need to check has some import data
             if (null == existItems || existItems.Count == 0)
             {
-                var imports = Utils.Ex_GetAdhesionDataByLot.Gets(value.LotNo).Value();
+                string sampleType = "S";
+                var imports = Utils.Ex_GetAdhesionDataByLot.Gets(value.LotNo, sampleType).Value();
                 if (null != imports && imports.Count > 0)
                 {
                     existItems = new List<CordAdhesionForce>();
@@ -318,16 +340,22 @@ namespace M3.QA.Models
                         };
 
                         if (null == imp.PeakPoint) imp.PeakPoint = new NRTestProperty();
+                        imp.PeakPoint.SampleType = item.SampleType;
                         imp.PeakPoint.N1 = item.PeakN1;
                         imp.PeakPoint.N2 = item.PeakN2;
-                        imp.PeakPoint.R1 = item.PeakR1;
-                        imp.PeakPoint.R2 = item.PeakR2;
+                        imp.PeakPoint.N1R1 = item.PeakN1R1;
+                        imp.PeakPoint.N1R2 = item.PeakN1R2;
+                        imp.PeakPoint.N2R1 = item.PeakN2R1;
+                        imp.PeakPoint.N2R2 = item.PeakN2R2;
 
                         if (null == imp.AdhesionForce) imp.AdhesionForce = new NRTestProperty();
+                        imp.AdhesionForce.SampleType = item.SampleType;
                         imp.AdhesionForce.N1 = item.AdhesionN1;
                         imp.AdhesionForce.N2 = item.AdhesionN2;
-                        imp.AdhesionForce.R1 = item.AdhesionR1;
-                        imp.AdhesionForce.R2 = item.AdhesionR2;
+                        imp.AdhesionForce.N1R1 = item.AdhesionN1R1;
+                        imp.AdhesionForce.N1R2 = item.AdhesionN1R2;
+                        imp.AdhesionForce.N2R1 = item.AdhesionN2R1;
+                        imp.AdhesionForce.N2R2 = item.AdhesionN2R2;
 
                         existItems.Add(imp);
                     }
@@ -439,15 +467,27 @@ namespace M3.QA.Models
                         {
                             inst.PeakPoint.N1 = item.PeakN1;
                             inst.PeakPoint.N2 = item.PeakN2;
-                            inst.PeakPoint.R1 = item.PeakR1;
-                            inst.PeakPoint.R2 = item.PeakR2;
+                            inst.PeakPoint.N1R1 = item.PeakN1R1;
+                            inst.PeakPoint.N1R2 = item.PeakN1R2;
+                            inst.PeakPoint.N2R1 = item.PeakN2R1;
+                            inst.PeakPoint.N2R2 = item.PeakN2R2;
+                            inst.PeakPoint.N1R1Flag = true; // always true
+                            inst.PeakPoint.N1R2Flag = true; // always true
+                            inst.PeakPoint.N2R1Flag = true; // always true
+                            inst.PeakPoint.N2R2Flag = true; // always true
                         }
                         if (null != inst.AdhesionForce)
                         {
                             inst.AdhesionForce.N1 = item.AdhesionN1;
                             inst.AdhesionForce.N2 = item.AdhesionN2;
-                            inst.AdhesionForce.R1 = item.AdhesionR1;
-                            inst.AdhesionForce.R2 = item.AdhesionR2;
+                            inst.AdhesionForce.N1R1 = item.AdhesionN1R1;
+                            inst.AdhesionForce.N1R2 = item.AdhesionN1R2;
+                            inst.AdhesionForce.N2R1 = item.AdhesionN2R1;
+                            inst.AdhesionForce.N2R2 = item.AdhesionN2R2;
+                            inst.AdhesionForce.N1R1Flag = item.AdhesionN1R1Flag.HasValue ? item.AdhesionN1R1Flag.Value : false;
+                            inst.AdhesionForce.N1R2Flag = item.AdhesionN1R2Flag.HasValue ? item.AdhesionN1R2Flag.Value : false;
+                            inst.AdhesionForce.N2R1Flag = item.AdhesionN2R1Flag.HasValue ? item.AdhesionN2R1Flag.Value : false;
+                            inst.AdhesionForce.N2R2Flag = item.AdhesionN2R2Flag.HasValue ? item.AdhesionN2R2Flag.Value : false;
                         }
 
                         inst.InputBy = item.InputBy;
@@ -515,12 +555,21 @@ namespace M3.QA.Models
 
             p.Add("@peakn1", (null != value.PeakPoint) ? value.PeakPoint.N1 : new decimal?());
             p.Add("@peakn2", (null != value.PeakPoint) ? value.PeakPoint.N2 : new decimal?());
-            p.Add("@peakr1", (null != value.PeakPoint) ? value.PeakPoint.R1 : new decimal?());
-            p.Add("@peakr2", (null != value.PeakPoint) ? value.PeakPoint.R2 : new decimal?());
+
+            p.Add("@peakn1r1", (null != value.PeakPoint) ? value.PeakPoint.N1R1 : new decimal?());
+            p.Add("@peakn1r2", (null != value.PeakPoint) ? value.PeakPoint.N1R2 : new decimal?());
+            p.Add("@peakn2r1", (null != value.PeakPoint) ? value.PeakPoint.N2R1 : new decimal?());
+            p.Add("@peakn2r2", (null != value.PeakPoint) ? value.PeakPoint.N2R2 : new decimal?());
+
             p.Add("@adforcen1", (null != value.AdhesionForce) ? value.AdhesionForce.N1 : new decimal?());
             p.Add("@adforcen2", (null != value.AdhesionForce) ? value.AdhesionForce.N2 : new decimal?());
-            p.Add("@adforcer1", (null != value.AdhesionForce) ? value.AdhesionForce.R1 : new decimal?());
-            p.Add("@adforcer2", (null != value.AdhesionForce) ? value.AdhesionForce.R2 : new decimal?());
+
+            p.Add("@adforcen1r1", (null != value.AdhesionForce) ? value.AdhesionForce.N1R1 : new decimal?());
+            p.Add("@adforcen1r2", (null != value.AdhesionForce) ? value.AdhesionForce.N1R2 : new decimal?());
+            p.Add("@adforcen2r1", (null != value.AdhesionForce) ? value.AdhesionForce.N2R1 : new decimal?());
+            p.Add("@adforcen2r2", (null != value.AdhesionForce) ? value.AdhesionForce.N2R2 : new decimal?());
+
+            p.Add("@sampletype", (null != value.AdhesionForce) ? value.AdhesionForce.SampleType : "S");
 
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);

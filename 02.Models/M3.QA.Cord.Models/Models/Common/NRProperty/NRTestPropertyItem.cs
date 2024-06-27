@@ -88,6 +88,23 @@ namespace M3.QA.Models
             Raise(() => this.ReadOnlyR2);
         }
 
+        protected internal void RaiseSampleTypeChanges()
+        {
+            // Raise relelated events
+            Raise(() => this.SampleType);
+            Raise(() => this.EnableN);
+            Raise(() => this.EnableR1);
+            Raise(() => this.EnableR2);
+
+            Raise(() => this.VisibleN);
+            Raise(() => this.VisibleR1);
+            Raise(() => this.VisibleR2);
+
+            Raise(() => this.ReadOnlyN);
+            Raise(() => this.ReadOnlyR1);
+            Raise(() => this.ReadOnlyR2);
+        }
+
         protected internal void RaiseNChanges()
         {
             // Raise relelated events
@@ -215,6 +232,8 @@ namespace M3.QA.Models
         protected internal Func<bool> GetNeedSP { get; set; }
         // YarnType Gets
         protected internal Func<string> GetYarnType { get; set; }
+        // SampleType Gets
+        protected internal Func<string> GetSampleType { get; set; }
         // N Gets/Sets
         protected internal Func<decimal?> GetN { get; set; }
         protected internal Action<decimal?> SetN { get; set; }
@@ -278,6 +297,12 @@ namespace M3.QA.Models
         }
         /// <summary>Gets or sets Test No. (N1, N2, N3)</summary>
         public int No { get; set; }
+        /// <summary>Gets or sets Sample Type.</summary>
+        public string SampleType
+        {
+            get { return (null != GetSampleType) ? GetSampleType() : null; }
+            set { }
+        }
 
         #endregion
 
