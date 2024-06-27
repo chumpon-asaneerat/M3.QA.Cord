@@ -55,7 +55,7 @@ namespace M3.QA.Models
 
         #region Custom Allow R
 
-        private bool AloowRetest()
+        private bool AllowRetest()
         {
             // Case RF: not allow retest
             bool isFinal = (string.IsNullOrEmpty(Compounds) ? false : Compounds.Trim() != "RF");
@@ -246,26 +246,26 @@ namespace M3.QA.Models
                 {
                     ret.InitSpecs();
                     ret.Ph = DIPSolutionPH.Create(ret, PhN, PhR);
-                    ret.Ph.AllowReTest = ret.AloowRetest;
+                    ret.Ph.AllowReTest = ret.AllowRetest;
                     ret.Ph.EnableMultiPropertyTest = true;
                     ret.Ph.GetNMultiOut = ret.IsMultiout;
                     ret.Ph.CalcAvgCallback = ret.AfterCalcAvg;
 
                     ret.Temperature = DIPSolutionTempurature.Create(ret, TempN, TempR);
-                    ret.Temperature.AllowReTest = ret.AloowRetest;
+                    ret.Temperature.AllowReTest = ret.AllowRetest;
                     ret.Temperature.EnableMultiPropertyTest = true;
                     ret.Temperature.GetNMultiOut = ret.IsMultiout;
                     ret.Temperature.CalcAvgCallback = ret.AfterCalcAvg;
 
                     ret.Viscosity = DIPSolutionViscosity.Create(ret, ViscosityN, ViscosityR);
-                    ret.Viscosity.AllowReTest = ret.AloowRetest;
+                    ret.Viscosity.AllowReTest = ret.AllowRetest;
 
                     var spec = ret.Specs.FindByPropertyNo(13);
                     ret.TSC = DIPSolutionTSC.Create(ret,
                         beakWN1, beakWN2, beakWR1, beakWR2,
                         beakWBHN1, beakWBHN2, beakWBHR1, beakWBHR2,
                         beakWAHN1, beakWAHN2, beakWAHR1, beakWAHR2,
-                        ret.AloowRetest);
+                        ret.AllowRetest);
                 }
             }
             catch (Exception ex)

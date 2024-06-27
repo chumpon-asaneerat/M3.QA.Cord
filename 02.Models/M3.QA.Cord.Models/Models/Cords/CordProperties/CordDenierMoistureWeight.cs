@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
 using Dapper;
 
 using NLib;
@@ -31,30 +30,68 @@ namespace M3.QA.Models
         public CordDenierMoistureWeight() : base()
         {
             YarnWeightBeforeDrying = new NRTestProperty();
+            YarnWeightBeforeDrying.AllowReTest = AllowRetest;
+            YarnWeightBeforeDrying.EnableMultiPropertyTest = true;
+            YarnWeightBeforeDrying.GetNMultiOut = IsMultiout;
             // BeforeHeat change need to calc formula for Yarn Weight
             YarnWeightBeforeDrying.ValueChanges = CalculateFormula;
 
             ContentWeight = new NRTestProperty();
+            ContentWeight.AllowReTest = AllowRetest;
+            ContentWeight.EnableMultiPropertyTest = true;
+            ContentWeight.GetNMultiOut = IsMultiout;
             // AfterHeat change need to calc formula for Yarn Weight
             ContentWeight.ValueChanges = CalculateFormula;
 
             YarnAndContentWeightAfterDrying = new NRTestProperty();
+            YarnAndContentWeightAfterDrying.AllowReTest = AllowRetest;
+            YarnAndContentWeightAfterDrying.EnableMultiPropertyTest = true;
+            YarnAndContentWeightAfterDrying.GetNMultiOut = IsMultiout;
             // AfterHeat change need to calc formula for Yarn Weight
             YarnAndContentWeightAfterDrying.ValueChanges = CalculateFormula;
 
             YarnWeightAfterDrying = new NRTestProperty();
+            YarnWeightAfterDrying.AllowReTest = AllowRetest;
+            YarnWeightAfterDrying.EnableMultiPropertyTest = true;
+            YarnWeightAfterDrying.GetNMultiOut = IsMultiout;
             // AfterHeat change need to calc formula for Yarn Type
             YarnWeightAfterDrying.ValueChanges = CalculateDenierFormula;
 
             StandardDenierD = new NRTestProperty();
+            StandardDenierD.AllowReTest = AllowRetest;
+            StandardDenierD.EnableMultiPropertyTest = true;
+            StandardDenierD.GetNMultiOut = IsMultiout;
+
             StandardDenierDtex = new NRTestProperty();
+            StandardDenierDtex.AllowReTest = AllowRetest;
+            StandardDenierDtex.EnableMultiPropertyTest = true;
+            StandardDenierDtex.GetNMultiOut = IsMultiout;
+
             EquilibriumMoistureContent = new NRTestProperty();
+            EquilibriumMoistureContent.AllowReTest = AllowRetest;
+            EquilibriumMoistureContent.EnableMultiPropertyTest = true;
+            EquilibriumMoistureContent.GetNMultiOut = IsMultiout;
+
             Weight = new NRTestProperty();
+            Weight.AllowReTest = AllowRetest;
+            Weight.EnableMultiPropertyTest = true;
+            Weight.GetNMultiOut = IsMultiout;
         }
 
         #endregion
 
         #region Private Methods
+
+        private bool AllowRetest()
+        {
+            return StandardDenierDtex.N1Out || EquilibriumMoistureContent.N1Out || Weight.N1Out;
+        }
+
+        private bool IsMultiout()
+        {
+            // Case one of property is out of spec so need to allow to enter retest in related properties
+            return StandardDenierDtex.N1Out || EquilibriumMoistureContent.N1Out || Weight.N1Out;
+        }
 
         private void CheckDenierSpec()
         {
@@ -109,18 +146,10 @@ namespace M3.QA.Models
                 EquilibriumMoistureContent.N1R1Out = (EquilibriumMoistureContent.N1R1.HasValue) ? SpecMoisture.IsOutOfSpec(EquilibriumMoistureContent.N1R1.Value) : false;
                 EquilibriumMoistureContent.N1R2Out = (EquilibriumMoistureContent.N1R2.HasValue) ? SpecMoisture.IsOutOfSpec(EquilibriumMoistureContent.N1R2.Value) : false;
 
-                YarnWeightBeforeDrying.N1Out = EquilibriumMoistureContent.N1Out;
-                YarnWeightBeforeDrying.N1R1Out = EquilibriumMoistureContent.N1R1Out;
-                YarnWeightBeforeDrying.N1R2Out = EquilibriumMoistureContent.N1R2Out;
-
                 // Raise items events
                 EquilibriumMoistureContent.RaiseNOutChanges();
                 EquilibriumMoistureContent.RaiseR1OutChanges();
                 EquilibriumMoistureContent.RaiseR2OutChanges();
-
-                YarnWeightBeforeDrying.RaiseNOutChanges();
-                YarnWeightBeforeDrying.RaiseR1OutChanges();
-                YarnWeightBeforeDrying.RaiseR2OutChanges();
             }
         }
 
@@ -136,29 +165,70 @@ namespace M3.QA.Models
                 Weight.RaiseNOutChanges();
                 Weight.RaiseR1OutChanges();
                 Weight.RaiseR2OutChanges();
-
-                YarnWeightAfterDrying.RaiseNOutChanges();
-                YarnWeightAfterDrying.RaiseR1OutChanges();
-                YarnWeightAfterDrying.RaiseR2OutChanges();
             }
         }
 
         private void CheckCommonSpec()
         {
+            if (null == StandardDenierDtex || null == EquilibriumMoistureContent || null == Weight)
+                return;
+
+            if (null != YarnWeightBeforeDrying)
+            {
+                YarnWeightBeforeDrying.N1Out = EquilibriumMoistureContent.N1Out;
+                YarnWeightBeforeDrying.N1R1Out = EquilibriumMoistureContent.N1R1Out;
+                YarnWeightBeforeDrying.N1R2Out = EquilibriumMoistureContent.N1R2Out;
+
+                YarnWeightBeforeDrying.RaiseNOutChanges();
+                YarnWeightBeforeDrying.RaiseR1OutChanges();
+                YarnWeightBeforeDrying.RaiseR2OutChanges();
+            }
+            if (null != ContentWeight)
+            {
+                ContentWeight.RaiseNOutChanges();
+                ContentWeight.RaiseR1OutChanges();
+                ContentWeight.RaiseR2OutChanges();
+            }
+            if (null != YarnAndContentWeightAfterDrying)
+            {
+                YarnAndContentWeightAfterDrying.RaiseNOutChanges();
+                YarnAndContentWeightAfterDrying.RaiseR1OutChanges();
+                YarnAndContentWeightAfterDrying.RaiseR2OutChanges();
+            }
+
             if (null != YarnWeightAfterDrying)
             {
-                // StandardDenierDtex and StandardDenierD Out of range state shoud be same.
-                bool bNOut = StandardDenierDtex.N1Out || EquilibriumMoistureContent.N1Out || Weight.N1Out;
-                bool bR1Out = StandardDenierDtex.N1R1Out || EquilibriumMoistureContent.N1R1Out || Weight.N1R1Out;
-                bool bR2Out = StandardDenierDtex.N1R2Out || EquilibriumMoistureContent.N1R2Out || Weight.N1R2Out;
-
-                YarnWeightAfterDrying.N1Out = bNOut;
-                YarnWeightAfterDrying.N1R1Out = bR1Out;
-                YarnWeightAfterDrying.N1R2Out = bR2Out;
-
                 YarnWeightAfterDrying.RaiseNOutChanges();
                 YarnWeightAfterDrying.RaiseR1OutChanges();
                 YarnWeightAfterDrying.RaiseR2OutChanges();
+            }
+
+            if (null != StandardDenierD)
+            {
+                StandardDenierD.RaiseNOutChanges();
+                StandardDenierD.RaiseR1OutChanges();
+                StandardDenierD.RaiseR2OutChanges();
+            }
+
+            if (null != StandardDenierDtex)
+            {
+                StandardDenierDtex.RaiseNOutChanges();
+                StandardDenierDtex.RaiseR1OutChanges();
+                StandardDenierDtex.RaiseR2OutChanges();
+            }
+
+            if (null != EquilibriumMoistureContent)
+            {
+                EquilibriumMoistureContent.RaiseNOutChanges();
+                EquilibriumMoistureContent.RaiseR1OutChanges();
+                EquilibriumMoistureContent.RaiseR2OutChanges();
+            }
+
+            if (null != Weight)
+            {
+                Weight.RaiseNOutChanges();
+                Weight.RaiseR1OutChanges();
+                Weight.RaiseR2OutChanges();
             }
         }
 
@@ -184,6 +254,9 @@ namespace M3.QA.Models
             CalculateDenierFormula();
             CalculateMoistureFormula();
             CalculateWeightFormula();
+
+            // Check Common Spec.
+            CheckCommonSpec();
         }
 
         private void CalculateDenierFormula()
@@ -241,8 +314,6 @@ namespace M3.QA.Models
 
                     CheckDenierSpec(); // Check Denier Spec
                 }
-                // Check Common Spec.
-                CheckCommonSpec();
             }
         }
 
@@ -317,7 +388,13 @@ namespace M3.QA.Models
 
         private void UpdateDenierProperties()
         {
-            if (null == YarnWeightBeforeDrying) YarnWeightBeforeDrying = new NRTestProperty();
+            if (null == YarnWeightBeforeDrying)
+            {
+                YarnWeightBeforeDrying = new NRTestProperty();
+                YarnWeightBeforeDrying.AllowReTest = AllowRetest;
+                YarnWeightBeforeDrying.EnableMultiPropertyTest = true;
+                YarnWeightBeforeDrying.GetNMultiOut = IsMultiout;
+            }
             if (null == YarnWeightBeforeDrying.ValueChanges)
             {
                 YarnWeightBeforeDrying.ValueChanges = CalculateFormula;
@@ -330,7 +407,13 @@ namespace M3.QA.Models
             YarnWeightBeforeDrying.YarnType = YarnType;
             YarnWeightBeforeDrying.SampleType = SampleType;
 
-            if (null == ContentWeight) ContentWeight = new NRTestProperty();
+            if (null == ContentWeight)
+            {
+                ContentWeight = new NRTestProperty();
+                ContentWeight.AllowReTest = AllowRetest;
+                ContentWeight.EnableMultiPropertyTest = true;
+                ContentWeight.GetNMultiOut = IsMultiout;
+            }
             if (null == ContentWeight.ValueChanges)
             {
                 ContentWeight.ValueChanges = CalculateFormula;
@@ -344,7 +427,13 @@ namespace M3.QA.Models
             ContentWeight.YarnType = YarnType;
             ContentWeight.SampleType = SampleType;
 
-            if (null == YarnAndContentWeightAfterDrying) YarnAndContentWeightAfterDrying = new NRTestProperty();
+            if (null == YarnAndContentWeightAfterDrying)
+            {
+                YarnAndContentWeightAfterDrying = new NRTestProperty();
+                YarnAndContentWeightAfterDrying.AllowReTest = AllowRetest;
+                YarnAndContentWeightAfterDrying.EnableMultiPropertyTest = true;
+                YarnAndContentWeightAfterDrying.GetNMultiOut = IsMultiout;
+            }
             if (null == YarnAndContentWeightAfterDrying.ValueChanges)
             {
                 YarnAndContentWeightAfterDrying.ValueChanges = CalculateFormula;
@@ -358,7 +447,13 @@ namespace M3.QA.Models
             YarnAndContentWeightAfterDrying.YarnType = YarnType;
             YarnAndContentWeightAfterDrying.SampleType = SampleType;
 
-            if (null == YarnWeightAfterDrying) YarnWeightAfterDrying = new NRTestProperty();
+            if (null == YarnWeightAfterDrying)
+            {
+                YarnWeightAfterDrying = new NRTestProperty();
+                YarnWeightAfterDrying.AllowReTest = AllowRetest;
+                YarnWeightAfterDrying.EnableMultiPropertyTest = true;
+                YarnWeightAfterDrying.GetNMultiOut = IsMultiout;
+            }
             if (null == YarnWeightAfterDrying.ValueChanges)
             {
                 YarnWeightAfterDrying.ValueChanges = CalculateFormula;
@@ -372,7 +467,13 @@ namespace M3.QA.Models
             YarnWeightAfterDrying.YarnType = YarnType;
             YarnWeightAfterDrying.SampleType = SampleType;
 
-            if (null == StandardDenierD) StandardDenierD = new NRTestProperty();
+            if (null == StandardDenierD)
+            {
+                StandardDenierD = new NRTestProperty();
+                StandardDenierD.AllowReTest = AllowRetest;
+                StandardDenierD.EnableMultiPropertyTest = true;
+                StandardDenierD.GetNMultiOut = IsMultiout;
+            }
             StandardDenierD.SPNo = SPNo;
             StandardDenierD.LotNo = LotNo;
             StandardDenierD.PropertyNo = PropertyNo1; // Denier Property No = 10
@@ -382,7 +483,13 @@ namespace M3.QA.Models
             StandardDenierD.YarnType = YarnType;
             StandardDenierD.SampleType = SampleType;
 
-            if (null == StandardDenierDtex) StandardDenierDtex = new NRTestProperty();
+            if (null == StandardDenierDtex)
+            {
+                StandardDenierDtex = new NRTestProperty();
+                StandardDenierDtex.AllowReTest = AllowRetest;
+                StandardDenierDtex.EnableMultiPropertyTest = true;
+                StandardDenierDtex.GetNMultiOut = IsMultiout;
+            }
             StandardDenierDtex.SPNo = SPNo;
             StandardDenierDtex.LotNo = LotNo;
             StandardDenierDtex.PropertyNo = PropertyNo1; // Denier Property No = 10
@@ -395,7 +502,13 @@ namespace M3.QA.Models
 
         private void UpdateMoistureProperties()
         {
-            if (null == EquilibriumMoistureContent) EquilibriumMoistureContent = new NRTestProperty();
+            if (null == EquilibriumMoistureContent)
+            {
+                EquilibriumMoistureContent = new NRTestProperty();
+                EquilibriumMoistureContent.AllowReTest = AllowRetest;
+                EquilibriumMoistureContent.EnableMultiPropertyTest = true;
+                EquilibriumMoistureContent.GetNMultiOut = IsMultiout;
+            }
             EquilibriumMoistureContent.SPNo = SPNo;
             EquilibriumMoistureContent.LotNo = LotNo;
             EquilibriumMoistureContent.PropertyNo = PropertyNo2; // Moisture Property No = 11
@@ -408,7 +521,13 @@ namespace M3.QA.Models
 
         private void UpdateWeightProperties()
         {
-            if (null == Weight) Weight = new NRTestProperty();
+            if (null == Weight)
+            {
+                Weight = new NRTestProperty();
+                Weight.AllowReTest = AllowRetest;
+                Weight.EnableMultiPropertyTest = true;
+                Weight.GetNMultiOut = IsMultiout;
+            }
             Weight.SPNo = SPNo;
             Weight.LotNo = LotNo;
             Weight.PropertyNo = PropertyNo3; // Weight Property No = 14
@@ -790,6 +909,10 @@ namespace M3.QA.Models
                         if (null != inst.YarnWeightBeforeDrying)
                         {
                             inst.YarnWeightBeforeDrying.PropertyNo = 10; // Denier PropertyNo = 10
+                            inst.YarnWeightBeforeDrying.AllowReTest = inst.AllowRetest;
+                            inst.YarnWeightBeforeDrying.EnableMultiPropertyTest = true;
+                            inst.YarnWeightBeforeDrying.GetNMultiOut = inst.IsMultiout;
+
                             inst.YarnWeightBeforeDrying.N1 = item.YWBDN1;
                             inst.YarnWeightBeforeDrying.N1R1 = item.YWBDN1R1;
                             inst.YarnWeightBeforeDrying.N1R2 = item.YWBDN1R2;
@@ -797,6 +920,10 @@ namespace M3.QA.Models
                         if (null != inst.ContentWeight)
                         {
                             inst.ContentWeight.PropertyNo = 10; // Denier PropertyNo = 10
+                            inst.ContentWeight.AllowReTest = inst.AllowRetest;
+                            inst.ContentWeight.EnableMultiPropertyTest = true;
+                            inst.ContentWeight.GetNMultiOut = inst.IsMultiout;
+
                             inst.ContentWeight.N1 = item.CWN1;
                             inst.ContentWeight.N1R1 = item.CWN1R1;
                             inst.ContentWeight.N1R2 = item.CWN1R2;
@@ -804,6 +931,10 @@ namespace M3.QA.Models
                         if (null != inst.YarnAndContentWeightAfterDrying)
                         {
                             inst.YarnAndContentWeightAfterDrying.PropertyNo = 10; // Denier PropertyNo = 10
+                            inst.YarnAndContentWeightAfterDrying.AllowReTest = inst.AllowRetest;
+                            inst.YarnAndContentWeightAfterDrying.EnableMultiPropertyTest = true;
+                            inst.YarnAndContentWeightAfterDrying.GetNMultiOut = inst.IsMultiout;
+
                             inst.YarnAndContentWeightAfterDrying.N1 = item.YCWADN1;
                             inst.YarnAndContentWeightAfterDrying.N1R1 = item.YCWADN1R1;
                             inst.YarnAndContentWeightAfterDrying.N1R2 = item.YCWADN1R2;
@@ -811,6 +942,10 @@ namespace M3.QA.Models
                         if (null != inst.YarnWeightAfterDrying)
                         {
                             inst.YarnWeightAfterDrying.PropertyNo = 10; // Denier PropertyNo = 10
+                            inst.YarnWeightAfterDrying.AllowReTest = inst.AllowRetest;
+                            inst.YarnWeightAfterDrying.EnableMultiPropertyTest = true;
+                            inst.YarnWeightAfterDrying.GetNMultiOut = inst.IsMultiout;
+
                             inst.YarnWeightAfterDrying.N1 = item.YWADN1;
                             inst.YarnWeightAfterDrying.N1R1 = item.YWADN1R1;
                             inst.YarnWeightAfterDrying.N1R2 = item.YWADN1R2;
@@ -818,6 +953,10 @@ namespace M3.QA.Models
                         if (null != inst.StandardDenierD)
                         {
                             inst.StandardDenierD.PropertyNo = 10; // Denier PropertyNo = 10
+                            inst.StandardDenierD.AllowReTest = inst.AllowRetest;
+                            inst.StandardDenierD.EnableMultiPropertyTest = true;
+                            inst.StandardDenierD.GetNMultiOut = inst.IsMultiout;
+
                             inst.StandardDenierD.N1 = item.DENIER_D_N1;
                             inst.StandardDenierD.N1R1 = item.DENIER_D_N1R1;
                             inst.StandardDenierD.N1R2 = item.DENIER_D_N1R2;
@@ -827,6 +966,10 @@ namespace M3.QA.Models
                         if (null != inst.StandardDenierDtex)
                         {
                             inst.StandardDenierD.PropertyNo = 10; // Denier PropertyNo = 10
+                            inst.StandardDenierDtex.AllowReTest = inst.AllowRetest;
+                            inst.StandardDenierDtex.EnableMultiPropertyTest = true;
+                            inst.StandardDenierDtex.GetNMultiOut = inst.IsMultiout;
+
                             inst.StandardDenierDtex.N1 = item.DENIER_Dtex_N1;
                             inst.StandardDenierDtex.N1R1 = item.DENIER_Dtex_N1R1;
                             inst.StandardDenierDtex.N1R2 = item.DENIER_Dtex_N1R2;
@@ -836,6 +979,10 @@ namespace M3.QA.Models
                         if (null != inst.EquilibriumMoistureContent)
                         {
                             inst.EquilibriumMoistureContent.PropertyNo = 11; // Moisture regain PropertyNo = 11
+                            inst.EquilibriumMoistureContent.AllowReTest = inst.AllowRetest;
+                            inst.EquilibriumMoistureContent.EnableMultiPropertyTest = true;
+                            inst.EquilibriumMoistureContent.GetNMultiOut = inst.IsMultiout;
+
                             inst.EquilibriumMoistureContent.N1 = item.MOISTURE_N1;
                             inst.EquilibriumMoistureContent.N1R1 = item.MOISTURE_N1R1;
                             inst.EquilibriumMoistureContent.N1R2 = item.MOISTURE_N1R2;
@@ -845,6 +992,10 @@ namespace M3.QA.Models
                         if (null != inst.Weight)
                         {
                             inst.Weight.PropertyNo = 14; // Weight PropertyNo = 14
+                            inst.Weight.AllowReTest = inst.AllowRetest;
+                            inst.Weight.EnableMultiPropertyTest = true;
+                            inst.Weight.GetNMultiOut = inst.IsMultiout;
+
                             inst.Weight.N1 = item.WEIGHT_N1;
                             inst.Weight.N1R1 = item.WEIGHT_N1R1;
                             inst.Weight.N1R2 = item.WEIGHT_N1R2;
@@ -928,8 +1079,8 @@ namespace M3.QA.Models
             p.Add("@ycwadn1r2", (null != value.YarnAndContentWeightAfterDrying) ? value.YarnAndContentWeightAfterDrying.N1R2 : new decimal?());
 
             p.Add("@ywadn1", (null != value.YarnWeightAfterDrying) ? value.YarnWeightAfterDrying.N1 : new decimal?());
-            p.Add("@ywa1dn1r1", (null != value.YarnWeightAfterDrying) ? value.YarnWeightAfterDrying.N1R1 : new decimal?());
-            p.Add("@ywa1dn1r2", (null != value.YarnWeightAfterDrying) ? value.YarnWeightAfterDrying.N1R2 : new decimal?());
+            p.Add("@ywadn1r1", (null != value.YarnWeightAfterDrying) ? value.YarnWeightAfterDrying.N1R1 : new decimal?());
+            p.Add("@ywadn1r2", (null != value.YarnWeightAfterDrying) ? value.YarnWeightAfterDrying.N1R2 : new decimal?());
 
             p.Add("@denierdn1", (null != value.StandardDenierD) ? value.StandardDenierD.N1 : new decimal?());
             p.Add("@denierdn1r1", (null != value.StandardDenierD) ? value.StandardDenierD.N1R1 : new decimal?());

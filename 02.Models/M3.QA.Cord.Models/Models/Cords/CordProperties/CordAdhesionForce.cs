@@ -321,7 +321,7 @@ namespace M3.QA.Models
             // In case No items need to check has some import data
             if (null == existItems || existItems.Count == 0)
             {
-                string sampleType = "S";
+                string sampleType = null;
                 var imports = Utils.Ex_GetAdhesionDataByLot.Gets(value.LotNo, sampleType).Value();
                 if (null != imports && imports.Count > 0)
                 {

@@ -1286,6 +1286,7 @@ namespace M3.QA.Models
                 var p = new DynamicParameters();
 
                 p.Add("@lotNo", lotNo);
+                p.Add("@sampletype", sampleType);
 
                 try
                 {
