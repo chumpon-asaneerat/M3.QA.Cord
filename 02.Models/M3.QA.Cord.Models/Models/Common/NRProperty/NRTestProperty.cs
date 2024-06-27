@@ -1449,6 +1449,22 @@ namespace M3.QA.Models
             dst.N6R2Out = src.N6R2Out;
             dst.N7R2Out = src.N7R2Out;
 
+            dst.N1R1Flag = src.N1R1Flag;
+            dst.N2R1Flag = src.N2R1Flag;
+            dst.N3R1Flag = src.N3R1Flag;
+            dst.N4R1Flag = src.N4R1Flag;
+            dst.N5R1Flag = src.N5R1Flag;
+            dst.N6R1Flag = src.N6R1Flag;
+            dst.N7R1Flag = src.N7R1Flag;
+
+            dst.N1R2Flag = src.N1R2Flag;
+            dst.N2R2Flag = src.N2R2Flag;
+            dst.N3R2Flag = src.N3R2Flag;
+            dst.N4R2Flag = src.N4R2Flag;
+            dst.N5R2Flag = src.N5R2Flag;
+            dst.N6R2Flag = src.N6R2Flag;
+            dst.N7R2Flag = src.N7R2Flag;
+
             dst.SampleType = src.SampleType;
 
             dst.EnableMultiPropertyTest = src.EnableMultiPropertyTest;
