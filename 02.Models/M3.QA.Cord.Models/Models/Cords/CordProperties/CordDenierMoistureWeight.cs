@@ -1106,7 +1106,9 @@ namespace M3.QA.Models
             p.Add("@weightn1r1flag", (null != value.Weight) ? (value.Weight.N1R1Flag) ? true : new bool?() : new bool?());
             p.Add("@weightn1r2flag", (null != value.Weight) ? (value.Weight.N1R2Flag) ? true : new bool?() : new bool?());
 
-            p.Add("@sampletype", value.SampleType);
+            p.Add("@sampletype", (string.IsNullOrWhiteSpace(value.SampleType) || value.SampleType != "F")
+                ? "S" : value.SampleType);
+
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);
 

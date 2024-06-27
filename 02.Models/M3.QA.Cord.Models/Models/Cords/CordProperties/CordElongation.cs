@@ -221,7 +221,8 @@ namespace M3.QA.Models
             p.Add("@n3r1flag", value.N3R1Flag ? true : new bool?());
             p.Add("@n3r2flag", value.N3R2Flag ? true : new bool?());
 
-            p.Add("@sampletype", value.SampleType);
+            p.Add("@sampletype", (string.IsNullOrWhiteSpace(value.SampleType) || value.SampleType != "F")
+                ? "S" : value.SampleType);
 
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);

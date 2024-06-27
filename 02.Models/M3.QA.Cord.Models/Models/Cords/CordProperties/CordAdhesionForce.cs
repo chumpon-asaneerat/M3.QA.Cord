@@ -569,7 +569,8 @@ namespace M3.QA.Models
             p.Add("@adforcen2r1", (null != value.AdhesionForce) ? value.AdhesionForce.N2R1 : new decimal?());
             p.Add("@adforcen2r2", (null != value.AdhesionForce) ? value.AdhesionForce.N2R2 : new decimal?());
 
-            p.Add("@sampletype", (null != value.AdhesionForce) ? value.AdhesionForce.SampleType : "S");
+            p.Add("@sampletype", (string.IsNullOrWhiteSpace(value.SampleType) || value.SampleType != "F")
+                ? "S" : value.SampleType);
 
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);

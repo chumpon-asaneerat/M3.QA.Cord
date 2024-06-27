@@ -666,7 +666,8 @@ namespace M3.QA.Models
             p.Add("@skn3r1flag", (null != value.PctShrinkage) ? (value.PctShrinkage.N3R1Flag) ? true : new bool?() : new bool?());
             p.Add("@skn3r2flag", (null != value.PctShrinkage) ? (value.PctShrinkage.N3R2Flag) ? true : new bool?() : new bool?());
 
-            p.Add("@sampletype", value.SampleType);
+            p.Add("@sampletype", (string.IsNullOrWhiteSpace(value.SampleType) || value.SampleType != "F")
+                ? "S" : value.SampleType);
 
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);

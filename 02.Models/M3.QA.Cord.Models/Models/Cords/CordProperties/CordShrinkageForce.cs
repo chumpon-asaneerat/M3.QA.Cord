@@ -308,7 +308,8 @@ namespace M3.QA.Models
             p.Add("@n1r1flag", value.N1R1Flag);
             p.Add("@n1r2flag", value.N1R2Flag);
 
-            p.Add("@sampletype", value.SampleType);
+            p.Add("@sampletype", (string.IsNullOrWhiteSpace(value.SampleType) || value.SampleType != "F")
+                ? "S" : value.SampleType);
 
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);
