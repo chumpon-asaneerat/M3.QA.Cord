@@ -59,48 +59,60 @@ namespace M3.QA.Models
                 null != BeakerWeightAfterHeat && null != RPU)
             {
                 // Check AdhesionForce Range.
-                RPU.NOut1 = (RPU.N1.HasValue) ? Spec.IsOutOfSpec(RPU.N1.Value) : false;
-                RPU.NOut2 = (RPU.N2.HasValue) ? Spec.IsOutOfSpec(RPU.N2.Value) : false;
+                RPU.N1Out = (RPU.N1.HasValue) ? Spec.IsOutOfSpec(RPU.N1.Value) : false;
+                RPU.N2Out = (RPU.N2.HasValue) ? Spec.IsOutOfSpec(RPU.N2.Value) : false;
 
-                RPU.ROut1 = (RPU.R1.HasValue) ? Spec.IsOutOfSpec(RPU.R1.Value) : false;
-                RPU.ROut2 = (RPU.R2.HasValue) ? Spec.IsOutOfSpec(RPU.R2.Value) : false;
+                RPU.N1R1Out = (RPU.N1R1.HasValue) ? Spec.IsOutOfSpec(RPU.N1R1.Value) : false;
+                RPU.N1R2Out = (RPU.N1R2.HasValue) ? Spec.IsOutOfSpec(RPU.N1R2.Value) : false;
+                RPU.N2R1Out = (RPU.N2R1.HasValue) ? Spec.IsOutOfSpec(RPU.N2R1.Value) : false;
+                RPU.N2R2Out = (RPU.N2R2.HasValue) ? Spec.IsOutOfSpec(RPU.N2R2.Value) : false;
 
                 // Raise items events
                 RPU.RaiseNOutChanges();
-                RPU.RaiseROutChanges();
+                RPU.RaiseR1OutChanges();
+                RPU.RaiseR2OutChanges();
 
                 // set out of range flag to BeakerWeight object
-                BeakerWeight.NOut1 = RPU.NOut1;
-                BeakerWeight.NOut2 = RPU.NOut2;
+                BeakerWeight.N1Out = RPU.N1Out;
+                BeakerWeight.N2Out = RPU.N2Out;
 
-                BeakerWeight.ROut1 = RPU.ROut1;
-                BeakerWeight.ROut2 = RPU.ROut2;
-                
+                BeakerWeight.N1R1Out = RPU.N1R1Out;
+                BeakerWeight.N1R2Out = RPU.N1R2Out;
+                BeakerWeight.N2R1Out = RPU.N2R1Out;
+                BeakerWeight.N2R2Out = RPU.N2R2Out;
+
                 // Raise items events
                 BeakerWeight.RaiseNOutChanges();
-                BeakerWeight.RaiseROutChanges();
+                BeakerWeight.RaiseR1OutChanges();
+                BeakerWeight.RaiseR2OutChanges();
 
                 // set out of range flag to BeakerWeightBeforeHeat object
-                BeakerWeightBeforeHeat.NOut1 = RPU.NOut1;
-                BeakerWeightBeforeHeat.NOut2 = RPU.NOut2;
+                BeakerWeightBeforeHeat.N1Out = RPU.N1Out;
+                BeakerWeightBeforeHeat.N2Out = RPU.N2Out;
 
-                BeakerWeightBeforeHeat.ROut1 = RPU.ROut1;
-                BeakerWeightBeforeHeat.ROut2 = RPU.ROut2;
+                BeakerWeightBeforeHeat.N1R1Out = RPU.N1R1Out;
+                BeakerWeightBeforeHeat.N1R2Out = RPU.N1R2Out;
+                BeakerWeightBeforeHeat.N2R1Out = RPU.N2R1Out;
+                BeakerWeightBeforeHeat.N2R2Out = RPU.N2R2Out;
 
                 // Raise items events
                 BeakerWeightBeforeHeat.RaiseNOutChanges();
-                BeakerWeightBeforeHeat.RaiseROutChanges();
+                BeakerWeightBeforeHeat.RaiseR1OutChanges();
+                BeakerWeightBeforeHeat.RaiseR2OutChanges();
 
                 // set out of range flag to BeakerWeightAfterHeat object
-                BeakerWeightAfterHeat.NOut1 = RPU.NOut1;
-                BeakerWeightAfterHeat.NOut2 = RPU.NOut2;
+                BeakerWeightAfterHeat.N1Out = RPU.N1Out;
+                BeakerWeightAfterHeat.N2Out = RPU.N2Out;
 
-                BeakerWeightAfterHeat.ROut1 = RPU.ROut1;
-                BeakerWeightAfterHeat.ROut2 = RPU.ROut2;
+                BeakerWeightAfterHeat.N1R1Out = RPU.N1R1Out;
+                BeakerWeightAfterHeat.N1R2Out = RPU.N1R2Out;
+                BeakerWeightAfterHeat.N2R1Out = RPU.N2R1Out;
+                BeakerWeightAfterHeat.N2R2Out = RPU.N2R2Out;
 
                 // Raise items events
                 BeakerWeightAfterHeat.RaiseNOutChanges();
-                BeakerWeightAfterHeat.RaiseROutChanges();
+                BeakerWeightAfterHeat.RaiseR1OutChanges();
+                BeakerWeightAfterHeat.RaiseR2OutChanges();
             }
         }
 
@@ -118,13 +130,13 @@ namespace M3.QA.Models
                 // X = C - A
                 decimal? XN1 = (C.N1.HasValue) ? C.N1.Value - ((A.N1.HasValue) ? A.N1.Value : new decimal?()) : new decimal?();
                 decimal? XN2 = (C.N2.HasValue) ? C.N2.Value - ((A.N2.HasValue) ? A.N2.Value : new decimal?()) : new decimal?();
-                decimal? XR1 = (C.R1.HasValue) ? C.R1.Value - ((A.R1.HasValue) ? A.R1.Value : new decimal?()) : new decimal?();
-                decimal? XR2 = (C.R2.HasValue) ? C.R2.Value - ((A.R2.HasValue) ? A.R2.Value : new decimal?()) : new decimal?();
+                decimal? XR1 = (C.N1R1.HasValue) ? C.N1R1.Value - ((A.N1R1.HasValue) ? A.N1R1.Value : new decimal?()) : new decimal?();
+                decimal? XR2 = (C.N2R1.HasValue) ? C.N2R1.Value - ((A.N2R1.HasValue) ? A.N2R1.Value : new decimal?()) : new decimal?();
                 // Y = B - A
                 decimal? YN1 = (B.N1.HasValue) ? B.N1.Value - ((A.N1.HasValue) ? A.N1.Value : new decimal?()) : new decimal?();
                 decimal? YN2 = (B.N2.HasValue) ? B.N2.Value - ((A.N2.HasValue) ? A.N2.Value : new decimal?()) : new decimal?();
-                decimal? YR1 = (B.R1.HasValue) ? B.R1.Value - ((A.R1.HasValue) ? A.R1.Value : new decimal?()) : new decimal?();
-                decimal? YR2 = (B.R2.HasValue) ? B.R2.Value - ((A.R2.HasValue) ? A.R2.Value : new decimal?()) : new decimal?();
+                decimal? YR1 = (B.N1R1.HasValue) ? B.N1R1.Value - ((A.N1R1.HasValue) ? A.N1R1.Value : new decimal?()) : new decimal?();
+                decimal? YR2 = (B.N2R1.HasValue) ? B.N2R1.Value - ((A.N2R1.HasValue) ? A.N2R1.Value : new decimal?()) : new decimal?();
                 // Z = X/Y
                 decimal? ZN1 = new decimal?();
                 decimal? ZN2 = new decimal?();
@@ -181,8 +193,10 @@ namespace M3.QA.Models
 
                 RPU.N1 = (ZN1.HasValue) ? ZN1.Value * 100 : new decimal?();
                 RPU.N2 = (ZN2.HasValue) ? ZN2.Value * 100 : new decimal?();
-                RPU.R1 = (ZR1.HasValue) ? ZR1.Value * 100 : new decimal?();
-                RPU.R2 = (ZR2.HasValue) ? ZR2.Value * 100 : new decimal?();
+                RPU.N1R1 = (ZR1.HasValue) ? ZR1.Value * 100 : new decimal?();
+                RPU.N1R2 = RPU.N1R1; // Set save value
+                RPU.N2R1 = (ZR2.HasValue) ? ZR2.Value * 100 : new decimal?();
+                RPU.N2R2 = RPU.N2R1; // Set save value
 
                 // Raise events
                 Raise(() => this.RPU);
@@ -431,8 +445,10 @@ namespace M3.QA.Models
             // Set N/R
             result.BeakerWeight.N1 = beakWN1;
             result.BeakerWeight.N2 = beakWN2;
-            result.BeakerWeight.R1 = beakWR1;
-            result.BeakerWeight.R2 = beakWR2;
+            result.BeakerWeight.N1R1 = beakWR1;
+            result.BeakerWeight.N1R2 = beakWR1;
+            result.BeakerWeight.N2R1 = beakWR2;
+            result.BeakerWeight.N2R2 = beakWR2;
 
             // Beaker Weight Before Heat
             if (null == result.BeakerWeightBeforeHeat) result.BeakerWeightBeforeHeat = new NRTestProperty();
@@ -451,8 +467,10 @@ namespace M3.QA.Models
             // Set N/R
             result.BeakerWeightBeforeHeat.N1 = beakWBHN1;
             result.BeakerWeightBeforeHeat.N2 = beakWBHN2;
-            result.BeakerWeightBeforeHeat.R1 = beakWBHR1;
-            result.BeakerWeightBeforeHeat.R2 = beakWBHR2;
+            result.BeakerWeightBeforeHeat.N1R1 = beakWBHR1;
+            result.BeakerWeightBeforeHeat.N1R2 = beakWBHR1;
+            result.BeakerWeightBeforeHeat.N2R1 = beakWBHR2;
+            result.BeakerWeightBeforeHeat.N2R2 = beakWBHR2;
 
             // Beaker Weight After Heat
             if (null == result.BeakerWeightAfterHeat) result.BeakerWeightAfterHeat = new NRTestProperty();
@@ -471,8 +489,10 @@ namespace M3.QA.Models
             // Set N/R
             result.BeakerWeightAfterHeat.N1 = beakWAHN1;
             result.BeakerWeightAfterHeat.N2 = beakWAHN2;
-            result.BeakerWeightAfterHeat.R1 = beakWAHR1;
-            result.BeakerWeightAfterHeat.R2 = beakWAHR2;
+            result.BeakerWeightAfterHeat.N1R1 = beakWAHR1;
+            result.BeakerWeightAfterHeat.N1R2 = beakWAHR1;
+            result.BeakerWeightAfterHeat.N2R1 = beakWAHR2;
+            result.BeakerWeightAfterHeat.N2R2 = beakWAHR2;
 
             // RPU
             if (null == result.RPU) result.RPU = new NRTestProperty();

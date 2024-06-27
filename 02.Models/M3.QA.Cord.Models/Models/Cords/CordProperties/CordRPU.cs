@@ -38,7 +38,7 @@ namespace M3.QA.Models
             // AfterHeat change need to calc formula for RPU
             AfterHeat.ValueChanges = CalculateFormula;
 
-            RPU = new decimal?();
+            RPU = new NRTestProperty();
         }
 
         #endregion
@@ -47,33 +47,46 @@ namespace M3.QA.Models
 
         private void CheckSpec()
         {
-            if (null != Spec && null != BeforeHeat && null != AfterHeat)
+            if (null != Spec && null != BeforeHeat && null != AfterHeat && null != RPU)
             {
                 bool isZero = (AfterHeat.N1.HasValue && AfterHeat.N1.Value == 0) ? true : false;
-                RPUO = (RPU.HasValue) ? Spec.IsOutOfSpec(RPU.Value) : isZero;
+                bool rpuN1out = (RPU.N1.HasValue) ? Spec.IsOutOfSpec(RPU.N1.Value) : isZero;
+                bool rpuR1out = (RPU.N1R1.HasValue) ? Spec.IsOutOfSpec(RPU.N1R1.Value) : isZero;
+                bool rpuR2out = (RPU.N1R2.HasValue) ? Spec.IsOutOfSpec(RPU.N1R2.Value) : isZero;
 
                 // set out of range flag to BeforeHeat, AfterHeat object
-                BeforeHeat.NOut1 = RPUO;
-                BeforeHeat.ROut1 = RPUO;
+                BeforeHeat.N1Out = rpuN1out;
+                BeforeHeat.N1R1Out = rpuR1out;
+                BeforeHeat.N1R2Out = rpuR2out;
 
-                AfterHeat.NOut1 = RPUO;
-                AfterHeat.ROut1 = RPUO;
+                AfterHeat.N1Out = rpuN1out;
+                AfterHeat.N1R1Out = rpuR1out;
+                AfterHeat.N1R2Out = rpuR2out;
+
+                RPU.N1Out = rpuN1out;
+                RPU.N1R1Out = rpuR1out;
+                RPU.N1R2Out = rpuR2out;
 
                 // Raise events
                 BeforeHeat.RaiseNOutChanges();
-                BeforeHeat.RaiseROutChanges();
+                BeforeHeat.RaiseR1OutChanges();
+                BeforeHeat.RaiseR2OutChanges();
 
                 AfterHeat.RaiseNOutChanges();
-                AfterHeat.RaiseROutChanges();
+                AfterHeat.RaiseR1OutChanges();
+                AfterHeat.RaiseR2OutChanges();
 
-                Raise(() => this.RPUO);
+                RPU.RaiseNOutChanges();
+                RPU.RaiseR1OutChanges();
+                RPU.RaiseR2OutChanges();
+
                 Raise(() => this.RPUForegroundColor);
             }
         }
 
         private void CalculateFormula()
         {
-            if (null != BeforeHeat && null != AfterHeat)
+            if (null != BeforeHeat && null != AfterHeat && null != RPU)
             {
                 // RPU = ( (BF Heat – AF Heat) / AF Heat )*100
 
@@ -81,13 +94,13 @@ namespace M3.QA.Models
                 decimal? AF;
                 decimal? diff;
 
-                BF = (BeforeHeat.R1.HasValue) ? BeforeHeat.R1.Value : (BeforeHeat.N1.HasValue) ? BeforeHeat.N1.Value : new decimal?();
-                AF = (AfterHeat.R1.HasValue) ? AfterHeat.R1.Value : (AfterHeat.N1.HasValue) ? AfterHeat.N1.Value : new decimal?();
+                BF = (BeforeHeat.N1R1.HasValue) ? BeforeHeat.N1R1.Value : (BeforeHeat.N1.HasValue) ? BeforeHeat.N1.Value : new decimal?();
+                AF = (AfterHeat.N1R1.HasValue) ? AfterHeat.N1R1.Value : (AfterHeat.N1.HasValue) ? AfterHeat.N1.Value : new decimal?();
 
                 //diff = (BF.HasValue && AF.HasValue && (BF.Value - AF.Value > 0)) ? BF.Value - AF.Value : new decimal?();
                 //RPU = (diff.HasValue && AF.HasValue && AF.Value > 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
                 diff = (BF.HasValue && AF.HasValue) ? BF.Value - AF.Value : new decimal?();
-                RPU = (diff.HasValue && AF.HasValue && AF.Value != 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
+                RPU.N1 = (diff.HasValue && AF.HasValue && AF.Value != 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
 
                 // Raise events
                 Raise(() => this.RPU);
@@ -106,6 +119,7 @@ namespace M3.QA.Models
             BeforeHeat.NoOfSample = NoOfSample;
             BeforeHeat.NeedSP = NeedSP;
             BeforeHeat.YarnType = YarnType;
+            BeforeHeat.SampleType = SampleType;
 
             if (null == AfterHeat) AfterHeat = new NRTestProperty();
             AfterHeat.SPNo = SPNo;
@@ -115,6 +129,17 @@ namespace M3.QA.Models
             AfterHeat.NoOfSample = NoOfSample;
             AfterHeat.NeedSP = NeedSP;
             AfterHeat.YarnType = YarnType;
+            AfterHeat.SampleType = SampleType;
+
+            if (null == RPU) RPU = new NRTestProperty();
+            RPU.SPNo = SPNo;
+            RPU.LotNo = LotNo;
+            RPU.PropertyNo = PropertyNo;
+            RPU.SPNo = SPNo;
+            RPU.NoOfSample = NoOfSample;
+            RPU.NeedSP = NeedSP;
+            RPU.YarnType = YarnType;
+            RPU.SampleType = SampleType;
 
             // Check calculate action
             if (null == BeforeHeat.ValueChanges)
@@ -209,6 +234,18 @@ namespace M3.QA.Models
                 });
             }
         }
+        /// <summary>Gets or sets Sample Type.</summary>
+        public string SampleType
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    UpdateProperties();
+                });
+            }
+        }
 
         #endregion
 
@@ -242,16 +279,13 @@ namespace M3.QA.Models
 
         public NRTestProperty BeforeHeat { get; set; }
         public NRTestProperty AfterHeat { get; set; }
-
-        public decimal? RPU { get; set; }
-
-        public bool RPUO { get; set; }
+        public NRTestProperty RPU { get; set; }
 
         public SolidColorBrush RPUForegroundColor 
         { 
             get
             {
-                return (RPUO) ? ModelConsts.RedColor : ModelConsts.BlackColor;
+                return (null != RPU && RPU.N1Out) ? ModelConsts.RedColor : ModelConsts.BlackColor;
             }
             set { }
         }
@@ -344,6 +378,7 @@ namespace M3.QA.Models
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
                         existItems[idx].YarnType = item.YarnType;
+                        existItems[idx].SampleType = item.SampleType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }
@@ -372,6 +407,7 @@ namespace M3.QA.Models
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
             dst.YarnType = src.YarnType;
+            dst.SampleType = src.SampleType;
 
             dst.EditBy = src.EditBy;
             dst.EditDate = src.EditDate;
@@ -380,8 +416,7 @@ namespace M3.QA.Models
 
             NRTestProperty.Clone(src.BeforeHeat, dst.BeforeHeat);
             NRTestProperty.Clone(src.AfterHeat, dst.AfterHeat);
-
-            dst.RPU = src.RPU;
+            NRTestProperty.Clone(src.RPU, dst.RPU);
         }
 
         #endregion
@@ -437,15 +472,25 @@ namespace M3.QA.Models
                         if (null != inst.BeforeHeat)
                         {
                             inst.BeforeHeat.N1 = item.BFN1;
-                            inst.BeforeHeat.R1 = item.BFR1;
+                            inst.BeforeHeat.N1R1 = item.BFN1R1;
+                            inst.BeforeHeat.N1R2 = item.BFN1R2;
                         }
                         if (null != inst.AfterHeat)
                         {
                             inst.AfterHeat.N1 = item.AFN1;
-                            inst.AfterHeat.R1 = item.AFR1;
+                            inst.AfterHeat.N1R1 = item.AFN1R1;
+                            inst.AfterHeat.N1R2 = item.AFN1R2;
+                        }
+                        if (null != inst.RPU)
+                        {
+                            inst.RPU.N1 = item.RPUN1;
+                            inst.RPU.N1R1 = item.RPUN1R1;
+                            inst.RPU.N1R2 = item.RPUN1R2;
+                            inst.RPU.N1R1Flag = item.RPUN1R1Flag.HasValue ? item.RPUN1R1Flag.Value : false;
+                            inst.RPU.N1R2Flag = item.RPUN1R2Flag.HasValue ? item.RPUN1R2Flag.Value : false;
                         }
 
-                        inst.RPU = item.RPU;
+                        inst.SampleType = item.SampleType;
 
                         inst.InputBy = item.InputBy;
                         inst.InputDate = item.InputDate;
@@ -511,12 +556,20 @@ namespace M3.QA.Models
             p.Add("@spno", value.SPNo);
 
             p.Add("@bfn1", (null != value.BeforeHeat) ? value.BeforeHeat.N1 : new decimal?());
-            p.Add("@bfr1", (null != value.BeforeHeat) ? value.BeforeHeat.R1 : new decimal?());
+            p.Add("@bfn1r1", (null != value.BeforeHeat) ? value.BeforeHeat.N1R1 : new decimal?());
+            p.Add("@bfn1r2", (null != value.BeforeHeat) ? value.BeforeHeat.N1R2 : new decimal?());
 
             p.Add("@afn1", (null != value.AfterHeat) ? value.AfterHeat.N1 : new decimal?());
-            p.Add("@afr1", (null != value.AfterHeat) ? value.AfterHeat.R1 : new decimal?());
+            p.Add("@afn1r1", (null != value.AfterHeat) ? value.AfterHeat.N1R1 : new decimal?());
+            p.Add("@afn1r2", (null != value.AfterHeat) ? value.AfterHeat.N1R2 : new decimal?());
 
-            p.Add("@rpu", value.RPU);
+            p.Add("@rpun1", (null != value.RPU) ? value.RPU.N1 : new decimal?());
+            p.Add("@rpun1r1", (null != value.RPU) ? value.RPU.N1R1 : new decimal?());
+            p.Add("@rpun1r2", (null != value.RPU) ? value.RPU.N1R2 : new decimal?());
+            p.Add("@rpun1r1flag", (null != value.RPU) ? value.RPU.N1R1Flag ? true : new bool?() : new bool?());
+            p.Add("@rpun1r2flag", (null != value.RPU) ? value.RPU.N1R2Flag ? true : new bool?() : new bool?());
+
+            p.Add("@sampletype", value.SampleType);
 
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);
