@@ -41,7 +41,7 @@ namespace M3.QA.Models
             this.N7Out = (N7.HasValue) ? Spec.IsOutOfSpec(N7.Value) : false;
 
             this.N1R1Out = (N1R1.HasValue) ? Spec.IsOutOfSpec(N1R1.Value) : false;
-            this.N1R2Out = (N2R2.HasValue) ? Spec.IsOutOfSpec(N2R2.Value) : false;
+            this.N1R2Out = (N1R2.HasValue) ? Spec.IsOutOfSpec(N1R2.Value) : false;
             this.N2R1Out = (N2R1.HasValue) ? Spec.IsOutOfSpec(N2R1.Value) : false;
             this.N2R2Out = (N2R2.HasValue) ? Spec.IsOutOfSpec(N2R2.Value) : false;
             this.N3R1Out = (N3R1.HasValue) ? Spec.IsOutOfSpec(N3R1.Value) : false;
