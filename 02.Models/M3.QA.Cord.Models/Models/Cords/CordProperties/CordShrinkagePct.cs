@@ -402,7 +402,7 @@ namespace M3.QA.Models
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
                         existItems[idx].YarnType = item.YarnType;
-                        //existItems[idx].SampleType = item.SampleType;
+                        existItems[idx].SampleType = item.SampleType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }
@@ -555,6 +555,7 @@ namespace M3.QA.Models
                             inst.PctShrinkage.N3R2Flag = item.SKN3R2Flag.HasValue ? item.SKN3R2Flag.Value : false;
                         }
 
+                        inst.SampleType = item.SampleType;
                         inst.InputBy = item.InputBy;
                         inst.InputDate = item.InputDate;
                         inst.EditBy = item.EditBy;

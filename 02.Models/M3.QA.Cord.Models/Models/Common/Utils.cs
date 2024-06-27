@@ -562,28 +562,46 @@ namespace M3.QA.Models
             public int? SPNo { get; set; }
 
             public decimal? YWBDN1 { get; set; }
-            public decimal? YWBDR1 { get; set; }
+            public decimal? YWBDN1R1 { get; set; }
+            public decimal? YWBDN1R2 { get; set; }
 
             public decimal? CWN1 { get; set; }
-            public decimal? CWR1 { get; set; }
+            public decimal? CWN1R1 { get; set; }
+            public decimal? CWN1R2 { get; set; }
 
             public decimal? YCWADN1 { get; set; }
-            public decimal? YCWADR1 { get; set; }
+            public decimal? YCWADN1R1 { get; set; }
+            public decimal? YCWADN1R2 { get; set; }
 
             public decimal? YWADN1 { get; set; }
-            public decimal? YWADR1 { get; set; }
+            public decimal? YWADN1R1 { get; set; }
+            public decimal? YWADN1R2 { get; set; }
 
             public decimal? DENIER_D_N1 { get; set; }
-            public decimal? DENIER_D_R1 { get; set; }
+            public decimal? DENIER_D_N1R1 { get; set; }
+            public decimal? DENIER_D_N1R2 { get; set; }
+            public bool? DENIER_D_N1R1Flag { get; set; }
+            public bool? DENIER_D_N1R2Flag { get; set; }
 
             public decimal? DENIER_Dtex_N1 { get; set; }
-            public decimal? DENIER_Dtex_R1 { get; set; }
+            public decimal? DENIER_Dtex_N1R1 { get; set; }
+            public decimal? DENIER_Dtex_N1R2 { get; set; }
+            public bool? DENIER_Dtex_N1R1Flag { get; set; }
+            public bool? DENIER_Dtex_N1R2Flag { get; set; }
 
             public decimal? MOISTURE_N1 { get; set; }
-            public decimal? MOISTURE_R1 { get; set; }
+            public decimal? MOISTURE_N1R1 { get; set; }
+            public decimal? MOISTURE_N1R2 { get; set; }
+            public bool? MOISTURE_N1R1Flag { get; set; }
+            public bool? MOISTURE_N1R2Flag { get; set; }
 
             public decimal? WEIGHT_N1 { get; set; }
-            public decimal? WEIGHT_R1 { get; set; }
+            public decimal? WEIGHT_N1R1 { get; set; }
+            public decimal? WEIGHT_N1R2 { get; set; }
+            public bool? WEIGHT_N1R1Flag { get; set; }
+            public bool? WEIGHT_N1R2Flag { get; set; }
+
+            public string SampleType { get; set; }
 
             public string InputBy { get; set; }
             public DateTime? InputDate { get; set; }
