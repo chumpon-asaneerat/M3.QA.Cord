@@ -234,24 +234,51 @@ namespace M3.QA.Models
             public decimal? N1 { get; set; }
             public decimal? N2 { get; set; }
             public decimal? N3 { get; set; }
-            public decimal? R1 { get; set; }
-            public decimal? R2 { get; set; }
-            public decimal? R3 { get; set; }
+
+            public decimal? N1R1 { get; set; }
+            public decimal? N1R2 { get; set; }
+            public decimal? N2R1 { get; set; }
+            public decimal? N2R2 { get; set; }
+            public decimal? N3R1 { get; set; }
+            public decimal? N3R2 { get; set; }
 
             public decimal? TMN1 { get; set; }
             public decimal? TMN2 { get; set; }
             public decimal? TMN3 { get; set; }
-            public decimal? TMR1 { get; set; }
-            public decimal? TMR2 { get; set; }
-            public decimal? TMR3 { get; set; }
+
+            public decimal? TMN1R1 { get; set; }
+            public decimal? TMN1R2 { get; set; }
+            public decimal? TMN2R1 { get; set; }
+            public decimal? TMN2R2 { get; set; }
+            public decimal? TMN3R1 { get; set; }
+            public decimal? TMN3R2 { get; set; }
+
+            public bool? TMN1R1Flag { get; set; }
+            public bool? TMN1R2Flag { get; set; }
+            public bool? TMN2R1Flag { get; set; }
+            public bool? TMN2R2Flag { get; set; }
+            public bool? TMN3R1Flag { get; set; }
+            public bool? TMN3R2Flag { get; set; }
 
             public decimal? TCMN1 { get; set; }
             public decimal? TCMN2 { get; set; }
             public decimal? TCMN3 { get; set; }
-            public decimal? TCMR1 { get; set; }
-            public decimal? TCMR2 { get; set; }
-            public decimal? TCMR3 { get; set; }
+            
+            public decimal? TCMN1R1 { get; set; }
+            public decimal? TCMN1R2 { get; set; }
+            public decimal? TCMN2R1 { get; set; }
+            public decimal? TCMN2R2 { get; set; }
+            public decimal? TCMN3R1 { get; set; }
+            public decimal? TCMN3R2 { get; set; }
 
+            public bool? TCMN1R1Flag { get; set; }
+            public bool? TCMN1R2Flag { get; set; }
+            public bool? TCMN2R1Flag { get; set; }
+            public bool? TCMN2R2Flag { get; set; }
+            public bool? TCMN3R1Flag { get; set; }
+            public bool? TCMN3R2Flag { get; set; }
+
+            public string SampleType { get; set; }
             public string InputBy { get; set; }
             public DateTime? InputDate { get; set; }
 

@@ -53,41 +53,53 @@ namespace M3.QA.Models
             if (null != Spec && null != Item && null != TM && null != TM10cm)
             {
                 // Check T/M.
-                TM.NOut1 = (TM.N1.HasValue) ? Spec.IsOutOfSpec(TM.N1.Value) : false;
-                TM.NOut2 = (TM.N2.HasValue) ? Spec.IsOutOfSpec(TM.N2.Value) : false;
-                TM.NOut3 = (TM.N3.HasValue) ? Spec.IsOutOfSpec(TM.N3.Value) : false;
+                TM.N1Out = (TM.N1.HasValue) ? Spec.IsOutOfSpec(TM.N1.Value) : false;
+                TM.N2Out = (TM.N2.HasValue) ? Spec.IsOutOfSpec(TM.N2.Value) : false;
+                TM.N3Out = (TM.N3.HasValue) ? Spec.IsOutOfSpec(TM.N3.Value) : false;
 
-                TM.ROut1 = (TM.R1.HasValue) ? Spec.IsOutOfSpec(TM.R1.Value) : false;
-                TM.ROut2 = (TM.R2.HasValue) ? Spec.IsOutOfSpec(TM.R2.Value) : false;
-                TM.ROut3 = (TM.R3.HasValue) ? Spec.IsOutOfSpec(TM.R3.Value) : false;
+                TM.N1R1Out = (TM.N1R1.HasValue) ? Spec.IsOutOfSpec(TM.N1R1.Value) : false;
+                TM.N1R2Out = (TM.N1R2.HasValue) ? Spec.IsOutOfSpec(TM.N1R2.Value) : false;
+                TM.N2R1Out = (TM.N2R1.HasValue) ? Spec.IsOutOfSpec(TM.N2R1.Value) : false;
+                TM.N2R2Out = (TM.N2R2.HasValue) ? Spec.IsOutOfSpec(TM.N2R2.Value) : false;
+                TM.N3R1Out = (TM.N3R1.HasValue) ? Spec.IsOutOfSpec(TM.N3R1.Value) : false;
+                TM.N3R2Out = (TM.N3R2.HasValue) ? Spec.IsOutOfSpec(TM.N3R2.Value) : false;
 
                 // set out of range flag to Item object
-                Item.NOut1 = TM.NOut1;
-                Item.NOut2 = TM.NOut2;
-                Item.NOut3 = TM.NOut3;
+                Item.N1Out = TM.N1Out;
+                Item.N2Out = TM.N2Out;
+                Item.N3Out = TM.N3Out;
 
-                Item.ROut1 = TM.ROut1;
-                Item.ROut2 = TM.ROut2;
-                Item.ROut3 = TM.ROut3;
+                Item.N1R1Out = TM.N1R1Out;
+                Item.N1R2Out = TM.N1R2Out;
+                Item.N2R1Out = TM.N2R1Out;
+                Item.N2R2Out = TM.N2R2Out;
+                Item.N3R1Out = TM.N3R1Out;
+                Item.N3R2Out = TM.N3R2Out;
 
                 // set out of range flag to TM10cm object
-                TM10cm.NOut1 = Item.NOut1;
-                TM10cm.NOut2 = Item.NOut2;
-                TM10cm.NOut3 = Item.NOut3;
+                TM10cm.N1Out = Item.N1Out;
+                TM10cm.N2Out = Item.N2Out;
+                TM10cm.N3Out = Item.N3Out;
 
-                TM10cm.ROut1 = Item.ROut1;
-                TM10cm.ROut2 = Item.ROut2;
-                TM10cm.ROut3 = Item.ROut3;
+                TM10cm.N1R1Out = Item.N1R1Out;
+                TM10cm.N1R2Out = Item.N1R2Out;
+                TM10cm.N2R1Out = Item.N2R1Out;
+                TM10cm.N2R2Out = Item.N2R2Out;
+                TM10cm.N3R1Out = Item.N3R1Out;
+                TM10cm.N3R2Out = Item.N3R2Out;
 
                 // Raise items events
                 Item.RaiseNOutChanges();
-                Item.RaiseROutChanges();
+                Item.RaiseR1OutChanges();
+                Item.RaiseR2OutChanges();
 
                 TM.RaiseNOutChanges();
-                TM.RaiseROutChanges();
+                TM.RaiseR1OutChanges();
+                TM.RaiseR2OutChanges();
 
                 TM10cm.RaiseNOutChanges();
-                TM10cm.RaiseROutChanges();
+                TM10cm.RaiseR1OutChanges();
+                TM10cm.RaiseR2OutChanges();
             }
         }
 
@@ -96,41 +108,53 @@ namespace M3.QA.Models
             if (null != Spec && null != Item && null != TM && null != TM10cm)
             {
                 // Check T/10cm.
-                TM10cm.NOut1 = (TM10cm.N1.HasValue) ? Spec.IsOutOfSpec(TM10cm.N1.Value) : false;
-                TM10cm.NOut2 = (TM10cm.N2.HasValue) ? Spec.IsOutOfSpec(TM10cm.N2.Value) : false;
-                TM10cm.NOut3 = (TM10cm.N3.HasValue) ? Spec.IsOutOfSpec(TM10cm.N3.Value) : false;
+                TM10cm.N1Out = (TM10cm.N1.HasValue) ? Spec.IsOutOfSpec(TM10cm.N1.Value) : false;
+                TM10cm.N2Out = (TM10cm.N2.HasValue) ? Spec.IsOutOfSpec(TM10cm.N2.Value) : false;
+                TM10cm.N3Out = (TM10cm.N3.HasValue) ? Spec.IsOutOfSpec(TM10cm.N3.Value) : false;
 
-                TM10cm.ROut1 = (TM10cm.R1.HasValue) ? Spec.IsOutOfSpec(TM10cm.R1.Value) : false;
-                TM10cm.ROut2 = (TM10cm.R2.HasValue) ? Spec.IsOutOfSpec(TM10cm.R2.Value) : false;
-                TM10cm.ROut3 = (TM10cm.R3.HasValue) ? Spec.IsOutOfSpec(TM10cm.R3.Value) : false;
+                TM10cm.N1R1Out = (TM10cm.N1R1.HasValue) ? Spec.IsOutOfSpec(TM10cm.N1R1.Value) : false;
+                TM10cm.N1R2Out = (TM10cm.N1R2.HasValue) ? Spec.IsOutOfSpec(TM10cm.N1R2.Value) : false;
+                TM10cm.N2R1Out = (TM10cm.N2R1.HasValue) ? Spec.IsOutOfSpec(TM10cm.N2R1.Value) : false;
+                TM10cm.N2R2Out = (TM10cm.N2R2.HasValue) ? Spec.IsOutOfSpec(TM10cm.N2R2.Value) : false;
+                TM10cm.N3R1Out = (TM10cm.N3R1.HasValue) ? Spec.IsOutOfSpec(TM10cm.N3R1.Value) : false;
+                TM10cm.N3R2Out = (TM10cm.N3R2.HasValue) ? Spec.IsOutOfSpec(TM10cm.N3R2.Value) : false;
 
                 // set out of range flag to Item object
-                Item.NOut1 = TM10cm.NOut1;
-                Item.NOut2 = TM10cm.NOut2;
-                Item.NOut3 = TM10cm.NOut3;
+                Item.N1Out = TM10cm.N1Out;
+                Item.N2Out = TM10cm.N2Out;
+                Item.N3Out = TM10cm.N3Out;
 
-                Item.ROut1 = TM10cm.ROut1;
-                Item.ROut2 = TM10cm.ROut2;
-                Item.ROut3 = TM10cm.ROut3;
+                Item.N1R1Out = TM10cm.N1R1Out;
+                Item.N1R2Out = TM10cm.N1R2Out;
+                Item.N2R1Out = TM10cm.N2R1Out;
+                Item.N2R2Out = TM10cm.N2R2Out;
+                Item.N3R1Out = TM10cm.N3R1Out;
+                Item.N3R2Out = TM10cm.N3R2Out;
 
                 // set out of range flag to TM object
-                TM.NOut1 = Item.NOut1;
-                TM.NOut2 = Item.NOut2;
-                TM.NOut3 = Item.NOut3;
+                TM.N1Out = Item.N1Out;
+                TM.N2Out = Item.N2Out;
+                TM.N3Out = Item.N3Out;
 
-                TM.ROut1 = Item.ROut1;
-                TM.ROut2 = Item.ROut2;
-                TM.ROut3 = Item.ROut3;
+                TM.N1R1Out = Item.N1R1Out;
+                TM.N1R2Out = Item.N1R2Out;
+                TM.N2R1Out = Item.N2R1Out;
+                TM.N2R2Out = Item.N2R2Out;
+                TM.N3R1Out = Item.N3R1Out;
+                TM.N3R2Out = Item.N3R2Out;
 
                 // Raise items events
                 Item.RaiseNOutChanges();
-                Item.RaiseROutChanges();
+                Item.RaiseR1OutChanges();
+                Item.RaiseR2OutChanges();
 
                 TM.RaiseNOutChanges();
-                TM.RaiseROutChanges();
+                TM.RaiseR1OutChanges();
+                TM.RaiseR2OutChanges();
 
                 TM10cm.RaiseNOutChanges();
-                TM10cm.RaiseROutChanges();
+                TM10cm.RaiseR1OutChanges();
+                TM10cm.RaiseR2OutChanges();
             }
         }
 
@@ -160,16 +184,25 @@ namespace M3.QA.Models
                 TM.N1 = (Item.N1.HasValue) ? Item.N1.Value * 2 : new decimal?();
                 TM.N2 = (Item.N2.HasValue) ? Item.N2.Value * 2 : new decimal?();
                 TM.N3 = (Item.N3.HasValue) ? Item.N3.Value * 2 : new decimal?();
-                TM.R1 = (Item.R1.HasValue) ? Item.R1.Value * 2 : new decimal?();
-                TM.R2 = (Item.R2.HasValue) ? Item.R2.Value * 2 : new decimal?();
-                TM.R3 = (Item.R3.HasValue) ? Item.R3.Value * 2 : new decimal?();
+
+                TM.N1R1 = (Item.N1R1.HasValue) ? Item.N1R1.Value * 2 : new decimal?();
+                TM.N1R2 = (Item.N1R2.HasValue) ? Item.N1R2.Value * 2 : new decimal?();
+                TM.N2R1 = (Item.N2R1.HasValue) ? Item.N2R1.Value * 2 : new decimal?();
+                TM.N2R2 = (Item.N2R2.HasValue) ? Item.N2R2.Value * 2 : new decimal?();
+                TM.N3R1 = (Item.N3R1.HasValue) ? Item.N3R1.Value * 2 : new decimal?();
+                TM.N3R2 = (Item.N3R2.HasValue) ? Item.N3R2.Value * 2 : new decimal?();
+
                 // TCM = TM / 10
                 TM10cm.N1 = (TM.N1.HasValue) ? TM.N1.Value / 10 : new decimal?();
                 TM10cm.N2 = (TM.N2.HasValue) ? TM.N2.Value / 10 : new decimal?();
                 TM10cm.N3 = (TM.N3.HasValue) ? TM.N3.Value / 10 : new decimal?();
-                TM10cm.R1 = (TM.R1.HasValue) ? TM.R1.Value / 10 : new decimal?();
-                TM10cm.R2 = (TM.R2.HasValue) ? TM.R2.Value / 10 : new decimal?();
-                TM10cm.R3 = (TM.R3.HasValue) ? TM.R3.Value / 10 : new decimal?();
+
+                TM10cm.N1R1 = (TM.N1R1.HasValue) ? TM.N1R1.Value / 10 : new decimal?();
+                TM10cm.N1R2 = (TM.N1R2.HasValue) ? TM.N1R2.Value / 10 : new decimal?();
+                TM10cm.N2R1 = (TM.N2R1.HasValue) ? TM.N2R1.Value / 10 : new decimal?();
+                TM10cm.N2R2 = (TM.N2R2.HasValue) ? TM.N2R2.Value / 10 : new decimal?();
+                TM10cm.N3R1 = (TM.N3R1.HasValue) ? TM.N3R1.Value / 10 : new decimal?();
+                TM10cm.N3R2 = (TM.N3R2.HasValue) ? TM.N3R2.Value / 10 : new decimal?();
 
                 // Raise events
                 Raise(() => this.TM);
@@ -192,16 +225,25 @@ namespace M3.QA.Models
                 Item.N1 = (TM.N1.HasValue) ? TM.N1.Value / 2 : new decimal?();
                 Item.N2 = (TM.N2.HasValue) ? TM.N2.Value / 2 : new decimal?();
                 Item.N3 = (TM.N3.HasValue) ? TM.N3.Value / 2 : new decimal?();
-                Item.R1 = (TM.R1.HasValue) ? TM.R1.Value / 2 : new decimal?();
-                Item.R2 = (TM.R2.HasValue) ? TM.R2.Value / 2 : new decimal?();
-                Item.R3 = (TM.R3.HasValue) ? TM.R3.Value / 2 : new decimal?();
+
+                Item.N1R1 = (TM.N1R1.HasValue) ? TM.N1R1.Value / 2 : new decimal?();
+                Item.N1R2 = (TM.N1R2.HasValue) ? TM.N1R2.Value / 2 : new decimal?();
+                Item.N2R1 = (TM.N2R1.HasValue) ? TM.N2R1.Value / 2 : new decimal?();
+                Item.N2R2 = (TM.N2R2.HasValue) ? TM.N2R2.Value / 2 : new decimal?();
+                Item.N3R1 = (TM.N3R1.HasValue) ? TM.N3R1.Value / 2 : new decimal?();
+                Item.N3R2 = (TM.N3R2.HasValue) ? TM.N3R2.Value / 2 : new decimal?();
+
                 // TCM = TM / 10
                 TM10cm.N1 = (TM.N1.HasValue) ? TM.N1.Value / 10 : new decimal?();
                 TM10cm.N2 = (TM.N2.HasValue) ? TM.N2.Value / 10 : new decimal?();
                 TM10cm.N3 = (TM.N3.HasValue) ? TM.N3.Value / 10 : new decimal?();
-                TM10cm.R1 = (TM.R1.HasValue) ? TM.R1.Value / 10 : new decimal?();
-                TM10cm.R2 = (TM.R2.HasValue) ? TM.R2.Value / 10 : new decimal?();
-                TM10cm.R3 = (TM.R3.HasValue) ? TM.R3.Value / 10 : new decimal?();
+
+                TM10cm.N1R1 = (TM.N1R1.HasValue) ? TM.N1R1.Value / 10 : new decimal?();
+                TM10cm.N1R2 = (TM.N1R2.HasValue) ? TM.N1R2.Value / 10 : new decimal?();
+                TM10cm.N2R1 = (TM.N2R1.HasValue) ? TM.N2R1.Value / 10 : new decimal?();
+                TM10cm.N2R2 = (TM.N2R2.HasValue) ? TM.N2R2.Value / 10 : new decimal?();
+                TM10cm.N3R1 = (TM.N3R1.HasValue) ? TM.N3R1.Value / 10 : new decimal?();
+                TM10cm.N3R2 = (TM.N3R2.HasValue) ? TM.N3R2.Value / 10 : new decimal?();
 
                 // Raise events
                 Raise(() => this.Item);
@@ -224,16 +266,25 @@ namespace M3.QA.Models
                 TM.N1 = (TM10cm.N1.HasValue) ? TM10cm.N1.Value * 10 : new decimal?();
                 TM.N2 = (TM10cm.N2.HasValue) ? TM10cm.N2.Value * 10 : new decimal?();
                 TM.N3 = (TM10cm.N3.HasValue) ? TM10cm.N3.Value * 10 : new decimal?();
-                TM.R1 = (TM10cm.R1.HasValue) ? TM10cm.R1.Value * 10 : new decimal?();
-                TM.R2 = (TM10cm.R2.HasValue) ? TM10cm.R2.Value * 10 : new decimal?();
-                TM.R3 = (TM10cm.R3.HasValue) ? TM10cm.R3.Value * 10 : new decimal?();
+
+                TM.N1R1 = (TM10cm.N1R1.HasValue) ? TM10cm.N1R1.Value * 10 : new decimal?();
+                TM.N1R2 = (TM10cm.N1R2.HasValue) ? TM10cm.N1R2.Value * 10 : new decimal?();
+                TM.N2R1 = (TM10cm.N2R1.HasValue) ? TM10cm.N2R1.Value * 10 : new decimal?();
+                TM.N2R2 = (TM10cm.N2R2.HasValue) ? TM10cm.N2R2.Value * 10 : new decimal?();
+                TM.N3R1 = (TM10cm.N3R1.HasValue) ? TM10cm.N3R1.Value * 10 : new decimal?();
+                TM.N3R2 = (TM10cm.N3R2.HasValue) ? TM10cm.N3R2.Value * 10 : new decimal?();
+
                 // Item = TM / 2
                 Item.N1 = (TM.N1.HasValue) ? TM.N1.Value / 2 : new decimal?();
                 Item.N2 = (TM.N2.HasValue) ? TM.N2.Value / 2 : new decimal?();
                 Item.N3 = (TM.N3.HasValue) ? TM.N3.Value / 2 : new decimal?();
-                Item.R1 = (TM.R1.HasValue) ? TM.R1.Value / 2 : new decimal?();
-                Item.R2 = (TM.R2.HasValue) ? TM.R2.Value / 2 : new decimal?();
-                Item.R3 = (TM.R3.HasValue) ? TM.R3.Value / 2 : new decimal?();
+
+                Item.N1R1 = (TM.N1R1.HasValue) ? TM.N1R1.Value / 2 : new decimal?();
+                Item.N1R2 = (TM.N1R2.HasValue) ? TM.N1R2.Value / 2 : new decimal?();
+                Item.N2R1 = (TM.N2R1.HasValue) ? TM.N2R1.Value / 2 : new decimal?();
+                Item.N2R2 = (TM.N2R2.HasValue) ? TM.N2R2.Value / 2 : new decimal?();
+                Item.N3R1 = (TM.N3R1.HasValue) ? TM.N3R1.Value / 2 : new decimal?();
+                Item.N3R2 = (TM.N3R2.HasValue) ? TM.N3R2.Value / 2 : new decimal?();
 
                 // Raise events
                 Raise(() => this.Item);
@@ -255,6 +306,7 @@ namespace M3.QA.Models
             Item.NoOfSample = NoOfSample;
             Item.NeedSP = NeedSP;
             Item.YarnType = YarnType;
+            Item.SampleType = SampleType;
             // Check calculate action
             if (null == Item.ValueChanges)
             {
@@ -269,6 +321,7 @@ namespace M3.QA.Models
             TM.NoOfSample = NoOfSample;
             TM.NeedSP = NeedSP;
             TM.YarnType = YarnType;
+            TM.SampleType = SampleType;
             // Check calculate action
             if (null == TM.ValueChanges)
             {
@@ -283,6 +336,7 @@ namespace M3.QA.Models
             TM10cm.NoOfSample = NoOfSample;
             TM10cm.NeedSP = NeedSP;
             TM10cm.YarnType = YarnType;
+            TM10cm.SampleType = SampleType;
             // Check calculate action
             if (null == TM10cm.ValueChanges)
             {
@@ -362,6 +416,18 @@ namespace M3.QA.Models
         }
         /// <summary>Gets or sets Yarn Type.</summary>
         public string YarnType
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    UpdateProperties();
+                });
+            }
+        }
+        /// <summary>Gets or sets Sample Type.</summary>
+        public string SampleType
         {
             get { return Get<string>(); }
             set
@@ -494,6 +560,7 @@ namespace M3.QA.Models
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
                         existItems[idx].YarnType = item.YarnType;
+                        existItems[idx].SampleType = item.SampleType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }
@@ -522,6 +589,7 @@ namespace M3.QA.Models
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
             dst.YarnType = src.YarnType;
+            dst.SampleType = src.SampleType;
 
             dst.EditBy = src.EditBy;
             dst.EditDate = src.EditDate;
@@ -589,29 +657,54 @@ namespace M3.QA.Models
                             inst.Item.N1 = item.N1;
                             inst.Item.N2 = item.N2;
                             inst.Item.N3 = item.N3;
-                            inst.Item.R1 = item.R1;
-                            inst.Item.R2 = item.R2;
-                            inst.Item.R3 = item.R3;
+                            inst.Item.N1R1 = item.N1R1;
+                            inst.Item.N1R2 = item.N1R2;
+                            inst.Item.N2R1 = item.N2R1;
+                            inst.Item.N2R2 = item.N2R2;
+                            inst.Item.N3R1 = item.N3R1;
+                            inst.Item.N3R2 = item.N3R2;
                         }
                         if (null != inst.TM)
                         {
                             inst.TM.N1 = item.TMN1;
                             inst.TM.N2 = item.TMN2;
                             inst.TM.N3 = item.TMN3;
-                            inst.TM.R1 = item.TMR1;
-                            inst.TM.R2 = item.TMR2;
-                            inst.TM.R3 = item.TMR3;
+                            inst.TM.N1R1 = item.TMN1R1;
+                            inst.TM.N1R2 = item.TMN1R2;
+                            inst.TM.N2R1 = item.TMN2R1;
+                            inst.TM.N2R2 = item.TMN2R2;
+                            inst.TM.N3R1 = item.TMN3R1;
+                            inst.TM.N3R2 = item.TMN3R2;
+
+                            inst.TM.N1R1Flag = item.TMN1R1Flag.HasValue ? item.TMN1R1Flag.Value : false;
+                            inst.TM.N1R2Flag = item.TMN1R2Flag.HasValue ? item.TMN1R2Flag.Value : false;
+                            inst.TM.N2R1Flag = item.TMN2R1Flag.HasValue ? item.TMN2R1Flag.Value : false;
+                            inst.TM.N2R2Flag = item.TMN2R2Flag.HasValue ? item.TMN2R2Flag.Value : false;
+                            inst.TM.N3R1Flag = item.TMN3R1Flag.HasValue ? item.TMN3R1Flag.Value : false;
+                            inst.TM.N3R2Flag = item.TMN3R2Flag.HasValue ? item.TMN3R2Flag.Value : false;
                         }
                         if (null != inst.TM10cm)
                         {
                             inst.TM10cm.N1 = item.TCMN1;
                             inst.TM10cm.N2 = item.TCMN2;
                             inst.TM10cm.N3 = item.TCMN3;
-                            inst.TM10cm.R1 = item.TCMR1;
-                            inst.TM10cm.R2 = item.TCMR2;
-                            inst.TM10cm.R3 = item.TCMR3;
+
+                            inst.TM10cm.N1R1 = item.TCMN1R1;
+                            inst.TM10cm.N1R2 = item.TCMN1R2;
+                            inst.TM10cm.N2R1 = item.TCMN2R1;
+                            inst.TM10cm.N2R2 = item.TCMN2R2;
+                            inst.TM10cm.N3R1 = item.TCMN3R1;
+                            inst.TM10cm.N3R2 = item.TCMN3R2;
+
+                            inst.TM10cm.N1R1Flag = item.TCMN1R1Flag.HasValue ? item.TCMN1R1Flag.Value : false;
+                            inst.TM10cm.N1R2Flag = item.TCMN1R2Flag.HasValue ? item.TCMN1R2Flag.Value : false;
+                            inst.TM10cm.N2R1Flag = item.TCMN2R1Flag.HasValue ? item.TCMN2R1Flag.Value : false;
+                            inst.TM10cm.N2R2Flag = item.TCMN2R2Flag.HasValue ? item.TCMN2R2Flag.Value : false;
+                            inst.TM10cm.N3R1Flag = item.TCMN3R1Flag.HasValue ? item.TCMN3R1Flag.Value : false;
+                            inst.TM10cm.N3R2Flag = item.TCMN3R2Flag.HasValue ? item.TCMN3R2Flag.Value : false;
                         }
 
+                        inst.SampleType = item.SampleType;
                         inst.InputBy = item.InputBy;
                         inst.InputDate = item.InputDate;
                         inst.EditBy = item.EditBy;
@@ -679,23 +772,51 @@ namespace M3.QA.Models
             p.Add("@n1", (null != value.Item) ? value.Item.N1 : new decimal?());
             p.Add("@n2", (null != value.Item) ? value.Item.N2 : new decimal?());
             p.Add("@n3", (null != value.Item) ? value.Item.N3 : new decimal?());
-            p.Add("@r1", (null != value.Item) ? value.Item.R1 : new decimal?());
-            p.Add("@r2", (null != value.Item) ? value.Item.R2 : new decimal?());
-            p.Add("@r3", (null != value.Item) ? value.Item.R3 : new decimal?());
+
+            p.Add("@n1r1", (null != value.Item) ? value.Item.N1R1 : new decimal?());
+            p.Add("@n1r2", (null != value.Item) ? value.Item.N1R2 : new decimal?());
+            p.Add("@n2r1", (null != value.Item) ? value.Item.N2R1 : new decimal?());
+            p.Add("@n2r2", (null != value.Item) ? value.Item.N2R2 : new decimal?());
+            p.Add("@n3r1", (null != value.Item) ? value.Item.N3R1 : new decimal?());
+            p.Add("@n3r2", (null != value.Item) ? value.Item.N3R2 : new decimal?());
 
             p.Add("@tmn1", (null != value.TM) ? value.TM.N1 : new decimal?());
             p.Add("@tmn2", (null != value.TM) ? value.TM.N2 : new decimal?());
             p.Add("@tmn3", (null != value.TM) ? value.TM.N3 : new decimal?());
-            p.Add("@tmr1", (null != value.TM) ? value.TM.R1 : new decimal?());
-            p.Add("@tmr2", (null != value.TM) ? value.TM.R2 : new decimal?());
-            p.Add("@tmr3", (null != value.TM) ? value.TM.R3 : new decimal?());
+
+            p.Add("@tmn1r1", (null != value.TM) ? value.TM.N1R1 : new decimal?());
+            p.Add("@tmn1r2", (null != value.TM) ? value.TM.N1R2 : new decimal?());
+            p.Add("@tmn2r1", (null != value.TM) ? value.TM.N2R1 : new decimal?());
+            p.Add("@tmn2r2", (null != value.TM) ? value.TM.N2R2 : new decimal?());
+            p.Add("@tmn3r1", (null != value.TM) ? value.TM.N3R1 : new decimal?());
+            p.Add("@tmn3r2", (null != value.TM) ? value.TM.N3R2 : new decimal?());
+
+            p.Add("@tmn1r1flag", (null != value.TM) ? (value.TM.N1R1Flag) ? true : new bool?() : new bool?());
+            p.Add("@tmn1r2flag", (null != value.TM) ? (value.TM.N1R2Flag) ? true : new bool?() : new bool?());
+            p.Add("@tmn2r1flag", (null != value.TM) ? (value.TM.N2R1Flag) ? true : new bool?() : new bool?());
+            p.Add("@tmn2r2flag", (null != value.TM) ? (value.TM.N2R2Flag) ? true : new bool?() : new bool?());
+            p.Add("@tmn3r1flag", (null != value.TM) ? (value.TM.N3R1Flag) ? true : new bool?() : new bool?());
+            p.Add("@tmn3r2flag", (null != value.TM) ? (value.TM.N3R2Flag) ? true : new bool?() : new bool?());
 
             p.Add("@tcmn1", (null != value.TM10cm) ? value.TM10cm.N1 : new decimal?());
             p.Add("@tcmn2", (null != value.TM10cm) ? value.TM10cm.N2 : new decimal?());
             p.Add("@tcmn3", (null != value.TM10cm) ? value.TM10cm.N3 : new decimal?());
-            p.Add("@tcmr1", (null != value.TM10cm) ? value.TM10cm.R1 : new decimal?());
-            p.Add("@tcmr2", (null != value.TM10cm) ? value.TM10cm.R2 : new decimal?());
-            p.Add("@tcmr3", (null != value.TM10cm) ? value.TM10cm.R3 : new decimal?());
+
+            p.Add("@tcmn1r1", (null != value.TM10cm) ? value.TM10cm.N1R1 : new decimal?());
+            p.Add("@tcmn1r2", (null != value.TM10cm) ? value.TM10cm.N1R2 : new decimal?());
+            p.Add("@tcmn2r1", (null != value.TM10cm) ? value.TM10cm.N2R1 : new decimal?());
+            p.Add("@tcmn2r2", (null != value.TM10cm) ? value.TM10cm.N2R2 : new decimal?());
+            p.Add("@tcmn3r1", (null != value.TM10cm) ? value.TM10cm.N3R1 : new decimal?());
+            p.Add("@tcmn3r2", (null != value.TM10cm) ? value.TM10cm.N3R2 : new decimal?());
+
+            p.Add("@tcmn1r1flag", (null != value.TM10cm) ? (value.TM10cm.N1R1Flag) ? true : new bool?() : new bool?());
+            p.Add("@tcmn1r2flag", (null != value.TM10cm) ? (value.TM10cm.N1R2Flag) ? true : new bool?() : new bool?());
+            p.Add("@tcmn2r1flag", (null != value.TM10cm) ? (value.TM10cm.N2R1Flag) ? true : new bool?() : new bool?());
+            p.Add("@tcmn2r2flag", (null != value.TM10cm) ? (value.TM10cm.N2R2Flag) ? true : new bool?() : new bool?());
+            p.Add("@tcmn3r1flag", (null != value.TM10cm) ? (value.TM10cm.N3R1Flag) ? true : new bool?() : new bool?());
+            p.Add("@tcmn3r2flag", (null != value.TM10cm) ? (value.TM10cm.N3R2Flag) ? true : new bool?() : new bool?());
+
+            p.Add("@sampletype", value.SampleType);
 
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);
