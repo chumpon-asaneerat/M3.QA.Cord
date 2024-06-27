@@ -42,13 +42,13 @@
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
-        <!--  R INPUT  -->
-        <Style x:Key="RInput"
+        <!--  R INPUT 1  -->
+        <Style x:Key="RInput1"
                TargetType="TextBox"
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
-            <Setter Property="Text" Value="{Binding R, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
-            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR}" />
+            <Setter Property="Text" Value="{Binding R1, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR1}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
             <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
@@ -180,11 +180,11 @@
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
-                                                                                Visibility="{Binding VisibleR}">
+                                                                                Visibility="{Binding VisibleR1}">
                                                                         <TextBlock TextAlignment="Center"
-                                                                                   Foreground="{Binding ForegroundColorR}"
-                                                                                   Text="{Binding CaptionR}" />
-                                                                        <TextBox Style="{StaticResource RInput}" />
+                                                                                   Foreground="{Binding ForegroundColorR1}"
+                                                                                   Text="{Binding CaptionR1}" />
+                                                                        <TextBox Style="{StaticResource RInput1}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
@@ -233,11 +233,11 @@
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
-                                                                                Visibility="{Binding VisibleR}">
+                                                                                Visibility="{Binding VisibleR1}">
                                                                         <TextBlock TextAlignment="Center"
-                                                                                   Foreground="{Binding ForegroundColorR}"
-                                                                                   Text="{Binding CaptionR}" />
-                                                                        <TextBox Style="{StaticResource RInput}" />
+                                                                                   Foreground="{Binding ForegroundColorR1}"
+                                                                                   Text="{Binding CaptionR1}" />
+                                                                        <TextBox Style="{StaticResource RInput1}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
@@ -293,11 +293,11 @@
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
-                                                                                Visibility="{Binding VisibleR}">
+                                                                                Visibility="{Binding VisibleR1}">
                                                                         <TextBlock TextAlignment="Center"
-                                                                                   Foreground="{Binding ForegroundColorR}"
-                                                                                   Text="{Binding CaptionR}" />
-                                                                        <TextBox Style="{StaticResource RInput}" IsReadOnly="True" />
+                                                                                   Foreground="{Binding ForegroundColorR1}"
+                                                                                   Text="{Binding CaptionR1}" />
+                                                                        <TextBox Style="{StaticResource RInput1}" IsReadOnly="True" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />

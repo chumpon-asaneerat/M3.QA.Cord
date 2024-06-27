@@ -637,7 +637,7 @@ namespace M3.QA.Models
             set { } 
         }
         /// <summary>Gets R1 Display Caption.</summary>
-        public string CaptionR 
+        public string CaptionR1 
         {
             get { return /* "N" + No.ToString() + */ "R1"; }
             set { } 
