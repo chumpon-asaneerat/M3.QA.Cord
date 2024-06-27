@@ -13,8 +13,11 @@ M3 QA Cord #437
 M3 QA Cord #436
 - 
 
+[commit]
 M3 QA Cord #435
-- 
+- Implements Cord Test Data #365
+  - Implements New Cord Retest #15
+  - Update app build 435
 
 [commit]
 M3 QA Cord #434
