@@ -28,8 +28,11 @@ M3 QA Cord #442
 M3 QA Cord #441
 - 
 
+[commit]
 M3 QA Cord #440
-- 
+- Implements Cord Test Data #370
+  - Implements New Cord Retest #20
+  - Update app build 440
 
 [commit]
 M3 QA Cord #439
