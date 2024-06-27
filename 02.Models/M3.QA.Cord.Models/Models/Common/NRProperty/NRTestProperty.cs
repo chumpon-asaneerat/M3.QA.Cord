@@ -348,6 +348,8 @@ namespace M3.QA.Models
                 int idx;
                 if (int.TryParse(sIdx, out idx))
                 {
+                    idx--; // Make zero index
+
                     if (idx < 0 || idx >= this.Items.Count) return;
                     if (propertyName.Contains("R1"))
                     {
