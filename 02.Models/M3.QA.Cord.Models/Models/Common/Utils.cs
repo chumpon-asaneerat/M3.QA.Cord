@@ -411,24 +411,55 @@ namespace M3.QA.Models
             public decimal? LBHN2 { get; set; }
             public decimal? LBHN3 { get; set; }
 
-            public decimal? LBHR1 { get; set; }
-            public decimal? LBHR2 { get; set; }
-            public decimal? LBHR3 { get; set; }
+            public decimal? LBHN1R1 { get; set; }
+            public decimal? LBHN1R2 { get; set; }
+            public decimal? LBHN2R1 { get; set; }
+            public decimal? LBHN2R2 { get; set; }
+            public decimal? LBHN3R1 { get; set; }
+            public decimal? LBHN3R2 { get; set; }
+            public bool? LBHN1R1Flag { get; set; }
+            public bool? LBHN1R2Flag { get; set; }
+            public bool? LBHN2R1Flag { get; set; }
+            public bool? LBHN2R2Flag { get; set; }
+            public bool? LBHN3R1Flag { get; set; }
+            public bool? LBHN3R2Flag { get; set; }
 
             public decimal? LAHN1 { get; set; }
             public decimal? LAHN2 { get; set; }
             public decimal? LAHN3 { get; set; }
 
-            public decimal? LAHR1 { get; set; }
-            public decimal? LAHR2 { get; set; }
-            public decimal? LAHR3 { get; set; }
+            public decimal? LAHN1R1 { get; set; }
+            public decimal? LAHN1R2 { get; set; }
+            public decimal? LAHN2R1 { get; set; }
+            public decimal? LAHN2R2 { get; set; }
+            public decimal? LAHN3R1 { get; set; }
+            public decimal? LAHN3R2 { get; set; }
+            public bool? LAHN1R1Flag { get; set; }
+            public bool? LAHN1R2Flag { get; set; }
+            public bool? LAHN2R1Flag { get; set; }
+            public bool? LAHN2R2Flag { get; set; }
+            public bool? LAHN3R1Flag { get; set; }
+            public bool? LAHN3R2Flag { get; set; }
 
             public decimal? SKN1 { get; set; }
             public decimal? SKN2 { get; set; }
             public decimal? SKN3 { get; set; }
-            public decimal? SKR1 { get; set; }
-            public decimal? SKR2 { get; set; }
-            public decimal? SKR3 { get; set; }
+
+            public decimal? SKN1R1 { get; set; }
+            public decimal? SKN1R2 { get; set; }
+            public decimal? SKN2R1 { get; set; }
+            public decimal? SKN2R2 { get; set; }
+            public decimal? SKN3R1 { get; set; }
+            public decimal? SKN3R2 { get; set; }
+
+            public bool? SKN1R1Flag { get; set; }
+            public bool? SKN1R2Flag { get; set; }
+            public bool? SKN2R1Flag { get; set; }
+            public bool? SKN2R2Flag { get; set; }
+            public bool? SKN3R1Flag { get; set; }
+            public bool? SKN3R2Flag { get; set; }
+
+            public string SampleType { get; set; }
 
             public string InputBy { get; set; }
             public DateTime? InputDate { get; set; }

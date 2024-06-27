@@ -1447,6 +1447,8 @@ namespace M3.QA.Models
             dst.N6R2Out = src.N6R2Out;
             dst.N7R2Out = src.N7R2Out;
 
+            dst.SampleType = src.SampleType;
+
             dst.EnableMultiPropertyTest = src.EnableMultiPropertyTest;
         }
 

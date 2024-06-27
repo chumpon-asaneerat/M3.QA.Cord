@@ -114,6 +114,7 @@ namespace M3.QA.Models
                         dst.Items[i].R2 = src.Items[i].R2;
                         dst.Items[i].R1Flag = src.Items[i].R1Flag;
                         dst.Items[i].R2Flag = src.Items[i].R2Flag;
+                        dst.Items[i].SampleType = src.Items[i].SampleType;
                     }
                 }
             }
@@ -354,7 +355,6 @@ namespace M3.QA.Models
             p.Add("@n2r2flag", value.N2R2Flag);
             p.Add("@n3r1flag", value.N3R1Flag);
             p.Add("@n3r2flag", value.N3R2Flag);
-
 
             p.Add("@sampletype", value.SampleType);
 

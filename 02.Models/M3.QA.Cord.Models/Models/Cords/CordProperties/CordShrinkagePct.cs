@@ -51,41 +51,53 @@ namespace M3.QA.Models
             if (null != Spec && null != LengthBeforeHeat && null != LengthAfterHeat && null != PctShrinkage)
             {
                 // Check Shrinkage%.
-                PctShrinkage.NOut1 = (PctShrinkage.N1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N1.Value) : false;
-                PctShrinkage.NOut2 = (PctShrinkage.N2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N2.Value) : false;
-                PctShrinkage.NOut3 = (PctShrinkage.N3.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N3.Value) : false;
+                PctShrinkage.N1Out = (PctShrinkage.N1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N1.Value) : false;
+                PctShrinkage.N2Out = (PctShrinkage.N2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N2.Value) : false;
+                PctShrinkage.N3Out = (PctShrinkage.N3.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N3.Value) : false;
 
-                PctShrinkage.ROut1 = (PctShrinkage.R1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.R1.Value) : false;
-                PctShrinkage.ROut2 = (PctShrinkage.R2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.R2.Value) : false;
-                PctShrinkage.ROut3 = (PctShrinkage.R3.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.R3.Value) : false;
+                PctShrinkage.N1R1Out = (PctShrinkage.N1R1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N1R1.Value) : false;
+                PctShrinkage.N1R2Out = (PctShrinkage.N1R2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N1R2.Value) : false;
+                PctShrinkage.N2R1Out = (PctShrinkage.N2R1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N2R1.Value) : false;
+                PctShrinkage.N2R2Out = (PctShrinkage.N2R2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N2R2.Value) : false;
+                PctShrinkage.N3R1Out = (PctShrinkage.N3R1.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N3R1.Value) : false;
+                PctShrinkage.N3R2Out = (PctShrinkage.N3R2.HasValue) ? Spec.IsOutOfSpec(PctShrinkage.N3R2.Value) : false;
 
                 // set out of range flag to LengthBeforeHeat object
-                LengthBeforeHeat.NOut1 = PctShrinkage.NOut1;
-                LengthBeforeHeat.NOut2 = PctShrinkage.NOut2;
-                LengthBeforeHeat.NOut3 = PctShrinkage.NOut3;
+                LengthBeforeHeat.N1Out = PctShrinkage.N1Out;
+                LengthBeforeHeat.N2Out = PctShrinkage.N2Out;
+                LengthBeforeHeat.N3Out = PctShrinkage.N3Out;
 
-                LengthBeforeHeat.ROut1 = PctShrinkage.ROut1;
-                LengthBeforeHeat.ROut2 = PctShrinkage.ROut2;
-                LengthBeforeHeat.ROut3 = PctShrinkage.ROut3;
+                LengthBeforeHeat.N1R1Out = PctShrinkage.N1R1Out;
+                LengthBeforeHeat.N1R2Out = PctShrinkage.N1R2Out;
+                LengthBeforeHeat.N2R1Out = PctShrinkage.N2R1Out;
+                LengthBeforeHeat.N2R2Out = PctShrinkage.N2R2Out;
+                LengthBeforeHeat.N3R1Out = PctShrinkage.N3R1Out;
+                LengthBeforeHeat.N3R2Out = PctShrinkage.N3R2Out;
 
                 // set out of range flag to LengthAfterHeat object
-                LengthAfterHeat.NOut1 = PctShrinkage.NOut1;
-                LengthAfterHeat.NOut2 = PctShrinkage.NOut2;
-                LengthAfterHeat.NOut3 = PctShrinkage.NOut3;
+                LengthAfterHeat.N1Out = PctShrinkage.N1Out;
+                LengthAfterHeat.N1Out = PctShrinkage.N1Out;
+                LengthAfterHeat.N1Out = PctShrinkage.N1Out;
 
-                LengthAfterHeat.ROut1 = PctShrinkage.ROut1;
-                LengthAfterHeat.ROut2 = PctShrinkage.ROut2;
-                LengthAfterHeat.ROut3 = PctShrinkage.ROut3;
+                LengthAfterHeat.N1R1Out = PctShrinkage.N1R1Out;
+                LengthAfterHeat.N1R2Out = PctShrinkage.N1R2Out;
+                LengthAfterHeat.N2R1Out = PctShrinkage.N2R1Out;
+                LengthAfterHeat.N2R2Out = PctShrinkage.N2R2Out;
+                LengthAfterHeat.N3R1Out = PctShrinkage.N3R1Out;
+                LengthAfterHeat.N3R2Out = PctShrinkage.N3R2Out;
 
                 // Raise items events
                 PctShrinkage.RaiseNOutChanges();
-                PctShrinkage.RaiseROutChanges();
+                PctShrinkage.RaiseR1OutChanges();
+                PctShrinkage.RaiseR2OutChanges();
 
                 LengthBeforeHeat.RaiseNOutChanges();
-                LengthBeforeHeat.RaiseROutChanges();
+                LengthBeforeHeat.RaiseR1OutChanges();
+                LengthBeforeHeat.RaiseR2OutChanges();
 
                 LengthAfterHeat.RaiseNOutChanges();
-                LengthAfterHeat.RaiseROutChanges();
+                LengthAfterHeat.RaiseR1OutChanges();
+                LengthAfterHeat.RaiseR2OutChanges();
             }
         }
 
@@ -104,26 +116,25 @@ namespace M3.QA.Models
                     LengthBeforeHeat.N3.Value - (LengthAfterHeat.N3.HasValue ? LengthAfterHeat.N3.Value : decimal.Zero) :
                     new decimal?());
 
-                PctShrinkage.R1 = 2 * (LengthBeforeHeat.R1.HasValue ?
-                    LengthBeforeHeat.R1.Value - (LengthAfterHeat.R1.HasValue ? LengthAfterHeat.R1.Value : decimal.Zero) :
+                PctShrinkage.N1R1 = 2 * (LengthBeforeHeat.N1R1.HasValue ?
+                    LengthBeforeHeat.N1R1.Value - (LengthAfterHeat.N1R1.HasValue ? LengthAfterHeat.N1R1.Value : decimal.Zero) :
                     new decimal?());
-                PctShrinkage.R2 = 2 * (LengthBeforeHeat.R2.HasValue ?
-                    LengthBeforeHeat.R2.Value - (LengthAfterHeat.R2.HasValue ? LengthAfterHeat.R2.Value : decimal.Zero) :
+                PctShrinkage.N1R2 = 2 * (LengthBeforeHeat.N1R2.HasValue ?
+                    LengthBeforeHeat.N1R2.Value - (LengthAfterHeat.N1R2.HasValue ? LengthAfterHeat.N1R2.Value : decimal.Zero) :
                     new decimal?());
-                PctShrinkage.R3 = 2 * (LengthBeforeHeat.R3.HasValue ?
-                    LengthBeforeHeat.R3.Value - (LengthAfterHeat.R3.HasValue ? LengthAfterHeat.R3.Value : decimal.Zero) :
+                PctShrinkage.N2R1 = 2 * (LengthBeforeHeat.N2R1.HasValue ?
+                    LengthBeforeHeat.N2R1.Value - (LengthAfterHeat.N2R1.HasValue ? LengthAfterHeat.N2R1.Value : decimal.Zero) :
+                    new decimal?());
+                PctShrinkage.N2R2 = 2 * (LengthBeforeHeat.N2R2.HasValue ?
+                    LengthBeforeHeat.N2R2.Value - (LengthAfterHeat.N2R2.HasValue ? LengthAfterHeat.N2R2.Value : decimal.Zero) :
+                    new decimal?());
+                PctShrinkage.N3R1 = 2 * (LengthBeforeHeat.N3R1.HasValue ?
+                    LengthBeforeHeat.N3R1.Value - (LengthAfterHeat.N3R1.HasValue ? LengthAfterHeat.N3R1.Value : decimal.Zero) :
+                    new decimal?());
+                PctShrinkage.N3R2 = 2 * (LengthBeforeHeat.N3R2.HasValue ?
+                    LengthBeforeHeat.N3R2.Value - (LengthAfterHeat.N3R2.HasValue ? LengthAfterHeat.N3R2.Value : decimal.Zero) :
                     new decimal?());
 
-                // Recheck if less than zero not allow
-                /*
-                if (PctShrinkage.N1.HasValue && PctShrinkage.N1.Value < 0) PctShrinkage.N1 = new decimal?();
-                if (PctShrinkage.N2.HasValue && PctShrinkage.N2.Value < 0) PctShrinkage.N2 = new decimal?();
-                if (PctShrinkage.N3.HasValue && PctShrinkage.N3.Value < 0) PctShrinkage.N3 = new decimal?();
-
-                if (PctShrinkage.R1.HasValue && PctShrinkage.R1.Value < 0) PctShrinkage.R1 = new decimal?();
-                if (PctShrinkage.R2.HasValue && PctShrinkage.R2.Value < 0) PctShrinkage.R2 = new decimal?();
-                if (PctShrinkage.R3.HasValue && PctShrinkage.R3.Value < 0) PctShrinkage.R3 = new decimal?();
-                */
                 // Raise events
                 Raise(() => this.PctShrinkage);
 
@@ -141,6 +152,7 @@ namespace M3.QA.Models
             LengthBeforeHeat.NoOfSample = NoOfSample;
             LengthBeforeHeat.NeedSP = NeedSP;
             LengthBeforeHeat.YarnType = YarnType;
+            LengthBeforeHeat.SampleType = SampleType;
 
             // Check calculate action
             if (null == LengthBeforeHeat.ValueChanges)
@@ -156,6 +168,7 @@ namespace M3.QA.Models
             LengthAfterHeat.NoOfSample = NoOfSample;
             LengthAfterHeat.NeedSP = NeedSP;
             LengthAfterHeat.YarnType = YarnType;
+            LengthAfterHeat.SampleType = SampleType;
             // Check calculate action
             if (null == LengthAfterHeat.ValueChanges)
             {
@@ -170,6 +183,7 @@ namespace M3.QA.Models
             PctShrinkage.NoOfSample = NoOfSample;
             PctShrinkage.NeedSP = NeedSP;
             PctShrinkage.YarnType = YarnType;
+            PctShrinkage.SampleType = SampleType;
 
             CalculateFormula(); // calculate
 
@@ -244,6 +258,18 @@ namespace M3.QA.Models
         }
         /// <summary>Gets or sets Yarn Type.</summary>
         public string YarnType
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    UpdateProperties();
+                });
+            }
+        }
+        /// <summary>Gets or sets Sample Type.</summary>
+        public string SampleType
         {
             get { return Get<string>(); }
             set
@@ -376,6 +402,7 @@ namespace M3.QA.Models
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
                         existItems[idx].YarnType = item.YarnType;
+                        //existItems[idx].SampleType = item.SampleType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }
@@ -404,6 +431,7 @@ namespace M3.QA.Models
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
             dst.YarnType = src.YarnType;
+            dst.SampleType = src.SampleType;
 
             dst.EditBy = src.EditBy;
             dst.EditDate = src.EditDate;
@@ -470,18 +498,40 @@ namespace M3.QA.Models
                             inst.LengthBeforeHeat.N1 = item.LBHN1;
                             inst.LengthBeforeHeat.N2 = item.LBHN2;
                             inst.LengthBeforeHeat.N3 = item.LBHN3;
-                            inst.LengthBeforeHeat.R1 = item.LBHR1;
-                            inst.LengthBeforeHeat.R2 = item.LBHR2;
-                            inst.LengthBeforeHeat.R3 = item.LBHR3;
+
+                            inst.LengthBeforeHeat.N1R1 = item.LBHN1R1;
+                            inst.LengthBeforeHeat.N1R2 = item.LBHN1R2;
+                            inst.LengthBeforeHeat.N2R1 = item.LBHN2R1;
+                            inst.LengthBeforeHeat.N2R2 = item.LBHN2R2;
+                            inst.LengthBeforeHeat.N3R1 = item.LBHN3R1;
+                            inst.LengthBeforeHeat.N3R2 = item.LBHN3R2;
+
+                            inst.LengthBeforeHeat.N1R1Flag = item.LBHN1R1Flag.HasValue ? item.LBHN1R1Flag.Value : false;
+                            inst.LengthBeforeHeat.N1R2Flag = item.LBHN1R2Flag.HasValue ? item.LBHN1R2Flag.Value : false;
+                            inst.LengthBeforeHeat.N2R1Flag = item.LBHN2R1Flag.HasValue ? item.LBHN2R1Flag.Value : false;
+                            inst.LengthBeforeHeat.N2R2Flag = item.LBHN2R2Flag.HasValue ? item.LBHN2R2Flag.Value : false;
+                            inst.LengthBeforeHeat.N3R1Flag = item.LBHN3R1Flag.HasValue ? item.LBHN3R1Flag.Value : false;
+                            inst.LengthBeforeHeat.N3R2Flag = item.LBHN3R2Flag.HasValue ? item.LBHN3R2Flag.Value : false;
                         }
                         if (null != inst.LengthAfterHeat)
                         {
                             inst.LengthAfterHeat.N1 = item.LAHN1;
                             inst.LengthAfterHeat.N2 = item.LAHN2;
                             inst.LengthAfterHeat.N3 = item.LAHN3;
-                            inst.LengthAfterHeat.R1 = item.LAHR1;
-                            inst.LengthAfterHeat.R2 = item.LAHR2;
-                            inst.LengthAfterHeat.R3 = item.LAHR3;
+
+                            inst.LengthAfterHeat.N1R1 = item.LAHN1R1;
+                            inst.LengthAfterHeat.N1R2 = item.LAHN1R2;
+                            inst.LengthAfterHeat.N2R1 = item.LAHN2R1;
+                            inst.LengthAfterHeat.N2R2 = item.LAHN2R2;
+                            inst.LengthAfterHeat.N3R1 = item.LAHN3R1;
+                            inst.LengthAfterHeat.N3R2 = item.LAHN3R2;
+
+                            inst.LengthAfterHeat.N1R1Flag = item.LAHN1R1Flag.HasValue ? item.LAHN1R1Flag.Value : false;
+                            inst.LengthAfterHeat.N1R2Flag = item.LAHN1R2Flag.HasValue ? item.LAHN1R2Flag.Value : false;
+                            inst.LengthAfterHeat.N2R1Flag = item.LAHN2R1Flag.HasValue ? item.LAHN2R1Flag.Value : false;
+                            inst.LengthAfterHeat.N2R2Flag = item.LAHN2R2Flag.HasValue ? item.LAHN2R2Flag.Value : false;
+                            inst.LengthAfterHeat.N3R1Flag = item.LAHN3R1Flag.HasValue ? item.LAHN3R1Flag.Value : false;
+                            inst.LengthAfterHeat.N3R2Flag = item.LAHN3R2Flag.HasValue ? item.LAHN3R2Flag.Value : false;
                         }
 
                         if (null != inst.PctShrinkage)
@@ -489,9 +539,20 @@ namespace M3.QA.Models
                             inst.PctShrinkage.N1 = item.SKN1;
                             inst.PctShrinkage.N2 = item.SKN2;
                             inst.PctShrinkage.N3 = item.SKN3;
-                            inst.PctShrinkage.R1 = item.SKR1;
-                            inst.PctShrinkage.R2 = item.SKR2;
-                            inst.PctShrinkage.R3 = item.SKR3;
+
+                            inst.PctShrinkage.N1R1 = item.SKN1R1;
+                            inst.PctShrinkage.N1R2 = item.SKN1R2;
+                            inst.PctShrinkage.N2R1 = item.SKN2R1;
+                            inst.PctShrinkage.N2R2 = item.SKN2R2;
+                            inst.PctShrinkage.N3R1 = item.SKN3R1;
+                            inst.PctShrinkage.N3R2 = item.SKN3R2;
+
+                            inst.PctShrinkage.N1R1Flag = item.SKN1R1Flag.HasValue ? item.SKN1R1Flag.Value : false;
+                            inst.PctShrinkage.N1R2Flag = item.SKN1R2Flag.HasValue ? item.SKN1R2Flag.Value : false;
+                            inst.PctShrinkage.N2R1Flag = item.SKN2R1Flag.HasValue ? item.SKN2R1Flag.Value : false;
+                            inst.PctShrinkage.N2R2Flag = item.SKN2R2Flag.HasValue ? item.SKN2R2Flag.Value : false;
+                            inst.PctShrinkage.N3R1Flag = item.SKN3R1Flag.HasValue ? item.SKN3R1Flag.Value : false;
+                            inst.PctShrinkage.N3R2Flag = item.SKN3R2Flag.HasValue ? item.SKN3R2Flag.Value : false;
                         }
 
                         inst.InputBy = item.InputBy;
@@ -560,23 +621,51 @@ namespace M3.QA.Models
             p.Add("@lbhn1", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N1 : new decimal?());
             p.Add("@lbhn2", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N2 : new decimal?());
             p.Add("@lbhn3", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N3 : new decimal?());
-            p.Add("@lbhr1", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.R1 : new decimal?());
-            p.Add("@lbhr2", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.R2 : new decimal?());
-            p.Add("@lbhr3", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.R3 : new decimal?());
+
+            p.Add("@lbhn1r1", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N1R1 : new decimal?());
+            p.Add("@lbhn1r2", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N1R2 : new decimal?());
+            p.Add("@lbhn2r1", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N2R1 : new decimal?());
+            p.Add("@lbhn2r2", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N2R2 : new decimal?());
+            p.Add("@lbhn3r1", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N3R1 : new decimal?());
+            p.Add("@lbhn3r2", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N3R2 : new decimal?());
+
+            p.Add("@lbhn1r1", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N1R1 : new decimal?());
+            p.Add("@lbhn1r2", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N1R2 : new decimal?());
+            p.Add("@lbhn2r1", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N2R1 : new decimal?());
+            p.Add("@lbhn2r2", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N2R2 : new decimal?());
+            p.Add("@lbhn3r1", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N3R1 : new decimal?());
+            p.Add("@lbhn3r2", (null != value.LengthBeforeHeat) ? value.LengthBeforeHeat.N3R2 : new decimal?());
 
             p.Add("@lahn1", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.N1 : new decimal?());
             p.Add("@lahn2", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.N2 : new decimal?());
             p.Add("@lahn3", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.N3 : new decimal?());
-            p.Add("@lahr1", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.R1 : new decimal?());
-            p.Add("@lahr2", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.R2 : new decimal?());
-            p.Add("@lahr3", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.R3 : new decimal?());
+
+            p.Add("@lahn1r1", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.N1R1 : new decimal?());
+            p.Add("@lahn1r2", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.N1R2 : new decimal?());
+            p.Add("@lahn2r1", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.N2R1 : new decimal?());
+            p.Add("@lahn2r2", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.N2R2 : new decimal?());
+            p.Add("@lahn3r1", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.N3R1 : new decimal?());
+            p.Add("@lahn3r2", (null != value.LengthAfterHeat) ? value.LengthAfterHeat.N3R2 : new decimal?());
 
             p.Add("@skn1", (null != value.PctShrinkage) ? value.PctShrinkage.N1 : new decimal?());
             p.Add("@skn2", (null != value.PctShrinkage) ? value.PctShrinkage.N2 : new decimal?());
             p.Add("@skn3", (null != value.PctShrinkage) ? value.PctShrinkage.N3 : new decimal?());
-            p.Add("@skr1", (null != value.PctShrinkage) ? value.PctShrinkage.R1 : new decimal?());
-            p.Add("@skr2", (null != value.PctShrinkage) ? value.PctShrinkage.R2 : new decimal?());
-            p.Add("@skr3", (null != value.PctShrinkage) ? value.PctShrinkage.R3 : new decimal?());
+            
+            p.Add("@skn1r1", (null != value.PctShrinkage) ? value.PctShrinkage.N1R1 : new decimal?());
+            p.Add("@skn1r2", (null != value.PctShrinkage) ? value.PctShrinkage.N1R2 : new decimal?());
+            p.Add("@skn2r1", (null != value.PctShrinkage) ? value.PctShrinkage.N2R1 : new decimal?());
+            p.Add("@skn2r2", (null != value.PctShrinkage) ? value.PctShrinkage.N2R2 : new decimal?());
+            p.Add("@skn3r1", (null != value.PctShrinkage) ? value.PctShrinkage.N3R1 : new decimal?());
+            p.Add("@skn3r2", (null != value.PctShrinkage) ? value.PctShrinkage.N3R2 : new decimal?());
+
+            p.Add("@skn1r1flag", (null != value.PctShrinkage) ? (value.PctShrinkage.N1R1Flag) ? true : new bool?() : new bool?());
+            p.Add("@skn1r2flag", (null != value.PctShrinkage) ? (value.PctShrinkage.N1R2Flag) ? true : new bool?() : new bool?());
+            p.Add("@skn2r1flag", (null != value.PctShrinkage) ? (value.PctShrinkage.N2R1Flag) ? true : new bool?() : new bool?());
+            p.Add("@skn2r2flag", (null != value.PctShrinkage) ? (value.PctShrinkage.N2R2Flag) ? true : new bool?() : new bool?());
+            p.Add("@skn3r1flag", (null != value.PctShrinkage) ? (value.PctShrinkage.N3R1Flag) ? true : new bool?() : new bool?());
+            p.Add("@skn3r2flag", (null != value.PctShrinkage) ? (value.PctShrinkage.N3R2Flag) ? true : new bool?() : new bool?());
+
+            p.Add("@sampletype", value.SampleType);
 
             p.Add("@user", value.EditBy);
             p.Add("@savedate", value.EditDate);
