@@ -23,6 +23,10 @@ namespace M3.QA.Models
     /// </summary>
     public class CordElongationSubProperty : NRTestProperty
     {
+        #region Protected Methods
+
+        #endregion
+
         #region Public Properties
 
         #region LoadN

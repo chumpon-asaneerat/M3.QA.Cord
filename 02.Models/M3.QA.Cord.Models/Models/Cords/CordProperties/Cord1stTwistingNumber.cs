@@ -567,6 +567,12 @@ namespace M3.QA.Models
                 }
             }
 
+            // re checking.
+            if (null != results)
+            {
+                //foreach (var item in results) item.CalculateFormulaFromItem(); // Check spec to update UI
+            }
+            
             return results;
         }
 

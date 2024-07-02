@@ -76,8 +76,8 @@ namespace M3.QA.Models
 
                 // set out of range flag to LengthAfterHeat object
                 LengthAfterHeat.N1Out = PctShrinkage.N1Out;
-                LengthAfterHeat.N1Out = PctShrinkage.N1Out;
-                LengthAfterHeat.N1Out = PctShrinkage.N1Out;
+                LengthAfterHeat.N2Out = PctShrinkage.N2Out;
+                LengthAfterHeat.N3Out = PctShrinkage.N3Out;
 
                 LengthAfterHeat.N1R1Out = PctShrinkage.N1R1Out;
                 LengthAfterHeat.N1R2Out = PctShrinkage.N1R2Out;
@@ -407,6 +407,12 @@ namespace M3.QA.Models
                         Clone(existItems[idx], item);
                     }
                 }
+            }
+
+            // re checking.
+            if (null != results)
+            {
+                foreach (var item in results) item.CalculateFormula(); // calculate to update UI
             }
 
             return results;
