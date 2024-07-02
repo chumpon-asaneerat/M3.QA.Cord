@@ -212,7 +212,7 @@
                                                                     <!--  R2  -->
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
-                                                                                Visibility="{Binding VisibleR1}">
+                                                                                Visibility="{Binding VisibleR2}">
                                                                         <TextBlock TextAlignment="Center"
                                                                                    Foreground="{Binding ForegroundColorR2}"
                                                                                    Text="{Binding CaptionR2}" />

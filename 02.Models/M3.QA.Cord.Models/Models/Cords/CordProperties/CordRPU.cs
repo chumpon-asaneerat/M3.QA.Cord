@@ -79,8 +79,6 @@ namespace M3.QA.Models
                 RPU.RaiseNOutChanges();
                 RPU.RaiseR1OutChanges();
                 RPU.RaiseR2OutChanges();
-
-                Raise(() => this.RPUForegroundColor);
             }
         }
 
@@ -90,17 +88,29 @@ namespace M3.QA.Models
             {
                 // RPU = ( (BF Heat – AF Heat) / AF Heat )*100
 
-                decimal? BF;
-                decimal? AF;
-                decimal? diff;
+                decimal? BFN1, BFN1R1, BFN1R2;
+                decimal? AFN1, AFN1R1, AFN1R2;
+                decimal? diffN1, diffN1R1, diffN1R2;
 
-                BF = (BeforeHeat.N1R1.HasValue) ? BeforeHeat.N1R1.Value : (BeforeHeat.N1.HasValue) ? BeforeHeat.N1.Value : new decimal?();
-                AF = (AfterHeat.N1R1.HasValue) ? AfterHeat.N1R1.Value : (AfterHeat.N1.HasValue) ? AfterHeat.N1.Value : new decimal?();
+                BFN1 = (BeforeHeat.N1.HasValue) ? BeforeHeat.N1.Value : (BeforeHeat.N1.HasValue) ? BeforeHeat.N1.Value : new decimal?();
+                AFN1 = (AfterHeat.N1.HasValue) ? AfterHeat.N1.Value : (AfterHeat.N1.HasValue) ? AfterHeat.N1.Value : new decimal?();
+
+                BFN1R1 = (BeforeHeat.N1R1.HasValue) ? BeforeHeat.N1R1.Value : (BeforeHeat.N1R1.HasValue) ? BeforeHeat.N1R1.Value : new decimal?();
+                AFN1R1 = (AfterHeat.N1R1.HasValue) ? AfterHeat.N1R1.Value : (AfterHeat.N1R1.HasValue) ? AfterHeat.N1R1.Value : new decimal?();
+
+                BFN1R2 = (BeforeHeat.N1R2.HasValue) ? BeforeHeat.N1R2.Value : (BeforeHeat.N1R2.HasValue) ? BeforeHeat.N1R2.Value : new decimal?();
+                AFN1R2 = (AfterHeat.N1R2.HasValue) ? AfterHeat.N1R2.Value : (AfterHeat.N1R2.HasValue) ? AfterHeat.N1R2.Value : new decimal?();
 
                 //diff = (BF.HasValue && AF.HasValue && (BF.Value - AF.Value > 0)) ? BF.Value - AF.Value : new decimal?();
                 //RPU = (diff.HasValue && AF.HasValue && AF.Value > 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
-                diff = (BF.HasValue && AF.HasValue) ? BF.Value - AF.Value : new decimal?();
-                RPU.N1 = (diff.HasValue && AF.HasValue && AF.Value != 0) ? (diff.Value / AF.Value) * 100 : new decimal?();
+                
+                diffN1 = (BFN1.HasValue && AFN1.HasValue) ? BFN1.Value - AFN1.Value : new decimal?();
+                diffN1R1 = (BFN1R1.HasValue && AFN1R1.HasValue) ? BFN1R1.Value - AFN1R1.Value : new decimal?();
+                diffN1R2 = (BFN1R2.HasValue && AFN1R2.HasValue) ? BFN1R2.Value - AFN1R2.Value : new decimal?();
+
+                RPU.N1 = (diffN1.HasValue && AFN1.HasValue && AFN1.Value != 0) ? (diffN1.Value / AFN1.Value) * 100 : new decimal?();
+                RPU.N1R1 = (diffN1R1.HasValue && AFN1R1.HasValue && AFN1R1.Value != 0) ? (diffN1R1.Value / AFN1R1.Value) * 100 : new decimal?();
+                RPU.N1R2 = (diffN1R2.HasValue && AFN1R2.HasValue && AFN1R2.Value != 0) ? (diffN1R2.Value / AFN1R2.Value) * 100 : new decimal?();
 
                 // Raise events
                 Raise(() => this.RPU);
@@ -280,16 +290,6 @@ namespace M3.QA.Models
         public NRTestProperty BeforeHeat { get; set; }
         public NRTestProperty AfterHeat { get; set; }
         public NRTestProperty RPU { get; set; }
-
-        public SolidColorBrush RPUForegroundColor 
-        { 
-            get
-            {
-                return (null != RPU && RPU.N1Out) ? ModelConsts.RedColor : ModelConsts.BlackColor;
-            }
-            set { }
-        }
-
 
         #endregion
 
