@@ -533,7 +533,7 @@ namespace M3.QA.Models
                     bool ret = (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R1.HasValue) : ((N.HasValue && NOut) || R1.HasValue);
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
                     bool oOut = NOOut;
-                    return ret && allowR && oOut;
+                    return (ret && allowR) || oOut;
                 }
             } 
             set { } 
@@ -599,14 +599,14 @@ namespace M3.QA.Models
                     bool ret = (NeedSP) ? !SPNo.HasValue && !GetNMultiOut() : (null != GetNMultiOut) ? (!GetNMultiOut()) : true;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
                     bool oOut = NOOut ? false : true;
-                    return ret && allowR && oOut;
+                    return (ret && allowR) && oOut;
                 }
                 else
                 {
                     bool ret = (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
                     bool oOut = NOOut ? false : true;
-                    return ret && allowR && oOut;
+                    return (ret && allowR) && oOut;
                 }
             }
             set { }
