@@ -42,6 +42,9 @@ namespace M3.QA.Models
         private List<Func<bool>> _GetNOuts;
         private List<Action<bool>> _SetNOuts;
 
+        private List<Func<bool>> _GetNOOuts;
+        private List<Action<bool>> _SetNOOuts;
+
         private List<Func<bool>> _GetR1Outs;
         private List<Action<bool>> _SetR1Outs;
 
@@ -166,6 +169,28 @@ namespace M3.QA.Models
                 (value) => { this.N5Out = value; },
                 (value) => { this.N6Out = value; },
                 (value) => { this.N7Out = value; }
+            };
+            // Get N Overall Out
+            _GetNOOuts = new List<Func<bool>>()
+            {
+                () => { return this.N1OOut; },
+                () => { return this.N2OOut; },
+                () => { return this.N3OOut; },
+                () => { return this.N4OOut; },
+                () => { return this.N5OOut; },
+                () => { return this.N6OOut; },
+                () => { return this.N7OOut; }
+            };
+            // Set N Overall Out
+            _SetNOOuts = new List<Action<bool>>()
+            {
+                (value) => { this.N1OOut = value; },
+                (value) => { this.N2OOut = value; },
+                (value) => { this.N3OOut = value; },
+                (value) => { this.N4OOut = value; },
+                (value) => { this.N5OOut = value; },
+                (value) => { this.N6OOut = value; },
+                (value) => { this.N7OOut = value; }
             };
             // Get R1 Out
             _GetR1Outs = new List<Func<bool>>()
@@ -306,6 +331,9 @@ namespace M3.QA.Models
                     // assign method pointer to Get/Set O
                     item.GetNOut = (null != _GetNOuts) ? _GetNOuts[i - 1] : null;
                     item.SetNOut = (null != _SetNOuts) ? _SetNOuts[i - 1] : null;
+                    // assign method pointer to Get/Set Overall Out
+                    item.GetNOOut = (null != _GetNOOuts) ? _GetNOOuts[i - 1] : null;
+                    item.SetNOOut = (null != _SetNOOuts) ? _SetNOOuts[i - 1] : null;
                     // assign method pointer to Get/Set R1Out
                     item.GetR1Out = (null != _GetR1Outs) ? _GetR1Outs[i - 1] : null;
                     item.SetR1Out = (null != _SetR1Outs) ? _SetR1Outs[i - 1] : null;
@@ -1345,6 +1373,89 @@ namespace M3.QA.Models
         }
         /// <summary>Gets or sets Re-Test 2 Flag 7 value.</summary>
         public bool N7R2Flag
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+
+        #endregion
+
+        #region Overall Out (for share out between all items at same N)
+
+        // overall out.
+        public bool N1OOut
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        public bool N2OOut
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        public bool N3OOut
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        public bool N4OOut
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        public bool N5OOut
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        public bool N6OOut
+        {
+            get { return Get<bool>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        public bool N7OOut
         {
             get { return Get<bool>(); }
             set

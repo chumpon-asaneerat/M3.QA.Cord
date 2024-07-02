@@ -6,10 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media.Media3D;
 using Dapper;
 
 using NLib;
 using NLib.Models;
+using OfficeOpenXml;
 using OfficeOpenXml.ConditionalFormatting;
 
 #endregion
@@ -23,7 +25,12 @@ namespace M3.QA.Models
     /// </summary>
     public class CordElongationSubProperty : NRTestProperty
     {
-        #region Protected Methods
+        #region Internal Methods
+
+        internal void InternalCheckSpec()
+        {
+            this.CheckSpec();
+        }
 
         #endregion
 
@@ -89,6 +96,36 @@ namespace M3.QA.Models
             dst.N5 = src.N5;
             dst.N6 = src.N6;
             dst.N7 = src.N7;
+
+            dst.N1R1 = src.N1R1;
+            dst.N1R2 = src.N1R2;
+            dst.N2R1 = src.N2R1;
+            dst.N2R2 = src.N2R2;
+            dst.N3R1 = src.N3R1;
+            dst.N3R2 = src.N3R2;
+            dst.N4R1 = src.N4R1;
+            dst.N4R2 = src.N4R2;
+            dst.N5R1 = src.N5R1;
+            dst.N5R2 = src.N5R2;
+            dst.N6R1 = src.N6R1;
+            dst.N6R2 = src.N6R2;
+            dst.N7R1 = src.N7R1;
+            dst.N7R2 = src.N7R2;
+
+            dst.N1R1Flag = src.N1R1Flag;
+            dst.N1R2Flag = src.N1R2Flag;
+            dst.N2R1Flag = src.N2R1Flag;
+            dst.N2R2Flag = src.N2R2Flag;
+            dst.N3R1Flag = src.N3R1Flag;
+            dst.N3R2Flag = src.N3R2Flag;
+            dst.N4R1Flag = src.N4R1Flag;
+            dst.N4R2Flag = src.N4R2Flag;
+            dst.N5R1Flag = src.N5R1Flag;
+            dst.N5R2Flag = src.N5R2Flag;
+            dst.N6R1Flag = src.N6R1Flag;
+            dst.N6R2Flag = src.N6R2Flag;
+            dst.N7R1Flag = src.N7R1Flag;
+            dst.N7R2Flag = src.N7R2Flag;
 
             dst.N1R1Out = src.N1R1Out;
             dst.N2R1Out = src.N2R1Out;
@@ -359,6 +396,11 @@ namespace M3.QA.Models
                 NoOfSample = noOfSample
             };
 
+            if (null != elongItem)
+            {
+                inst.ValueChanges = elongItem.CalculateFormula;
+            }
+
             results.Add(inst);
 
             return results;
@@ -476,6 +518,11 @@ namespace M3.QA.Models
                         LoadN = elongId
                     };
 
+                    if (null != elongItem)
+                    {
+                        inst.ValueChanges = elongItem.CalculateFormula;
+                    }
+
                     results.Add(inst);
                 }
             }
@@ -495,6 +542,47 @@ namespace M3.QA.Models
     /// </summary>
     public class CordElongation
     {
+        #region Private Methods
+
+        internal void CalculateFormula()
+        {
+            if (null == SubProperties) return;
+
+            int iN1Out = 0;
+            int iN2Out = 0;
+            int iN3Out = 0;
+            int iN4Out = 0;
+            int iN5Out = 0;
+            int iN6Out = 0;
+            int iN7Out = 0;
+            // Check all items
+            foreach (var inst in SubProperties) 
+            {
+                if (inst.N1Out) iN1Out++;
+                if (inst.N2Out) iN2Out++;
+                if (inst.N3Out) iN3Out++;
+                if (inst.N4Out) iN4Out++;
+                if (inst.N5Out) iN5Out++;
+                if (inst.N6Out) iN6Out++;
+                if (inst.N7Out) iN7Out++;
+            }
+            // Update NOut for all items
+            foreach (var inst in SubProperties)
+            {
+                inst.N1OOut = (iN1Out > 0);
+                inst.N2OOut = (iN2Out > 0);
+                inst.N3OOut = (iN3Out > 0);
+                inst.N4OOut = (iN4Out > 0);
+                inst.N5OOut = (iN5Out > 0);
+                inst.N6OOut = (iN6Out > 0);
+                inst.N7OOut = (iN7Out > 0);
+
+                inst.InternalCheckSpec();
+            }
+        }
+
+        #endregion
+
         #region Public Properties
 
         public string LotNo { get; set; }
@@ -682,6 +770,12 @@ namespace M3.QA.Models
                         }
                     };
                 }
+            }
+
+            // Re check.
+            if (null != allItems)
+            {
+                foreach (var item in allItems) item.CalculateFormula();
             }
 
             return allItems;

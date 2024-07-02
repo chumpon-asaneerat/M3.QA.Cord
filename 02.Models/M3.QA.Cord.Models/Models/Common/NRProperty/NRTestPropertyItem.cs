@@ -246,6 +246,9 @@ namespace M3.QA.Models
         // NOut Gets/Sets
         protected internal Func<bool> GetNOut { get; set; }
         protected internal Action<bool> SetNOut { get; set; }
+        // NOOut Gets/Sets
+        protected internal Func<bool> GetNOOut { get; set; }
+        protected internal Action<bool> SetNOOut { get; set; }
         // R1Out Gets/Sets
         protected internal Func<bool> GetR1Out { get; set; }
         protected internal Action<bool> SetR1Out { get; set; }
@@ -460,6 +463,30 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Overall Out (for share out between all items at same N)
+
+        // overall out.
+        public bool NOOut
+        {
+            get { return (null != GetNOOut) ? GetNOOut() : false; }
+            set
+            {
+                if (null != SetNOOut)
+                {
+                    SetNOOut(value);
+                    // Raise events
+                    Raise(() => this.EnableR1);
+                    Raise(() => this.EnableR2);
+                    Raise(() => this.ReadOnlyR1);
+                    Raise(() => this.ReadOnlyR2);
+                    Raise(() => this.VisibleR1);
+                    Raise(() => this.VisibleR2);
+                }
+            }
+        }
+
+        #endregion
+
         #region MultiPropertyRetest
 
         /// <summary>Check is Enable Multi Property Retest.</summary>
@@ -498,13 +525,15 @@ namespace M3.QA.Models
                 {
                     bool ret = (NeedSP) ? SPNo.HasValue && GetNMultiOut() : (null != GetNMultiOut) ? GetNMultiOut() : false;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                    return ret && allowR;
+                    bool oOut = NOOut;
+                    return (ret && allowR) || oOut;
                 }
                 else
                 {
                     bool ret = (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R1.HasValue) : ((N.HasValue && NOut) || R1.HasValue);
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                    return ret && allowR;
+                    bool oOut = NOOut;
+                    return ret && allowR && oOut;
                 }
             } 
             set { } 
@@ -518,13 +547,15 @@ namespace M3.QA.Models
                 {
                     bool ret = (NeedSP) ? SPNo.HasValue && GetNMultiOut() : (null != GetNMultiOut) ? GetNMultiOut() : false;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                    return ret && allowR;
+                    bool oOut = NOOut ? true : false;
+                    return (ret && allowR) || oOut;
                 }
                 else
                 {
                     bool ret = (NeedSP) ? SPNo.HasValue && ((N.HasValue && NOut) || R2.HasValue) : ((N.HasValue && NOut) || R2.HasValue);
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                    return ret && allowR;
+                    bool oOut = NOOut ? true : false;
+                    return (ret && allowR) || oOut;
                 }
             }
             set { }
@@ -545,13 +576,15 @@ namespace M3.QA.Models
                 {
                     bool ret = (NeedSP) ? !SPNo.HasValue && !GetNMultiOut() : (null != GetNMultiOut) ? (!GetNMultiOut()) : true;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                    return ret && allowR;
+                    bool oOut = NOOut ? false : true;
+                    return (ret && allowR) && oOut;
                 }
                 else
                 {
                     bool ret = (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                    return ret && allowR;
+                    bool oOut = NOOut ? false : true;
+                    return (ret && allowR) && oOut;
                 }
             } 
             set { } 
@@ -565,13 +598,15 @@ namespace M3.QA.Models
                 {
                     bool ret = (NeedSP) ? !SPNo.HasValue && !GetNMultiOut() : (null != GetNMultiOut) ? (!GetNMultiOut()) : true;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                    return ret && allowR;
+                    bool oOut = NOOut ? false : true;
+                    return ret && allowR && oOut;
                 }
                 else
                 {
                     bool ret = (NeedSP) ? !SPNo.HasValue && !N.HasValue : !N.HasValue;
                     bool allowR = (null != CustomAllowR) ? CustomAllowR() : true;
-                    return ret && allowR;
+                    bool oOut = NOOut ? false : true;
+                    return ret && allowR && oOut;
                 }
             }
             set { }
