@@ -28,8 +28,11 @@ M3 QA Cord #452
 M3 QA Cord #451
 - 
 
+[commit]
 M3 QA Cord #450
-- 
+- Implements Cord Test Data #40
+  - Implements New Cord Retest #30
+- Re compile all
 
 [commit]
 M3 QA Cord #449
