@@ -116,6 +116,8 @@ namespace M3.QA.Models
                 if (null != Temperature)
                 {
                     Temperature.RaiseNOutChanges();
+                    Temperature.RaiseR1OutChanges();
+                    Temperature.RaiseR2OutChanges();
                 }
             }
             else if (caller == "TEMP")
@@ -123,6 +125,8 @@ namespace M3.QA.Models
                 if (null != Ph)
                 {
                     Ph.RaiseNOutChanges();
+                    Ph.RaiseR1OutChanges();
+                    Ph.RaiseR2OutChanges();
                 }
             }
         }

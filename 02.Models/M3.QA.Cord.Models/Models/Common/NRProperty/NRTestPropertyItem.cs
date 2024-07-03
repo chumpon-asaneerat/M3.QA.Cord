@@ -320,7 +320,9 @@ namespace M3.QA.Models
                 if (null != SetN)
                 {
                     SetN(value);
+
                     // Raise events
+                    Raise(() => this.N);
                     Raise(() => this.EnableN);
                     Raise(() => this.EnableR1);
                     Raise(() => this.EnableR2);
@@ -333,7 +335,6 @@ namespace M3.QA.Models
                     Raise(() => this.ReadOnlyR1);
                     Raise(() => this.ReadOnlyR2);
 
-                    Raise(() => this.N);
                     Raise(() => this.ForegroundColorN);
                 }
             }
@@ -349,7 +350,6 @@ namespace M3.QA.Models
                     SetR1(value);
                     // Raise events
                     Raise(() => this.R1);
-
                     Raise(() => this.VisibleR1);
                     Raise(() => this.ReadOnlyR1);
 
@@ -368,7 +368,6 @@ namespace M3.QA.Models
                     SetR2(value);
                     // Raise events
                     Raise(() => this.R2);
-
                     Raise(() => this.VisibleR2);
                     Raise(() => this.ReadOnlyR2);
 
@@ -564,7 +563,11 @@ namespace M3.QA.Models
         /// <summary>Check is ReadOnly Normal Test.</summary>
         public bool ReadOnlyN 
         { 
-            get { return (NeedSP) ? !SPNo.HasValue || R1.HasValue || R2.HasValue : R1.HasValue || R2.HasValue; } 
+            get 
+            {
+                bool ret = (NeedSP) ? !SPNo.HasValue || R1.HasValue || R2.HasValue : R1.HasValue || R2.HasValue;
+                return ret; 
+            } 
             set { } 
         }
         /// <summary>Check is ReadOnly Re Test 1 (if no N not allow to enter R).</summary>

@@ -121,7 +121,7 @@ namespace M3.QA.Pages
                 return;
             }
 
-            string lotNo = txtLotNo.Text.Trim();
+            string lotNo = txtLotNo.Text;
 
             grid.ItemsSource = null;
             searchs = DIPSolutionProduction.Gets(lotNo, from, to).Value();

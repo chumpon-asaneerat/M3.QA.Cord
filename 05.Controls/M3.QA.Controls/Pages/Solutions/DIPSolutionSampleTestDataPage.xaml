@@ -28,13 +28,29 @@
             <Setter Property="Width" Value="120" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
-        <!--  R INPUT  -->
-        <Style x:Key="RInput"
+        <!--  R INPUT 1  -->
+        <Style x:Key="RInput1"
                TargetType="TextBox"
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
-            <Setter Property="Text" Value="{Binding R, StringFormat='{}{0:#,##0.####}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
-            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR}" />
+            <Setter Property="Text" Value="{Binding R1, StringFormat='{}{0:#,##0.####}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR1}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  R INPUT 2  -->
+        <Style x:Key="RInput2"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding R2, StringFormat='{}{0:#,##0.####}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR2}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
             <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
@@ -146,7 +162,7 @@
                                 Padding="2">
                             <StackPanel DataContext="{Binding Ph}"
                                         Orientation="Vertical"
-                                        Width="250"
+                                        Width="300"
                                         HorizontalAlignment="Center">
                                 <!--  CAPTION  -->
                                 <Border Background="DarkMagenta"
@@ -194,7 +210,10 @@
                                         <DataTemplate>
                                             <Border Margin="0,0,5,0">
                                                 <DockPanel LastChildFill="True">
-                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                    <!--  N  -->
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorN}"
@@ -202,12 +221,24 @@
                                                             <TextBox Style="{StaticResource NInput}" />
                                                         </StackPanel>
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R1  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
                                                             <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorR}"
-                                                                       Text="{Binding CaptionR}" />
-                                                            <TextBox Style="{StaticResource RInput}" />
+                                                                       Foreground="{Binding ForegroundColorR1}"
+                                                                       Text="{Binding CaptionR1}" />
+                                                            <TextBox Style="{StaticResource RInput1}" />
+                                                        </StackPanel>
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R2  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR2}"
+                                                                       Text="{Binding CaptionR2}" />
+                                                            <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                     <Grid />
@@ -227,7 +258,7 @@
                                 Padding="2">
                             <StackPanel DataContext="{Binding Temperature}"
                                         Orientation="Vertical"
-                                        Width="250"
+                                        Width="300"
                                         HorizontalAlignment="Center">
                                 <!--  CAPTION  -->
                                 <Border Background="DarkMagenta"
@@ -275,7 +306,10 @@
                                         <DataTemplate>
                                             <Border Margin="0,0,5,0">
                                                 <DockPanel LastChildFill="True">
-                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                    <!--  N  -->
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorN}"
@@ -283,12 +317,24 @@
                                                             <TextBox Style="{StaticResource NInput}" />
                                                         </StackPanel>
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R1  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
                                                             <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorR}"
-                                                                       Text="{Binding CaptionR}" />
-                                                            <TextBox Style="{StaticResource RInput}" />
+                                                                       Foreground="{Binding ForegroundColorR1}"
+                                                                       Text="{Binding CaptionR1}" />
+                                                            <TextBox Style="{StaticResource RInput1}" />
+                                                        </StackPanel>
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R2  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR2}"
+                                                                       Text="{Binding CaptionR2}" />
+                                                            <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                     <Grid />
@@ -308,7 +354,7 @@
                                 Padding="2">
                             <StackPanel DataContext="{Binding Viscosity}"
                                         Orientation="Vertical"
-                                        Width="250"
+                                        Width="300"
                                         HorizontalAlignment="Center">
                                 <!--  CAPTION  -->
                                 <Border Background="DarkMagenta"
@@ -356,7 +402,10 @@
                                         <DataTemplate>
                                             <Border Margin="0,0,5,0">
                                                 <DockPanel LastChildFill="True">
-                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                    <!--  N  -->
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleN}">
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorN}"
@@ -364,12 +413,24 @@
                                                             <TextBox Style="{StaticResource NInput}" />
                                                         </StackPanel>
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                DockPanel.Dock="Top">
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R1  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
                                                             <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorR}"
-                                                                       Text="{Binding CaptionR}" />
-                                                            <TextBox Style="{StaticResource RInput}" />
+                                                                       Foreground="{Binding ForegroundColorR1}"
+                                                                       Text="{Binding CaptionR1}" />
+                                                            <TextBox Style="{StaticResource RInput1}" />
+                                                        </StackPanel>
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R2  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR2}"
+                                                                       Text="{Binding CaptionR2}" />
+                                                            <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                     <Grid />
@@ -425,7 +486,7 @@
                             <StackPanel DockPanel.Dock="Left"
                                         DataContext="{Binding BeakerWeight}"
                                         Orientation="Vertical"
-                                        Width="250"
+                                        Width="300"
                                         Margin="0,0,2,0">
                                 <!--  CAPTION  -->
                                 <Border BorderThickness="1"
@@ -465,6 +526,7 @@
                                                     BorderThickness="1,0,1,1">
                                                 <DockPanel LastChildFill="True" Margin="0,1">
                                                     <Grid Height="5" DockPanel.Dock="Top" />
+                                                    <!--  N  -->
                                                     <StackPanel Orientation="Horizontal"
                                                                 HorizontalAlignment="Center"
                                                                 DockPanel.Dock="Top">
@@ -478,11 +540,21 @@
                                                     <StackPanel Orientation="Horizontal"
                                                                 HorizontalAlignment="Center"
                                                                 DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R1  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
                                                             <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorR}"
-                                                                       Text="{Binding CaptionR}" />
-                                                            <TextBox Style="{StaticResource RInput}" />
+                                                                       Foreground="{Binding ForegroundColorR1}"
+                                                                       Text="{Binding CaptionR1}" />
+                                                            <TextBox Style="{StaticResource RInput1}" />
+                                                        </StackPanel>
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R2  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR2}"
+                                                                       Text="{Binding CaptionR2}" />
+                                                            <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                     <Grid Height="10" DockPanel.Dock="Top" />
@@ -497,7 +569,7 @@
                             <StackPanel DockPanel.Dock="Left"
                                         DataContext="{Binding BeakerWeightBeforeHeat}"
                                         Orientation="Vertical"
-                                        Width="250"
+                                        Width="300"
                                         Margin="0,0,2,0">
                                 <!--  CAPTION  -->
                                 <Border BorderThickness="1"
@@ -538,6 +610,7 @@
                                                     BorderThickness="1,0,1,1">
                                                 <DockPanel LastChildFill="True" Margin="0,1">
                                                     <Grid Height="5" DockPanel.Dock="Top" />
+                                                    <!--  N  -->
                                                     <StackPanel Orientation="Horizontal"
                                                                 HorizontalAlignment="Center"
                                                                 DockPanel.Dock="Top">
@@ -551,11 +624,21 @@
                                                     <StackPanel Orientation="Horizontal"
                                                                 HorizontalAlignment="Center"
                                                                 DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R1  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
                                                             <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorR}"
-                                                                       Text="{Binding CaptionR}" />
-                                                            <TextBox Style="{StaticResource RInput}" />
+                                                                       Foreground="{Binding ForegroundColorR1}"
+                                                                       Text="{Binding CaptionR1}" />
+                                                            <TextBox Style="{StaticResource RInput1}" />
+                                                        </StackPanel>
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R2  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR2}"
+                                                                       Text="{Binding CaptionR2}" />
+                                                            <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                     <Grid Height="10" DockPanel.Dock="Top" />
@@ -570,7 +653,7 @@
                             <StackPanel DockPanel.Dock="Left"
                                         DataContext="{Binding BeakerWeightAfterHeat}"
                                         Orientation="Vertical"
-                                        Width="250"
+                                        Width="300"
                                         Margin="0,0,2,0">
                                 <!--  CAPTION  -->
                                 <Border BorderThickness="1"
@@ -611,6 +694,7 @@
                                                     BorderThickness="1,0,1,1">
                                                 <DockPanel LastChildFill="True" Margin="0,1">
                                                     <Grid Height="5" DockPanel.Dock="Top" />
+                                                    <!--  N  -->
                                                     <StackPanel Orientation="Horizontal"
                                                                 HorizontalAlignment="Center"
                                                                 DockPanel.Dock="Top">
@@ -624,11 +708,21 @@
                                                     <StackPanel Orientation="Horizontal"
                                                                 HorizontalAlignment="Center"
                                                                 DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R1  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
                                                             <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorR}"
-                                                                       Text="{Binding CaptionR}" />
-                                                            <TextBox Style="{StaticResource RInput}" />
+                                                                       Foreground="{Binding ForegroundColorR1}"
+                                                                       Text="{Binding CaptionR1}" />
+                                                            <TextBox Style="{StaticResource RInput1}" />
+                                                        </StackPanel>
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R2  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR2}"
+                                                                       Text="{Binding CaptionR2}" />
+                                                            <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                     <Grid Height="10" DockPanel.Dock="Top" />
@@ -642,7 +736,7 @@
                             <!--  RPU  -->
                             <StackPanel DataContext="{Binding RPU}"
                                         Orientation="Vertical"
-                                        Width="250"
+                                        Width="300"
                                         Margin="0,0,2,0">
                                 <!--  CAPTION  -->
                                 <Border BorderThickness="1"
@@ -682,6 +776,7 @@
                                                     BorderThickness="1,0,1,1">
                                                 <DockPanel LastChildFill="True" Margin="0,1">
                                                     <Grid Height="5" DockPanel.Dock="Top" />
+                                                    <!--  N  -->
                                                     <StackPanel Orientation="Horizontal"
                                                                 HorizontalAlignment="Center"
                                                                 DockPanel.Dock="Top">
@@ -689,17 +784,27 @@
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorN}"
                                                                        Text="{Binding CaptionN}" />
-                                                            <TextBox Style="{StaticResource NInput}" />
+                                                            <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal"
                                                                 HorizontalAlignment="Center"
                                                                 DockPanel.Dock="Top">
-                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR}">
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R1  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
                                                             <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorR}"
-                                                                       Text="{Binding CaptionR}" />
-                                                            <TextBox Style="{StaticResource RInput}" />
+                                                                       Foreground="{Binding ForegroundColorR1}"
+                                                                       Text="{Binding CaptionR1}" />
+                                                            <TextBox Style="{StaticResource RInput1}" IsReadOnly="True" />
+                                                        </StackPanel>
+                                                        <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                        <!--  R2  -->
+                                                        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock TextAlignment="Center"
+                                                                       Foreground="{Binding ForegroundColorR2}"
+                                                                       Text="{Binding CaptionR2}" />
+                                                            <TextBox Style="{StaticResource RInput2}" IsReadOnly="True" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                     <Grid Height="10" DockPanel.Dock="Top" />
