@@ -227,17 +227,21 @@
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R1  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR1}"
                                                                        Text="{Binding CaptionR1}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput1}" />
                                                         </StackPanel>
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R2  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR2}"
                                                                        Text="{Binding CaptionR2}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
@@ -323,17 +327,21 @@
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R1  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR1}"
                                                                        Text="{Binding CaptionR1}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput1}" />
                                                         </StackPanel>
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R2  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR2}"
                                                                        Text="{Binding CaptionR2}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
@@ -419,17 +427,21 @@
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R1  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR1}"
                                                                        Text="{Binding CaptionR1}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput1}" />
                                                         </StackPanel>
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R2  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR2}"
                                                                        Text="{Binding CaptionR2}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
@@ -543,17 +555,21 @@
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R1  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR1}"
                                                                        Text="{Binding CaptionR1}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput1}" />
                                                         </StackPanel>
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R2  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR2}"
                                                                        Text="{Binding CaptionR2}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
@@ -627,17 +643,21 @@
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R1  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR1}"
                                                                        Text="{Binding CaptionR1}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput1}" />
                                                         </StackPanel>
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R2  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR2}"
                                                                        Text="{Binding CaptionR2}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
@@ -711,17 +731,21 @@
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R1  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR1}"
                                                                        Text="{Binding CaptionR1}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput1}" />
                                                         </StackPanel>
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R2  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
+                                                            <TextBlock Height="3" />
                                                             <TextBlock TextAlignment="Center"
                                                                        Foreground="{Binding ForegroundColorR2}"
                                                                        Text="{Binding CaptionR2}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput2}" />
                                                         </StackPanel>
                                                     </StackPanel>
@@ -793,17 +817,33 @@
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R1  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR1}">
-                                                            <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorR1}"
-                                                                       Text="{Binding CaptionR1}" />
+                                                            <CheckBox HorizontalAlignment="Center"
+                                                                      HorizontalContentAlignment="Center"
+                                                                      VerticalAlignment="Center"
+                                                                      VerticalContentAlignment="Center"
+                                                                      Height="25"
+                                                                      IsChecked="{Binding R1Flag}"
+                                                                      IsThreeState="False"
+                                                                      Foreground="{Binding ForegroundColorR1}"
+                                                                      Content="{Binding CaptionR1}"
+                                                                      Style="{StaticResource CommonCheckBox}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput1}" IsReadOnly="True" />
                                                         </StackPanel>
                                                         <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
                                                         <!--  R2  -->
                                                         <StackPanel Orientation="Vertical" Visibility="{Binding VisibleR2}">
-                                                            <TextBlock TextAlignment="Center"
-                                                                       Foreground="{Binding ForegroundColorR2}"
-                                                                       Text="{Binding CaptionR2}" />
+                                                            <CheckBox HorizontalAlignment="Center"
+                                                                      HorizontalContentAlignment="Center"
+                                                                      VerticalAlignment="Center"
+                                                                      VerticalContentAlignment="Center"
+                                                                      Height="25"
+                                                                      IsChecked="{Binding R2Flag}"
+                                                                      IsThreeState="False"
+                                                                      Foreground="{Binding ForegroundColorR2}"
+                                                                      Content="{Binding CaptionR2}"
+                                                                      Style="{StaticResource CommonCheckBox}" />
+                                                            <TextBlock Height="2" />
                                                             <TextBox Style="{StaticResource RInput2}" IsReadOnly="True" />
                                                         </StackPanel>
                                                     </StackPanel>
