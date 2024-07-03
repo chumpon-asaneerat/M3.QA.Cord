@@ -25,6 +25,8 @@ namespace M3.QA.Models
 
         private Func<int?> _GetSPNo;
         private List<Func<decimal?>> _GetNs;
+        private List<Func<decimal?>> _GetR1s;
+        private List<Func<decimal?>> _GetR2s;
 
         #endregion
 
@@ -49,6 +51,28 @@ namespace M3.QA.Models
                 () => { return this.N5; },
                 () => { return this.N6; },
                 () => { return this.N7; }
+            };
+            // Get R1
+            _GetR1s = new List<Func<decimal?>>()
+            {
+                () => { return this.N1R1; },
+                () => { return this.N2R1; },
+                () => { return this.N3R1; },
+                () => { return this.N4R1; },
+                () => { return this.N5R1; },
+                () => { return this.N6R1; },
+                () => { return this.N7R1; }
+            };
+            // Get R2
+            _GetR2s = new List<Func<decimal?>>()
+            {
+                () => { return this.N1R2; },
+                () => { return this.N2R2; },
+                () => { return this.N3R2; },
+                () => { return this.N4R2; },
+                () => { return this.N5R2; },
+                () => { return this.N6R2; },
+                () => { return this.N7R2; }
             };
 
             #endregion
@@ -77,6 +101,10 @@ namespace M3.QA.Models
                     item.GetSPNo = (null != _GetSPNo) ? _GetSPNo : null;
                     // assign method pointer to Get/Set N
                     item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
+                    // assign method pointer to Get/Set R1
+                    item.GetR1 = (null != _GetR1s) ? _GetR1s[i - 1] : null;
+                    // assign method pointer to Get/Set R2
+                    item.GetR2 = (null != _GetR2s) ? _GetR2s[i - 1] : null;
 
                     Items.Add(item);
                 }
@@ -127,10 +155,27 @@ namespace M3.QA.Models
                 {
                     foreach (var item in this.Items)
                     {
-                        if (item.N.HasValue)
+                        if (item.N.HasValue && !item.R1.HasValue && !item.R2.HasValue)
                         {
                             // Has N value and no R value so use N to calc avg
                             total += item.N.Value;
+                            ++iCnt;
+                        }
+                        else if (item.R1.HasValue && !item.R2.HasValue)
+                        {
+                            total += item.R1.Value;
+                            ++iCnt;
+                        }
+                        else if (!item.R1.HasValue && item.R2.HasValue)
+                        {
+                            total += item.R2.Value;
+                            ++iCnt;
+                        }
+                        else if (item.R1.HasValue && item.R2.HasValue)
+                        {
+                            total += item.R1.Value;
+                            ++iCnt;
+                            total += item.R2.Value;
                             ++iCnt;
                         }
                     }
@@ -315,6 +360,179 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region Retest Test (1-7)
+
+        /// <summary>Gets or sets N1R1 value.</summary>
+        public decimal? N1R1
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N1R2 value.</summary>
+        public decimal? N1R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N2R1 value.</summary>
+        public decimal? N2R1
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N2R2 value.</summary>
+        public decimal? N2R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N3R1 value.</summary>
+        public decimal? N3R1
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N3R2 value.</summary>
+        public decimal? N3R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N4R1 value.</summary>
+        public decimal? N4R1
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N4R2 value.</summary>
+        public decimal? N4R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N5R1 value.</summary>
+        public decimal? N5R1
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N5R2 value.</summary>
+        public decimal? N5R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N6R1 value.</summary>
+        public decimal? N6R1
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N6R2 value.</summary>
+        public decimal? N6R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N7R1 value.</summary>
+        public decimal? N7R1
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+        /// <summary>Gets or sets N7R2 value.</summary>
+        public decimal? N7R2
+        {
+            get { return Get<decimal?>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ValueChange();
+                });
+            }
+        }
+
+        #endregion
+
         #region Avg
 
         /// <summary>Gets or sets Avg value.</summary>
@@ -362,6 +580,14 @@ namespace M3.QA.Models
                 inst.N1 = item.N1;
                 inst.N2 = item.N2;
                 inst.N3 = item.N3;
+
+                inst.N1R1 = item.N1R1;
+                inst.N2R1 = item.N2R1;
+                inst.N3R1 = item.N3R1;
+
+                inst.N1R2 = item.N1R2;
+                inst.N2R2 = item.N2R2;
+                inst.N3R2 = item.N3R2;
 
                 inst.LoadN = item.LoadN;
 

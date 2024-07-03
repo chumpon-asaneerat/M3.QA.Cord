@@ -1013,6 +1013,15 @@ namespace M3.QA.Models
             public decimal? N2 { get; set; }
             public decimal? N3 { get; set; }
 
+            public decimal? N1R1 { get; set; }
+            public decimal? N1R2 { get; set; }
+
+            public decimal? N2R1 { get; set; }
+            public decimal? N2R2 { get; set; }
+
+            public decimal? N3R1 { get; set; }
+            public decimal? N3R2 { get; set; }
+
             public string LoadN { get; set; }
 
             #endregion

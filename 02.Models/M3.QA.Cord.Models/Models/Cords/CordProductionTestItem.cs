@@ -26,6 +26,10 @@ namespace M3.QA.Models
         protected internal Func<int?> GetSPNo { get; set; }
         // N Gets
         protected internal Func<decimal?> GetN { get; set; }
+        // R1 Gets
+        protected internal Func<decimal?> GetR1 { get; set; }
+        // R2 Gets
+        protected internal Func<decimal?> GetR2 { get; set; }
 
         #endregion
 
@@ -62,12 +66,24 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region N
+        #region N/R1/R2
 
         /// <summary>Gets or sets Test Value.</summary>
         public decimal? N
         {
             get { return (null != GetN) ? GetN() : new decimal?(); }
+            set { }
+        }
+        /// <summary>Gets or sets Test Value.</summary>
+        public decimal? R1
+        {
+            get { return (null != GetR1) ? GetR1() : new decimal?(); }
+            set { }
+        }
+        /// <summary>Gets or sets Test Value.</summary>
+        public decimal? R2
+        {
+            get { return (null != GetR2) ? GetR2() : new decimal?(); }
             set { }
         }
 

@@ -7,8 +7,10 @@ M3 QA Cord #449
 M3 QA Cord #448
 - 
 
+[commit]
 M3 QA Cord #447
-- 
+- Implements Cord Test Data #377
+  - Implements New Cord Retest #27
 
 [commit]
 M3 QA Cord #446
