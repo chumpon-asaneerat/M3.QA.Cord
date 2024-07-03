@@ -262,7 +262,7 @@
                                                                         <TextBlock TextAlignment="Center"
                                                                                    Foreground="{Binding ForegroundColorN}"
                                                                                    Text="{Binding CaptionN}" />
-                                                                        <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                        <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <StackPanel Orientation="Horizontal"
@@ -284,7 +284,7 @@
                                                                                   Content="{Binding CaptionR1}"
                                                                                   Style="{StaticResource CommonCheckBox}" />
                                                                         <TextBlock Height="2" />
-                                                                        <TextBox Style="{StaticResource RInput1}" IsReadOnly="True" />
+                                                                        <TextBox Style="{StaticResource RInput1}" />
                                                                         <TextBlock Height="5" />
                                                                     </StackPanel>
                                                                     <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
@@ -304,7 +304,7 @@
                                                                                   Content="{Binding CaptionR2}"
                                                                                   Style="{StaticResource CommonCheckBox}" />
                                                                         <TextBlock Height="2" />
-                                                                        <TextBox Style="{StaticResource RInput2}" IsReadOnly="True" />
+                                                                        <TextBox Style="{StaticResource RInput2}" />
                                                                         <TextBlock Height="5" />
                                                                     </StackPanel>
                                                                 </StackPanel>

@@ -474,7 +474,7 @@
                                         Margin="10,2"
                                         Padding="10,3">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="RPU Spec : "
+                                        <TextBlock Text="TSC % : "
                                                    Foreground="WhiteSmoke"
                                                    FontSize="16"
                                                    FontWeight="SemiBold" />
@@ -773,7 +773,7 @@
                                                HorizontalAlignment="Stretch"
                                                Foreground="WhiteSmoke"
                                                FontWeight="SemiBold">
-                                        <Run Text="RPU" />
+                                        <Run Text="TSC %" />
                                         <LineBreak />
                                         <LineBreak />
                                         <Run Text="(C-A)/(B-A) x 100" />

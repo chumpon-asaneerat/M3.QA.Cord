@@ -565,33 +565,36 @@ namespace M3.QA.Models
 
             string unitId = (null != value.Spec) ? value.Spec.UnitId : null;
             var tests =  P_GetTestDetailByProperty.Gets(value.LotNo, value.PropertyNo, unitId).Value();
-            foreach (var item in tests)
+            if (null != tests)
             {
-                var inst = new CordProductionTest();
+                foreach (var item in tests)
+                {
+                    var inst = new CordProductionTest();
 
-                inst.LotNo = value.LotNo;
-                inst.PropertyNo = value.PropertyNo;
-                inst.ItemCode = value.ItemCode;
-                inst.NoOfSample = value.NoOfSample;
-                inst.Spec = value.Spec;
+                    inst.LotNo = value.LotNo;
+                    inst.PropertyNo = value.PropertyNo;
+                    inst.ItemCode = value.ItemCode;
+                    inst.NoOfSample = value.NoOfSample;
+                    inst.Spec = value.Spec;
 
-                inst.SPNo = item.SPNo;
+                    inst.SPNo = item.SPNo;
 
-                inst.N1 = item.N1;
-                inst.N2 = item.N2;
-                inst.N3 = item.N3;
+                    inst.N1 = item.N1;
+                    inst.N2 = item.N2;
+                    inst.N3 = item.N3;
 
-                inst.N1R1 = item.N1R1;
-                inst.N2R1 = item.N2R1;
-                inst.N3R1 = item.N3R1;
+                    inst.N1R1 = item.N1R1;
+                    inst.N2R1 = item.N2R1;
+                    inst.N3R1 = item.N3R1;
 
-                inst.N1R2 = item.N1R2;
-                inst.N2R2 = item.N2R2;
-                inst.N3R2 = item.N3R2;
+                    inst.N1R2 = item.N1R2;
+                    inst.N2R2 = item.N2R2;
+                    inst.N3R2 = item.N3R2;
 
-                inst.LoadN = item.LoadN;
+                    inst.LoadN = item.LoadN;
 
-                results.Add(inst);
+                    results.Add(inst);
+                }
             }
 
             return results;
