@@ -739,7 +739,7 @@ namespace M3.QA.Models
             // Re check.
             if (null != allItems)
             {
-                //foreach (var item in allItems) item.CheckSpec();
+                foreach (var item in allItems) item.CheckSpec();
             }
 
             return allItems;

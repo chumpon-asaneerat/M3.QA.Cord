@@ -385,6 +385,12 @@ namespace M3.QA.Models
                 }
             }
 
+            // Re check.
+            if (null != results)
+            {
+                foreach (var item in results) item.CalculateFormula();
+            }
+
             return results;
         }
 
