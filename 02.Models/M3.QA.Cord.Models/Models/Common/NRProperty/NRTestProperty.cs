@@ -493,12 +493,37 @@ namespace M3.QA.Models
                 {
                     foreach (var item in this.Items)
                     {
-                        if (item.N.HasValue)
+                        if (item.R1.HasValue || item.R2.HasValue)
                         {
-                            // Has N value and no R value so use N to calc avg
-                            total += item.N.Value;
-                            ++iCnt;
+                            // If has R but not checked no calc.
+                            int rCnt = 0;
+                            if (item.R1Flag) rCnt++;
+                            if (item.R2Flag) rCnt++;
+                            if (rCnt > 0)
+                            {
+                                if (item.R1.HasValue && item.R1Flag)
+                                {
+                                    total += item.R1.Value;
+                                    ++iCnt;
+                                }
+                                if (item.R2.HasValue && item.R2Flag)
+                                {
+                                    total += item.R2.Value;
+                                    ++iCnt;
+                                }
+                            }
                         }
+                        else
+                        {
+                            // R has no value so use N
+                            if (item.N.HasValue)
+                            {
+                                // Has N value and no R value so use N to calc avg
+                                total += item.N.Value;
+                                ++iCnt;
+                            }
+                        }
+
                     }
                 }
             }
