@@ -1,8 +1,41 @@
+M3 QA Cord #470
+- 
+
+M3 QA Cord #469
+- 
+
+M3 QA Cord #468
+- 
+
+M3 QA Cord #467
+- 
+
+M3 QA Cord #466
+- 
+
+M3 QA Cord #465
+- 
+
+M3 QA Cord #464
+- 
+
+M3 QA Cord #463
+- 
+
+M3 QA Cord #462
+- 
+
+M3 QA Cord #461
+- 
+
 M3 QA Cord #460
 - 
 
+[commit]
 M3 QA Cord #459
-- 
+- Implements Cord Test Data #49
+  - Implements New Cord Retest #39
+  - Update app build 460
 
 [commit]
 M3 QA Cord #458
