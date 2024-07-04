@@ -396,11 +396,6 @@ namespace M3.QA.Models
                 NoOfSample = noOfSample
             };
 
-            if (null != elongItem)
-            {
-                inst.ValueChanges = elongItem.CalculateFormula;
-            }
-
             results.Add(inst);
 
             return results;
@@ -518,11 +513,6 @@ namespace M3.QA.Models
                         LoadN = elongId
                     };
 
-                    if (null != elongItem)
-                    {
-                        inst.ValueChanges = elongItem.CalculateFormula;
-                    }
-
                     results.Add(inst);
                 }
             }
@@ -544,39 +534,13 @@ namespace M3.QA.Models
     {
         #region Private Methods
 
-        internal void CalculateFormula()
+        internal void CheckSpec()
         {
             if (null == SubProperties) return;
 
-            int iN1Out = 0;
-            int iN2Out = 0;
-            int iN3Out = 0;
-            int iN4Out = 0;
-            int iN5Out = 0;
-            int iN6Out = 0;
-            int iN7Out = 0;
-            // Check all items
-            foreach (var inst in SubProperties) 
-            {
-                if (inst.N1Out) iN1Out++;
-                if (inst.N2Out) iN2Out++;
-                if (inst.N3Out) iN3Out++;
-                if (inst.N4Out) iN4Out++;
-                if (inst.N5Out) iN5Out++;
-                if (inst.N6Out) iN6Out++;
-                if (inst.N7Out) iN7Out++;
-            }
             // Update NOut for all items
             foreach (var inst in SubProperties)
             {
-                inst.N1OOut = (iN1Out > 0);
-                inst.N2OOut = (iN2Out > 0);
-                inst.N3OOut = (iN3Out > 0);
-                inst.N4OOut = (iN4Out > 0);
-                inst.N5OOut = (iN5Out > 0);
-                inst.N6OOut = (iN6Out > 0);
-                inst.N7OOut = (iN7Out > 0);
-
                 inst.InternalCheckSpec();
             }
         }
@@ -775,7 +739,7 @@ namespace M3.QA.Models
             // Re check.
             if (null != allItems)
             {
-                foreach (var item in allItems) item.CalculateFormula();
+                //foreach (var item in allItems) item.CheckSpec();
             }
 
             return allItems;
