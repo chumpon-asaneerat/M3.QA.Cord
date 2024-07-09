@@ -10,6 +10,7 @@ using System.Reflection;
 using Dapper;
 using NLib;
 using NLib.Models;
+using System.Windows;
 
 #endregion
 
@@ -26,10 +27,8 @@ namespace M3.QA.Models
         protected internal Func<int?> GetSPNo { get; set; }
         // N Gets
         protected internal Func<decimal?> GetN { get; set; }
-        // R1 Gets
-        protected internal Func<decimal?> GetR1 { get; set; }
-        // R2 Gets
-        protected internal Func<decimal?> GetR2 { get; set; }
+        // O Gets
+        protected internal Func<decimal?> GetO { get; set; }
 
         #endregion
 
@@ -47,16 +46,10 @@ namespace M3.QA.Models
             Raise(() => this.N);
         }
 
-        protected internal void RaiseR1Changes()
+        protected internal void RaiseOChanges()
         {
             // Raise relelated events
-            Raise(() => this.R1);
-        }
-
-        protected internal void RaiseR2Changes()
-        {
-            // Raise relelated events
-            Raise(() => this.R2);
+            Raise(() => this.O);
         }
 
         #endregion
@@ -78,7 +71,7 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region N/R1/R2
+        #region N/O
 
         /// <summary>Gets or sets Test Value.</summary>
         public decimal? N
@@ -87,15 +80,9 @@ namespace M3.QA.Models
             set { }
         }
         /// <summary>Gets or sets Test Value.</summary>
-        public decimal? R1
+        public decimal? O
         {
-            get { return (null != GetR1) ? GetR1() : new decimal?(); }
-            set { }
-        }
-        /// <summary>Gets or sets Test Value.</summary>
-        public decimal? R2
-        {
-            get { return (null != GetR2) ? GetR2() : new decimal?(); }
+            get { return (null != GetO) ? GetO() : new decimal?(); }
             set { }
         }
 
@@ -109,16 +96,16 @@ namespace M3.QA.Models
             get { return "N" + No.ToString(); }
             set { }
         }
-        /// <summary>Gets R1 Display Caption.</summary>
-        public string CaptionR1
+        /// <summary>Gets O Display Caption.</summary>
+        public string CaptionO
         {
-            get { return /* "N" + No.ToString() + */ "R1"; }
+            get { return /* "N" + No.ToString() + */ "?"; }
             set { }
         }
-        /// <summary>Gets R2 Display Caption.</summary>
-        public string CaptionR2
+        /// <summary>Gets O Visibility.</summary>
+        public Visibility OVisible
         {
-            get { return /* "N" + No.ToString() + */ "R2"; }
+            get { return O.HasValue ? Visibility.Visible : Visibility.Collapsed; }
             set { }
         }
 

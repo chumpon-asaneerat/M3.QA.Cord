@@ -723,7 +723,7 @@ namespace M3.QA.Models
                 return results;
 
             // For Denier (PropertyNo = 10), Moisture regain (PropertyNo = 11), Weight (PropertyNo = 14)
-            int noOfSample = 0;
+            int noOfSample = 0; // must be 1 sample
             if (null != itemDenier) 
                 noOfSample = Math.Max(noOfSample, itemDenier.NoSample); // must be 1 sample
             if (null != itemMoisture)

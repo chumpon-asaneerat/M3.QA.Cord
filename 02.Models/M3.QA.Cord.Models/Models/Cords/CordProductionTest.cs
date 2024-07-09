@@ -11,6 +11,7 @@ using Dapper;
 using NLib;
 using NLib.Models;
 using static M3.QA.Models.Utils;
+using System.Runtime.ExceptionServices;
 
 #endregion
 
@@ -25,8 +26,7 @@ namespace M3.QA.Models
 
         private Func<int?> _GetSPNo;
         private List<Func<decimal?>> _GetNs;
-        private List<Func<decimal?>> _GetR1s;
-        private List<Func<decimal?>> _GetR2s;
+        private List<Func<decimal?>> _GetOs;
 
         #endregion
 
@@ -53,26 +53,15 @@ namespace M3.QA.Models
                 () => { return this.N7; }
             };
             // Get R1
-            _GetR1s = new List<Func<decimal?>>()
+            _GetOs = new List<Func<decimal?>>()
             {
-                () => { return this.N1R1; },
-                () => { return this.N2R1; },
-                () => { return this.N3R1; },
-                () => { return this.N4R1; },
-                () => { return this.N5R1; },
-                () => { return this.N6R1; },
-                () => { return this.N7R1; }
-            };
-            // Get R2
-            _GetR2s = new List<Func<decimal?>>()
-            {
-                () => { return this.N1R2; },
-                () => { return this.N2R2; },
-                () => { return this.N3R2; },
-                () => { return this.N4R2; },
-                () => { return this.N5R2; },
-                () => { return this.N6R2; },
-                () => { return this.N7R2; }
+                () => { return this.O1; },
+                () => { return this.O2; },
+                () => { return this.O3; },
+                () => { return this.O4; },
+                () => { return this.O5; },
+                () => { return this.O6; },
+                () => { return this.O7; }
             };
 
             #endregion
@@ -101,10 +90,8 @@ namespace M3.QA.Models
                     item.GetSPNo = (null != _GetSPNo) ? _GetSPNo : null;
                     // assign method pointer to Get/Set N
                     item.GetN = (null != _GetNs) ? _GetNs[i - 1] : null;
-                    // assign method pointer to Get/Set R1
-                    item.GetR1 = (null != _GetR1s) ? _GetR1s[i - 1] : null;
-                    // assign method pointer to Get/Set R2
-                    item.GetR2 = (null != _GetR2s) ? _GetR2s[i - 1] : null;
+                    // assign method pointer to Get/Set O
+                    item.GetO = (null != _GetOs) ? _GetOs[i - 1] : null;
 
                     Items.Add(item);
                 }
@@ -129,27 +116,27 @@ namespace M3.QA.Models
                     idx--; // Make zero index
 
                     if (idx < 0 || idx >= this.Items.Count) return;
-                    if (propertyName.Contains("R1"))
-                    {
-                        // R1 only
-                        this.Items[idx].RaiseR1Changes();
-                        CheckSpec();
-                        CalcAvg();
-                    }
-                    else if (propertyName.Contains("R2"))
-                    {
-                        // R2 only
-                        this.Items[idx].RaiseR2Changes();
-                        CheckSpec();
-                        CalcAvg();
-                    }
-                    else
-                    {
-                        // N only
-                        this.Items[idx].RaiseNChanges();
-                        CheckSpec();
-                        CalcAvg();
-                    }
+                    // N only
+                    this.Items[idx].RaiseNChanges();
+                    CheckSpec();
+                    CalcAvg();
+                }
+            }
+            else if (propertyName.StartsWith("O"))
+            {
+                string sIdx = propertyName.Substring(1, 1);
+
+                // Note: O1 -> index must be 0, O2  -> index must be 1 so need decrease index by 1.
+                int idx;
+                if (int.TryParse(sIdx, out idx))
+                {
+                    idx--; // Make zero index
+
+                    if (idx < 0 || idx >= this.Items.Count) return;
+                    // N only
+                    this.Items[idx].RaiseOChanges();
+                    //CheckSpec();
+                    //CalcAvg();
                 }
             }
             else if (propertyName.StartsWith("SPNo"))
@@ -174,27 +161,10 @@ namespace M3.QA.Models
                 {
                     foreach (var item in this.Items)
                     {
-                        if (item.N.HasValue && !item.R1.HasValue && !item.R2.HasValue)
+                        if (item.N.HasValue)
                         {
                             // Has N value and no R value so use N to calc avg
                             total += item.N.Value;
-                            ++iCnt;
-                        }
-                        else if (item.R1.HasValue && !item.R2.HasValue)
-                        {
-                            total += item.R1.Value;
-                            ++iCnt;
-                        }
-                        else if (!item.R1.HasValue && item.R2.HasValue)
-                        {
-                            total += item.R2.Value;
-                            ++iCnt;
-                        }
-                        else if (item.R1.HasValue && item.R2.HasValue)
-                        {
-                            total += item.R1.Value;
-                            ++iCnt;
-                            total += item.R2.Value;
                             ++iCnt;
                         }
                     }
@@ -273,13 +243,14 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region ItemCode/PropertyName/MasterId/LoadN
+        #region ItemCode/PropertyName/MasterId/LoadN/SampleType
 
         public string ItemCode { get; set; }
         public string PropertyName { get; set; }
         public int? MasterId { get; set; }
 
         public string LoadN { get; set; }
+        public string SampleType { get; set; }
 
         #endregion
 
@@ -379,10 +350,10 @@ namespace M3.QA.Models
 
         #endregion
 
-        #region Retest Test (1-7)
+        #region Normal (Over) Test (1-7)
 
-        /// <summary>Gets or sets N1R1 value.</summary>
-        public decimal? N1R1
+        /// <summary>Gets or sets O1 value.</summary>
+        public decimal? O1
         {
             get { return Get<decimal?>(); }
             set
@@ -393,8 +364,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets N1R2 value.</summary>
-        public decimal? N1R2
+        /// <summary>Gets or sets O2 value.</summary>
+        public decimal? O2
         {
             get { return Get<decimal?>(); }
             set
@@ -405,8 +376,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets N2R1 value.</summary>
-        public decimal? N2R1
+        /// <summary>Gets or sets O3 value.</summary>
+        public decimal? O3
         {
             get { return Get<decimal?>(); }
             set
@@ -417,8 +388,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets N2R2 value.</summary>
-        public decimal? N2R2
+        /// <summary>Gets or sets O4 value.</summary>
+        public decimal? O4
         {
             get { return Get<decimal?>(); }
             set
@@ -429,8 +400,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets N3R1 value.</summary>
-        public decimal? N3R1
+        /// <summary>Gets or sets O5 value.</summary>
+        public decimal? O5
         {
             get { return Get<decimal?>(); }
             set
@@ -441,8 +412,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets N3R2 value.</summary>
-        public decimal? N3R2
+        /// <summary>Gets or sets O6 value.</summary>
+        public decimal? O6
         {
             get { return Get<decimal?>(); }
             set
@@ -453,92 +424,8 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets N4R1 value.</summary>
-        public decimal? N4R1
-        {
-            get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () =>
-                {
-                    ValueChange();
-                });
-            }
-        }
-        /// <summary>Gets or sets N4R2 value.</summary>
-        public decimal? N4R2
-        {
-            get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () =>
-                {
-                    ValueChange();
-                });
-            }
-        }
-        /// <summary>Gets or sets N5R1 value.</summary>
-        public decimal? N5R1
-        {
-            get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () =>
-                {
-                    ValueChange();
-                });
-            }
-        }
-        /// <summary>Gets or sets N5R2 value.</summary>
-        public decimal? N5R2
-        {
-            get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () =>
-                {
-                    ValueChange();
-                });
-            }
-        }
-        /// <summary>Gets or sets N6R1 value.</summary>
-        public decimal? N6R1
-        {
-            get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () =>
-                {
-                    ValueChange();
-                });
-            }
-        }
-        /// <summary>Gets or sets N6R2 value.</summary>
-        public decimal? N6R2
-        {
-            get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () =>
-                {
-                    ValueChange();
-                });
-            }
-        }
-        /// <summary>Gets or sets N7R1 value.</summary>
-        public decimal? N7R1
-        {
-            get { return Get<decimal?>(); }
-            set
-            {
-                Set(value, () =>
-                {
-                    ValueChange();
-                });
-            }
-        }
-        /// <summary>Gets or sets N7R2 value.</summary>
-        public decimal? N7R2
+        /// <summary>Gets or sets O7 value.</summary>
+        public decimal? O7
         {
             get { return Get<decimal?>(); }
             set
@@ -597,20 +484,76 @@ namespace M3.QA.Models
                     inst.Spec = value.Spec;
 
                     inst.SPNo = item.SPNo;
-
-                    inst.N1 = item.N1;
-                    inst.N2 = item.N2;
-                    inst.N3 = item.N3;
-
-                    inst.N1R1 = item.N1R1;
-                    inst.N2R1 = item.N2R1;
-                    inst.N3R1 = item.N3R1;
-
-                    inst.N1R2 = item.N1R2;
-                    inst.N2R2 = item.N2R2;
-                    inst.N3R2 = item.N3R2;
-
                     inst.LoadN = item.LoadN;
+                    inst.SampleType = item.SampleType;
+
+                    List<decimal?> values = new List<decimal?>()
+                    {
+                        item.N1, item.N1R1, item.N1R2,
+                        item.N2, item.N2R1, item.N2R2,
+                        item.N3, item.N3R1, item.N3R2
+                    };
+
+                    int iCnt = 1;
+                    for (int i = 0; i < values.Count; i++) 
+                    {
+                        decimal? val = values[i];
+                        if (iCnt <= 3)
+                        {
+                            if (val.HasValue)
+                            {
+                                switch (iCnt)
+                                {
+                                    case 1:
+                                        {
+                                            inst.N1 = val;
+                                            iCnt++;
+                                        }
+                                        break;
+                                    case 2:
+                                        {
+                                            inst.N2 = val;
+                                            iCnt++;
+                                        }
+                                        break;
+                                    case 3:
+                                        {
+                                            inst.N3 = val;
+                                            iCnt++;
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (val.HasValue)
+                            {
+                                int oCnt = iCnt - 3;
+                                switch (oCnt)
+                                {
+                                    case 1:
+                                        {
+                                            inst.O1 = val;
+                                            iCnt++;
+                                        }
+                                        break;
+                                    case 2:
+                                        {
+                                            inst.O2 = val;
+                                            iCnt++;
+                                        }
+                                        break;
+                                    case 3:
+                                        {
+                                            inst.O3 = val;
+                                            iCnt++;
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
 
                     results.Add(inst);
                 }

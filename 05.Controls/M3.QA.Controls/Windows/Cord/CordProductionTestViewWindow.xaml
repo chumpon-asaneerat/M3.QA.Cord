@@ -46,6 +46,21 @@
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
+        <!--  O INPUT  -->
+        <Style x:Key="OInput"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding O, StringFormat='{}{0:#,##0.###}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
         <!--  AVG  -->
         <Style x:Key="AVG"
                TargetType="TextBox"
@@ -202,7 +217,7 @@
                                                                     <TextBox Style="{StaticResource SPNo}" />
                                                                 </StackPanel>
                                                             </Border>
-                                                            <!--  ITEMS.  -->
+                                                            <!--  N ITEMS.  -->
                                                             <DockPanel LastChildFill="True" DockPanel.Dock="Left">
                                                                 <ItemsControl ItemsSource="{Binding Items}"
                                                                               Focusable="False"
@@ -218,11 +233,44 @@
                                                                         <DataTemplate>
                                                                             <Border Margin="0,0,5,5">
                                                                                 <DockPanel LastChildFill="True">
-                                                                                    <!--  N INPUTS  -->
                                                                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                                        <!--  N INPUTS  -->
                                                                                         <StackPanel Orientation="Vertical">
                                                                                             <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
                                                                                             <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                                        </StackPanel>
+                                                                                    </StackPanel>
+                                                                                </DockPanel>
+                                                                            </Border>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                                <Grid />
+                                                            </DockPanel>
+                                                            <!--  O ITEMS.  -->
+                                                            <DockPanel LastChildFill="True" DockPanel.Dock="Left">
+                                                                <ItemsControl ItemsSource="{Binding Items}"
+                                                                              Focusable="False"
+                                                                              DockPanel.Dock="Left">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <VirtualizingStackPanel Orientation="Horizontal"
+                                                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                                                    VirtualizingPanel.VirtualizationMode="Recycling" />
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Border Margin="0,0,5,5">
+                                                                                <DockPanel LastChildFill="True">
+                                                                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                                        <!--  O INPUTS  -->
+                                                                                        <StackPanel Orientation="Vertical" Visibility="{Binding OVisible}">
+                                                                                            <TextBlock TextAlignment="Center" Text="{Binding CaptionO}" />
+                                                                                            <TextBox Style="{StaticResource OInput}"
+                                                                                                     IsReadOnly="True"
+                                                                                                     Foreground="OrangeRed"
+                                                                                                     Background="Bisque" />
                                                                                         </StackPanel>
                                                                                     </StackPanel>
                                                                                 </DockPanel>

@@ -73,6 +73,8 @@ namespace M3.QA.Models
                             total += item.Avg.Value;
                             ++iCnt;
                         }
+
+                        /*
                         if (item.N4.HasValue)
                         {
                             // update min/max
@@ -93,6 +95,8 @@ namespace M3.QA.Models
                             total += item.Avg.Value;
                             ++iCnt;
                         }
+                        */
+
                         /*
                         if (item.Avg.HasValue)
                         {
@@ -147,6 +151,8 @@ namespace M3.QA.Models
                             sum2 += Math.Pow((double)(item.N3.Value - avg), 2);
                             iCnt++;
                         }
+
+                        /*
                         if (item.N4.HasValue)
                         {
                             // calc sum squar
@@ -159,6 +165,8 @@ namespace M3.QA.Models
                             sum2 += Math.Pow((double)(item.N5.Value - avg), 2);
                             iCnt++;
                         }
+                        */
+
                         /*
                         if (item.Avg.HasValue)
                         {

@@ -1023,6 +1023,7 @@ namespace M3.QA.Models
             public decimal? N3R2 { get; set; }
 
             public string LoadN { get; set; }
+            public string SampleType { get; set; }
 
             #endregion
 
