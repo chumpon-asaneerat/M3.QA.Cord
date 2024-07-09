@@ -47,6 +47,18 @@ namespace M3.QA.Models
             Raise(() => this.N);
         }
 
+        protected internal void RaiseR1Changes()
+        {
+            // Raise relelated events
+            Raise(() => this.R1);
+        }
+
+        protected internal void RaiseR2Changes()
+        {
+            // Raise relelated events
+            Raise(() => this.R2);
+        }
+
         #endregion
 
         #region Public Properties
@@ -95,6 +107,18 @@ namespace M3.QA.Models
         public string CaptionN
         {
             get { return "N" + No.ToString(); }
+            set { }
+        }
+        /// <summary>Gets R1 Display Caption.</summary>
+        public string CaptionR1
+        {
+            get { return /* "N" + No.ToString() + */ "R1"; }
+            set { }
+        }
+        /// <summary>Gets R2 Display Caption.</summary>
+        public string CaptionR2
+        {
+            get { return /* "N" + No.ToString() + */ "R2"; }
             set { }
         }
 

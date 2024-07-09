@@ -120,17 +120,36 @@ namespace M3.QA.Models
 
             if (propertyName.StartsWith("N"))
             {
-                string sIdx = propertyName.Replace("N", string.Empty);
+                string sIdx = propertyName.Substring(1, 1);
+
+                // Note: N1 -> index must be 0, N2  -> index must be 1 so need decrease index by 1.
                 int idx;
                 if (int.TryParse(sIdx, out idx))
                 {
-                    // Note: N1 -> index must be 0, N2  -> index must be 1 so need decrease index by 1.
-                    idx--; // remove by 1 for zero based
+                    idx--; // Make zero index
 
                     if (idx < 0 || idx >= this.Items.Count) return;
-                    this.Items[idx].RaiseNChanges();
-                    CheckSpec();
-                    CalcAvg();
+                    if (propertyName.Contains("R1"))
+                    {
+                        // R1 only
+                        this.Items[idx].RaiseR1Changes();
+                        CheckSpec();
+                        CalcAvg();
+                    }
+                    else if (propertyName.Contains("R2"))
+                    {
+                        // R2 only
+                        this.Items[idx].RaiseR2Changes();
+                        CheckSpec();
+                        CalcAvg();
+                    }
+                    else
+                    {
+                        // N only
+                        this.Items[idx].RaiseNChanges();
+                        CheckSpec();
+                        CalcAvg();
+                    }
                 }
             }
             else if (propertyName.StartsWith("SPNo"))
