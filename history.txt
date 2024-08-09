@@ -10,8 +10,11 @@ M3 QA Cord #468
 M3 QA Cord #467
 - 
 
+[commit]
 M3 QA Cord #466
-- 
+- Update NInpc class 
+  - fixed bug in IsLock preoprties.
+  - add supports Type Enable/Disable Notify
 
 [commit]
 M3 QA Cord #465

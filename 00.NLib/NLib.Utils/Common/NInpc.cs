@@ -18,6 +18,76 @@ namespace NLib
     /// </summary>
     public abstract class NInpc : INotifyPropertyChanged
     {
+        #region Static Variables
+
+        private static Dictionary<Type, bool> _lockAlls = new Dictionary<Type, bool>();
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// Enable all object in specificed type to raise property change event.
+        /// </summary>
+        /// <param name="type"></param>
+        public static void EnableTypeNotify(Type type)
+        {
+            if (null == _lockAlls)
+                lock (typeof(NInpc)) _lockAlls = new Dictionary<Type, bool>();
+            if (!_lockAlls.ContainsKey(type))
+                _lockAlls.Add(type, true);
+            else _lockAlls[type] = true;
+        }
+        /// <summary>
+        /// Enable all object in specificed type to raise property change event.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static void EnableTypeNotify<T>()
+        {
+            EnableTypeNotify(typeof(T));
+        }
+        /// <summary>
+        /// Disable all object in specificed type to raise property change event.
+        /// </summary>
+        /// <param name="type"></param>
+        public static void DisableTypeNotify(Type type)
+        {
+            if (null == _lockAlls)
+                lock (typeof(NInpc)) _lockAlls = new Dictionary<Type, bool>();
+            if (!_lockAlls.ContainsKey(type))
+                _lockAlls.Add(type, false);
+            else _lockAlls[type] = false;
+        }
+        /// <summary>
+        /// Disable all object in specificed type to raise property change event.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static void DisableTypeNotify<T>()
+        {
+            DisableTypeNotify(typeof(T));
+        }
+        /// <summary>
+        /// Check if specificed type can to raise property change event.
+        /// </summary>
+        /// <param name="type"></param>
+        public static bool IsTypeLocked(Type type)
+        {
+            if (null != _lockAlls && _lockAlls.ContainsKey(type))
+                return !_lockAlls[type];
+            else return false;
+        }
+        /// <summary>
+        /// Check if specificed type can to raise property change event.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static bool IsTypeLocked<T>()
+        {
+            return IsTypeLocked(typeof(T));
+        }
+
+        #endregion
+
         #region Internal classes
 
         abstract class NProperty { }
@@ -98,7 +168,7 @@ namespace NLib
                             {
                                 bChanged = false;
                             }
-                            else 
+                            else
                             {
                                 if (null == inst.Value || !inst.Value.Equals(value))
                                 {
@@ -133,7 +203,7 @@ namespace NLib
 
         private void InternalRaise<T>(Expression<Func<T>> selectorExpression)
         {
-            if (_lock) return; // if lock do nothing
+            if (_lock || IsTypeLocked(this.GetType())) return; // if lock do nothing
             if (null == selectorExpression)
             {
                 throw new ArgumentNullException("selectorExpression");
@@ -211,14 +281,14 @@ namespace NLib
         /// </summary>
         public void EnableNotify()
         {
-            _lock = true;
+            _lock = false;
         }
         /// <summary>
         /// Disable Notify Change Event.
         /// </summary>
         public void DisableNotify()
         {
-            _lock = false;
+            _lock = true;
         }
         /// <summary>
         /// Raise Property Changed event.
@@ -227,7 +297,7 @@ namespace NLib
         public void Raise([CallerMemberName] string propertyName = null)
         {
             if (string.IsNullOrEmpty(propertyName)) return;
-            if (_lock) return; // if lock do nothing
+            if (_lock || IsTypeLocked(this.GetType())) return; // if lock do nothing
             // raise event.
             PropertyChanged.Call(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -237,7 +307,7 @@ namespace NLib
         /// <param name="actions">The array of lamda expression's functions.</param>
         public void Raise(params Expression<Func<object>>[] actions)
         {
-            if (_lock) return; // if lock do nothing
+            if (_lock || IsTypeLocked(this.GetType())) return; // if lock do nothing
             if (null != actions && actions.Length > 0)
             {
                 foreach (var item in actions)
@@ -255,7 +325,7 @@ namespace NLib
         /// Checks is notifiy enabled or disable.
         /// </summary>
         /// <returns>Returns true if enabled.</returns>
-        public bool IsLocked { get { return _lock; } set { } }
+        public bool IsLocked { get { return _lock || IsTypeLocked(this.GetType()); } set { } }
 
         #endregion
 
