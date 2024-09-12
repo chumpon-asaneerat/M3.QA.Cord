@@ -509,16 +509,41 @@ namespace M3.QA.Models
                     break; // already reach max allow SP
 
                 int? SP;
+                string sampleType;
                 switch (i)
                 {
-                    case 1: SP = value.SP1; break;
-                    case 2: SP = value.SP2; break;
-                    case 3: SP = value.SP3; break;
-                    case 4: SP = value.SP4; break;
-                    case 5: SP = value.SP5; break;
-                    case 6: SP = value.SP6; break;
-                    case 7: SP = value.SP7; break;
-                    default: SP = new int?(); break;
+                    case 1:
+                        SP = value.SP1;
+                        sampleType = value.SampleType1;
+                        break;
+                    case 2:
+                        SP = value.SP2;
+                        sampleType = value.SampleType2;
+                        break;
+                    case 3:
+                        SP = value.SP3;
+                        sampleType = value.SampleType3;
+                        break;
+                    case 4:
+                        SP = value.SP4;
+                        sampleType = value.SampleType4;
+                        break;
+                    case 5:
+                        SP = value.SP5;
+                        sampleType = value.SampleType5;
+                        break;
+                    case 6:
+                        SP = value.SP6;
+                        sampleType = value.SampleType6;
+                        break;
+                    case 7:
+                        SP = value.SP7;
+                        sampleType = value.SampleType7;
+                        break;
+                    default:
+                        SP = new int?();
+                        sampleType = null;
+                        break;
                 }
                 // Skip SP is null
                 if (!SP.HasValue)
@@ -532,6 +557,7 @@ namespace M3.QA.Models
                     LotNo = value.LotNo,
                     PropertyNo = 7, // 1st Twisting Number = 7
                     SPNo = SP,
+                    SampleType = sampleType,
                     NeedSP = true,
                     Spec = spec,
                     YarnType = value.YarnType,
@@ -654,12 +680,15 @@ namespace M3.QA.Models
                         inst.LotNo = item.LotNo;
                         inst.PropertyNo = 7; // 1st Twisting Number = 7
                         inst.SPNo = item.SPNo;
+                        inst.SampleType = item.SampleType;
 
                         inst.NeedSP = true;
                         //inst.NoOfSample = 2; // ???
 
                         if (null != inst.Item)
                         {
+                            inst.Item.SPNo = item.SPNo;
+                            inst.Item.SampleType = item.SampleType;
                             inst.Item.N1 = item.N1;
                             inst.Item.N2 = item.N2;
                             inst.Item.N3 = item.N3;
@@ -672,6 +701,9 @@ namespace M3.QA.Models
                         }
                         if (null != inst.TM)
                         {
+                            inst.TM.SPNo = item.SPNo;
+                            inst.TM.SampleType = item.SampleType;
+
                             inst.TM.N1 = item.TMN1;
                             inst.TM.N2 = item.TMN2;
                             inst.TM.N3 = item.TMN3;
@@ -691,6 +723,9 @@ namespace M3.QA.Models
                         }
                         if (null != inst.TM10cm)
                         {
+                            inst.TM10cm.SPNo = item.SPNo;
+                            inst.TM10cm.SampleType = item.SampleType;
+
                             inst.TM10cm.N1 = item.TCMN1;
                             inst.TM10cm.N2 = item.TCMN2;
                             inst.TM10cm.N3 = item.TCMN3;
