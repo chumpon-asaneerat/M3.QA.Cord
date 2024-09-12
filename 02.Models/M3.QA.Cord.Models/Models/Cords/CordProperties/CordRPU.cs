@@ -257,6 +257,20 @@ namespace M3.QA.Models
             }
         }
 
+        public Visibility RequestVisibility
+        {
+            get
+            {
+                var isFullCH = SampleType == "F";
+
+                var usr = ModelCurrent.User;
+                var allowReq = (null != usr && usr.Active == 1 && usr.RoleId <= 10);
+
+                return (!isFullCH && allowReq) ? Visibility.Visible : Visibility.Collapsed;
+            }
+            set { }
+        }
+
         #endregion
 
         #region Spec
@@ -327,16 +341,41 @@ namespace M3.QA.Models
                     break; // already reach max allow SP
 
                 int? SP;
+                //string sampleType;
                 switch (i)
                 {
-                    case 1: SP = value.SP1; break;
-                    case 2: SP = value.SP2; break;
-                    case 3: SP = value.SP3; break;
-                    case 4: SP = value.SP4; break;
-                    case 5: SP = value.SP5; break;
-                    case 6: SP = value.SP6; break;
-                    case 7: SP = value.SP7; break;
-                    default: SP = new int?(); break;
+                    case 1:
+                        SP = value.SP1;
+                        //sampleType = value.SampleType1;
+                        break;
+                    case 2:
+                        SP = value.SP2;
+                        //sampleType = value.SampleType2;
+                        break;
+                    case 3:
+                        SP = value.SP3;
+                        //sampleType = value.SampleType3;
+                        break;
+                    case 4:
+                        SP = value.SP4;
+                        //sampleType = value.SampleType4;
+                        break;
+                    case 5:
+                        SP = value.SP5;
+                        //sampleType = value.SampleType5;
+                        break;
+                    case 6:
+                        SP = value.SP6;
+                        //sampleType = value.SampleType6;
+                        break;
+                    case 7:
+                        SP = value.SP7;
+                        //sampleType = value.SampleType7;
+                        break;
+                    default:
+                        SP = new int?();
+                        //sampleType = null;
+                        break;
                 }
                 // Skip SP is null
                 if (!SP.HasValue)
@@ -350,6 +389,7 @@ namespace M3.QA.Models
                     LotNo = value.LotNo,
                     PropertyNo = 12, // RPU Proepty No = 12
                     SPNo = SP,
+                    //SampleType = sampleType,
                     NeedSP = true,
                     Spec = spec,
                     YarnType = value.YarnType,
@@ -378,7 +418,7 @@ namespace M3.QA.Models
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
                         existItems[idx].YarnType = item.YarnType;
-                        existItems[idx].SampleType = item.SampleType;
+                        //existItems[idx].SampleType = item.SampleType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }

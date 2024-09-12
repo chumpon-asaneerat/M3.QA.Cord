@@ -555,8 +555,6 @@ namespace M3.QA.Models
         public int? MasterId { get; set; }
         public int? SPNo { get; set; }
         public string SampleType { get; set; }
-        public string ELongLoadN { get; set; }
-        public string YarnType { get; set; }
 
         public Visibility RequestVisibility
         {
@@ -571,6 +569,9 @@ namespace M3.QA.Models
             }
             set { }
         }
+
+        public string ELongLoadN { get; set; }
+        public string YarnType { get; set; }
 
         public List<CordElongationSubProperty> SubProperties { get; set; }
 
@@ -638,40 +639,40 @@ namespace M3.QA.Models
                     break; // already reach max allow SP
 
                 int? SP;
-                string sampleType;
+                //string sampleType;
                 switch (i)
                 {
                     case 1:
                         SP = value.SP1;
-                        sampleType = value.SampleType1;
+                        //sampleType = value.SampleType1;
                         break;
                     case 2:
                         SP = value.SP2;
-                        sampleType = value.SampleType2;
+                        //sampleType = value.SampleType2;
                         break;
                     case 3:
                         SP = value.SP3;
-                        sampleType = value.SampleType3;
+                        //sampleType = value.SampleType3;
                         break;
                     case 4:
                         SP = value.SP4;
-                        sampleType = value.SampleType4;
+                        //sampleType = value.SampleType4;
                         break;
                     case 5:
                         SP = value.SP5;
-                        sampleType = value.SampleType5;
+                        //sampleType = value.SampleType5;
                         break;
                     case 6:
                         SP = value.SP6;
-                        sampleType = value.SampleType6;
+                        //sampleType = value.SampleType6;
                         break;
                     case 7:
                         SP = value.SP7;
-                        sampleType = value.SampleType7;
+                        //sampleType = value.SampleType7;
                         break;
                     default:
                         SP = new int?();
-                        sampleType = null;
+                        //sampleType = null;
                         break;
                 }
                 // Skip SP is null
@@ -686,7 +687,7 @@ namespace M3.QA.Models
                     LotNo = value.LotNo,
                     MasterId = value.MasterId.Value,
                     SPNo = SP,
-                    SampleType = sampleType,
+                    //SampleType = sampleType,
                     ELongLoadN = value.ELongLoadN,
                     YarnType = value.YarnType
                 };
@@ -718,6 +719,8 @@ namespace M3.QA.Models
                             LotNo = item.LotNo,
                             PropertyNo = item.PropertyNo,
                             SPNo = item.SPNo,
+                            SampleType = item.SampleType,
+
                             LoadN = item.LoadN,
                             //YarnType = value.YarnType,
                             N1 = item.N1,
@@ -735,7 +738,6 @@ namespace M3.QA.Models
                             N2R2Flag = item.N2R2Flag.HasValue ? item.N2R2Flag.Value : false,
                             N3R1Flag = item.N3R1Flag.HasValue ? item.N3R1Flag.Value : false,
                             N3R2Flag = item.N3R2Flag.HasValue ? item.N3R2Flag.Value : false,
-                            SampleType = item.SampleType
                         };
 
                         exists.Add(imp);
@@ -771,7 +773,7 @@ namespace M3.QA.Models
                             // need to set because not return from db.
                             item.NoOfSample = elong.SubProperties[idx].NoOfSample;
                             item.YarnType = elong.SubProperties[idx].YarnType;
-                            item.SampleType = elong.SubProperties[idx].SampleType;
+                            //item.SampleType = elong.SubProperties[idx].SampleType;
                             // Clone anther properties
                             CordElongationSubProperty.Clone(item, elong.SubProperties[idx]);
                         }

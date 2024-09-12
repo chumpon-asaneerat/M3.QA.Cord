@@ -166,7 +166,7 @@
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
                                                                 <!--  N  -->
-                                                                <StackPanel Orientation="Horizontal" 
+                                                                <StackPanel Orientation="Horizontal"
                                                                             HorizontalAlignment="Center"
                                                                             DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
@@ -178,7 +178,7 @@
                                                                         <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
-                                                                <StackPanel Orientation="Horizontal" 
+                                                                <StackPanel Orientation="Horizontal"
                                                                             HorizontalAlignment="Center"
                                                                             DockPanel.Dock="Top">
                                                                     <!--  R1  -->
@@ -235,7 +235,7 @@
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
                                                                 <!--  N  -->
-                                                                <StackPanel Orientation="Horizontal" 
+                                                                <StackPanel Orientation="Horizontal"
                                                                             HorizontalAlignment="Center"
                                                                             DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical"
@@ -247,7 +247,7 @@
                                                                         <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
-                                                                <StackPanel Orientation="Horizontal" 
+                                                                <StackPanel Orientation="Horizontal"
                                                                             HorizontalAlignment="Center"
                                                                             DockPanel.Dock="Top">
                                                                     <!--  R1  -->
@@ -375,6 +375,26 @@
                                             <Grid />
                                         </DockPanel>
                                         <Grid Height="10" />
+                                    </StackPanel>
+                                </Border>
+                                <!--  Request.  -->
+                                <Border Margin="0,0,5,0" DockPanel.Dock="Left">
+                                    <StackPanel Orientation="Vertical"
+                                                Width="Auto"
+                                                HorizontalAlignment="Center">
+                                        <!--
+                                        <Border Padding="5, 0" CornerRadius="3" Background="CornflowerBlue">
+                                            <TextBlock Text="{Binding SampleTypeName}"
+                                                       Foreground="WhiteSmoke"
+                                                       HorizontalAlignment="Center"/>
+                                        </Border>
+                                        -->
+                                        <Button x:Name="cmdRequest"
+                                                Content="Request Full Sample"
+                                                Width="180"
+                                                Style="{StaticResource InlineButton}"
+                                                Visibility="{Binding RequestVisibility}"
+                                                Click="cmdRequest_Click" />
                                     </StackPanel>
                                 </Border>
                                 <Grid />
