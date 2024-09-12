@@ -1088,6 +1088,7 @@ namespace M3.QA.Models
 
             public string LotNo { get; set; }
             public int? SPNo { get; set; }
+            public string SampleType { get; set; }
 
             public decimal? N1 { get; set; }
             public decimal? N2 { get; set; }
