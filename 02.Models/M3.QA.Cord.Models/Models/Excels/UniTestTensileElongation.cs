@@ -54,6 +54,10 @@ namespace M3.QA.Models
                     case 0:
                         {
                             SP1 = p.Items[i].SP;
+                            SP1N1 = p.Items[i].RetestN1;
+                            SP1N2 = p.Items[i].RetestN2;
+                            SP1N3 = p.Items[i].RetestN3;
+
                             NCnt1 = NCnt;
                             RCnt1 = 0;
                             RCnt1 += p.Items[i].RetestN1 ? 2 : 0;
@@ -64,6 +68,10 @@ namespace M3.QA.Models
                     case 1:
                         {
                             SP2 = p.Items[i].SP;
+                            SP2N1 = p.Items[i].RetestN1;
+                            SP2N2 = p.Items[i].RetestN2;
+                            SP2N3 = p.Items[i].RetestN3;
+
                             NCnt2 = NCnt;
                             RCnt2 = 0;
                             RCnt2 += p.Items[i].RetestN1 ? 2 : 0;
@@ -74,6 +82,10 @@ namespace M3.QA.Models
                     case 2:
                         {
                             SP3 = p.Items[i].SP;
+                            SP3N1 = p.Items[i].RetestN1;
+                            SP3N2 = p.Items[i].RetestN2;
+                            SP3N3 = p.Items[i].RetestN3;
+
                             NCnt3 = NCnt;
                             RCnt3 = 0;
                             RCnt3 += p.Items[i].RetestN1 ? 2 : 0;
@@ -84,6 +96,10 @@ namespace M3.QA.Models
                     case 3:
                         {
                             SP4 = p.Items[i].SP;
+                            SP4N1 = p.Items[i].RetestN1;
+                            SP4N2 = p.Items[i].RetestN2;
+                            SP4N3 = p.Items[i].RetestN3;
+
                             NCnt4 = NCnt;
                             RCnt4 = 0;
                             RCnt4 += p.Items[i].RetestN1 ? 2 : 0;
@@ -94,6 +110,10 @@ namespace M3.QA.Models
                     case 4:
                         {
                             SP5 = p.Items[i].SP;
+                            SP5N1 = p.Items[i].RetestN1;
+                            SP5N2 = p.Items[i].RetestN2;
+                            SP5N3 = p.Items[i].RetestN3;
+
                             NCnt5 = NCnt;
                             RCnt5 = 0;
                             RCnt5 += p.Items[i].RetestN1 ? 2 : 0;
@@ -104,6 +124,10 @@ namespace M3.QA.Models
                     case 5:
                         {
                             SP6 = p.Items[i].SP;
+                            SP6N1 = p.Items[i].RetestN1;
+                            SP6N2 = p.Items[i].RetestN2;
+                            SP6N3 = p.Items[i].RetestN3;
+
                             NCnt6 = NCnt;
                             RCnt6 = 0;
                             RCnt6 += p.Items[i].RetestN1 ? 2 : 0;
@@ -114,6 +138,10 @@ namespace M3.QA.Models
                     case 6:
                         {
                             SP7 = p.Items[i].SP;
+                            SP7N1 = p.Items[i].RetestN1;
+                            SP7N2 = p.Items[i].RetestN2;
+                            SP7N3 = p.Items[i].RetestN3;
+
                             NCnt7 = NCnt;
                             RCnt7 = 0;
                             RCnt7 += p.Items[i].RetestN1 ? 2 : 0;
@@ -390,6 +418,38 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region SP N Retest Flag
+
+        public bool SP1N1 { get; set; }
+        public bool SP1N2 { get; set; }
+        public bool SP1N3 { get; set; }
+
+        public bool SP2N1 { get; set; }
+        public bool SP2N2 { get; set; }
+        public bool SP2N3 { get; set; }
+
+        public bool SP3N1 { get; set; }
+        public bool SP3N2 { get; set; }
+        public bool SP3N3 { get; set; }
+
+        public bool SP4N1 { get; set; }
+        public bool SP4N2 { get; set; }
+        public bool SP4N3 { get; set; }
+
+        public bool SP5N1 { get; set; }
+        public bool SP5N2 { get; set; }
+        public bool SP5N3 { get; set; }
+
+        public bool SP6N1 { get; set; }
+        public bool SP6N2 { get; set; }
+        public bool SP6N3 { get; set; }
+
+        public bool SP7N1 { get; set; }
+        public bool SP7N2 { get; set; }
+        public bool SP7N3 { get; set; }
+
+        #endregion
+
         #region Retest Cnt
 
         public int RCnt1 { get; set; }
@@ -602,7 +662,6 @@ namespace M3.QA.Models
                                 inst.TensileStrengths.Count > 0 && iSP < inst.TensileStrengths.Count &&
                                 null != inst.TensileStrengths[iSP])
                             {
-                                /*
                                 N = decimal.TryParse(row["F2"].ToString(), out d) ? d : new decimal?();
 
                                 switch (iCnt)
@@ -624,6 +683,29 @@ namespace M3.QA.Models
                                         }
                                     case 4:
                                         {
+                                            switch (iSP)
+                                            {
+                                                case 0:
+                                                    if (inst.SP1N1)
+                                                        inst.TensileStrengths[iSP].N1R1 = N;
+                                                    if (inst.SP1N2)
+                                                        inst.TensileStrengths[iSP].N2R1 = N;
+                                                    if (inst.SP1N3)
+                                                        inst.TensileStrengths[iSP].N3R1 = N;
+                                                    break;
+                                                case 1:
+                                                    break;
+                                                case 2:
+                                                    break;
+                                                case 3:
+                                                    break;
+                                                case 4:
+                                                    break;
+                                                case 5:
+                                                    break;
+                                                case 6:
+                                                    break;
+                                            }
                                             inst.TensileStrengths[iSP].R1 = N;
                                             break;
                                         }
@@ -637,8 +719,22 @@ namespace M3.QA.Models
                                             inst.TensileStrengths[iSP].R3 = N;
                                             break;
                                         }
+                                    case 7:
+                                        {
+                                            inst.TensileStrengths[iSP].R1 = N;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            inst.TensileStrengths[iSP].R2 = N;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            inst.TensileStrengths[iSP].R3 = N;
+                                            break;
+                                        }
                                 }
-                                */
                             }
 
                             #endregion
