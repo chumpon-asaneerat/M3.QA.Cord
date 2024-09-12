@@ -1,5 +1,36 @@
-M3 QA Cord #480
+M3 QA Cord #490
 - 
+
+M3 QA Cord #489
+- 
+
+M3 QA Cord #488
+- 
+
+M3 QA Cord #487
+- 
+
+M3 QA Cord #486
+- 
+
+M3 QA Cord #485
+- 
+
+M3 QA Cord #484
+- 
+
+M3 QA Cord #483
+- 
+
+M3 QA Cord #482
+- 
+
+M3 QA Cord #481
+- 
+
+[commit]
+M3 QA Cord #480
+- Implements Cord Test Data #70
 
 [commit]
 M3 QA Cord #479
