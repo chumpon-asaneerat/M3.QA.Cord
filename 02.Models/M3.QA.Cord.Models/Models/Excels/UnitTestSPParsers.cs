@@ -32,7 +32,7 @@ namespace M3.QA.Models
         /// </summary>
         private UniTestSPParserItem() : base() 
         {
-            RCnt = 0;
+            
         }
 
         #endregion
@@ -41,12 +41,28 @@ namespace M3.QA.Models
 
         /// <summary>Gets or sets SP No.</summary>
         public int SP { get; set; }
-        /// <summary>Gets or sets Retest Count.</summary>
-        public int RCnt { get; set; }
+        /// <summary>Gets or sets Has Retest N1.</summary>
+        public bool RetestN1 { get; set; }
+        /// <summary>Gets or sets Has Retest N2.</summary>
+        public bool RetestN2 { get; set; }
+        /// <summary>Gets or sets Has Retest N3.</summary>
+        public bool RetestN3 { get; set; }
 
         #endregion
 
         #region Static Methods
+
+        private static string Between(string source, string startString, string endString)
+        {
+            string ret = string.Empty;
+            if (!string.IsNullOrWhiteSpace(source))
+            {
+                int Pos1 = source.IndexOf(startString) + startString.Length;
+                int Pos2 = source.IndexOf(endString);
+                ret = source.Substring(Pos1, Pos2 - Pos1);
+            }
+            return ret;
+        }
 
         public static UniTestSPParserItem Parse(string value)
         {
@@ -55,40 +71,52 @@ namespace M3.QA.Models
                 return inst;
 
             string sSP = string.Empty;
-            string sRCnt = string.Empty;
+            List<string> retestNs = new List<string>();
             if (value.Contains("+"))
             {
                 var lines = value.Split(new string[] { "+" }, StringSplitOptions.RemoveEmptyEntries);
                 if (null != lines && lines.Length > 0) 
                 { 
                     sSP = lines[0]; // first element is SP No.
+
                     if (lines.Length > 1)
                     {
                         // Has retest
-                        sRCnt = lines[1];
-                    }
-                    else
-                    {
-                        sRCnt = "0";
+                        string retestValues = Between(lines[1], "(", ")");
+
+                        var retests = value.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+                        if (null != retests && retests.Length > 0)
+                        {
+                            retestNs.AddRange(retests);
+                        }
                     }
                 }
             }
             else
             {
                 sSP = value;
-                sRCnt = "0";
             }
-            int sp, rcnt;
+
+            int sp, rN;
             if (int.TryParse(sSP, out sp))
             {
                 // parse success.
                 inst = new UniTestSPParserItem();
                 inst.SP = sp;
-                if (int.TryParse(sRCnt, out rcnt))
+
+                inst.RetestN1 = false;
+                inst.RetestN2 = false;
+                inst.RetestN3 = false;
+
+                foreach (var retestN in retestNs)
                 {
-                    inst.RCnt = rcnt;
+                    if (int.TryParse(retestN, out rN))
+                    {
+                        if (rN == 1) inst.RetestN1 = true;
+                        else if (rN == 2) inst.RetestN2 = true;
+                        else if (rN == 3) inst.RetestN3 = true;
+                    }
                 }
-                else inst.RCnt = 0;
             }
 
             return inst;

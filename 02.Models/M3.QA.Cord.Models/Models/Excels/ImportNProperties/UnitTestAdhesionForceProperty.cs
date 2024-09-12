@@ -49,8 +49,10 @@ namespace M3.QA.Models
             {
                 AdhesionForce.N1 = (PeakPoint.N1.HasValue) ? PeakPoint.N1.Value / 5 : new decimal?();
                 AdhesionForce.N2 = (PeakPoint.N2.HasValue) ? PeakPoint.N2.Value / 5 : new decimal?();
-                AdhesionForce.R1 = (PeakPoint.R1.HasValue) ? PeakPoint.R1.Value / 5 : new decimal?();
-                AdhesionForce.R2 = (PeakPoint.R2.HasValue) ? PeakPoint.R2.Value / 5 : new decimal?();
+                AdhesionForce.N1R1 = (PeakPoint.N1R1.HasValue) ? PeakPoint.N1R1.Value / 5 : new decimal?();
+                AdhesionForce.N1R2 = (PeakPoint.N1R2.HasValue) ? PeakPoint.N1R2.Value / 5 : new decimal?();
+                AdhesionForce.N2R1 = (PeakPoint.N2R1.HasValue) ? PeakPoint.N2R1.Value / 5 : new decimal?();
+                AdhesionForce.N2R2 = (PeakPoint.N2R2.HasValue) ? PeakPoint.N2R2.Value / 5 : new decimal?();
                 // Raise events
                 Raise(() => this.AdhesionForce);
             }

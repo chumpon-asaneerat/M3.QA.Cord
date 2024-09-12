@@ -58,49 +58,70 @@ namespace M3.QA.Models
                         {
                             SP1 = p.Items[i].SP;
                             NCnt1 = NCnt;
-                            RCnt1 = p.Items[i].RCnt;
+                            RCnt1 = 0;
+                            RCnt1 += p.Items[i].RetestN1 ? 2 : 0;
+                            RCnt1 += p.Items[i].RetestN2 ? 2 : 0;
+                            RCnt1 += p.Items[i].RetestN3 ? 2 : 0;
                             break;
                         }
                     case 1:
                         {
                             SP2 = p.Items[i].SP;
                             NCnt2 = NCnt;
-                            RCnt2 = p.Items[i].RCnt;
+                            RCnt2 = 0;
+                            RCnt2 += p.Items[i].RetestN1 ? 2 : 0;
+                            RCnt2 += p.Items[i].RetestN2 ? 2 : 0;
+                            RCnt2 += p.Items[i].RetestN3 ? 2 : 0;
                             break;
                         }
                     case 2:
                         {
                             SP3 = p.Items[i].SP;
                             NCnt3 = NCnt;
-                            RCnt3 = p.Items[i].RCnt;
+                            RCnt3 = 0;
+                            RCnt3 += p.Items[i].RetestN1 ? 2 : 0;
+                            RCnt3 += p.Items[i].RetestN2 ? 2 : 0;
+                            RCnt3 += p.Items[i].RetestN3 ? 2 : 0;
                             break;
                         }
                     case 3:
                         {
                             SP4 = p.Items[i].SP;
                             NCnt4 = NCnt;
-                            RCnt4 = p.Items[i].RCnt;
+                            RCnt4 = 0;
+                            RCnt4 += p.Items[i].RetestN1 ? 2 : 0;
+                            RCnt4 += p.Items[i].RetestN2 ? 2 : 0;
+                            RCnt4 += p.Items[i].RetestN3 ? 2 : 0;
                             break;
                         }
                     case 4:
                         {
                             SP5 = p.Items[i].SP;
                             NCnt5 = NCnt;
-                            RCnt5 = p.Items[i].RCnt;
+                            RCnt5 = 0;
+                            RCnt5 += p.Items[i].RetestN1 ? 2 : 0;
+                            RCnt5 += p.Items[i].RetestN2 ? 2 : 0;
+                            RCnt5 += p.Items[i].RetestN3 ? 2 : 0;
                             break;
                         }
                     case 5:
                         {
                             SP6 = p.Items[i].SP;
                             NCnt6 = NCnt;
-                            RCnt6 = p.Items[i].RCnt;
+                            RCnt6 = 0;
+                            RCnt6 += p.Items[i].RetestN1 ? 2 : 0;
+                            RCnt6 += p.Items[i].RetestN2 ? 2 : 0;
+                            RCnt6 += p.Items[i].RetestN3 ? 2 : 0;
                             break;
                         }
                     case 6:
                         {
                             SP7 = p.Items[i].SP;
                             NCnt7 = NCnt;
-                            RCnt7 = p.Items[i].RCnt;
+                            RCnt7 = 0;
+                            RCnt7 += p.Items[i].RetestN1 ? 2 : 0;
+                            RCnt7 += p.Items[i].RetestN2 ? 2 : 0;
+                            RCnt7 += p.Items[i].RetestN3 ? 2 : 0;
                             break;
                         }
                 }
@@ -486,6 +507,7 @@ namespace M3.QA.Models
                             if (null != inst.Items &&
                                 inst.Items.Count > 0 && iSP < inst.Items.Count)
                             {
+                                /*
                                 N = decimal.TryParse(row["F4"].ToString(), out d) ? d : new decimal?();
 
                                 switch (iCnt)
@@ -511,6 +533,7 @@ namespace M3.QA.Models
                                             break;
                                         }
                                 }
+                                */
                             }
 
                             #endregion
@@ -657,6 +680,7 @@ namespace M3.QA.Models
                 int iCnt = 0;
                 foreach (var r in value.Items)
                 {
+                    /*
                     p = new DynamicParameters();
                     p.Add("@LotNo", r.LotNo);
                     p.Add("@spno", r.SPNo);
@@ -688,6 +712,7 @@ namespace M3.QA.Models
                         ret.ErrNum = 9999;
                         ret.ErrMsg = ex.Message;
                     }
+                    */
                 }
                 if (iCnt == value.Items.Count)
                 {

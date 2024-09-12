@@ -63,7 +63,7 @@
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
             <Setter Property="Text" Value="{Binding R1, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
-            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR1}" />
+            <Setter Property="IsReadOnly" Value="True" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
             <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
@@ -79,7 +79,7 @@
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
             <Setter Property="Text" Value="{Binding R2, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
-            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR2}" />
+            <Setter Property="IsReadOnly" Value="True" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
             <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
