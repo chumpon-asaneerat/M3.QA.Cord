@@ -282,16 +282,41 @@ namespace M3.QA.Models
                     break; // already reach max allow SP
 
                 int? SP;
+                string sampleType;
                 switch (i)
                 {
-                    case 1: SP = value.SP1; break;
-                    case 2: SP = value.SP2; break;
-                    case 3: SP = value.SP3; break;
-                    case 4: SP = value.SP4; break;
-                    case 5: SP = value.SP5; break;
-                    case 6: SP = value.SP6; break;
-                    case 7: SP = value.SP7; break;
-                    default: SP = new int?(); break;
+                    case 1:
+                        SP = value.SP1;
+                        sampleType = value.SampleType1;
+                        break;
+                    case 2:
+                        SP = value.SP2;
+                        sampleType = value.SampleType2;
+                        break;
+                    case 3:
+                        SP = value.SP3;
+                        sampleType = value.SampleType3;
+                        break;
+                    case 4:
+                        SP = value.SP4;
+                        sampleType = value.SampleType4;
+                        break;
+                    case 5:
+                        SP = value.SP5;
+                        sampleType = value.SampleType5;
+                        break;
+                    case 6:
+                        SP = value.SP6;
+                        sampleType = value.SampleType6;
+                        break;
+                    case 7:
+                        SP = value.SP7;
+                        sampleType = value.SampleType7;
+                        break;
+                    default:
+                        SP = new int?();
+                        sampleType = null;
+                        break;
                 }
                 // Skip SP is null
                 if (!SP.HasValue)
@@ -305,6 +330,7 @@ namespace M3.QA.Models
                     LotNo = value.LotNo,
                     PropertyNo = 4, // Adhesion Force = 4
                     SPNo = SP,
+                    SampleType = sampleType,
                     NeedSP = true,
                     Spec = spec,
                     YarnType = value.YarnType,
@@ -333,6 +359,7 @@ namespace M3.QA.Models
                             LotNo = item.LotNo,
                             PropertyNo = 4, // Adhesion Force = 4
                             SPNo = item.SPNo,
+                            SampleType = item.SampleType,
                             NeedSP = true,
                             Spec = spec,
                             YarnType = value.YarnType,
@@ -340,6 +367,7 @@ namespace M3.QA.Models
                         };
 
                         if (null == imp.PeakPoint) imp.PeakPoint = new NRTestProperty();
+                        imp.PeakPoint.SPNo = item.SPNo;
                         imp.PeakPoint.SampleType = item.SampleType;
                         imp.PeakPoint.N1 = item.PeakN1;
                         imp.PeakPoint.N2 = item.PeakN2;
@@ -349,6 +377,7 @@ namespace M3.QA.Models
                         imp.PeakPoint.N2R2 = item.PeakN2R2;
 
                         if (null == imp.AdhesionForce) imp.AdhesionForce = new NRTestProperty();
+                        imp.AdhesionForce.SPNo = item.SPNo;
                         imp.AdhesionForce.SampleType = item.SampleType;
                         imp.AdhesionForce.N1 = item.AdhesionN1;
                         imp.AdhesionForce.N2 = item.AdhesionN2;
@@ -375,6 +404,7 @@ namespace M3.QA.Models
                         existItems[idx].NoOfSample = item.NoOfSample;
                         existItems[idx].YarnType = item.YarnType;
                         existItems[idx].Spec = spec; // assign spec
+                        existItems[idx].SampleType = item.SampleType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }
@@ -407,6 +437,7 @@ namespace M3.QA.Models
             dst.LotNo = src.LotNo;
             dst.PropertyNo = src.PropertyNo;
             dst.SPNo = src.SPNo;
+            dst.SampleType = src.SampleType;
             dst.NoOfSample = src.NoOfSample;
             dst.YarnType = src.YarnType;
 
@@ -465,12 +496,15 @@ namespace M3.QA.Models
                         inst.LotNo = item.LotNo;
                         inst.PropertyNo = 4;
                         inst.SPNo = item.SPNo;
+                        inst.SampleType = item.SampleType;
 
                         inst.NeedSP = true;
                         //inst.NoOfSample = 2; // ???
 
                         if (null != inst.PeakPoint)
                         {
+                            inst.PeakPoint.SPNo = item.SPNo;
+                            inst.PeakPoint.SampleType = item.SampleType;
                             inst.PeakPoint.N1 = item.PeakN1;
                             inst.PeakPoint.N2 = item.PeakN2;
                             inst.PeakPoint.N1R1 = item.PeakN1R1;
@@ -484,6 +518,8 @@ namespace M3.QA.Models
                         }
                         if (null != inst.AdhesionForce)
                         {
+                            inst.AdhesionForce.SPNo = item.SPNo;
+                            inst.AdhesionForce.SampleType = item.SampleType;
                             inst.AdhesionForce.N1 = item.AdhesionN1;
                             inst.AdhesionForce.N2 = item.AdhesionN2;
                             inst.AdhesionForce.N1R1 = item.AdhesionN1R1;
