@@ -321,6 +321,16 @@ namespace M3.QA
 
             #endregion
 
+            #region Cord Request Full CH Window
+
+            /// <summary>Gets Cord Request Full CH Window.</summary>
+            public static RequestFullCHWindow RequestFullCH
+            {
+                get { return GetWindow<RequestFullCHWindow>(); }
+            }
+
+            #endregion
+
             #region Export Message
 
             public static void ExportSuccess()

@@ -36,6 +36,20 @@ namespace M3.QA.Pages
 
         #endregion
 
+        #region Loaded/Unloaded
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            RequestFullCHService.OnRequestFullCH += RequestFullCHService_OnRequestFullCH;
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            RequestFullCHService.OnRequestFullCH -= RequestFullCHService_OnRequestFullCH;
+        }
+
+        #endregion
+
         #region Button Handlers
 
         private void cmdBack_Click(object sender, RoutedEventArgs e)
@@ -69,6 +83,15 @@ namespace M3.QA.Pages
                 Clear();
                 e.Handled = true;
             }
+        }
+
+        #endregion
+
+        #region RequestFullCHService Handlers
+
+        private void RequestFullCHService_OnRequestFullCH(object sender, EventArgs e)
+        {
+            Search();
         }
 
         #endregion
