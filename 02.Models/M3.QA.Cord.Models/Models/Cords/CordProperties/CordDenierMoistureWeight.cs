@@ -763,40 +763,40 @@ namespace M3.QA.Models
                     break; // already reach max allow SP
 
                 int? SP;
-                //string sampleType;
+                string sampleType;
                 switch (i)
                 {
                     case 1:
                         SP = value.SP1;
-                        //sampleType = value.SampleType1;
+                        sampleType = value.SampleType1;
                         break;
                     case 2:
                         SP = value.SP2;
-                        //sampleType = value.SampleType2;
+                        sampleType = value.SampleType2;
                         break;
                     case 3:
                         SP = value.SP3;
-                        //sampleType = value.SampleType3;
+                        sampleType = value.SampleType3;
                         break;
                     case 4:
                         SP = value.SP4;
-                        //sampleType = value.SampleType4;
+                        sampleType = value.SampleType4;
                         break;
                     case 5:
                         SP = value.SP5;
-                        //sampleType = value.SampleType5;
+                        sampleType = value.SampleType5;
                         break;
                     case 6:
                         SP = value.SP6;
-                        //sampleType = value.SampleType6;
+                        sampleType = value.SampleType6;
                         break;
                     case 7:
                         SP = value.SP7;
-                        //sampleType = value.SampleType7;
+                        sampleType = value.SampleType7;
                         break;
                     default:
                         SP = new int?();
-                        //sampleType = null;
+                        sampleType = null;
                         break;
                 }
                 // Skip SP is null
@@ -813,7 +813,7 @@ namespace M3.QA.Models
                     PropertyNo2 = 11, // Moisture regain (PropertyNo = 11)
                     PropertyNo3 = 14, // Weight (PropertyNo = 14)
                     SPNo = SP,
-                    //SampleType = sampleType,
+                    SampleType = sampleType,
                     NeedSP = true,
                     SpecDenier = spec1, // Denier
                     SpecMoisture = spec2, // Moisture
@@ -844,7 +844,7 @@ namespace M3.QA.Models
                         // need to set because not return from db.
                         existItems[idx].NoOfSample = item.NoOfSample;
                         existItems[idx].YarnType = item.YarnType;
-                        //existItems[idx].SampleType = item.SampleType;
+                        existItems[idx].SampleType = item.SampleType;
                         // Clone anther properties
                         Clone(existItems[idx], item);
                     }
