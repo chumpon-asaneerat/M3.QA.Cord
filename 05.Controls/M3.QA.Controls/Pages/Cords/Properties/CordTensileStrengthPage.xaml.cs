@@ -45,7 +45,7 @@ namespace M3.QA.Pages
         {
             var btn = sender as Button;
             var ctx = (null != btn) ? btn.DataContext : null;
-            var item = (null != ctx) ? ctx as NRTestProperty : null;
+            var item = (null != ctx) ? ctx as CordTensileStrength : null;
             if (null != item)
             {
                 var usr = (null != M3QAApp.Current.User) ? M3QAApp.Current.User.FullName : null;

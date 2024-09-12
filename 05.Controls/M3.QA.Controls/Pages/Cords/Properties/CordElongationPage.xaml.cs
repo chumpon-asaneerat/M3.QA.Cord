@@ -1,5 +1,6 @@
 ﻿#region Using
 
+using M3.QA.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,29 @@ namespace M3.QA.Pages
         public CordElongationPage()
         {
             InitializeComponent();
+        }
+
+        #endregion
+
+        #region Button Handlers
+
+        private void cmdRequest_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var ctx = (null != btn) ? btn.DataContext : null;
+            var item = (null != ctx) ? ctx as CordElongation : null;
+            if (null != item)
+            {
+                var usr = (null != M3QAApp.Current.User) ? M3QAApp.Current.User.FullName : null;
+                var sp = item.SPNo;
+                var remark = "Request Full CH !!!!";
+                var ret = Models.Utils.M_ReceiveFullSample.Save(item.LotNo, null, usr, DateTime.Now, sp, sp, null, remark);
+                if (null != ret && ret.Ok)
+                {
+                    M3QAApp.Windows.SaveSuccess();
+                }
+                else M3QAApp.Windows.SaveFailed();
+            }
         }
 
         #endregion

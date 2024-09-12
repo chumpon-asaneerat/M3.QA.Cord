@@ -389,6 +389,7 @@ namespace M3.QA.Models
                 LotNo = value.LotNo,
                 PropertyNo = 2, // Elongation Break = 2
                 SPNo = elongItem.SPNo,
+                SampleType = elongItem.SampleType,
                 NeedSP = true,
                 Spec = spec,
                 NeedEload = false, // Elongation Break not requred SP No
@@ -505,6 +506,7 @@ namespace M3.QA.Models
                         LotNo = value.LotNo,
                         PropertyNo = 3, // Elongation Load = 3
                         SPNo = elongItem.SPNo,
+                        SampleType = elongItem.SampleType,
                         NeedSP = true,
                         NeedEload = true, // Elongation Load requred SP No
                         Spec = spec,
@@ -552,8 +554,23 @@ namespace M3.QA.Models
         public string LotNo { get; set; }
         public int? MasterId { get; set; }
         public int? SPNo { get; set; }
+        public string SampleType { get; set; }
         public string ELongLoadN { get; set; }
         public string YarnType { get; set; }
+
+        public Visibility RequestVisibility
+        {
+            get
+            {
+                var isFullCH = SampleType == "F";
+
+                var usr = ModelCurrent.User;
+                var allowReq = (null != usr && usr.Active == 1 && usr.RoleId <= 10);
+
+                return (!isFullCH && allowReq) ? Visibility.Visible : Visibility.Collapsed;
+            }
+            set { }
+        }
 
         public List<CordElongationSubProperty> SubProperties { get; set; }
 
@@ -621,16 +638,41 @@ namespace M3.QA.Models
                     break; // already reach max allow SP
 
                 int? SP;
+                string sampleType;
                 switch (i)
                 {
-                    case 1: SP = value.SP1; break;
-                    case 2: SP = value.SP2; break;
-                    case 3: SP = value.SP3; break;
-                    case 4: SP = value.SP4; break;
-                    case 5: SP = value.SP5; break;
-                    case 6: SP = value.SP6; break;
-                    case 7: SP = value.SP7; break;
-                    default: SP = new int?(); break;
+                    case 1:
+                        SP = value.SP1;
+                        sampleType = value.SampleType1;
+                        break;
+                    case 2:
+                        SP = value.SP2;
+                        sampleType = value.SampleType2;
+                        break;
+                    case 3:
+                        SP = value.SP3;
+                        sampleType = value.SampleType3;
+                        break;
+                    case 4:
+                        SP = value.SP4;
+                        sampleType = value.SampleType4;
+                        break;
+                    case 5:
+                        SP = value.SP5;
+                        sampleType = value.SampleType5;
+                        break;
+                    case 6:
+                        SP = value.SP6;
+                        sampleType = value.SampleType6;
+                        break;
+                    case 7:
+                        SP = value.SP7;
+                        sampleType = value.SampleType7;
+                        break;
+                    default:
+                        SP = new int?();
+                        sampleType = null;
+                        break;
                 }
                 // Skip SP is null
                 if (!SP.HasValue)
@@ -644,6 +686,7 @@ namespace M3.QA.Models
                     LotNo = value.LotNo,
                     MasterId = value.MasterId.Value,
                     SPNo = SP,
+                    SampleType = sampleType,
                     ELongLoadN = value.ELongLoadN,
                     YarnType = value.YarnType
                 };

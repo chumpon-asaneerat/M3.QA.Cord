@@ -238,10 +238,10 @@
                                         -->
                                         <Button x:Name="cmdRequest"
                                                 Content="Request Full Sample"
-                                                Width="180" 
+                                                Width="180"
                                                 Style="{StaticResource InlineButton}"
                                                 Visibility="{Binding RequestVisibility}"
-                                                Click="cmdRequest_Click"/>
+                                                Click="cmdRequest_Click" />
                                     </StackPanel>
                                 </Border>
                                 <Grid />
