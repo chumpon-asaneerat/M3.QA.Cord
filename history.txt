@@ -16,8 +16,9 @@ M3 QA Cord #486
 M3 QA Cord #485
 - 
 
+[commit]
 M3 QA Cord #484
-- 
+- Implements Cord Test Data #74
 
 [commit]
 M3 QA Cord #483

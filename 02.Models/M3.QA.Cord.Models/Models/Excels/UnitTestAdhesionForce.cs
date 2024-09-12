@@ -131,6 +131,21 @@ namespace M3.QA.Models
             Raise(() => this.RCnt7);
         }
 
+        private void ParseComment2()
+        {
+            if (string.IsNullOrWhiteSpace(Comment2))
+            {
+                SampleType = "S";
+            }
+            else
+            {
+                string comment = Comment2.Trim().ToUpper();
+                if (comment.StartsWith("F"))
+                    SampleType = "F";
+                else SampleType = "S";
+            }
+        }
+
         private void PrepareAdhesionForces()
         {
             Items = new List<UnitTestAdhesionForceProperty>();
@@ -221,7 +236,21 @@ namespace M3.QA.Models
             }
         }
 
+        public string Comment2
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                    ParseComment2();
+                });
+            }
+        }
+
         public string TestType { get; set; }
+
+        public string SampleType { get; set; }
 
         public int NoOfSample { get; set; } = 2; // Fixed
         public List<string> ElongNs { get; set; } = new List<string>();
@@ -361,6 +390,11 @@ namespace M3.QA.Models
                             else if (pName == "Comment 1")
                             {
                                 inst.Comment1 = (null != pValue) ?
+                                    pValue.ToString() : null;
+                            }
+                            else if (pName == "Comment 2")
+                            {
+                                inst.Comment2 = (null != pValue) ?
                                     pValue.ToString() : null;
                             }
                             else if (pName == "Test type")

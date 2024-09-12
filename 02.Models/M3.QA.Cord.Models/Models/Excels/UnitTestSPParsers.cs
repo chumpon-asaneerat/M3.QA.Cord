@@ -56,9 +56,9 @@ namespace M3.QA.Models
 
             string sSP = string.Empty;
             string sRCnt = string.Empty;
-            if (value.Contains("+") || value.Contains("/"))
+            if (value.Contains("+"))
             {
-                var lines = value.Split(new string[] { "+", "/" }, StringSplitOptions.RemoveEmptyEntries);
+                var lines = value.Split(new string[] { "+" }, StringSplitOptions.RemoveEmptyEntries);
                 if (null != lines && lines.Length > 0) 
                 { 
                     sSP = lines[0]; // first element is SP No.
