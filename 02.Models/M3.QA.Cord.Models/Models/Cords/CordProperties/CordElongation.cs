@@ -243,6 +243,10 @@ namespace M3.QA.Models
             p.Add("@spno", value.SPNo);
 
             p.Add("@loadn", value.LoadN);
+            if (!string.IsNullOrEmpty(value.LoadN))
+            {
+                Console.WriteLine();
+            }
 
             p.Add("@n1", value.N1);
             p.Add("@n2", value.N2);
