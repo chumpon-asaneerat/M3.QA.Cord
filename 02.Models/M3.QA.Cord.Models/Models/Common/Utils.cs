@@ -1395,6 +1395,77 @@ namespace M3.QA.Models
 
         #endregion
 
+        #region M_ReceiveFullSample
+
+        public class M_ReceiveFullSample
+        {
+            #region Static Methods
+
+            public static NDbResult Save(string lotNo, string productlot,
+                string requestBy, DateTime? requestDate,
+                int? sp, int? groupsp, int? retestsp = new int?(), string remark = null)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                NDbResult ret = new NDbResult();
+
+                if (string.IsNullOrWhiteSpace(lotNo))
+                {
+                    ret.ParameterIsNull();
+                    return ret;
+                }
+
+                IDbConnection cnn = DbServer.Instance.Db;
+                if (null == cnn || !DbServer.Instance.Connected)
+                {
+                    string msg = "Connection is null or cannot connect to database server.";
+                    med.Err(msg);
+                    // Set error number/message
+                    ret.ErrNum = 8000;
+                    ret.ErrMsg = msg;
+
+                    return ret;
+                }
+
+                var p = new DynamicParameters();
+                p.Add("@LotNo", lotNo);
+                p.Add("@productlot", productlot);
+
+                p.Add("@sp", sp);
+                p.Add("@groupsp", groupsp);
+                p.Add("@retestsp", retestsp);
+
+                p.Add("@requestremark", string.IsNullOrEmpty(remark) ? null : remark);
+                p.Add("@requestby", requestBy);
+                p.Add("@requestdate", requestDate);
+
+                p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+                try
+                {
+                    cnn.Execute("M_ReceiveFullSample", p, commandType: CommandType.StoredProcedure);
+                    ret.Success();
+                    // Set error number/message
+                    ret.ErrNum = p.Get<int>("@errNum");
+                    ret.ErrMsg = p.Get<string>("@errMsg");
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    // Set error number/message
+                    ret.ErrNum = 9999;
+                    ret.ErrMsg = ex.Message;
+                }
+
+                return ret;
+            }
+
+            #endregion
+        }
+
+        #endregion
+
         #region P_GetActiveSPByLot
 
         public class P_GetActiveSPByLot : NInpc

@@ -64,6 +64,14 @@ namespace M3.QA.Models
         public int? SP6 { get; set; }
         public int? SP7 { get; set; }
 
+        public string SampleType1 { get; set; }
+        public string SampleType2 { get; set; }
+        public string SampleType3 { get; set; }
+        public string SampleType4 { get; set; }
+        public string SampleType5 { get; set; }
+        public string SampleType6 { get; set; }
+        public string SampleType7 { get; set; }
+
         public int? TotalSP { get; set; }
         public DateTime? StartTestDate { get; set; }
 
@@ -212,6 +220,14 @@ namespace M3.QA.Models
             this.SP6 = new int?();
             this.SP7 = new int?();
 
+            this.SampleType1 = null;
+            this.SampleType2 = null;
+            this.SampleType3 = null;
+            this.SampleType4 = null;
+            this.SampleType5 = null;
+            this.SampleType6 = null;
+            this.SampleType7 = null;
+
             this.TotalSP = new int?();
             var activeSPs = Utils.P_GetActiveSPByLot.Gets(this.LotNo).Value();
             if (null == activeSPs || activeSPs.Count <= 0) 
@@ -224,30 +240,37 @@ namespace M3.QA.Models
                 if (iCnt == 1)
                 {
                     this.SP1 = sp.SP;
+                    this.SampleType1 = sp.SampleType;
                 }
                 else if (iCnt == 2)
                 {
                     this.SP2 = sp.SP;
+                    this.SampleType2 = sp.SampleType;
                 }
                 else if (iCnt == 3)
                 {
                     this.SP3 = sp.SP;
+                    this.SampleType3 = sp.SampleType;
                 }
                 else if (iCnt == 4)
                 {
                     this.SP4 = sp.SP;
+                    this.SampleType4 = sp.SampleType;
                 }
                 else if (iCnt == 5)
                 {
                     this.SP5 = sp.SP;
+                    this.SampleType5 = sp.SampleType;
                 }
                 else if (iCnt == 6)
                 {
                     this.SP6 = sp.SP;
+                    this.SampleType6 = sp.SampleType;
                 }
                 else if (iCnt == 7)
                 {
                     this.SP7 = sp.SP;
+                    this.SampleType7 = sp.SampleType;
                 }
                 iCnt++;
             }

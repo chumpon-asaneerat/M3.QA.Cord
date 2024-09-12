@@ -96,6 +96,7 @@ namespace M3.QA.Models
             dst.SPNo = src.SPNo;
             dst.NoOfSample = src.NoOfSample;
             dst.YarnType = src.YarnType;
+            dst.SampleType = src.SampleType;
 
             dst.EditBy = src.EditBy;
             dst.EditDate = src.EditDate;

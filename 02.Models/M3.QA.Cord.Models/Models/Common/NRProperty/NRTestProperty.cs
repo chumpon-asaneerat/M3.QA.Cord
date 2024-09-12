@@ -649,8 +649,34 @@ namespace M3.QA.Models
                 Set(value, () =>
                 {
                     ValueChange();
+                    // Raise event.
+                    Raise(() => this.SampleTypeName);
+                    Raise(() => this.RequestVisibility);
                 });
             }
+        }
+
+        public string SampleTypeName
+        {
+            get 
+            { 
+                return (SampleType == "S") ? "Sample" : "Full CH"; 
+            }
+            set { }
+        }
+
+        public Visibility RequestVisibility
+        {
+            get 
+            {
+                var isFullCH = SampleType == "F";
+
+                var usr = ModelCurrent.User;
+                var allowReq = (null != usr && usr.Active == 1 && usr.RoleId <= 10);
+
+                return (!isFullCH && allowReq) ? Visibility.Visible : Visibility.Collapsed;
+            }
+            set { }
         }
 
         #endregion
