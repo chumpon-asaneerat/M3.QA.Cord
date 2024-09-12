@@ -42,19 +42,35 @@
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
-        <!--  R INPUT  -->
-        <Style x:Key="RInput"
+        <!--  R INPUT 1  -->
+        <Style x:Key="RInput1"
                TargetType="TextBox"
                BasedOn="{StaticResource CommonTextBox}">
             <!--  BINDING  -->
-            <Setter Property="Text" Value="{Binding N, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="Text" Value="{Binding R1, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR1}" />
             <!--  COMMON  -->
             <Setter Property="util:FocusOptions.SelectAll" Value="True" />
             <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
             <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
             <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
             <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
-            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <!--  R INPUT 2  -->
+        <Style x:Key="RInput2"
+               TargetType="TextBox"
+               BasedOn="{StaticResource CommonTextBox}">
+            <!--  BINDING  -->
+            <Setter Property="Text" Value="{Binding R2, StringFormat='{}{0:#,##0.##}', TargetNullValue='', UpdateSourceTrigger=PropertyChanged, FallbackValue='', NotifyOnSourceUpdated=True}" />
+            <Setter Property="IsReadOnly" Value="{Binding ReadOnlyR2}" />
+            <!--  COMMON  -->
+            <Setter Property="util:FocusOptions.SelectAll" Value="True" />
+            <Setter Property="util:KeyboardOptions.Enabled" Value="True" />
+            <Setter Property="util:KeyboardOptions.EnterAsTab" Value="True" />
+            <Setter Property="util:KeyboardOptions.LeftRightNavigation" Value="True" />
+            <Setter Property="util:KeyboardOptions.UpDownNavigation" Value="True" />
             <Setter Property="Width" Value="90" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
@@ -124,18 +140,32 @@
                                                     <DataTemplate>
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
+                                                                <!--  N  -->
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical" ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
                                                                         <TextBox Style="{StaticResource NInput}" />
                                                                     </StackPanel>
                                                                 </StackPanel>
-                                                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                                                <StackPanel Orientation="Horizontal"
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
+                                                                    <!--  R1  -->
                                                                     <StackPanel Orientation="Vertical"
                                                                                 ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
-                                                                                Visibility="{Binding VisibleR}">
-                                                                        <TextBlock TextAlignment="Center" Text="{Binding CaptionR}" />
-                                                                        <TextBox Style="{StaticResource RInput}" />
+                                                                                Visibility="{Binding VisibleR1}">
+                                                                        <TextBlock Height="5" />
+                                                                        <TextBox Style="{StaticResource RInput1}" />
+                                                                        <TextBlock Height="5" />
+                                                                    </StackPanel>
+                                                                    <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                                    <!--  R2  -->
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR2}">
+                                                                        <TextBlock Height="5" />
+                                                                        <TextBox Style="{StaticResource RInput2}" />
+                                                                        <TextBlock Height="5" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />
@@ -170,10 +200,32 @@
                                                     <DataTemplate>
                                                         <Border Margin="0,0,5,0">
                                                             <DockPanel LastChildFill="True">
+                                                                <!--  N  -->
                                                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                                                     <StackPanel Orientation="Vertical" ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}">
                                                                         <TextBlock TextAlignment="Center" Text="{Binding CaptionN}" />
                                                                         <TextBox Style="{StaticResource NInput}" IsReadOnly="True" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal"
+                                                                            HorizontalAlignment="Center"
+                                                                            DockPanel.Dock="Top">
+                                                                    <!--  R1  -->
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR1}">
+                                                                        <TextBlock Height="5" />
+                                                                        <TextBox Style="{StaticResource RInput1}" />
+                                                                        <TextBlock Height="5" />
+                                                                    </StackPanel>
+                                                                    <TextBlock Width="5" Visibility="{Binding VisibleR1}" />
+                                                                    <!--  R2  -->
+                                                                    <StackPanel Orientation="Vertical"
+                                                                                ctrl:AttachedAdorner.Adorner="{x:Type ctrl:OverlayAdorner}"
+                                                                                Visibility="{Binding VisibleR2}">
+                                                                        <TextBlock Height="5" />
+                                                                        <TextBox Style="{StaticResource RInput2}" />
+                                                                        <TextBlock Height="5" />
                                                                     </StackPanel>
                                                                 </StackPanel>
                                                                 <Grid />

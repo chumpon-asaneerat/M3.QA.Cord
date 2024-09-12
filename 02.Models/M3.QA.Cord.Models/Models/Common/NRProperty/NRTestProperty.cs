@@ -640,7 +640,7 @@ namespace M3.QA.Models
                 });
             }
         }
-        /// <summary>Gets or sets Yarn Type.</summary>
+        /// <summary>Gets or sets Sample Type.</summary>
         public string SampleType
         {
             get { return Get<string>(); }
