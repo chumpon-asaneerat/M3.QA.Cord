@@ -42,17 +42,9 @@ namespace M3.QA.Pages
             var btn = sender as Button;
             var ctx = (null != btn) ? btn.DataContext : null;
             var item = (null != ctx) ? ctx as Cord2ndTwistingNumber : null;
-            if (null != item)
+            if (null != item && item.SPNo.HasValue)
             {
-                var usr = (null != M3QAApp.Current.User) ? M3QAApp.Current.User.FullName : null;
-                var sp = item.SPNo;
-                var remark = "Request Full CH !!!!";
-                var ret = Models.Utils.M_ReceiveFullSample.Save(item.LotNo, null, usr, DateTime.Now, sp, sp, null, remark);
-                if (null != ret && ret.Ok)
-                {
-                    M3QAApp.Windows.SaveSuccess();
-                }
-                else M3QAApp.Windows.SaveFailed();
+                RequestFullCHService.Request(item.LotNo, item.SPNo.Value);
             }
         }
 
