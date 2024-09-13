@@ -739,7 +739,7 @@ namespace M3.QA.Models
 
                 return ret;
             }
-            /*
+
             int totalSP = 0;
             if (value.SP1.HasValue) totalSP++;
             if (value.SP2.HasValue) totalSP++;
@@ -790,7 +790,7 @@ namespace M3.QA.Models
                 ret.ErrNum = 9999;
                 ret.ErrMsg = ex.Message;
             }
-            */
+            
             // Save Tensile Strength
             //if (ret.ErrNum != 0) return ret;
 
@@ -799,16 +799,22 @@ namespace M3.QA.Models
                 int iCnt = 0;
                 foreach (var r in value.TensileStrengths) 
                 {
-                    /*
                     p = new DynamicParameters();
                     p.Add("@LotNo", r.LotNo);
                     p.Add("@spno", r.SPNo);
                     p.Add("@n1", r.N1);
                     p.Add("@n2", r.N2);
                     p.Add("@n3", r.N3);
-                    p.Add("@r1", r.R1);
-                    p.Add("@r2", r.R2);
-                    p.Add("@r3", r.R3);
+
+                    p.Add("@n1r1", r.N1R1);
+                    p.Add("@n1r2", r.N1R2);
+                    p.Add("@n2r1", r.N2R1);
+                    p.Add("@n2r2", r.N2R2);
+                    p.Add("@n3r1", r.N3R1);
+                    p.Add("@n3r2", r.N3R2);
+
+                    p.Add("@sampletype", value.SampleType);
+
                     p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
 
@@ -829,7 +835,6 @@ namespace M3.QA.Models
                         ret.ErrNum = 9999;
                         ret.ErrMsg = ex.Message;
                     }
-                    */
                 }
                 if (iCnt == value.TensileStrengths.Count)
                 {
@@ -847,7 +852,6 @@ namespace M3.QA.Models
                 {
                     foreach (var s in r.SubProperties)
                     {
-                        /*
                         p = new DynamicParameters();
 
                         p.Add("@LotNo", s.LotNo);
@@ -882,7 +886,6 @@ namespace M3.QA.Models
                             ret.ErrNum = 9999;
                             ret.ErrMsg = ex.Message;
                         }
-                        */
                     }
                 }
                 if (iCnt == value.Elongations.Count)
