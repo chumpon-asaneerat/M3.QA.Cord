@@ -218,6 +218,7 @@ namespace M3.QA.Pages
                 if (r1.HasValue)
                 {
                     var ret1 = Models.Utils.M_SaveReceiveSP.Save(sample.LotNo, sample.ProductionLot,
+                        sample.MasterId.Value,
                         saveBy, saveDate,
                         r1, item.GroupSP, item.SP, remark);
                     if (null == ret1 || !ret1.Ok) failCnt++;
@@ -228,6 +229,7 @@ namespace M3.QA.Pages
                 if (r2.HasValue)
                 {
                     var ret2 = Models.Utils.M_SaveReceiveSP.Save(sample.LotNo, sample.ProductionLot,
+                        sample.MasterId.Value,
                         saveBy, saveDate,
                         r2, item.GroupSP, item.SP, remark);
                     if (null == ret2 || !ret2.Ok) failCnt++;

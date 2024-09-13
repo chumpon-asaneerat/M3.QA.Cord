@@ -1331,7 +1331,7 @@ namespace M3.QA.Models
         {
             #region Static Methods
 
-            public static NDbResult Save(string lotNo, string productlot,
+            public static NDbResult Save(string lotNo, string productlot, int masterId,
                 string receiveBy, DateTime? receiveDate,
                 int? sp, int? groupsp, int? retestsp = new int?(), string remark = null)
             {
@@ -1360,6 +1360,8 @@ namespace M3.QA.Models
                 var p = new DynamicParameters();
                 p.Add("@LotNo", lotNo);
                 p.Add("@productlot", productlot);
+
+                p.Add("@masterid", masterId);
 
                 p.Add("@sp", sp);
                 p.Add("@groupsp", groupsp);

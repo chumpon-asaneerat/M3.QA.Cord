@@ -162,37 +162,166 @@ namespace M3.QA.Models
                 {
                     if (value.SP1.HasValue)
                     {
-                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
                             value.SP1, value.SP1, new int?(), null);
                     }
                     if (value.SP2.HasValue)
                     {
-                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
                             value.SP2, value.SP2, new int?(), null);
                     }
                     if (value.SP3.HasValue)
                     {
-                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
                             value.SP3, value.SP3, new int?(), null);
                     }
                     if (value.SP4.HasValue)
                     {
-                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
                             value.SP4, value.SP4, new int?(), null);
                     }
                     if (value.SP5.HasValue)
                     {
-                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
                             value.SP5, value.SP5, new int?(), null);
                     }
                     if (value.SP6.HasValue)
                     {
-                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
                             value.SP6, value.SP6, new int?(), null);
                     }
                     if (value.SP7.HasValue)
                     {
-                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.ReceiveBy, value.ReceiveDate,
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
+                            value.SP7, value.SP7, new int?(), null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
+
+        public static NDbResult<CordTestSampleRecv> Update(CordTestSampleRecv value)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<CordTestSampleRecv> ret = new NDbResult<CordTestSampleRecv>();
+
+            if (null == value)
+            {
+                ret.ParameterIsNull();
+                return ret;
+            }
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            int totalSP = 0;
+            if (value.SP1.HasValue) totalSP++;
+            if (value.SP2.HasValue) totalSP++;
+            if (value.SP3.HasValue) totalSP++;
+            if (value.SP4.HasValue) totalSP++;
+            if (value.SP5.HasValue) totalSP++;
+            if (value.SP6.HasValue) totalSP++;
+            if (value.SP7.HasValue) totalSP++;
+
+            var p = new DynamicParameters();
+
+            p.Add("@LotNo", value.LotNo);
+            p.Add("@productlot", value.ProductionLot);
+
+            p.Add("@MasterId", value.MasterId);
+
+            p.Add("@SP1", value.SP1);
+            p.Add("@SP2", value.SP2);
+            p.Add("@SP3", value.SP3);
+            p.Add("@SP4", value.SP4);
+            p.Add("@SP5", value.SP5);
+            p.Add("@SP6", value.SP6);
+            p.Add("@SP7", value.SP7);
+
+            p.Add("@TotalSP", totalSP);
+
+            p.Add("@editby", null != ModelCurrent.User ? ModelCurrent.User.FullName : string.Empty);
+            p.Add("@editdate", DateTime.Now);
+
+            p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
+
+            try
+            {
+                cnn.Execute("P_UpdateReceiveCord", p, commandType: CommandType.StoredProcedure);
+                ret.Success(value);
+                // Set error number/message
+                ret.ErrNum = p.Get<int>("@errNum");
+                ret.ErrMsg = p.Get<string>("@errMsg");
+
+                // Now save receive SP
+                if (ret.ErrNum == 0)
+                {
+                    if (value.SP1.HasValue)
+                    {
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
+                            value.SP1, value.SP1, new int?(), null);
+                    }
+                    if (value.SP2.HasValue)
+                    {
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
+                            value.SP2, value.SP2, new int?(), null);
+                    }
+                    if (value.SP3.HasValue)
+                    {
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
+                            value.SP3, value.SP3, new int?(), null);
+                    }
+                    if (value.SP4.HasValue)
+                    {
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
+                            value.SP4, value.SP4, new int?(), null);
+                    }
+                    if (value.SP5.HasValue)
+                    {
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
+                            value.SP5, value.SP5, new int?(), null);
+                    }
+                    if (value.SP6.HasValue)
+                    {
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
+                            value.SP6, value.SP6, new int?(), null);
+                    }
+                    if (value.SP7.HasValue)
+                    {
+                        Utils.M_SaveReceiveSP.Save(value.LotNo, value.ProductionLot, value.MasterId.Value,
+                            value.ReceiveBy, value.ReceiveDate,
                             value.SP7, value.SP7, new int?(), null);
                     }
                 }
