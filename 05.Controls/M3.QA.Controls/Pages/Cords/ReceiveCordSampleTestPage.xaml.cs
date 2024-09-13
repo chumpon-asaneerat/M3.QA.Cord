@@ -63,6 +63,17 @@ namespace M3.QA.Pages
             ClearSearch();
         }
 
+        private void cmdEdit_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (null != sender) ? sender as Control : null;
+            var ctx = (null != btn) ? btn.DataContext : null;
+            var item = (null != ctx) ? ctx as Models.Utils.P_SearchReceiveCord : null;
+            if (null != item)
+            {
+                EditItem(item);
+            }
+        }
+
         #endregion
 
         #region Combobox Handlers
@@ -307,6 +318,64 @@ namespace M3.QA.Pages
             }
         }
 
+        private void Update()
+        {
+            if (null == sample)
+            {
+                this.InvokeAction(() =>
+                {
+                    M3QAApp.Windows.ShowMessage("Instance is null.");
+                });
+                return;
+            }
+
+            var ret = CordTestSampleRecv.Update(sample);
+            if (null == ret || !ret.Ok)
+            {
+                M3QAApp.Windows.SaveFailed();
+            }
+            else
+            {
+                M3QAApp.Windows.SaveSuccess();
+            }
+        }
+
+        private void EditItem(Models.Utils.P_SearchReceiveCord item)
+        {
+            if (null == item) return;
+            /*
+            this.DataContext = null;
+
+            var test = CordSampleTestData.GetByLotNo(item.LotNo).Value();
+
+            sample = new CordTestSampleRecv();
+            sample.EditMode = true;
+
+            sample.LotNo = test.LotNo;
+            sample.ProductionLot = test.ProductionLot;
+            sample.ReceiveDate = test.ReceiveDate;
+            sample.ReceiveBy = test.ReceiveBy;
+
+            sample.TotalSP = (test.TotalSP.HasValue) ? test.TotalSP.Value : 0;
+            sample.SP1 = test.SP1;
+            sample.SP2 = test.SP2;
+            sample.SP3 = test.SP3;
+            sample.SP4 = test.SP4;
+            sample.SP5 = test.SP5;
+            sample.SP6 = test.SP6;
+            sample.SP7 = test.SP7;
+
+            // sync customer
+            int idx;
+            idx = customers.FindIndex(val => { return val.Customer == test.Customer; });
+            this.InvokeAction(() => { cbCustomers.SelectedIndex = idx; });
+            idx = cordCodes.FindIndex(val => { return val.ItemCode == test.ItemCode; });
+            this.InvokeAction(() => { cbCodes.SelectedIndex = idx; });
+
+            this.DataContext = sample;
+            */
+        }
+
         private void Search()
         {
             DateTime? dateFrom = dtDateFrom.Value;
@@ -315,7 +384,6 @@ namespace M3.QA.Pages
             grid.ItemsSource = null;
             searchs = Models.Utils.P_SearchReceiveCord.SearchByDate(dateFrom, dateTo).Value();
             grid.ItemsSource = searchs;
-
         }
 
         private void ClearSearch()

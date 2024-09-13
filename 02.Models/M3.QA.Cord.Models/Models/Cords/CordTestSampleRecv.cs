@@ -82,6 +82,10 @@ namespace M3.QA.Models
         public string ReceiveBy { get; set; }
         public DateTime? ReceiveDate { get; set; }
 
+        // for edit spindle.
+        public string Customer { get; set; }
+        public string ItemCode { get; set; }
+
         #endregion
 
         #region Static Methods

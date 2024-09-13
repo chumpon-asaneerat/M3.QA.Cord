@@ -245,6 +245,9 @@
     <Compile Include="Windows\Cord\RequestFullCHWindow.xaml.cs">
       <DependentUpon>RequestFullCHWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EditSpindleWindow.xaml.cs">
+      <DependentUpon>EditSpindleWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SignIn\ChooseUserWindow.xaml.cs">
       <DependentUpon>ChooseUserWindow.xaml</DependentUpon>
     </Compile>
@@ -503,6 +506,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Cord\RequestFullCHWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditSpindleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
