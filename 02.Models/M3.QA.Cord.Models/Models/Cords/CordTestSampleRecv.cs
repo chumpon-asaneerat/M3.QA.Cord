@@ -85,6 +85,8 @@ namespace M3.QA.Models
         // for edit spindle.
         public string Customer { get; set; }
         public string ItemCode { get; set; }
+        public string ProductType { get; set; }
+        public int NoTestCH { get; set; }
 
         #endregion
 

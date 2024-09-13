@@ -318,31 +318,36 @@ namespace M3.QA.Pages
             }
         }
 
-        private void Update()
-        {
-            if (null == sample)
-            {
-                this.InvokeAction(() =>
-                {
-                    M3QAApp.Windows.ShowMessage("Instance is null.");
-                });
-                return;
-            }
-
-            var ret = CordTestSampleRecv.Update(sample);
-            if (null == ret || !ret.Ok)
-            {
-                M3QAApp.Windows.SaveFailed();
-            }
-            else
-            {
-                M3QAApp.Windows.SaveSuccess();
-            }
-        }
-
         private void EditItem(Models.Utils.P_SearchReceiveCord item)
         {
             if (null == item) return;
+
+            var test = CordSampleTestData.GetByLotNo(item.LotNo).Value();
+
+            var editObj = new CordTestSampleRecv();
+            editObj.LotNo = test.LotNo;
+            editObj.ProductionLot = test.ProductionLot;
+            editObj.ReceiveDate = test.ReceiveDate;
+            editObj.ReceiveBy = test.ReceiveBy;
+
+            editObj.Customer = test.Customer;
+            editObj.ItemCode = test.ItemCode;
+
+            editObj.TotalSP = (test.TotalSP.HasValue) ? test.TotalSP.Value : 0;
+            editObj.SP1 = test.SP1;
+            editObj.SP2 = test.SP2;
+            editObj.SP3 = test.SP3;
+            editObj.SP4 = test.SP4;
+            editObj.SP5 = test.SP5;
+            editObj.SP6 = test.SP6;
+            editObj.SP7 = test.SP7;
+
+            var codes = CordCode.Gets(test.Customer).Value();
+            var code = codes.Find(c => { return c.ItemCode == test.ItemCode; });
+
+
+            var win = M3QAApp.Windows.EditSpindle;
+            win.Setup(editObj);
             /*
             this.DataContext = null;
 

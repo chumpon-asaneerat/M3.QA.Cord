@@ -331,6 +331,16 @@ namespace M3.QA
 
             #endregion
 
+            #region Cord Edit Spindle Window
+
+            /// <summary>Gets Cord Edit Spindle Window.</summary>
+            public static EditSpindleWindow EditSpindle
+            {
+                get { return GetWindow<EditSpindleWindow>(); }
+            }
+
+            #endregion
+
             #region Export Message
 
             public static void ExportSuccess()
