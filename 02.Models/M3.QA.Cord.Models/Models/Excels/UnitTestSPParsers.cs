@@ -84,7 +84,7 @@ namespace M3.QA.Models
                         // Has retest
                         string retestValues = Between(lines[1], "(", ")");
 
-                        var retests = value.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+                        var retests = retestValues.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
                         if (null != retests && retests.Length > 0)
                         {
                             retestNs.AddRange(retests);

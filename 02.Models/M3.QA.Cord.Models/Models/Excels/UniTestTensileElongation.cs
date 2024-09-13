@@ -16,6 +16,8 @@ using NLib.Models;
 using NLib.Reflection;
 
 using Dapper;
+using System.Security.Cryptography;
+using System.Windows.Documents;
 
 #endregion
 
@@ -25,12 +27,14 @@ namespace M3.QA.Models
 
     public class UnitTestTensileElongation : NInpc
     {
+        public UniTestSPParser Parser;
+
         #region Private Methods
 
         private void ParseComment1()
         {
-            var p = UniTestSPParser.Parse(Comment1);
-            NoOfSP = (null != p) ? p.Items.Count : 0;
+            Parser = UniTestSPParser.Parse(Comment1);
+            NoOfSP = (null != Parser) ? Parser.Items.Count : 0;
 
             // Clear SPs.
             SP1 = new int?();
@@ -41,112 +45,45 @@ namespace M3.QA.Models
             SP6 = new int?();
             SP7 = new int?();
 
-            // Raise NoOfSP Change Events
-            Raise(() => this.NoOfSP);
-
             if (NoOfSP <= 0) return;
 
-            int NCnt = 3;
-            for (int i = 0; i < NoOfSP; i++) 
+            for (int i = 0; i < NoOfSP; i++)
             {
                 switch (i)
                 {
                     case 0:
                         {
-                            SP1 = p.Items[i].SP;
-                            SP1N1 = p.Items[i].RetestN1;
-                            SP1N2 = p.Items[i].RetestN2;
-                            SP1N3 = p.Items[i].RetestN3;
-
-                            NCnt1 = NCnt;
-                            RCnt1 = 0;
-                            RCnt1 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt1 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt1 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP1 = Parser.Items[i].SP;
                             break;
                         }
                     case 1:
                         {
-                            SP2 = p.Items[i].SP;
-                            SP2N1 = p.Items[i].RetestN1;
-                            SP2N2 = p.Items[i].RetestN2;
-                            SP2N3 = p.Items[i].RetestN3;
-
-                            NCnt2 = NCnt;
-                            RCnt2 = 0;
-                            RCnt2 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt2 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt2 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP2 = Parser.Items[i].SP;
                             break;
                         }
                     case 2:
                         {
-                            SP3 = p.Items[i].SP;
-                            SP3N1 = p.Items[i].RetestN1;
-                            SP3N2 = p.Items[i].RetestN2;
-                            SP3N3 = p.Items[i].RetestN3;
-
-                            NCnt3 = NCnt;
-                            RCnt3 = 0;
-                            RCnt3 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt3 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt3 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP3 = Parser.Items[i].SP;
                             break;
                         }
                     case 3:
                         {
-                            SP4 = p.Items[i].SP;
-                            SP4N1 = p.Items[i].RetestN1;
-                            SP4N2 = p.Items[i].RetestN2;
-                            SP4N3 = p.Items[i].RetestN3;
-
-                            NCnt4 = NCnt;
-                            RCnt4 = 0;
-                            RCnt4 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt4 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt4 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP4 = Parser.Items[i].SP;
                             break;
                         }
                     case 4:
                         {
-                            SP5 = p.Items[i].SP;
-                            SP5N1 = p.Items[i].RetestN1;
-                            SP5N2 = p.Items[i].RetestN2;
-                            SP5N3 = p.Items[i].RetestN3;
-
-                            NCnt5 = NCnt;
-                            RCnt5 = 0;
-                            RCnt5 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt5 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt5 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP5 = Parser.Items[i].SP;
                             break;
                         }
                     case 5:
                         {
-                            SP6 = p.Items[i].SP;
-                            SP6N1 = p.Items[i].RetestN1;
-                            SP6N2 = p.Items[i].RetestN2;
-                            SP6N3 = p.Items[i].RetestN3;
-
-                            NCnt6 = NCnt;
-                            RCnt6 = 0;
-                            RCnt6 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt6 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt6 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP6 = Parser.Items[i].SP;
                             break;
                         }
                     case 6:
                         {
-                            SP7 = p.Items[i].SP;
-                            SP7N1 = p.Items[i].RetestN1;
-                            SP7N2 = p.Items[i].RetestN2;
-                            SP7N3 = p.Items[i].RetestN3;
-
-                            NCnt7 = NCnt;
-                            RCnt7 = 0;
-                            RCnt7 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt7 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt7 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP7 = Parser.Items[i].SP;
                             break;
                         }
                 }
@@ -160,22 +97,6 @@ namespace M3.QA.Models
             Raise(() => this.SP5);
             Raise(() => this.SP6);
             Raise(() => this.SP7);
-
-            Raise(() => this.NCnt1);
-            Raise(() => this.NCnt2);
-            Raise(() => this.NCnt3);
-            Raise(() => this.NCnt4);
-            Raise(() => this.NCnt5);
-            Raise(() => this.NCnt6);
-            Raise(() => this.NCnt7);
-
-            Raise(() => this.RCnt1);
-            Raise(() => this.RCnt2);
-            Raise(() => this.RCnt3);
-            Raise(() => this.RCnt4);
-            Raise(() => this.RCnt5);
-            Raise(() => this.RCnt6);
-            Raise(() => this.RCnt7);
         }
 
         private void ParseComment2()
@@ -204,50 +125,15 @@ namespace M3.QA.Models
             TensileStrengths = new List<UniTestTensileStrength>();
             for (int i = 0; i < NoOfSP; i++) 
             {
+                var item = Parser.Items[i];
+
                 var inst = new UniTestTensileStrength();
 
                 inst.LotNo = this.LotNo;
                 inst.YarnType = this.YarnType;
                 inst.NoOfSample = this.NoOfSample;
-                
-                switch (i)
-                {
-                    case 0: 
-                        {
-                            inst.SPNo = this.SP1;
-                            break;
-                        }
-                    case 1:
-                        {
-                            inst.SPNo = this.SP2;
-                            break;
-                        }
-                    case 2:
-                        {
-                            inst.SPNo = this.SP3;
-                            break;
-                        }
-                    case 3:
-                        {
-                            inst.SPNo = this.SP4;
-                            break;
-                        }
-                    case 4:
-                        {
-                            inst.SPNo = this.SP5;
-                            break;
-                        }
-                    case 5:
-                        {
-                            inst.SPNo = this.SP6;
-                            break;
-                        }
-                    case 6:
-                        {
-                            inst.SPNo = this.SP7;
-                            break;
-                        }
-                }
+                inst.SPNo = item.SP;
+                inst.NoOfSample = 3;
 
                 // Append to List
                 TensileStrengths.Add(inst);
@@ -259,82 +145,32 @@ namespace M3.QA.Models
             Elongations = new List<UniTestElongation>();
             for (int i = 0; i < NoOfSP; i++)
             {
-                bool valid = false;
+                var item = Parser.Items[i];
+
                 var inst = new UniTestElongation();
 
                 inst.LotNo = this.LotNo;
                 inst.YarnType = this.YarnType;
                 inst.NoOfSample = this.NoOfSample;
+                inst.SPNo = item.SP;
+                inst.NoOfSample = 3;
 
-                switch (i)
+                var elongBreak = new UniTestElongationBreakProperty();
+                elongBreak.SPNo = inst.SPNo;
+                elongBreak.LotNo = inst.LotNo;
+                elongBreak.NoOfSample = inst.NoOfSample;
+                inst.SubProperties.Add(elongBreak);
+                foreach (string elong in this.ElongNs)
                 {
-                    case 0:
-                        {
-                            inst.SPNo = this.SP1;
-                            valid = true;
-                            break;
-                        }
-                    case 1:
-                        {
-                            inst.SPNo = this.SP2;
-                            valid = true;
-                            break;
-                        }
-                    case 2:
-                        {
-                            inst.SPNo = this.SP3;
-                            valid = true;
-                            break;
-                        }
-                    case 3:
-                        {
-                            inst.SPNo = this.SP4;
-                            valid = true;
-                            break;
-                        }
-                    case 4:
-                        {
-                            inst.SPNo = this.SP5;
-                            valid = true;
-                            break;
-                        }
-                    case 5:
-                        {
-                            inst.SPNo = this.SP6;
-                            valid = true;
-                            break;
-                        }
-                    case 6:
-                        {
-                            inst.SPNo = this.SP7;
-                            valid = true;
-                            break;
-                        }
-                    default:
-                        {
-                            break;
-                        }
+                    var elongLoad = new UniTestElongationLoadProperty();
+                    elongLoad.LoadN = elong;
+                    elongLoad.SPNo = inst.SPNo;
+                    elongLoad.LotNo = inst.LotNo;
+                    elongLoad.NoOfSample = inst.NoOfSample;
+                    inst.SubProperties.Add(elongLoad);
                 }
-
-                if (valid)
-                {
-                    var elongBreak = new UniTestElongationBreakProperty();
-                    elongBreak.SPNo = inst.SPNo;
-                    elongBreak.LotNo = inst.LotNo;
-                    elongBreak.NoOfSample = inst.NoOfSample;
-                    inst.SubProperties.Add(elongBreak);
-                    foreach (string elong in this.ElongNs)
-                    {
-                        var elongLoad = new UniTestElongationLoadProperty();
-                        elongLoad.LoadN = elong;
-                        elongLoad.SPNo = inst.SPNo;
-                        elongLoad.LotNo = inst.LotNo;
-                        elongLoad.NoOfSample = inst.NoOfSample;
-                        inst.SubProperties.Add(elongLoad);
-                    }
-                    // Append to List
-                    Elongations.Add(inst);
-                }
+                // Append to List
+                Elongations.Add(inst);
             }
         }
 
@@ -403,62 +239,6 @@ namespace M3.QA.Models
         public int? SP5 { get; set; }
         public int? SP6 { get; set; }
         public int? SP7 { get; set; }
-
-        #endregion
-
-        #region Test Cnt
-
-        public int NCnt1 { get; set; } = 3;
-        public int NCnt2 { get; set; } = 3;
-        public int NCnt3 { get; set; } = 3;
-        public int NCnt4 { get; set; } = 3;
-        public int NCnt5 { get; set; } = 3;
-        public int NCnt6 { get; set; } = 3;
-        public int NCnt7 { get; set; } = 3;
-
-        #endregion
-
-        #region SP N Retest Flag
-
-        public bool SP1N1 { get; set; }
-        public bool SP1N2 { get; set; }
-        public bool SP1N3 { get; set; }
-
-        public bool SP2N1 { get; set; }
-        public bool SP2N2 { get; set; }
-        public bool SP2N3 { get; set; }
-
-        public bool SP3N1 { get; set; }
-        public bool SP3N2 { get; set; }
-        public bool SP3N3 { get; set; }
-
-        public bool SP4N1 { get; set; }
-        public bool SP4N2 { get; set; }
-        public bool SP4N3 { get; set; }
-
-        public bool SP5N1 { get; set; }
-        public bool SP5N2 { get; set; }
-        public bool SP5N3 { get; set; }
-
-        public bool SP6N1 { get; set; }
-        public bool SP6N2 { get; set; }
-        public bool SP6N3 { get; set; }
-
-        public bool SP7N1 { get; set; }
-        public bool SP7N2 { get; set; }
-        public bool SP7N3 { get; set; }
-
-        #endregion
-
-        #region Retest Cnt
-
-        public int RCnt1 { get; set; }
-        public int RCnt2 { get; set; }
-        public int RCnt3 { get; set; }
-        public int RCnt4 { get; set; }
-        public int RCnt5 { get; set; }
-        public int RCnt6 { get; set; }
-        public int RCnt7 { get; set; }
 
         #endregion
 
@@ -615,295 +395,310 @@ namespace M3.QA.Models
                         inst.PrepareProperties(); // prepare properties
 
                         // Loop data row.
-                        int iSP = 0;
-                        int iCnt = 1;
-                        int iMax = 3;
+                        
+                        
                         decimal? N;
                         decimal d;
-                        for (int iRow = 3; iRow < table2.Rows.Count; iRow++)
+
+                        if (null != inst.Parser && null != inst.Parser.Items &&
+                            inst.Parser.Items.Count > 0)
                         {
-                            DataRow row = table2.Rows[iRow];
+                            int startRow = 3; // Excel start row.
+                            int readRow = 0;
 
-                            #region Find Max Test + Retest
-
-                            switch (iSP)
+                            var items = inst.Parser.Items;
+                            for (int iSP = 0; iSP < items.Count; iSP++)
                             {
-                                case 0:
-                                    iMax = inst.NCnt1 + inst.RCnt1;
-                                    break;
-                                case 1:
-                                    iMax = inst.NCnt2 + inst.RCnt2;
-                                    break;
-                                case 2:
-                                    iMax = inst.NCnt3 + inst.RCnt3;
-                                    break;
-                                case 3:
-                                    iMax = inst.NCnt4 + inst.RCnt4;
-                                    break;
-                                case 4:
-                                    iMax = inst.NCnt5 + inst.RCnt5;
-                                    break;
-                                case 5:
-                                    iMax = inst.NCnt6 + inst.RCnt6;
-                                    break;
-                                case 6:
-                                    iMax = inst.NCnt7 + inst.RCnt7;
-                                    break;
-                                default:
-                                    iMax = 3;
-                                    break;
-                            }
+                                var item = items[iSP];
 
-                            #endregion
-
-                            #region Tensile Strengths
-
-                            if (null != inst.TensileStrengths &&
-                                inst.TensileStrengths.Count > 0 && iSP < inst.TensileStrengths.Count &&
-                                null != inst.TensileStrengths[iSP])
-                            {
-                                N = decimal.TryParse(row["F2"].ToString(), out d) ? d : new decimal?();
-
-                                switch (iCnt)
-                                {
-                                    case 1:
-                                        {
-                                            inst.TensileStrengths[iSP].N1 = N;
-                                            break;
-                                        }
-                                    case 2:
-                                        {
-                                            inst.TensileStrengths[iSP].N2 = N;
-                                            break;
-                                        }
-                                    case 3:
-                                        {
-                                            inst.TensileStrengths[iSP].N3 = N;
-                                            break;
-                                        }
-                                    case 4:
-                                        {
-                                            switch (iSP)
-                                            {
-                                                case 0:
-                                                    if (inst.SP1N1)
-                                                        inst.TensileStrengths[iSP].N1R1 = N;
-                                                    if (inst.SP1N2)
-                                                        inst.TensileStrengths[iSP].N2R1 = N;
-                                                    if (inst.SP1N3)
-                                                        inst.TensileStrengths[iSP].N3R1 = N;
-                                                    break;
-                                                case 1:
-                                                    break;
-                                                case 2:
-                                                    break;
-                                                case 3:
-                                                    break;
-                                                case 4:
-                                                    break;
-                                                case 5:
-                                                    break;
-                                                case 6:
-                                                    break;
-                                            }
-                                            inst.TensileStrengths[iSP].R1 = N;
-                                            break;
-                                        }
-                                    case 5:
-                                        {
-                                            inst.TensileStrengths[iSP].R2 = N;
-                                            break;
-                                        }
-                                    case 6:
-                                        {
-                                            inst.TensileStrengths[iSP].R3 = N;
-                                            break;
-                                        }
-                                    case 7:
-                                        {
-                                            inst.TensileStrengths[iSP].R1 = N;
-                                            break;
-                                        }
-                                    case 8:
-                                        {
-                                            inst.TensileStrengths[iSP].R2 = N;
-                                            break;
-                                        }
-                                    case 9:
-                                        {
-                                            inst.TensileStrengths[iSP].R3 = N;
-                                            break;
-                                        }
-                                }
-                            }
-
-                            #endregion
-
-                            #region Elongation
-
-                            #region At-Break
-
-                            if (null != inst.Elongations &&
-                                inst.Elongations.Count > 0 && iSP < inst.Elongations.Count &&
-                                null != inst.Elongations[iSP])
-                            {
-                                /*
+                                var tensile = inst.TensileStrengths[iSP]; // Tensile Strengths
+                                var elong = inst.Elongations[iSP]; // Elongations
                                 var subProps = inst.Elongations[iSP].SubProperties;
                                 var atBreak = (null != subProps && subProps.Count > 0) ? subProps[0] : null;
 
-                                N = decimal.TryParse(row["F3"].ToString(), out d) ? d : new decimal?();
-                                switch (iCnt)
+                                int totalRow = 3; // default 3 N
+                                totalRow += (item.RetestN1) ? 2 : 0; // Has Retest N1 need 2 value
+                                totalRow += (item.RetestN2) ? 2 : 0; // Has Retest N2 need 2 value
+                                totalRow += (item.RetestN3) ? 2 : 0; // Has Retest N3 need 2 value
+                                int currRow = 0;
+
+                                // Read require rows for current SP (in parser)
+                                while (currRow < totalRow)
                                 {
-                                    case 1:
-                                        {
-                                            if (null != atBreak)
-                                            {
-                                                // At Break
-                                                atBreak.N1 = N;
-                                            }
-                                            break;
-                                        }
-                                    case 2:
-                                        {
-                                            if (null != atBreak)
-                                            {
-                                                // At Break
-                                                atBreak.N2 = N;
-                                            }
-                                            break;
-                                        }
-                                    case 3:
-                                        {
-                                            if (null != atBreak)
-                                            {
-                                                // At Break
-                                                atBreak.N3 = N;
-                                            }
-                                            break;
-                                        }
-                                    case 4:
-                                        {
-                                            if (null != atBreak)
-                                            {
-                                                // At Break
-                                                atBreak.R1 = N;
-                                            }
-                                            break;
-                                        }
-                                    case 5:
-                                        {
-                                            if (null != atBreak)
-                                            {
-                                                // At Break
-                                                atBreak.R2 = N;
-                                            }
-                                            break;
-                                        }
-                                    case 6:
-                                        {
-                                            if (null != atBreak)
-                                            {
-                                                // At Break
-                                                atBreak.R3 = N;
-                                            }
-                                            break;
-                                        }
-                                }
-                                */
-                            }
+                                    int idx = startRow + readRow + currRow;
+                                    if (idx >= table2.Rows.Count) 
+                                        break; // reach end of rows
 
-                            #endregion
+                                    // Read value on current row
+                                    DataRow row = table2.Rows[idx];
 
-                            #region At-Load
+                                    #region Tensile Strengths
 
-                            if (null != inst.Elongations &&
-                                inst.Elongations.Count > 0 && iSP < inst.Elongations.Count &&
-                                null != inst.Elongations[iSP])
-                            {
-                                /*
-                                var subProps = inst.Elongations[iSP].SubProperties;
+                                    N = decimal.TryParse(row["F2"].ToString(), out d) ? d : new decimal?();
 
-                                int iCol = 0;
-                                foreach (DataColumn col in elongCols)
-                                {
-                                    var atLoad = subProps.FindByElong(elongNs[iCol]);
-
-                                    if (null != atLoad)
+                                    switch (currRow)
                                     {
+                                        case 0:
+                                            tensile.N1 = N; // N1
+                                            break;
+                                        case 1:
+                                            tensile.N2 = N; // N2
+                                            break;
+                                        case 2:
+                                            tensile.N3 = N; // N3
+                                            break;
+                                        case 3:
+                                            {
+                                                if (item.RetestN1 && !tensile.N1R1.HasValue)
+                                                {
+                                                    tensile.N1R1 = N; // N1R1
+                                                }
+                                                else if (item.RetestN2 && !tensile.N2R1.HasValue)
+                                                {
+                                                    tensile.N2R1 = N; // N2R1
+                                                }
+                                                else if (item.RetestN3 && !tensile.N3R1.HasValue)
+                                                {
+                                                    tensile.N3R1 = N; // N3R1
+                                                }
+                                            }
+                                            break;
+                                        case 4:
+                                            {
+                                                if (item.RetestN1 && !tensile.N1R2.HasValue)
+                                                {
+                                                    tensile.N1R2 = N; // N1R2
+                                                }
+                                                else if (item.RetestN2 && !tensile.N2R2.HasValue)
+                                                {
+                                                    tensile.N2R2 = N; // N2R2
+                                                }
+                                                else if (item.RetestN3 && !tensile.N3R2.HasValue)
+                                                {
+                                                    tensile.N3R2 = N; // N3R2
+                                                }
+                                            }
+                                            break;
+                                        case 5:
+                                            {
+                                                if (item.RetestN2 && !tensile.N2R1.HasValue)
+                                                {
+                                                    tensile.N2R1 = N; // N2R1
+                                                }
+                                                else if (item.RetestN3 && !tensile.N3R1.HasValue)
+                                                {
+                                                    tensile.N3R1 = N; // N3R1
+                                                }
+                                            }
+                                            break;
+                                        case 6:
+                                            {
+                                                if (item.RetestN2 && !tensile.N2R2.HasValue)
+                                                {
+                                                    tensile.N2R2 = N; // N2R2
+                                                }
+                                                else if (item.RetestN3 && !tensile.N3R2.HasValue)
+                                                {
+                                                    tensile.N3R2 = N; // N3R2
+                                                }
+                                            }
+                                            break;
+                                        case 7:
+                                            {
+                                                tensile.N3R1 = N; // N3R1
+                                            }
+                                            break;
+                                        case 8:
+                                            {
+                                                tensile.N3R2 = N; // N3R2
+                                            }
+                                            break;
+                                    }
+
+                                    #endregion
+
+                                    #region Elongations AtBreak
+
+                                    N = decimal.TryParse(row["F3"].ToString(), out d) ? d : new decimal?();
+
+                                    switch (currRow)
+                                    {
+                                        case 0:
+                                            atBreak.N1 = N; // N1
+                                            break;
+                                        case 1:
+                                            atBreak.N2 = N; // N2
+                                            break;
+                                        case 2:
+                                            atBreak.N3 = N; // N3
+                                            break;
+                                        case 3:
+                                            {
+                                                if (item.RetestN1 && !atBreak.N1R1.HasValue)
+                                                {
+                                                    atBreak.N1R1 = N; // N1R1
+                                                }
+                                                else if (item.RetestN2 && !atBreak.N2R1.HasValue)
+                                                {
+                                                    atBreak.N2R1 = N; // N2R1
+                                                }
+                                                else if (item.RetestN3 && !atBreak.N3R1.HasValue)
+                                                {
+                                                    atBreak.N3R1 = N; // N3R1
+                                                }
+                                            }
+                                            break;
+                                        case 4:
+                                            {
+                                                if (item.RetestN1 && !atBreak.N1R2.HasValue)
+                                                {
+                                                    atBreak.N1R2 = N; // N1R2
+                                                }
+                                                else if (item.RetestN2 && !atBreak.N2R2.HasValue)
+                                                {
+                                                    atBreak.N2R2 = N; // N2R2
+                                                }
+                                                else if (item.RetestN3 && !atBreak.N3R2.HasValue)
+                                                {
+                                                    atBreak.N3R2 = N; // N3R2
+                                                }
+                                            }
+                                            break;
+                                        case 5:
+                                            {
+                                                if (item.RetestN2 && !atBreak.N2R1.HasValue)
+                                                {
+                                                    atBreak.N2R1 = N; // N2R1
+                                                }
+                                                else if (item.RetestN3 && !atBreak.N3R1.HasValue)
+                                                {
+                                                    atBreak.N3R1 = N; // N3R1
+                                                }
+                                            }
+                                            break;
+                                        case 6:
+                                            {
+                                                if (item.RetestN2 && !atBreak.N2R2.HasValue)
+                                                {
+                                                    atBreak.N2R2 = N; // N2R2
+                                                }
+                                                else if (item.RetestN3 && !atBreak.N3R2.HasValue)
+                                                {
+                                                    atBreak.N3R2 = N; // N3R2
+                                                }
+                                            }
+                                            break;
+                                        case 7:
+                                            {
+                                                atBreak.N3R1 = N; // N3R1
+                                            }
+                                            break;
+                                        case 8:
+                                            {
+                                                atBreak.N3R2 = N; // N3R2
+                                            }
+                                            break;
+                                    }
+
+                                    #endregion
+
+                                    #region Elongations AtLoad
+
+                                    int iCol = 0;
+                                    foreach (DataColumn col in elongCols)
+                                    {
+                                        var atLoad = subProps.FindByElong(elongNs[iCol]);
+
                                         N = decimal.TryParse(row[col].ToString(), out d) ? d : new decimal?();
 
-                                        switch (iCnt)
+                                        switch (currRow)
                                         {
+                                            case 0:
+                                                atLoad.N1 = N; // N1
+                                                break;
                                             case 1:
-                                                {
-                                                    if (null != atLoad)
-                                                    {
-                                                        atLoad.N1 = N;
-                                                    }
-                                                    break;
-                                                }
+                                                atLoad.N2 = N; // N2
+                                                break;
                                             case 2:
-                                                {
-                                                    if (null != atLoad)
-                                                    {
-                                                        atLoad.N2 = N;
-                                                    }
-                                                    break;
-                                                }
+                                                atLoad.N3 = N; // N3
+                                                break;
                                             case 3:
                                                 {
-                                                    if (null != atLoad)
+                                                    if (item.RetestN1 && !atLoad.N1R1.HasValue)
                                                     {
-                                                        atLoad.N3 = N;
+                                                        atLoad.N1R1 = N; // N1R1
                                                     }
-                                                    break;
+                                                    else if (item.RetestN2 && !atLoad.N2R1.HasValue)
+                                                    {
+                                                        atLoad.N2R1 = N; // N2R1
+                                                    }
+                                                    else if (item.RetestN3 && !atLoad.N3R1.HasValue)
+                                                    {
+                                                        atLoad.N3R1 = N; // N3R1
+                                                    }
                                                 }
+                                                break;
                                             case 4:
                                                 {
-                                                    if (null != atLoad)
+                                                    if (item.RetestN1 && !atLoad.N1R2.HasValue)
                                                     {
-                                                        atLoad.R1 = N;
+                                                        atLoad.N1R2 = N; // N1R2
                                                     }
-                                                    break;
+                                                    else if (item.RetestN2 && !atLoad.N2R2.HasValue)
+                                                    {
+                                                        atLoad.N2R2 = N; // N2R2
+                                                    }
+                                                    else if (item.RetestN3 && !atLoad.N3R2.HasValue)
+                                                    {
+                                                        atLoad.N3R2 = N; // N3R2
+                                                    }
                                                 }
+                                                break;
                                             case 5:
                                                 {
-                                                    if (null != atLoad)
+                                                    if (item.RetestN2 && !atLoad.N2R1.HasValue)
                                                     {
-                                                        atLoad.R2 = N;
+                                                        atLoad.N2R1 = N; // N2R1
                                                     }
-                                                    break;
+                                                    else if (item.RetestN3 && !atLoad.N3R1.HasValue)
+                                                    {
+                                                        atLoad.N3R1 = N; // N3R1
+                                                    }
                                                 }
+                                                break;
                                             case 6:
                                                 {
-                                                    if (null != atLoad)
+                                                    if (item.RetestN2 && !atLoad.N2R2.HasValue)
                                                     {
-                                                        atLoad.R3 = N;
+                                                        atLoad.N2R2 = N; // N2R2
                                                     }
-                                                    break;
+                                                    else if (item.RetestN3 && !atLoad.N3R2.HasValue)
+                                                    {
+                                                        atLoad.N3R2 = N; // N3R2
+                                                    }
                                                 }
+                                                break;
+                                            case 7:
+                                                {
+                                                    atLoad.N3R1 = N; // N3R1
+                                                }
+                                                break;
+                                            case 8:
+                                                {
+                                                    atLoad.N3R2 = N; // N3R2
+                                                }
+                                                break;
                                         }
                                     }
 
-                                    iCol++;
+                                    #endregion
+
+                                    currRow++; // step to next row
                                 }
-                                */
-                            }
 
-                            #endregion
-
-                            #endregion
-
-                            iCnt++;
-
-                            if (iCnt > iMax)
-                            {
-                                iCnt = 1; // Reset to N1
-
-                                iSP++; // next sp
+                                readRow += totalRow; // update readed row.
                             }
                         }
-
                         // Success
                         result.IsValid = true;
                         result.ErrMsg = "Success";
@@ -974,7 +769,7 @@ namespace M3.QA.Models
 
                 return ret;
             }
-
+            /*
             int totalSP = 0;
             if (value.SP1.HasValue) totalSP++;
             if (value.SP2.HasValue) totalSP++;
@@ -1025,7 +820,7 @@ namespace M3.QA.Models
                 ret.ErrNum = 9999;
                 ret.ErrMsg = ex.Message;
             }
-
+            */
             // Save Tensile Strength
             //if (ret.ErrNum != 0) return ret;
 
