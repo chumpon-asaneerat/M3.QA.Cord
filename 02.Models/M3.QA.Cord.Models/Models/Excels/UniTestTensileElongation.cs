@@ -448,70 +448,58 @@ namespace M3.QA.Models
                                             tensile.N3 = N; // N3
                                             break;
                                         case 3:
+                                            if (item.RetestN1 && !tensile.N1R1.HasValue)
                                             {
-                                                if (item.RetestN1 && !tensile.N1R1.HasValue)
-                                                {
-                                                    tensile.N1R1 = N; // N1R1
-                                                }
-                                                else if (item.RetestN2 && !tensile.N2R1.HasValue)
-                                                {
-                                                    tensile.N2R1 = N; // N2R1
-                                                }
-                                                else if (item.RetestN3 && !tensile.N3R1.HasValue)
-                                                {
-                                                    tensile.N3R1 = N; // N3R1
-                                                }
+                                                tensile.N1R1 = N; // N1R1
                                             }
-                                            break;
-                                        case 4:
+                                            else if (item.RetestN2 && !tensile.N2R1.HasValue)
                                             {
-                                                if (item.RetestN1 && !tensile.N1R2.HasValue)
-                                                {
-                                                    tensile.N1R2 = N; // N1R2
-                                                }
-                                                else if (item.RetestN2 && !tensile.N2R2.HasValue)
-                                                {
-                                                    tensile.N2R2 = N; // N2R2
-                                                }
-                                                else if (item.RetestN3 && !tensile.N3R2.HasValue)
-                                                {
-                                                    tensile.N3R2 = N; // N3R2
-                                                }
+                                                tensile.N2R1 = N; // N2R1
                                             }
-                                            break;
-                                        case 5:
-                                            {
-                                                if (item.RetestN2 && !tensile.N2R1.HasValue)
-                                                {
-                                                    tensile.N2R1 = N; // N2R1
-                                                }
-                                                else if (item.RetestN3 && !tensile.N3R1.HasValue)
-                                                {
-                                                    tensile.N3R1 = N; // N3R1
-                                                }
-                                            }
-                                            break;
-                                        case 6:
-                                            {
-                                                if (item.RetestN2 && !tensile.N2R2.HasValue)
-                                                {
-                                                    tensile.N2R2 = N; // N2R2
-                                                }
-                                                else if (item.RetestN3 && !tensile.N3R2.HasValue)
-                                                {
-                                                    tensile.N3R2 = N; // N3R2
-                                                }
-                                            }
-                                            break;
-                                        case 7:
+                                            else if (item.RetestN3 && !tensile.N3R1.HasValue)
                                             {
                                                 tensile.N3R1 = N; // N3R1
                                             }
                                             break;
-                                        case 8:
+                                        case 4:
+                                            if (item.RetestN1 && !tensile.N1R2.HasValue)
+                                            {
+                                                tensile.N1R2 = N; // N1R2
+                                            }
+                                            else if (item.RetestN2 && !tensile.N2R2.HasValue)
+                                            {
+                                                tensile.N2R2 = N; // N2R2
+                                            }
+                                            else if (item.RetestN3 && !tensile.N3R2.HasValue)
                                             {
                                                 tensile.N3R2 = N; // N3R2
                                             }
+                                            break;
+                                        case 5:
+                                            if (item.RetestN2 && !tensile.N2R1.HasValue)
+                                            {
+                                                tensile.N2R1 = N; // N2R1
+                                            }
+                                            else if (item.RetestN3 && !tensile.N3R1.HasValue)
+                                            {
+                                                tensile.N3R1 = N; // N3R1
+                                            }
+                                            break;
+                                        case 6:
+                                            if (item.RetestN2 && !tensile.N2R2.HasValue)
+                                            {
+                                                tensile.N2R2 = N; // N2R2
+                                            }
+                                            else if (item.RetestN3 && !tensile.N3R2.HasValue)
+                                            {
+                                                tensile.N3R2 = N; // N3R2
+                                            }
+                                            break;
+                                        case 7:
+                                            tensile.N3R1 = N; // N3R1
+                                            break;
+                                        case 8:
+                                            tensile.N3R2 = N; // N3R2
                                             break;
                                     }
 
@@ -533,70 +521,58 @@ namespace M3.QA.Models
                                             atBreak.N3 = N; // N3
                                             break;
                                         case 3:
+                                            if (item.RetestN1 && !atBreak.N1R1.HasValue)
                                             {
-                                                if (item.RetestN1 && !atBreak.N1R1.HasValue)
-                                                {
-                                                    atBreak.N1R1 = N; // N1R1
-                                                }
-                                                else if (item.RetestN2 && !atBreak.N2R1.HasValue)
-                                                {
-                                                    atBreak.N2R1 = N; // N2R1
-                                                }
-                                                else if (item.RetestN3 && !atBreak.N3R1.HasValue)
-                                                {
-                                                    atBreak.N3R1 = N; // N3R1
-                                                }
+                                                atBreak.N1R1 = N; // N1R1
                                             }
-                                            break;
-                                        case 4:
+                                            else if (item.RetestN2 && !atBreak.N2R1.HasValue)
                                             {
-                                                if (item.RetestN1 && !atBreak.N1R2.HasValue)
-                                                {
-                                                    atBreak.N1R2 = N; // N1R2
-                                                }
-                                                else if (item.RetestN2 && !atBreak.N2R2.HasValue)
-                                                {
-                                                    atBreak.N2R2 = N; // N2R2
-                                                }
-                                                else if (item.RetestN3 && !atBreak.N3R2.HasValue)
-                                                {
-                                                    atBreak.N3R2 = N; // N3R2
-                                                }
+                                                atBreak.N2R1 = N; // N2R1
                                             }
-                                            break;
-                                        case 5:
-                                            {
-                                                if (item.RetestN2 && !atBreak.N2R1.HasValue)
-                                                {
-                                                    atBreak.N2R1 = N; // N2R1
-                                                }
-                                                else if (item.RetestN3 && !atBreak.N3R1.HasValue)
-                                                {
-                                                    atBreak.N3R1 = N; // N3R1
-                                                }
-                                            }
-                                            break;
-                                        case 6:
-                                            {
-                                                if (item.RetestN2 && !atBreak.N2R2.HasValue)
-                                                {
-                                                    atBreak.N2R2 = N; // N2R2
-                                                }
-                                                else if (item.RetestN3 && !atBreak.N3R2.HasValue)
-                                                {
-                                                    atBreak.N3R2 = N; // N3R2
-                                                }
-                                            }
-                                            break;
-                                        case 7:
+                                            else if (item.RetestN3 && !atBreak.N3R1.HasValue)
                                             {
                                                 atBreak.N3R1 = N; // N3R1
                                             }
                                             break;
-                                        case 8:
+                                        case 4:
+                                            if (item.RetestN1 && !atBreak.N1R2.HasValue)
+                                            {
+                                                atBreak.N1R2 = N; // N1R2
+                                            }
+                                            else if (item.RetestN2 && !atBreak.N2R2.HasValue)
+                                            {
+                                                atBreak.N2R2 = N; // N2R2
+                                            }
+                                            else if (item.RetestN3 && !atBreak.N3R2.HasValue)
                                             {
                                                 atBreak.N3R2 = N; // N3R2
                                             }
+                                            break;
+                                        case 5:
+                                            if (item.RetestN2 && !atBreak.N2R1.HasValue)
+                                            {
+                                                atBreak.N2R1 = N; // N2R1
+                                            }
+                                            else if (item.RetestN3 && !atBreak.N3R1.HasValue)
+                                            {
+                                                atBreak.N3R1 = N; // N3R1
+                                            }
+                                            break;
+                                        case 6:
+                                            if (item.RetestN2 && !atBreak.N2R2.HasValue)
+                                            {
+                                                atBreak.N2R2 = N; // N2R2
+                                            }
+                                            else if (item.RetestN3 && !atBreak.N3R2.HasValue)
+                                            {
+                                                atBreak.N3R2 = N; // N3R2
+                                            }
+                                            break;
+                                        case 7:
+                                            atBreak.N3R1 = N; // N3R1
+                                            break;
+                                        case 8:
+                                            atBreak.N3R2 = N; // N3R2
                                             break;
                                     }
 
@@ -623,70 +599,58 @@ namespace M3.QA.Models
                                                 atLoad.N3 = N; // N3
                                                 break;
                                             case 3:
+                                                if (item.RetestN1 && !atLoad.N1R1.HasValue)
                                                 {
-                                                    if (item.RetestN1 && !atLoad.N1R1.HasValue)
-                                                    {
-                                                        atLoad.N1R1 = N; // N1R1
-                                                    }
-                                                    else if (item.RetestN2 && !atLoad.N2R1.HasValue)
-                                                    {
-                                                        atLoad.N2R1 = N; // N2R1
-                                                    }
-                                                    else if (item.RetestN3 && !atLoad.N3R1.HasValue)
-                                                    {
-                                                        atLoad.N3R1 = N; // N3R1
-                                                    }
+                                                    atLoad.N1R1 = N; // N1R1
                                                 }
-                                                break;
-                                            case 4:
+                                                else if (item.RetestN2 && !atLoad.N2R1.HasValue)
                                                 {
-                                                    if (item.RetestN1 && !atLoad.N1R2.HasValue)
-                                                    {
-                                                        atLoad.N1R2 = N; // N1R2
-                                                    }
-                                                    else if (item.RetestN2 && !atLoad.N2R2.HasValue)
-                                                    {
-                                                        atLoad.N2R2 = N; // N2R2
-                                                    }
-                                                    else if (item.RetestN3 && !atLoad.N3R2.HasValue)
-                                                    {
-                                                        atLoad.N3R2 = N; // N3R2
-                                                    }
+                                                    atLoad.N2R1 = N; // N2R1
                                                 }
-                                                break;
-                                            case 5:
-                                                {
-                                                    if (item.RetestN2 && !atLoad.N2R1.HasValue)
-                                                    {
-                                                        atLoad.N2R1 = N; // N2R1
-                                                    }
-                                                    else if (item.RetestN3 && !atLoad.N3R1.HasValue)
-                                                    {
-                                                        atLoad.N3R1 = N; // N3R1
-                                                    }
-                                                }
-                                                break;
-                                            case 6:
-                                                {
-                                                    if (item.RetestN2 && !atLoad.N2R2.HasValue)
-                                                    {
-                                                        atLoad.N2R2 = N; // N2R2
-                                                    }
-                                                    else if (item.RetestN3 && !atLoad.N3R2.HasValue)
-                                                    {
-                                                        atLoad.N3R2 = N; // N3R2
-                                                    }
-                                                }
-                                                break;
-                                            case 7:
+                                                else if (item.RetestN3 && !atLoad.N3R1.HasValue)
                                                 {
                                                     atLoad.N3R1 = N; // N3R1
                                                 }
                                                 break;
-                                            case 8:
+                                            case 4:
+                                                if (item.RetestN1 && !atLoad.N1R2.HasValue)
+                                                {
+                                                    atLoad.N1R2 = N; // N1R2
+                                                }
+                                                else if (item.RetestN2 && !atLoad.N2R2.HasValue)
+                                                {
+                                                    atLoad.N2R2 = N; // N2R2
+                                                }
+                                                else if (item.RetestN3 && !atLoad.N3R2.HasValue)
                                                 {
                                                     atLoad.N3R2 = N; // N3R2
                                                 }
+                                                break;
+                                            case 5:
+                                                if (item.RetestN2 && !atLoad.N2R1.HasValue)
+                                                {
+                                                    atLoad.N2R1 = N; // N2R1
+                                                }
+                                                else if (item.RetestN3 && !atLoad.N3R1.HasValue)
+                                                {
+                                                    atLoad.N3R1 = N; // N3R1
+                                                }
+                                                break;
+                                            case 6:
+                                                if (item.RetestN2 && !atLoad.N2R2.HasValue)
+                                                {
+                                                    atLoad.N2R2 = N; // N2R2
+                                                }
+                                                else if (item.RetestN3 && !atLoad.N3R2.HasValue)
+                                                {
+                                                    atLoad.N3R2 = N; // N3R2
+                                                }
+                                                break;
+                                            case 7:
+                                                atLoad.N3R1 = N; // N3R1
+                                                break;
+                                            case 8:
+                                                atLoad.N3R2 = N; // N3R2
                                                 break;
                                         }
                                     }

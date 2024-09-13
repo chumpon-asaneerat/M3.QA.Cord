@@ -162,22 +162,6 @@ namespace M3.QA.Models
             Raise(() => this.SP5);
             Raise(() => this.SP6);
             Raise(() => this.SP7);
-
-            Raise(() => this.NCnt1);
-            Raise(() => this.NCnt2);
-            Raise(() => this.NCnt3);
-            Raise(() => this.NCnt4);
-            Raise(() => this.NCnt5);
-            Raise(() => this.NCnt6);
-            Raise(() => this.NCnt7);
-
-            Raise(() => this.RCnt1);
-            Raise(() => this.RCnt2);
-            Raise(() => this.RCnt3);
-            Raise(() => this.RCnt4);
-            Raise(() => this.RCnt5);
-            Raise(() => this.RCnt6);
-            Raise(() => this.RCnt7);
         }
 
         private void ParseComment2()
@@ -320,62 +304,6 @@ namespace M3.QA.Models
         public int? SP5 { get; set; }
         public int? SP6 { get; set; }
         public int? SP7 { get; set; }
-
-        #endregion
-
-        #region Test Cnt
-
-        public int NCnt1 { get; set; } = 3;
-        public int NCnt2 { get; set; } = 3;
-        public int NCnt3 { get; set; } = 3;
-        public int NCnt4 { get; set; } = 3;
-        public int NCnt5 { get; set; } = 3;
-        public int NCnt6 { get; set; } = 3;
-        public int NCnt7 { get; set; } = 3;
-
-        #endregion
-
-        #region SP N Retest Flag
-
-        public bool SP1N1 { get; set; }
-        public bool SP1N2 { get; set; }
-        public bool SP1N3 { get; set; }
-
-        public bool SP2N1 { get; set; }
-        public bool SP2N2 { get; set; }
-        public bool SP2N3 { get; set; }
-
-        public bool SP3N1 { get; set; }
-        public bool SP3N2 { get; set; }
-        public bool SP3N3 { get; set; }
-
-        public bool SP4N1 { get; set; }
-        public bool SP4N2 { get; set; }
-        public bool SP4N3 { get; set; }
-
-        public bool SP5N1 { get; set; }
-        public bool SP5N2 { get; set; }
-        public bool SP5N3 { get; set; }
-
-        public bool SP6N1 { get; set; }
-        public bool SP6N2 { get; set; }
-        public bool SP6N3 { get; set; }
-
-        public bool SP7N1 { get; set; }
-        public bool SP7N2 { get; set; }
-        public bool SP7N3 { get; set; }
-
-        #endregion
-
-        #region Retest Cnt
-
-        public int RCnt1 { get; set; }
-        public int RCnt2 { get; set; }
-        public int RCnt3 { get; set; }
-        public int RCnt4 { get; set; }
-        public int RCnt5 { get; set; }
-        public int RCnt6 { get; set; }
-        public int RCnt7 { get; set; }
 
         #endregion
 
