@@ -573,18 +573,28 @@ namespace M3.QA.Models
                 int iCnt = 0;
                 foreach (var r in value.Items)
                 {
-                    /*
                     p = new DynamicParameters();
+
                     p.Add("@LotNo", r.LotNo);
                     p.Add("@spno", r.SPNo);
                     p.Add("@peakn1", (null != r.PeakPoint) ? r.PeakPoint.N1 : new decimal?());
                     p.Add("@peakn2", (null != r.PeakPoint) ? r.PeakPoint.N2 : new decimal?());
-                    p.Add("@peakr1", (null != r.PeakPoint) ? r.PeakPoint.R1 : new decimal?());
-                    p.Add("@peakr2", (null != r.PeakPoint) ? r.PeakPoint.R2 : new decimal?());
-                    p.Add("@adhesionn1", (null != r.AdhesionForce) ? r.AdhesionForce.N1 : new decimal?());
-                    p.Add("@adhesionn2", (null != r.AdhesionForce) ? r.AdhesionForce.N2 : new decimal?());
-                    p.Add("@adhesionr1", (null != r.AdhesionForce) ? r.AdhesionForce.R1 : new decimal?());
-                    p.Add("@adhesionr2", (null != r.AdhesionForce) ? r.AdhesionForce.R2 : new decimal?());
+
+                    p.Add("@peakn1r1", (null != r.PeakPoint) ? r.PeakPoint.N1R1 : new decimal?());
+                    p.Add("@peakn1r2", (null != r.PeakPoint) ? r.PeakPoint.N1R2 : new decimal?());
+                    p.Add("@peakn2r1", (null != r.PeakPoint) ? r.PeakPoint.N2R1 : new decimal?());
+                    p.Add("@peakn2r2", (null != r.PeakPoint) ? r.PeakPoint.N2R2 : new decimal?());
+
+                    p.Add("@adforcen1", (null != r.AdhesionForce) ? r.AdhesionForce.N1 : new decimal?());
+                    p.Add("@adforcen2", (null != r.AdhesionForce) ? r.AdhesionForce.N2 : new decimal?());
+                    
+                    p.Add("@adforcen1r1", (null != r.AdhesionForce) ? r.AdhesionForce.N1R1 : new decimal?());
+                    p.Add("@adforcen1r2", (null != r.AdhesionForce) ? r.AdhesionForce.N1R2 : new decimal?());
+                    p.Add("@adforcen2r1", (null != r.AdhesionForce) ? r.AdhesionForce.N2R1 : new decimal?());
+                    p.Add("@adforcen2r2", (null != r.AdhesionForce) ? r.AdhesionForce.N2R2 : new decimal?());
+
+                    p.Add("@sampletype", value.SampleType);
+
                     p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
 
@@ -605,7 +615,6 @@ namespace M3.QA.Models
                         ret.ErrNum = 9999;
                         ret.ErrMsg = ex.Message;
                     }
-                    */
                 }
                 if (iCnt == value.Items.Count)
                 {
