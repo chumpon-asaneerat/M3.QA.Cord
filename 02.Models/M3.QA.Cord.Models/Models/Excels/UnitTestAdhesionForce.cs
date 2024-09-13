@@ -32,8 +32,8 @@ namespace M3.QA.Models
 
         private void ParseComment1()
         {
-            var p = UniTestSPParser.Parse(Comment1);
-            NoOfSP = (null != p) ? p.Items.Count : 0;
+            Parser = UniTestSPParser.Parse(Comment1);
+            NoOfSP = (null != Parser) ? Parser.Items.Count : 0;
 
             // Clear SPs.
             SP1 = new int?();
@@ -49,111 +49,48 @@ namespace M3.QA.Models
 
             if (NoOfSP <= 0) return;
 
-            int NCnt = 2;
             for (int i = 0; i < NoOfSP; i++)
             {
                 switch (i)
                 {
                     case 0:
                         {
-                            SP1 = p.Items[i].SP;
-                            SP1N1 = p.Items[i].RetestN1;
-                            SP1N2 = p.Items[i].RetestN2;
-                            SP1N3 = p.Items[i].RetestN3;
-
-                            NCnt1 = NCnt;
-                            RCnt1 = 0;
-                            RCnt1 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt1 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt1 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP1 = Parser.Items[i].SP;
                             break;
                         }
                     case 1:
                         {
-                            SP2 = p.Items[i].SP;
-                            SP2N1 = p.Items[i].RetestN1;
-                            SP2N2 = p.Items[i].RetestN2;
-                            SP2N3 = p.Items[i].RetestN3;
-
-                            NCnt2 = NCnt;
-                            RCnt2 = 0;
-                            RCnt2 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt2 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt2 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP2 = Parser.Items[i].SP;
                             break;
                         }
                     case 2:
                         {
-                            SP3 = p.Items[i].SP;
-                            SP3N1 = p.Items[i].RetestN1;
-                            SP3N2 = p.Items[i].RetestN2;
-                            SP3N3 = p.Items[i].RetestN3;
-
-                            NCnt3 = NCnt;
-                            RCnt3 = 0;
-                            RCnt3 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt3 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt3 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP3 = Parser.Items[i].SP;
                             break;
                         }
                     case 3:
                         {
-                            SP4 = p.Items[i].SP;
-                            SP4N1 = p.Items[i].RetestN1;
-                            SP4N2 = p.Items[i].RetestN2;
-                            SP4N3 = p.Items[i].RetestN3;
-
-                            NCnt4 = NCnt;
-                            RCnt4 = 0;
-                            RCnt4 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt4 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt4 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP4 = Parser.Items[i].SP;
                             break;
                         }
                     case 4:
                         {
-                            SP5 = p.Items[i].SP;
-                            SP5N1 = p.Items[i].RetestN1;
-                            SP5N2 = p.Items[i].RetestN2;
-                            SP5N3 = p.Items[i].RetestN3;
-
-                            NCnt5 = NCnt;
-                            RCnt5 = 0;
-                            RCnt5 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt5 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt5 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP5 = Parser.Items[i].SP;
                             break;
                         }
                     case 5:
                         {
-                            SP6 = p.Items[i].SP;
-                            SP6N1 = p.Items[i].RetestN1;
-                            SP6N2 = p.Items[i].RetestN2;
-                            SP6N3 = p.Items[i].RetestN3;
-
-                            NCnt6 = NCnt;
-                            RCnt6 = 0;
-                            RCnt6 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt6 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt6 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP6 = Parser.Items[i].SP;
                             break;
                         }
                     case 6:
                         {
-                            SP7 = p.Items[i].SP;
-                            SP7N1 = p.Items[i].RetestN1;
-                            SP7N2 = p.Items[i].RetestN2;
-                            SP7N3 = p.Items[i].RetestN3;
-
-                            NCnt7 = NCnt;
-                            RCnt7 = 0;
-                            RCnt7 += p.Items[i].RetestN1 ? 2 : 0;
-                            RCnt7 += p.Items[i].RetestN2 ? 2 : 0;
-                            RCnt7 += p.Items[i].RetestN3 ? 2 : 0;
+                            SP7 = Parser.Items[i].SP;
                             break;
                         }
                 }
             }
+
             // Raise SP? Change Events
             Raise(() => this.SP1);
             Raise(() => this.SP2);
@@ -179,69 +116,40 @@ namespace M3.QA.Models
             }
         }
 
+        public void PrepareProperties()
+        {
+            PrepareAdhesionForces();
+        }
+
         private void PrepareAdhesionForces()
         {
             Items = new List<UnitTestAdhesionForceProperty>();
             for (int i = 0; i < NoOfSP; i++)
             {
+                var item = Parser.Items[i];
+
                 var inst = new UnitTestAdhesionForceProperty();
 
                 inst.LotNo = this.LotNo;
                 inst.YarnType = this.YarnType;
                 inst.NoOfSample = this.NoOfSample;
-
-                switch (i)
-                {
-                    case 0:
-                        {
-                            inst.SPNo = this.SP1;
-                            break;
-                        }
-                    case 1:
-                        {
-                            inst.SPNo = this.SP2;
-                            break;
-                        }
-                    case 2:
-                        {
-                            inst.SPNo = this.SP3;
-                            break;
-                        }
-                    case 3:
-                        {
-                            inst.SPNo = this.SP4;
-                            break;
-                        }
-                    case 4:
-                        {
-                            inst.SPNo = this.SP5;
-                            break;
-                        }
-                    case 5:
-                        {
-                            inst.SPNo = this.SP6;
-                            break;
-                        }
-                    case 6:
-                        {
-                            inst.SPNo = this.SP7;
-                            break;
-                        }
-                }
+                inst.SPNo = item.SP;
+                inst.NoOfSample = 2;
 
                 // Append to List
                 Items.Add(inst);
             }
         }
 
-        public void PrepareProperties()
-        {
-            PrepareAdhesionForces();
-        }
-
         #endregion
 
         #region Public Properties
+
+        #region Parser
+
+        public UniTestSPParser Parser { get; set; }
+
+        #endregion
 
         #region Common
 
@@ -425,7 +333,8 @@ namespace M3.QA.Models
 
                     #endregion
 
-                    // Check can load data
+                    #region Check can load data
+
                     if (null == inst)
                     {
                         return result;
@@ -440,8 +349,10 @@ namespace M3.QA.Models
                         return result;
                     }
 
+                    #endregion
+
                     #region Data
-                    
+
                     string sheetName2 = "Data";
                     var table2 = conn.Query("Select * from [" + sheetName2 + "$]").Result;
                     if (null != table2)
@@ -449,92 +360,84 @@ namespace M3.QA.Models
                         inst.PrepareProperties(); // prepare properties
 
                         // Loop data row.
-                        int iSP = 0;
-                        int iCnt = 1;
-                        int iMax = 2;
                         decimal? N;
                         decimal d;
-                        for (int iRow = 3; iRow < table2.Rows.Count; iRow++)
+
+                        if (null != inst.Parser && null != inst.Parser.Items &&
+                            inst.Parser.Items.Count > 0)
                         {
-                            DataRow row = table2.Rows[iRow];
+                            int startRow = 3; // Excel start row.
+                            int readRow = 0;
 
-                            #region Find Max Test + Retest
-
-                            switch (iSP)
+                            var items = inst.Parser.Items;
+                            for (int iSP = 0; iSP < items.Count; iSP++)
                             {
-                                case 0:
-                                    iMax = inst.NCnt1 + inst.RCnt1;
-                                    break;
-                                case 1:
-                                    iMax = inst.NCnt2 + inst.RCnt2;
-                                    break;
-                                case 2:
-                                    iMax = inst.NCnt3 + inst.RCnt3;
-                                    break;
-                                case 3:
-                                    iMax = inst.NCnt4 + inst.RCnt4;
-                                    break;
-                                case 4:
-                                    iMax = inst.NCnt5 + inst.RCnt5;
-                                    break;
-                                case 5:
-                                    iMax = inst.NCnt6 + inst.RCnt6;
-                                    break;
-                                case 6:
-                                    iMax = inst.NCnt7 + inst.RCnt7;
-                                    break;
-                                default:
-                                    iMax = 3;
-                                    break;
-                            }
+                                var item = items[iSP];
 
-                            #endregion
+                                var peakPoint = inst.Items[iSP].PeakPoint; // PeakPoint
 
-                            #region Items
+                                int totalRow = 2; // default 2 N
+                                totalRow += (item.RetestN1) ? 2 : 0; // Has Retest N1 need 2 value
+                                totalRow += (item.RetestN2) ? 2 : 0; // Has Retest N2 need 2 value
+                                totalRow += (item.RetestN3) ? 2 : 0; // Has Retest N3 need 2 value
+                                int currRow = 0;
 
-                            if (null != inst.Items &&
-                                inst.Items.Count > 0 && iSP < inst.Items.Count)
-                            {
-                                /*
-                                N = decimal.TryParse(row["F4"].ToString(), out d) ? d : new decimal?();
-
-                                switch (iCnt)
+                                // Read require rows for current SP (in parser)
+                                while (currRow < totalRow)
                                 {
-                                    case 1:
-                                        {
-                                            inst.Items[iSP].PeakPoint.N1 = N;
+                                    int idx = startRow + readRow + currRow;
+                                    if (idx >= table2.Rows.Count)
+                                        break; // reach end of rows
+
+                                    // Read value on current row
+                                    DataRow row = table2.Rows[idx];
+
+                                    #region Tensile Strengths
+
+                                    N = decimal.TryParse(row["F4"].ToString(), out d) ? d : new decimal?();
+
+                                    switch (currRow)
+                                    {
+                                        case 0:
+                                            peakPoint.N1 = N; // N1
                                             break;
-                                        }
-                                    case 2:
-                                        {
-                                            inst.Items[iSP].PeakPoint.N2 = N;
+                                        case 1:
+                                            peakPoint.N2 = N; // N2
                                             break;
-                                        }
-                                    case 3:
-                                        {
-                                            inst.Items[iSP].PeakPoint.R1 = N;
+                                        case 2:
+                                            if (item.RetestN1 && !peakPoint.N1R1.HasValue)
+                                            {
+                                                peakPoint.N1R1 = N; // N1R1
+                                            }
+                                            else if (item.RetestN2 && !peakPoint.N2R1.HasValue)
+                                            {
+                                                peakPoint.N2R1 = N; // N2R1
+                                            }
                                             break;
-                                        }
-                                    case 4:
-                                        {
-                                            inst.Items[iSP].PeakPoint.R2 = N;
+                                        case 3:
+                                            if (item.RetestN1 && !peakPoint.N1R2.HasValue)
+                                            {
+                                                peakPoint.N1R2 = N; // N1R2
+                                            }
+                                            else if (item.RetestN2 && !peakPoint.N2R2.HasValue)
+                                            {
+                                                peakPoint.N2R2 = N; // N2R2
+                                            }
                                             break;
-                                        }
+                                        case 4:
+                                            peakPoint.N2R1 = N; // N2R1
+                                            break;
+                                        case 5:
+                                            peakPoint.N2R2 = N; // N2R2
+                                            break;
+                                    }
+
+                                    #endregion
+
+                                    currRow++; // step to next row
                                 }
-                                */
-                            }
 
-                            #endregion
-
-                            iCnt++;
-
-                            if (iCnt > iMax)
-                            {
-                                iCnt = 1; // Reset to N1
-
-                                inst.Items[iSP].UpdateProperties(); // calculate formula
-
-                                iSP++; // next sp
+                                readRow += totalRow; // update readed row.
                             }
                         }
                         

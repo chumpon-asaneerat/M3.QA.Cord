@@ -27,8 +27,6 @@ namespace M3.QA.Models
 
     public class UnitTestTensileElongation : NInpc
     {
-        public UniTestSPParser Parser;
-
         #region Private Methods
 
         private void ParseComment1()
@@ -177,6 +175,12 @@ namespace M3.QA.Models
         #endregion
 
         #region Public Properties
+
+        #region Parser
+
+        public UniTestSPParser Parser { get; set; }
+
+        #endregion
 
         #region Common
 
@@ -354,7 +358,8 @@ namespace M3.QA.Models
 
                     #endregion
 
-                    // Check can load data
+                    #region Check can load data
+
                     if (null == inst)
                     {
                         return result;
@@ -368,6 +373,8 @@ namespace M3.QA.Models
                         result.Value = null;
                         return result;
                     }
+
+                    #endregion
 
                     #region Data
 
@@ -395,8 +402,6 @@ namespace M3.QA.Models
                         inst.PrepareProperties(); // prepare properties
 
                         // Loop data row.
-                        
-                        
                         decimal? N;
                         decimal d;
 
@@ -663,6 +668,7 @@ namespace M3.QA.Models
                                 readRow += totalRow; // update readed row.
                             }
                         }
+
                         // Success
                         result.IsValid = true;
                         result.ErrMsg = "Success";
