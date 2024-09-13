@@ -90,6 +90,8 @@ namespace M3.QA.Models
         public DateTime? ReceiveDate { get; set; }
         public string Customer { get; set; }
 
+        public string DIPMC { get; set; }
+
         #endregion
 
         #region Test Tab Visibility
@@ -390,8 +392,9 @@ namespace M3.QA.Models
         /// Gets CordSampleTestData by Lot No.
         /// </summary>
         /// <param name="value">The CordSampleTestData item to save.</param>
+        /// <param name="initTestEntry">True (default) for auto load spec and prepare related properties.</param>
         /// <returns></returns>
-        public static NDbResult<CordSampleTestData> GetByLotNo(string lotNo)
+        public static NDbResult<CordSampleTestData> GetByLotNo(string lotNo, bool initTestEntry = true)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -424,7 +427,7 @@ namespace M3.QA.Models
                 var items = cnn.Query<CordSampleTestData>("M_CheckLotReceive", p, commandType: CommandType.StoredProcedure);
                 var data = (null != items) ? items.ToList().FirstOrDefault() : null;
 
-                if (null != data)
+                if (null != data && initTestEntry)
                 {
                     // already has date so cannot edit.
                     data.CanEditStartDate = (data.StartTestDate.HasValue) ? false : true;

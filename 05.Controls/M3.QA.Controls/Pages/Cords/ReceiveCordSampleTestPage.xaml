@@ -294,15 +294,15 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center">
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center">
                                                     <!--  Edit  -->
                                                     <ctrl:FontAwesomeButton x:Name="cmdEdit"
-                                                                IconType="Edit"
-                                                                Margin="5,0"
-                                                                Width="40"
-                                                                Height="30"
-                                                                Click="cmdEdit_Click" />
+                                                                            IconType="Edit"
+                                                                            Margin="5,0"
+                                                                            Width="40"
+                                                                            Height="30"
+                                                                            Click="cmdEdit_Click" />
                                                 </StackPanel>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>

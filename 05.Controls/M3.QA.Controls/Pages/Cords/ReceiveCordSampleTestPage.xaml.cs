@@ -322,13 +322,16 @@ namespace M3.QA.Pages
         {
             if (null == item) return;
 
-            var test = CordSampleTestData.GetByLotNo(item.LotNo).Value();
+            var test = CordSampleTestData.GetByLotNo(item.LotNo, false).Value();
+            if (null == test) return;
 
             var editObj = new CordTestSampleRecv();
             editObj.LotNo = test.LotNo;
             editObj.ProductionLot = test.ProductionLot;
+            editObj.MasterId = test.MasterId;
             editObj.ReceiveDate = test.ReceiveDate;
             editObj.ReceiveBy = test.ReceiveBy;
+            editObj.DIPMC = test.DIPMC;
 
             editObj.Customer = test.Customer;
             editObj.ItemCode = test.ItemCode;
@@ -343,42 +346,14 @@ namespace M3.QA.Pages
             editObj.SP7 = test.SP7;
 
             var codes = CordCode.Gets(test.Customer).Value();
-            var code = codes.Find(c => { return c.ItemCode == test.ItemCode; });
+            var code = (null != codes) ? codes.Find(c => { return c.ItemCode == test.ItemCode; }) : null;
 
+            editObj.NoTestCH = (null != code) ? code.NoTestCH : 0;
+            editObj.ProductType = (null != code) ? code.ProductType : string.Empty;
 
             var win = M3QAApp.Windows.EditSpindle;
             win.Setup(editObj);
-            /*
-            this.DataContext = null;
-
-            var test = CordSampleTestData.GetByLotNo(item.LotNo).Value();
-
-            sample = new CordTestSampleRecv();
-            sample.EditMode = true;
-
-            sample.LotNo = test.LotNo;
-            sample.ProductionLot = test.ProductionLot;
-            sample.ReceiveDate = test.ReceiveDate;
-            sample.ReceiveBy = test.ReceiveBy;
-
-            sample.TotalSP = (test.TotalSP.HasValue) ? test.TotalSP.Value : 0;
-            sample.SP1 = test.SP1;
-            sample.SP2 = test.SP2;
-            sample.SP3 = test.SP3;
-            sample.SP4 = test.SP4;
-            sample.SP5 = test.SP5;
-            sample.SP6 = test.SP6;
-            sample.SP7 = test.SP7;
-
-            // sync customer
-            int idx;
-            idx = customers.FindIndex(val => { return val.Customer == test.Customer; });
-            this.InvokeAction(() => { cbCustomers.SelectedIndex = idx; });
-            idx = cordCodes.FindIndex(val => { return val.ItemCode == test.ItemCode; });
-            this.InvokeAction(() => { cbCodes.SelectedIndex = idx; });
-
-            this.DataContext = sample;
-            */
+            win.ShowDialog();
         }
 
         private void Search()
