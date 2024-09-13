@@ -859,12 +859,19 @@ namespace M3.QA.Models
                         p.Add("@propertyno", s.PropertyNo);
                         p.Add("@spno", s.SPNo);
                         p.Add("@loadn", s.LoadN);
+
                         p.Add("@n1", s.N1);
                         p.Add("@n2", s.N2);
                         p.Add("@n3", s.N3);
-                        p.Add("@r1", s.R1);
-                        p.Add("@r2", s.R2);
-                        p.Add("@r3", s.R3);
+
+                        p.Add("@n1r1", s.N1R1);
+                        p.Add("@n1r2", s.N1R2);
+                        p.Add("@n2r1", s.N2R1);
+                        p.Add("@n2r2", s.N2R2);
+                        p.Add("@n3r1", s.N3R1);
+                        p.Add("@n3r2", s.N3R2);
+
+                        p.Add("@sampletype", value.SampleType);
 
                         p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
                         p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
