@@ -4,8 +4,10 @@ M3 QA Cord #500
 M3 QA Cord #499
 - 
 
+[commit]
 M3 QA Cord #498
-- 
+- Implements Cord Test Data #88
+  - Update app build 500
 
 [commit]
 M3 QA Cord #497
