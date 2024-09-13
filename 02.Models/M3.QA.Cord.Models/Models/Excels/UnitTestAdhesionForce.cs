@@ -379,7 +379,7 @@ namespace M3.QA.Models
                                 int totalRow = 2; // default 2 N
                                 totalRow += (item.RetestN1) ? 2 : 0; // Has Retest N1 need 2 value
                                 totalRow += (item.RetestN2) ? 2 : 0; // Has Retest N2 need 2 value
-                                totalRow += (item.RetestN3) ? 2 : 0; // Has Retest N3 need 2 value
+                                
                                 int currRow = 0;
 
                                 // Read require rows for current SP (in parser)
@@ -438,6 +438,8 @@ namespace M3.QA.Models
                                 }
 
                                 readRow += totalRow; // update readed row.
+
+                                inst.Items[iSP].UpdateProperties(); // calculate related properties
                             }
                         }
                         
