@@ -10,8 +10,11 @@ M3 QA Cord #508
 M3 QA Cord #507
 - 
 
+[commit]
 M3 QA Cord #506
-- 
+- Implements Cord Test Data #96
+  - Import excel Elongation Load remove "N"
+  - update app const build to 507
 
 [commit]
 M3 QA Cord #505

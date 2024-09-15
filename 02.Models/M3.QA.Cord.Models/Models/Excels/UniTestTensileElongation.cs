@@ -392,6 +392,10 @@ namespace M3.QA.Models
                             if (hdrTxt.StartsWith("At-Load-"))
                             {
                                 string elongN = hdrTxt.Replace("At-Load-", "");
+                                if (elongN.Contains("N"))
+                                {
+                                    elongN = elongN.Replace("N", "").Trim();
+                                }
                                 elongCols.Add(col);
                                 elongNs.Add(elongN);
                             }
