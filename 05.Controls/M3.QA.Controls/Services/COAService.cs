@@ -428,10 +428,10 @@ namespace M3.QA
 
                     // RESULT (AVG)
                     ws.Cells["E" + iRow.ToString()].Value = p.Avg;
-                    // MIN
-                    ws.Cells["F" + iRow.ToString()].Value = p.MinTestValue;
                     // MAX
-                    ws.Cells["G" + iRow.ToString()].Value = p.MaxTestValue;
+                    ws.Cells["F" + iRow.ToString()].Value = p.MaxTestValue;
+                    // MIN
+                    ws.Cells["G" + iRow.ToString()].Value = p.MinTestValue;
                     // R
                     ws.Cells["H" + iRow.ToString()].Value = p.MaxTestValue - p.MinTestValue;
                     // Judge

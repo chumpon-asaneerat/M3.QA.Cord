@@ -4,8 +4,10 @@ M3 QA Cord #510
 M3 QA Cord #509
 - 
 
+[commit]
 M3 QA Cord #508
-- 
+- Implements Cord Test Data #98
+  - COA3 swap min/max columns
 
 [commit]
 M3 QA Cord #507
