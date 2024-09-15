@@ -288,11 +288,11 @@ namespace M3.QA.Models
                 // has both min/max
                 if (VMin.Value == VMax.Value)
                 {
-                    part1 += string.Format("{0:#,##0.###} ± {1:#,##0.###}", dCenter, VMin.Value);
+                    part1 += string.Format("{0:#,##0.0##} ± {1:#,##0.0##}", dCenter, VMin.Value);
                 }
                 else
                 {
-                    part1 += string.Format("{0:#,##0.###} + {1:#,##0.###}, {0:#,##0.###} - {2:#,##0.###}",
+                    part1 += string.Format("{0:#,##0.0##} + {1:#,##0.0##}, {0:#,##0.0##} - {2:#,##0.0##}",
                         dCenter, VMax.Value, VMin.Value);
                 }
 
@@ -301,14 +301,14 @@ namespace M3.QA.Models
             else if (VMin.HasValue && !VMax.HasValue)
             {
                 // has min only
-                part1 += string.Format("{0:#,##0.###} - {1:#,##0.###}", dCenter, VMin.Value);
+                part1 += string.Format("{0:#,##0.0##} - {1:#,##0.0##}", dCenter, VMin.Value);
 
                 ret += part1;
             }
             else if (!VMin.HasValue && VMax.HasValue)
             {
                 // has max only
-                part1 += string.Format("{0:#,##0.###} + {1:#,##0.###}", dCenter, VMax.Value);
+                part1 += string.Format("{0:#,##0.0##} + {1:#,##0.0##}", dCenter, VMax.Value);
 
                 ret += part1;
             }
@@ -328,17 +328,17 @@ namespace M3.QA.Models
             if (VMin.HasValue && VMax.HasValue)
             {
                 // Has both value
-                ret += string.Format("{0:#,##0.###} ≤ N ≤ {1:#,##0.###}", VMin.Value, VMax.Value);
+                ret += string.Format("{0:#,##0.0##} ≤ N ≤ {1:#,##0.0##}", VMin.Value, VMax.Value);
             }
             else if (VMin.HasValue && !VMax.HasValue)
             {
                 // Has Min value only
-                ret += string.Format("MIN. {0:#,##0.###}", VMin.Value);
+                ret += string.Format("MIN. {0:#,##0.0##}", VMin.Value);
             }
             else if (!VMin.HasValue && VMax.HasValue)
             {
                 // Has Max value only
-                ret += string.Format("MAX. {0:#,##0.###}", VMax.Value);
+                ret += string.Format("MAX. {0:#,##0.0##}", VMax.Value);
             }
             else
             {
@@ -357,17 +357,17 @@ namespace M3.QA.Models
             if (VMin.HasValue && VMax.HasValue)
             {
                 // Has both value
-                ret += string.Format("{0:#,##0.###} ≤ N ≤ {1:#,##0.###}", VMin.Value, VMax.Value);
+                ret += string.Format("{0:#,##0.0##} ≤ N ≤ {1:#,##0.0##}", VMin.Value, VMax.Value);
             }
             else if (VMin.HasValue && !VMax.HasValue)
             {
                 // Has Min value only
-                ret += string.Format("MIN. {0:#,##0.###}", VMin.Value);
+                ret += string.Format("MIN. {0:#,##0.0##}", VMin.Value);
             }
             else if (!VMin.HasValue && VMax.HasValue)
             {
                 // Has Max value only
-                ret += string.Format("MAX. {0:#,##0.###}", VMax.Value);
+                ret += string.Format("MAX. {0:#,##0.0##}", VMax.Value);
             }
             else
             {

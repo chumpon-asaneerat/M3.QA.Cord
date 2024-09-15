@@ -59,12 +59,22 @@ namespace M3.QA
 
                 if (null != ws && null != p)
                 {
+                    if (p.PropertyNo == 3)
+                    {
+                        // Replace ELONG AT Load (like 44 N)
+                        string loadN = (null != p.Spec) ? p.Spec.UnitDesc : " N";
+                        ws.Cells["A" + iRow.ToString()].Value = "ELONG. AT " + loadN + "";
+                    }
+
                     // Unit Report
                     ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
+
                     // SPEC
                     ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpec : "(%)";
+
                     // RESULT
                     ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                    ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.0";
 
                     // Judge
                     ret = (null != p.Spec) ? (p.Spec.IsOutOfSpec(p.Avg) ? JudgeStatus.NG : JudgeStatus.OK) : JudgeStatus.NoSpec;
@@ -398,6 +408,13 @@ namespace M3.QA
                 if (null != ws && null != p)
                 {
                     string spec = (null != p.Spec && p.Spec.SpecId > 0) ? p.Spec.ReportSpec : "-";
+
+                    if (p.PropertyNo == 3)
+                    {
+                        // Replace ELONG AT Load (like 44 N)
+                        string loadN = (null != p.Spec) ? p.Spec.UnitDesc : " N";
+                        ws.Cells["A" + iRow.ToString()].Value = "ELONG. AT " + loadN + "";
+                    }
 
                     // Unit Report
                     ws.Cells["C" + iRow.ToString()].Value = (null != p.Spec) ? "(" + p.Spec.UnitReport + ")" : "(%)";

@@ -19,8 +19,10 @@ M3 QA Cord #505
 M3 QA Cord #504
 - 
 
+[commit]
 M3 QA Cord #503
-- 
+- Implements Cord Test Data #93
+  - Update COA1, COA3
 
 [commit]
 M3 QA Cord #502
