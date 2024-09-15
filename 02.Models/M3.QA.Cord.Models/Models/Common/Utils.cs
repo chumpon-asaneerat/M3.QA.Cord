@@ -1113,7 +1113,7 @@ namespace M3.QA.Models
             #region Static Methods
 
             public static NDbResult<List<Ex_GetTensileDataByLot>> Gets(
-                string lotNo)
+                string lotNo, string sampleType)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -1134,6 +1134,7 @@ namespace M3.QA.Models
                 var p = new DynamicParameters();
 
                 p.Add("@lotNo", lotNo);
+                p.Add("@sampletype", sampleType);
 
                 try
                 {
@@ -1198,7 +1199,7 @@ namespace M3.QA.Models
             #region Static Methods
 
             public static NDbResult<List<Ex_GetElongationByLot>> Gets(
-                string lotNo)
+                string lotNo, string sampleType)
             {
                 MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -1219,6 +1220,7 @@ namespace M3.QA.Models
                 var p = new DynamicParameters();
 
                 p.Add("@lotNo", lotNo);
+                p.Add("@sampletype", sampleType);
 
                 try
                 {

@@ -712,7 +712,8 @@ namespace M3.QA.Models
             // In case No items need to check has some import data
             if (null == exists || exists.Count <= 0)
             {
-                var imports = Utils.Ex_GetElongationByLot.Gets(value.LotNo).Value();
+                string sampleType = null;
+                var imports = Utils.Ex_GetElongationByLot.Gets(value.LotNo, sampleType).Value();
                 if (null != imports && imports.Count > 0)
                 {
                     exists = new List<CordElongationSubProperty>();
@@ -763,11 +764,13 @@ namespace M3.QA.Models
                             if (x.PropertyNo == 2)
                             {
                                 return x.SPNo == item.SPNo &&
+                                    x.SampleType == item.SampleType &&
                                     x.PropertyNo == item.PropertyNo;
                             }
                             else
                             {
                                 return x.SPNo == item.SPNo &&
+                                    x.SampleType == item.SampleType &&
                                     x.PropertyNo == item.PropertyNo &&
                                     x.LoadN == item.LoadN;
                             }

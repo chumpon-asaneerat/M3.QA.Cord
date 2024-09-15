@@ -22,8 +22,10 @@ M3 QA Cord #504
 M3 QA Cord #503
 - 
 
+[commit]
 M3 QA Cord #502
-- 
+- Implements Cord Test Data #92
+  - Update app build 502
 
 [commit]
 M3 QA Cord #501

@@ -218,7 +218,8 @@ namespace M3.QA.Models
             // In case No items need to check has some import data
             if (null == existItems || existItems.Count == 0)
             {
-                var imports = Utils.Ex_GetTensileDataByLot.Gets(value.LotNo).Value();
+                string sampleType = null;
+                var imports = Utils.Ex_GetTensileDataByLot.Gets(value.LotNo, sampleType).Value();
                 if (null != imports && imports.Count > 0)
                 {
                     existItems = new List<CordTensileStrength>();
@@ -256,7 +257,10 @@ namespace M3.QA.Models
                 // loop trought all initial results and fill data with the exists on database
                 foreach (var item in results)
                 {
-                    idx = existItems.FindIndex((x) => { return x.SPNo == item.SPNo; });
+                    idx = existItems.FindIndex((x) => 
+                    { 
+                        return x.SPNo == item.SPNo && x.SampleType == item.SampleType;
+                    });
                     if (idx != -1) 
                     {
                         // need to set because not return from db.
