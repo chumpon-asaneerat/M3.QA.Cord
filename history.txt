@@ -13,13 +13,15 @@ M3 QA Cord #507
 M3 QA Cord #506
 - 
 
+[commit]
 M3 QA Cord #505
-- 
+- Implements Cord Test Data #95
+  - Update app build 505
 
 [commit]
 M3 QA Cord #504
 - Implements Cord Test Data #94
-  - Change app build 505
+  - Change app build 505 and recompile
 
 [commit]
 M3 QA Cord #503
