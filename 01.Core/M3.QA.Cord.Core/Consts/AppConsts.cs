@@ -23,8 +23,8 @@ namespace M3.QA
                     // common
                     public static string Version = AppConsts.Version;
                     public static string Minor = AppConsts.Minor;
-                    public static string Build = "507";
-                    public static DateTime LastUpdate = new DateTime(2024, 9, 15, 19, 40, 00);
+                    public static string Build = "510";
+                    public static DateTime LastUpdate = new DateTime(2024, 9, 15, 20, 00, 00);
                 }
 
                 public static class ExcelTest
