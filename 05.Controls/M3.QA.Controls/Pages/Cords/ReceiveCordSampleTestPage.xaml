@@ -69,6 +69,12 @@
                                            DockPanel.Dock="Left"
                                            Text="{Binding ProductionLot}"
                                            Width="180" />
+                            <!--  REPORT PRODUCTION LOT  -->
+                            <ctrl:NTextBox x:Name="txtReportProductionLot"
+                                           CaptionText="Report Product Lot:"
+                                           DockPanel.Dock="Left"
+                                           Text="{Binding ReportProductionLot}"
+                                           Width="180" />
                             <Grid />
                         </DockPanel>
                         <DockPanel DockPanel.Dock="Top">

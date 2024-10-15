@@ -65,6 +65,19 @@ namespace M3.QA.Models
                 });
             }
         }
+        /// <summary>
+        /// Gets or sets Report Production Lot
+        /// </summary>
+        public string ReportProductionLot
+        {
+            get { return Get<string>(); }
+            set
+            {
+                Set(value, () =>
+                {
+                });
+            }
+        }
 
         public int? MasterId { get; set; }
 
@@ -134,6 +147,8 @@ namespace M3.QA.Models
 
             p.Add("@LotNo", value.LotNo);
             p.Add("@productlot", value.ProductionLot);
+
+            p.Add("@reportlot", value.ReportProductionLot);
 
             p.Add("@MasterId", value.MasterId);
 
