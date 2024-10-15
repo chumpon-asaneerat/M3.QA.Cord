@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using NLib;
 using NLib.Models;
 using M3.QA.Models;
+using System.Windows.Data;
 
 #endregion
 
@@ -89,6 +90,7 @@ namespace M3.QA.Pages
         {
             var code = cbCodes.SelectedItem as CordCode;
             UpdateProductType(code);
+            CheckEnableReportLot(code);
         }
 
         #endregion
@@ -198,6 +200,14 @@ namespace M3.QA.Pages
             }
         }
 
+        private void CheckEnableReportLot(CordCode code)
+        {
+            txtReportProductionLot.IsEnabled = false;
+            if (null == code)
+                return;
+            if (code.CoaNo == 3) txtReportProductionLot.IsEnabled = true;
+        }
+
         private void CheckSPPanels(CordCode code)
         {
             var state = Visibility.Collapsed;
@@ -301,6 +311,19 @@ namespace M3.QA.Pages
 
             var code = cbCodes.SelectedItem as CordCode;
             var dip = cbDIPMC.SelectedItem as DIPMC;
+
+            if (null != code && code.CoaNo == 3)
+            {
+                if (string.IsNullOrEmpty(sample.ReportProductionLot))
+                {
+                    M3QAApp.Windows.ShowMessage("กรุณาบันทึก Report Product Lot");
+                    this.InvokeAction(() =>
+                    {
+                        txtReportProductionLot.FocusControl();
+                    });
+                    return;
+                }
+            }
 
             sample.MasterId = (null != code) ? code.MasterId : new int?();
             sample.DIPMC = (null != dip) ? dip.MCName : null;

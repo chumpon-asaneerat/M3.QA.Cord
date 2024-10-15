@@ -73,6 +73,7 @@
                             <ctrl:NTextBox x:Name="txtReportProductionLot"
                                            CaptionText="Report Product Lot:"
                                            DockPanel.Dock="Left"
+                                           IsEnabled="False"
                                            Text="{Binding ReportProductionLot}"
                                            Width="180" />
                             <Grid />
