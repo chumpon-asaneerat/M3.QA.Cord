@@ -79,8 +79,8 @@
                     <ctrl:NComboBox x:Name="cbProductTypes"
                                     Width="200"
                                     CaptionText="Product Type:"
-                                    DisplayMemberPath="Text" 
-                                    SelectionChanged="cbProductTypes_SelectionChanged"/>
+                                    DisplayMemberPath="Text"
+                                    SelectionChanged="cbProductTypes_SelectionChanged" />
                     <!--  PRODUCT NAME  -->
                     <ctrl:NTextBox x:Name="txtProductName"
                                    Width="200"

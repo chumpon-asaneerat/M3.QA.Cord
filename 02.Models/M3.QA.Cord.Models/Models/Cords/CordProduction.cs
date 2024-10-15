@@ -33,6 +33,7 @@ namespace M3.QA.Models
         public int? MasterId { get; set; }
         public string LotNo { get; set; }
         public string ProductionLot { get; set; }
+        public string ReportProductLot { get; set; }
         public string ItemCode { get; set; }
         public string UserName { get; set; }
         public string ProductName { get; set; }

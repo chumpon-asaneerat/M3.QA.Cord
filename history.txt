@@ -22,8 +22,10 @@ M3 QA Cord #514
 M3 QA Cord #513
 - 
 
+[commit]
 M3 QA Cord #512
-- 
+- Update Receive Test add Report Product Lot #2
+- Update COA3
 
 [commit]
 M3 QA Cord #511

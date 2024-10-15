@@ -500,9 +500,9 @@ namespace M3.QA
                             // YARN TYPE
                             ws.Cells["B15"].Value = value.YarnCode;
                             // LOT NO
-                            ws.Cells["B16"].Value = value.LotNo;
+                            ws.Cells["B16"].Value = value.ProductionLot;
                             // PRODUCT LOT NO
-                            ws.Cells["D17"].Value = value.ProductionLot;
+                            ws.Cells["D17"].Value = value.ReportProductLot;
 
                             #endregion
 
