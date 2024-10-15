@@ -351,6 +351,8 @@ namespace M3.QA.Models
             p.Add("@notestch", value.NoTestCH);
             p.Add("@yarncode", value.YarnCode);
 
+            p.Add("@validdays", value.ValidDays);
+
             p.Add("@operator", (null != user) ? user.FullName : null);
 
             p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);

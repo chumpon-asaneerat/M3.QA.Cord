@@ -16,8 +16,9 @@ M3 QA Cord #516
 M3 QA Cord #515
 - 
 
+[commit]
 M3 QA Cord #514
-- 
+- Update Cord Code add Validdays parameter
 
 [commit]
 M3 QA Cord #513
