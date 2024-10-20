@@ -7,8 +7,9 @@ M3 QA Cord #519
 M3 QA Cord #518
 - 
 
+[commit]
 M3 QA Cord #517
-- 
+- Update Cord Spec, DIP Solution Spec #2
 
 [commit]
 M3 QA Cord #516

@@ -295,7 +295,7 @@ namespace M3.QA.Pages
             page.Setup();
             PageContentManager.Instance.Current = page;
         }
-        // Not Implements
+        // DIP Solution Spec Setting
         private void cmdDipSolutionTestSpecification_Click(object sender, RoutedEventArgs e)
         {
             // Sign In
@@ -309,6 +309,10 @@ namespace M3.QA.Pages
                 msgbox.ShowDialog();
                 return;
             }
+
+            var page = M3QAApp.Pages.DIPSolutionSpecSetting;
+            page.Setup();
+            PageContentManager.Instance.Current = page;
         }
         // User Manage
         private void cmdUserManage_Click(object sender, RoutedEventArgs e)

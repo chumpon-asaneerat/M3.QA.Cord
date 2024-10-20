@@ -189,6 +189,12 @@ namespace M3.QA
                 get { return GetPage<CordSpecificationSettingPage>(); }
             }
 
+            /// <summary>Gets M3 DIP Solution Specification Setting Page.</summary>
+            public static DIPSolutionSpecificationSettingPage DIPSolutionSpecSetting
+            {
+                get { return GetPage<DIPSolutionSpecificationSettingPage>(); }
+            }
+
             /// <summary>Gets M3 Cord User Manage Page.</summary>
             public static UserManagementPage UserManage
             {

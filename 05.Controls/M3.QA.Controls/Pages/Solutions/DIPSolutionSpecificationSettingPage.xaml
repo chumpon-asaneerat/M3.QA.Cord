@@ -375,6 +375,15 @@
                                                     <TextBlock Text="Test Method:" />
                                                     <TextBox Text="{Binding TestMethod}" />
                                                 </StackPanel>
+                                                <!--  Unit Report  -->
+                                                <StackPanel Orientation="Vertical"
+                                                            DockPanel.Dock="Left"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="2,0"
+                                                            Width="100">
+                                                    <TextBlock Text="Report Unit:" />
+                                                    <TextBox Text="{Binding UnitReport}" />
+                                                </StackPanel>
                                             </DockPanel>
                                             <Grid DockPanel.Dock="Top" Height="5" />
                                             <Grid />
