@@ -238,6 +238,7 @@
                                 <DockPanel LastChildFill="True">
                                     <!--  PROPERTY NO/PROPERTY NAME  -->
                                     <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                                        <!--
                                         <CheckBox IsChecked="{Binding EnableProperty}"
                                                   IsTabStop="False"
                                                   DockPanel.Dock="Left"
@@ -245,6 +246,7 @@
                                                   Height="25"
                                                   Width="25"
                                                   Style="{StaticResource CommonCheckBox}" />
+                                        -->
                                         <Border DockPanel.Dock="Left"
                                                 BorderThickness="0"
                                                 CornerRadius="5"

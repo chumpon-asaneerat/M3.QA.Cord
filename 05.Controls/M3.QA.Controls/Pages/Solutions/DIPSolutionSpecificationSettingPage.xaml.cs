@@ -83,7 +83,7 @@ namespace M3.QA.Pages
 
             if (null != cordCode)
             {
-                specs = CordTestSpec.GetSettings(cordCode);
+                specs = CordTestSpec.GetDIPSolutionSettings(cordCode);
                 entry.ItemsSource = specs;
             }
         }

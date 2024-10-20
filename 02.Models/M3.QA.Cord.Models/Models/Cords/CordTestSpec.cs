@@ -1087,6 +1087,79 @@ namespace M3.QA.Models
             return ret;
         }
         /// <summary>
+        /// Gets DIP Solution Setting specification.
+        /// </summary>
+        /// <param name="cordCode"></param>
+        /// <returns></returns>
+        public static List<CordTestSpec> GetDIPSolutionSettings(CordCode cordCode)
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            var ret = new List<CordTestSpec>();
+
+            // Parse all specification
+            var specs = MCordTestSpec.GetSolutions().Value();
+            if (null != specs)
+            {
+                foreach (var item in specs)
+                {
+                    var inst = new CordTestSpec()
+                    {
+                        PropertyNo = item.PropertyNo,
+                        PropertyName = item.PropertName,
+                        // Setting Mode
+                        IsSettingMode = true,
+                        // Assign default spect type = 0
+                        SpecId = 0
+                    };
+                    // Add to list.
+                    ret.Add(inst);
+                }
+            }
+
+            try
+            {
+                var exists = (null != ret) ? GetsByMasterId(cordCode.MasterId).Value() : null;
+                if (null != exists)
+                {
+                    int idx;
+                    foreach (var item in ret)
+                    {
+                        // init required property
+                        item.ItemCode = cordCode.ItemCode;
+                        item.ProductName = cordCode.ProductName;
+                        item.MasterId = cordCode.MasterId;
+
+                        idx = exists.FindIndex(x => x.PropertyNo == item.PropertyNo);
+                        if (idx != -1 && null != exists[idx])
+                        {
+                            // Copy from exist setting.
+                            var exist = exists[idx];
+                            item.EnableProperty = true; // set property is enable
+                            item.NoSample = exist.NoSample;
+                            item.SpecId = exist.SpecId;
+                            item.SpecDesc = exist.SpecDesc;
+                            item.UnitId = exist.UnitId;
+                            item.UnitDesc = exist.UnitDesc;
+                            item.OptionId = exist.OptionId;
+                            item.OptionDesc = exist.OptionDesc;
+                            item.VCenter = exist.VCenter;
+                            item.VMin = exist.VMin;
+                            item.VMax = exist.VMax;
+                            item.UnitReport = exist.UnitReport;
+                            item.TestMethod = exist.TestMethod;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+            }
+
+            return ret;
+        }
+        /// <summary>
         /// Save Setting
         /// </summary>
         /// <param name="value">The CordTestSpec item to save.</param>

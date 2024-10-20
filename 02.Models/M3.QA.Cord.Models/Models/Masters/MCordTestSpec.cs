@@ -80,6 +80,54 @@ namespace M3.QA.Models
 
             return ret;
         }
+        /// <summary>
+        /// Gets Solution.
+        /// </summary>
+        /// <returns></returns>
+        public static NDbResult<List<MCordTestSpec>> GetSolutions()
+        {
+            MethodBase med = MethodBase.GetCurrentMethod();
+
+            NDbResult<List<MCordTestSpec>> ret = new NDbResult<List<MCordTestSpec>>();
+
+            IDbConnection cnn = DbServer.Instance.Db;
+            if (null == cnn || !DbServer.Instance.Connected)
+            {
+                string msg = "Connection is null or cannot connect to database server.";
+                med.Err(msg);
+                // Set error number/message
+                ret.ErrNum = 8000;
+                ret.ErrMsg = msg;
+
+                return ret;
+            }
+
+            string product = "Solution";
+            var p = new DynamicParameters();
+
+            p.Add("@product", product);
+
+            try
+            {
+                var items = cnn.Query<MCordTestSpec>("M_GetPropertyListByProduct", p,
+                    commandType: CommandType.StoredProcedure);
+                var data = (null != items) ? items.ToList() : null;
+
+                ret.Success(data);
+                // Set error number/message
+                ret.ErrNum = 0;
+                ret.ErrMsg = "Success";
+            }
+            catch (Exception ex)
+            {
+                med.Err(ex);
+                // Set error number/message
+                ret.ErrNum = 9999;
+                ret.ErrMsg = ex.Message;
+            }
+
+            return ret;
+        }
 
         #endregion
     }
