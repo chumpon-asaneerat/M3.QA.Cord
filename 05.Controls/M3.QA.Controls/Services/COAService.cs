@@ -502,6 +502,18 @@ namespace M3.QA
                             break;
                     }
                     ws.Cells["I" + iRow.ToString()].Value = sJudge;
+                    if (ret == JudgeStatus.OK)
+                    {
+                        ws.Cells["I" + iRow.ToString()].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                        //ws.Cells["I" + iRow.ToString()].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        //ws.Cells["I" + iRow.ToString()].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                    }
+                    else if (ret == JudgeStatus.NG)
+                    {
+                        ws.Cells["I" + iRow.ToString()].Style.Font.Color.SetColor(System.Drawing.Color.Red);
+                        //ws.Cells["I" + iRow.ToString()].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        //ws.Cells["I" + iRow.ToString()].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                    }
                     // Test Method
                     ws.Cells["J" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.TestMethod : null;
                 }
@@ -696,7 +708,7 @@ namespace M3.QA
                     }
                     else
                     {
-                        ws.Cells[sCell].Value = "OK";
+                        ws.Cells[sCell].Value = "PASSED";
                         ws.Cells[sCell].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         ws.Cells[sCell].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                         ws.Cells[sCell].Style.Font.Bold = true;
