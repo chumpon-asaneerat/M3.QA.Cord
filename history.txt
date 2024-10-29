@@ -28,8 +28,10 @@ M3 QA Cord #522
 M3 QA Cord #521
 - 
 
+[commit]
 M3 QA Cord #520
-- 
+- Update excel export
+  - Change font size in excel files
 
 [commit]
 M3 QA Cord #519
