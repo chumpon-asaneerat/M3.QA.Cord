@@ -10,8 +10,9 @@ M3 QA Cord #528
 M3 QA Cord #527
 - 
 
+[commit]
 M3 QA Cord #526
-- 
+- Recomppile all projects
 
 [commit]
 M3 QA Cord #525
