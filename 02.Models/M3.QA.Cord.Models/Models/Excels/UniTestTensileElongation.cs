@@ -662,6 +662,8 @@ namespace M3.QA.Models
                                                 atLoad.N3R2 = N; // N3R2
                                                 break;
                                         }
+
+                                        iCol++;
                                     }
 
                                     #endregion

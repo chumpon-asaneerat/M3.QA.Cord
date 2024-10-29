@@ -14,10 +14,11 @@ M3 QA Cord #526
 - 
 
 M3 QA Cord #525
-- 
+-
 
+[commit]
 M3 QA Cord #524
-- 
+- Updatea app build 530
 
 [commit]
 M3 QA Cord #523
