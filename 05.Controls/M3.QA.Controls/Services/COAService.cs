@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using M3.QA.Models;
 using NLib;
 using OfficeOpenXml;
+using System.Drawing;
+using System.Windows;
 
 #endregion
 
@@ -93,6 +95,19 @@ namespace M3.QA
                     }
                     // JUDGE
                     ws.Cells["G" + iRow.ToString()].Value = sJudge;
+                    if (ret == JudgeStatus.OK)
+                    {
+                        ws.Cells["G" + iRow.ToString()].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                        //ws.Cells["G" + iRow.ToString()].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        //ws.Cells["G" + iRow.ToString()].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                    }
+                    else if (ret == JudgeStatus.NG)
+                    {
+                        ws.Cells["G" + iRow.ToString()].Style.Font.Color.SetColor(System.Drawing.Color.WhiteSmoke);
+                        //ws.Cells["G" + iRow.ToString()].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        //ws.Cells["G" + iRow.ToString()].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                    }
+
                     // Test Method
                     ws.Cells["H" + iRow.ToString()].Value = p.Spec.TestMethod;
                 }
@@ -198,8 +213,20 @@ namespace M3.QA
 
                             // Update overall judge
                             ws.Cells["E12"].Value = (iNG > 0) ? "NO PASSED" : "PASSED";
-                            ws.Cells["E12"].Style.Font.Size = 36;
+                            ws.Cells["E12"].Style.Font.Size = 50;
                             ws.Cells["E12"].Style.Font.Bold = true;
+                            if (iNG > 0)
+                            {
+                                ws.Cells["E12"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                                //ws.Cells["E12"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                //ws.Cells["E12"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                            }
+                            else
+                            {
+                                ws.Cells["E12"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                                //ws.Cells["E12"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                //ws.Cells["E12"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                            }
                         }
 
                         package.Save();
@@ -266,6 +293,19 @@ namespace M3.QA
                             break;
                     }
                     ws.Cells["J" + iRow.ToString()].Value = sJudge;
+                    if (ret == JudgeStatus.OK)
+                    {
+                        ws.Cells["J" + iRow.ToString()].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                        //ws.Cells["J" + iRow.ToString()].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        //ws.Cells["J" + iRow.ToString()].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                    }
+                    else if (ret == JudgeStatus.NG)
+                    {
+                        ws.Cells["J" + iRow.ToString()].Style.Font.Color.SetColor(System.Drawing.Color.Red);
+                        //ws.Cells["J" + iRow.ToString()].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        //ws.Cells["J" + iRow.ToString()].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                    }
+
                     // Test Method
                     ws.Cells["K" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.TestMethod : null;
                 }
@@ -380,8 +420,20 @@ namespace M3.QA
 
                             // Update overall judge
                             ws.Cells["H13"].Value = (iCnt == iOk) ? "PASSED" : "NO PASSED";
-                            ws.Cells["H13"].Style.Font.Size = 36;
+                            ws.Cells["H13"].Style.Font.Size = 50;
                             ws.Cells["H13"].Style.Font.Bold = true;
+                            if (iCnt == iOk)
+                            {
+                                ws.Cells["H13"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                                ws.Cells["H13"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                ws.Cells["H13"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                            }
+                            else
+                            {
+                                ws.Cells["H13"].Style.Font.Color.SetColor(System.Drawing.Color.Red);
+                                ws.Cells["H13"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                ws.Cells["H13"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                            }
                         }
 
                         package.Save();
@@ -554,7 +606,7 @@ namespace M3.QA
 
                             // Update overall judge
                             ws.Cells["F13"].Value = (iCnt == iOk) ? "PASSED" : "NO PASSED";
-                            ws.Cells["F13"].Style.Font.Size = 36;
+                            ws.Cells["F13"].Style.Font.Size = 50;
                             ws.Cells["F13"].Style.Font.Bold = true;
                         }
 

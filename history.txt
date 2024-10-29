@@ -25,8 +25,10 @@ M3 QA Cord #523
 M3 QA Cord #522
 - 
 
+[commit]
 M3 QA Cord #521
-- 
+- Update excel export
+  - COA 1, 2, 3 
 
 [commit]
 M3 QA Cord #520
