@@ -28,8 +28,9 @@ M3 QA Cord #532
 M3 QA Cord #531
 - 
 
+[commit]
 M3 QA Cord #530
-- 
+- Recomppile all projects and deploy app build 530
 
 [commit]
 M3 QA Cord #529
