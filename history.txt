@@ -31,8 +31,9 @@ M3 QA Cord #531
 M3 QA Cord #530
 - 
 
+[commit]
 M3 QA Cord #529
-- 
+- Prepare history.txt
 
 [commit]
 M3 QA Cord #528
