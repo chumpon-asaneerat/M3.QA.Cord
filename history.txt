@@ -13,8 +13,9 @@ M3 QA Cord #527
 M3 QA Cord #526
 - 
 
+[commit]
 M3 QA Cord #525
--
+- Fixed bug in imports tensile
 
 [commit]
 M3 QA Cord #524
