@@ -87,7 +87,7 @@ namespace M3.QA
                             sJudge = "OK";
                             break;
                         case JudgeStatus.NG:
-                            sJudge = "NG";
+                            sJudge = "NO GOOD";
                             break;
                         default:
                             sJudge = "-";
@@ -286,7 +286,7 @@ namespace M3.QA
                             sJudge = "OK";
                             break;
                         case JudgeStatus.NG:
-                            sJudge = "NG";
+                            sJudge = "NO GOOD";
                             break;
                         default:
                             sJudge = "-";
@@ -495,7 +495,7 @@ namespace M3.QA
                             sJudge = "OK";
                             break;
                         case JudgeStatus.NG:
-                            sJudge = "NG";
+                            sJudge = "NO GOOD";
                             break;
                         default:
                             sJudge = "-";
@@ -618,6 +618,18 @@ namespace M3.QA
 
                             // Update overall judge
                             ws.Cells["F13"].Value = (iCnt == iOk) ? "PASSED" : "NO PASSED";
+                            if ((iCnt == iOk))
+                            {
+                                ws.Cells["F13"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                                //ws.Cells["F13"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                //ws.Cells["F13"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                            }
+                            else
+                            {
+                                ws.Cells["F13"].Style.Font.Color.SetColor(System.Drawing.Color.Red);
+                                //ws.Cells["F13"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                //ws.Cells["F13"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                            }
                             ws.Cells["F13"].Style.Font.Size = 50;
                             ws.Cells["F13"].Style.Font.Bold = true;
                         }
@@ -708,7 +720,7 @@ namespace M3.QA
                     }
                     else
                     {
-                        ws.Cells[sCell].Value = "PASSED";
+                        ws.Cells[sCell].Value = "OK"; // or PASSED
                         ws.Cells[sCell].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         ws.Cells[sCell].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                         ws.Cells[sCell].Style.Font.Bold = true;
@@ -899,62 +911,74 @@ namespace M3.QA
 
                             // PH
                             ws.Cells["C20"].Value = (null != value.PHSpec) ? value.PHSpec.UnitReport : string.Empty;
-                            ws.Cells["D20"].Value = (null != value.PHSpec) ? value.PHSpec.ReportSpec : string.Empty;
+                            ws.Cells["D20"].Value = (null != value.PHSpec) ? value.PHSpec.ReportSpecEx : string.Empty;
                             ws.Cells["E20"].Value = value.PH;
                             if (null != value.PHSpec && !value.PHSpec.IsOutOfSpec(value.PH))
                             {
-                                ws.Cells["F20"].Value =  "PASSED";
+                                ws.Cells["F20"].Value =  "OK"; // or PASSED
                             }
                             else
                             {
-                                ws.Cells["F20"].Value =  "NO PASSED";
+                                ws.Cells["F20"].Value =  "NO GOOD"; // or NO PASSED
+                                ws.Cells["F20"].Style.Font.Color.SetColor(System.Drawing.Color.Red);
                                 iErr++;
                             }
 
                             // TEMP
                             ws.Cells["C21"].Value = (null != value.TempturatureSpec) ? value.TempturatureSpec.UnitReport : string.Empty;
-                            ws.Cells["D21"].Value = (null != value.TempturatureSpec) ? value.TempturatureSpec.ReportSpec : string.Empty;
+                            ws.Cells["D21"].Value = (null != value.TempturatureSpec) ? value.TempturatureSpec.ReportSpecEx : string.Empty;
                             ws.Cells["E21"].Value = value.Tempturature;
                             if (null != value.TempturatureSpec && !value.TempturatureSpec.IsOutOfSpec(value.Tempturature))
                             {
-                                ws.Cells["F21"].Value = "PASSED";
+                                ws.Cells["F21"].Value = "OK"; // or PASSED
                             }
                             else
                             {
-                                ws.Cells["F21"].Value = "NO PASSED";
+                                ws.Cells["F21"].Value = "NO GOOD"; // or NO PASSED
+                                ws.Cells["F21"].Style.Font.Color.SetColor(System.Drawing.Color.Red);
                                 iErr++;
                             }
 
                             // VISCOSITY
                             ws.Cells["C22"].Value = (null != value.ViscositySpec) ? value.ViscositySpec.UnitReport : string.Empty;
-                            ws.Cells["D22"].Value = (null != value.ViscositySpec) ? value.ViscositySpec.ReportSpec : string.Empty;
+                            ws.Cells["D22"].Value = (null != value.ViscositySpec) ? value.ViscositySpec.ReportSpecEx : string.Empty;
                             ws.Cells["E22"].Value = value.Viscosity;
                             if (null != value.ViscositySpec && !value.ViscositySpec.IsOutOfSpec(value.Viscosity))
                             {
-                                ws.Cells["F22"].Value = "PASSED";
+                                ws.Cells["F22"].Value = "OK"; // or PASSED
                             }
                             else
                             {
-                                ws.Cells["F22"].Value = "NO PASSED";
+                                ws.Cells["F22"].Value = "NO GOOD"; // or NO PASSED
+                                ws.Cells["F22"].Style.Font.Color.SetColor(System.Drawing.Color.Red);
                                 iErr++;
                             }
 
                             // TSC
                             ws.Cells["C23"].Value = (null != value.TSCSpec) ? value.TSCSpec.UnitReport : string.Empty;
-                            ws.Cells["D23"].Value = (null != value.TSCSpec) ? value.TSCSpec.ReportSpec : string.Empty;
+                            ws.Cells["D23"].Value = (null != value.TSCSpec) ? value.TSCSpec.ReportSpecEx : string.Empty;
                             ws.Cells["E23"].Value = value.TSCAvg;
                             if (null != value.TSCSpec && !value.TSCSpec.IsOutOfSpec(value.TSCAvg))
                             {
-                                ws.Cells["F23"].Value = "PASSED";
+                                ws.Cells["F23"].Value = "OK"; // or PASSED
                             }
                             else
                             {
-                                ws.Cells["F23"].Value = "NO PASSED";
+                                ws.Cells["F23"].Value = "NO GOOD"; // or NO PASSED
+                                ws.Cells["F23"].Style.Font.Color.SetColor(System.Drawing.Color.Red);
                                 iErr++;
                             }
 
                             // JUDGE - OVERALL
                             ws.Cells["E12"].Value = (iErr > 0) ? "NO PASSED" : "PASSED";
+                            if (iErr > 0)
+                            {
+                                ws.Cells["E12"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                            }
+                            else
+                            {
+                                ws.Cells["E12"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                            }
 
                             #endregion
                         }
