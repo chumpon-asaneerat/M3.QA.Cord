@@ -257,7 +257,7 @@ namespace M3.QA.Windows
         private void LoadComboboxes()
         {
             cbCordCode.ItemsSource = null;
-            cordCodes = CordCode.Gets(null).Value();
+            cordCodes = CordCode.Gets(null, "Cord").Value();
             this.InvokeAction(() =>
             {
                 cbCordCode.ItemsSource = cordCodes;

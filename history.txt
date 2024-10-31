@@ -25,8 +25,9 @@ M3 QA Cord #533
 M3 QA Cord #532
 - 
 
+[commit]
 M3 QA Cord #531
-- 
+- Update M_GetCordCodeListByCustomer and related referencces
 
 [commit]
 M3 QA Cord #530

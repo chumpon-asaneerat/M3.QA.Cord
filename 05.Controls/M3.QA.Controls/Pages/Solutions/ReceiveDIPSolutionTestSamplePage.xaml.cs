@@ -164,7 +164,7 @@ namespace M3.QA.Pages
             cbCodes.ItemsSource = null;
             if (null == customer) return;
             // get cord code by customer
-            cordCodes = CordCode.Gets(customer.Customer).Value();
+            cordCodes = CordCode.Gets(customer.Customer, "Solution").Value();
             cbCodes.ItemsSource = cordCodes;
             if (null != cordCodes && cordCodes.Count > 0)
             {

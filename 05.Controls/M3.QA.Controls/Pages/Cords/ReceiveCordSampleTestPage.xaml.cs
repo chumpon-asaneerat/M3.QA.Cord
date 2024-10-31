@@ -154,7 +154,7 @@ namespace M3.QA.Pages
 
             if (null == customer) return;
             // get cord code by customer
-            cordCodes = CordCode.Gets(customer.Customer).Value();
+            cordCodes = CordCode.Gets(customer.Customer, "Cord").Value();
             cbCodes.ItemsSource = cordCodes;
             if (null != cordCodes && cordCodes.Count > 0) 
             {
@@ -368,7 +368,7 @@ namespace M3.QA.Pages
             editObj.SP6 = test.SP6;
             editObj.SP7 = test.SP7;
 
-            var codes = CordCode.Gets(test.Customer).Value();
+            var codes = CordCode.Gets(test.Customer, "Cord").Value();
             var code = (null != codes) ? codes.Find(c => { return c.ItemCode == test.ItemCode; }) : null;
 
             editObj.NoTestCH = (null != code) ? code.NoTestCH : 0;

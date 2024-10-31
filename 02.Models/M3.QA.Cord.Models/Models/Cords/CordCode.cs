@@ -62,7 +62,7 @@ namespace M3.QA.Models
         /// </summary>
         /// <param name="customername">The customer name.</param>
         /// <returns></returns>
-        public static NDbResult<List<CordCode>> Gets(string customername)
+        public static NDbResult<List<CordCode>> Gets(string customername, string productionType)
         {
             MethodBase med = MethodBase.GetCurrentMethod();
 
@@ -82,6 +82,7 @@ namespace M3.QA.Models
 
             var p = new DynamicParameters();
             p.Add("@customername", customername);
+            p.Add("@productionType", productionType);
 
             try
             {
