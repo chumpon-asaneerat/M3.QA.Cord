@@ -22,8 +22,9 @@ M3 QA Cord #534
 M3 QA Cord #533
 - 
 
+[commit]
 M3 QA Cord #532
-- 
+- Update app build 532
 
 [commit]
 M3 QA Cord #531
