@@ -13,8 +13,9 @@ M3 QA Cord #537
 M3 QA Cord #536
 - 
 
+[commit]
 M3 QA Cord #535
-- 
+- Update supports device Mettler MS204TS00
 
 [commit]
 M3 QA Cord #534
