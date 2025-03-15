@@ -10,8 +10,9 @@ M3 QA Cord #538
 M3 QA Cord #537
 - 
 
+[commit]
 M3 QA Cord #536
-- 
+- Fixed code in Create in all CordProperties (check match propertyno and sampletype)
 
 [commit]
 M3 QA Cord #535

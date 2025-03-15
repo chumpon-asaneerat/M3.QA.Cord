@@ -218,7 +218,11 @@ namespace M3.QA.Models
                 // loop trought all initial results and fill data with the exists on database
                 foreach (var item in results)
                 {
-                    idx = existItems.FindIndex((x) => { return x.SPNo == item.SPNo; });
+                    idx = existItems.FindIndex((x) => 
+                    { 
+                        return x.SPNo == item.SPNo && x.PropertyNo == item.PropertyNo &&
+                            x.SampleType == item.SampleType;
+                    });
                     if (idx != -1)
                     {
                         // need to set because not return from db.

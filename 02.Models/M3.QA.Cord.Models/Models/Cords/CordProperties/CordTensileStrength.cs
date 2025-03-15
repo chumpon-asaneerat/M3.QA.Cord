@@ -259,7 +259,8 @@ namespace M3.QA.Models
                 {
                     idx = existItems.FindIndex((x) => 
                     { 
-                        return x.SPNo == item.SPNo && x.SampleType == item.SampleType;
+                        return x.SPNo == item.SPNo && x.PropertyNo == item.PropertyNo && 
+                            x.SampleType == item.SampleType;
                     });
                     if (idx != -1) 
                     {
