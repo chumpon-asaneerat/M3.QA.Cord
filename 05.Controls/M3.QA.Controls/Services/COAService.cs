@@ -72,11 +72,28 @@ namespace M3.QA
                     ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
 
                     // SPEC
-                    ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpec : "(%)";
+                    if (p.PropertyNo == 10)
+                    {
+                        // DENIER
+                        ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpecInt : "(%)";
+                    }
+                    else
+                    {
+                        ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpec : "(%)";
+                    }
 
                     // RESULT
-                    ws.Cells["E" + iRow.ToString()].Value = p.Avg;
-                    ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.0";
+                    if (p.PropertyNo == 10)
+                    {
+                        // DENIER
+                        ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "######0";
+                    }
+                    else
+                    {
+                        ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.0";
+                    }
 
                     // Judge
                     ret = (null != p.Spec) ? (p.Spec.IsOutOfSpec(p.Avg) ? JudgeStatus.NG : JudgeStatus.OK) : JudgeStatus.NoSpec;
@@ -193,7 +210,7 @@ namespace M3.QA
                             p = value.Properties.FindByPropertyNo(6);
                             if (WriteProperty(ws, 25, p) == JudgeStatus.NG) iNG++;
 
-                            // CORD SIZE (PropertyNo = 10)
+                            // DENIER (PropertyNo = 10)
                             p = value.Properties.FindByPropertyNo(10);
                             if (WriteProperty(ws, 26, p) == JudgeStatus.NG) iNG++;
 
