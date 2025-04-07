@@ -179,7 +179,8 @@ namespace M3.QA.Pages
             {
                 case 1: 
                     {
-                        COAService.COA1.Export(item);
+                        //COAService.COA1.Export(item);
+                        COAService.COA1a.Export(item);
                         break;
                     }
                 case 2:

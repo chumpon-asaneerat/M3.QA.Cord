@@ -260,6 +260,203 @@ namespace M3.QA
 
         #endregion
 
+        #region COA 1a
+
+        public class COA1a
+        {
+            private static JudgeStatus WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
+            {
+                JudgeStatus ret = JudgeStatus.NoSpec;
+
+                if (null != ws && null != p)
+                {
+                    if (p.PropertyNo == 3)
+                    {
+                        // Replace ELONG AT Load (like 44 N)
+                        string loadN = (null != p.Spec) ? p.Spec.UnitDesc : " N";
+                        ws.Cells["A" + iRow.ToString()].Value = "ELONG. AT " + loadN + "";
+                    }
+
+                    // Unit Report
+                    ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
+
+                    // SPEC
+                    if (p.PropertyNo == 10)
+                    {
+                        // DENIER
+                        ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpecInt : "(%)";
+                    }
+                    else
+                    {
+                        ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpec : "(%)";
+                    }
+
+                    // RESULT
+                    if (p.PropertyNo == 10)
+                    {
+                        // DENIER
+                        ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "######0";
+                    }
+                    else
+                    {
+                        ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.0";
+                    }
+
+                    // Judge
+                    ret = (null != p.Spec) ? (p.Spec.IsOutOfSpec(p.Avg) ? JudgeStatus.NG : JudgeStatus.OK) : JudgeStatus.NoSpec;
+                    string sJudge;
+                    switch (ret)
+                    {
+                        case JudgeStatus.OK:
+                            sJudge = "OK";
+                            break;
+                        case JudgeStatus.NG:
+                            sJudge = "NO GOOD";
+                            break;
+                        default:
+                            sJudge = "-";
+                            break;
+                    }
+                    // JUDGE
+                    ws.Cells["G" + iRow.ToString()].Value = sJudge;
+                    if (ret == JudgeStatus.OK)
+                    {
+                        ws.Cells["G" + iRow.ToString()].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                        //ws.Cells["G" + iRow.ToString()].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        //ws.Cells["G" + iRow.ToString()].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                    }
+                    else if (ret == JudgeStatus.NG)
+                    {
+                        ws.Cells["G" + iRow.ToString()].Style.Font.Color.SetColor(System.Drawing.Color.WhiteSmoke);
+                        //ws.Cells["G" + iRow.ToString()].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        //ws.Cells["G" + iRow.ToString()].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                    }
+
+                    // Test Method
+                    ws.Cells["H" + iRow.ToString()].Value = p.Spec.TestMethod;
+                }
+
+                return ret;
+            }
+
+            public static void Export(CordProduction value)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                string outputFile = ExcelModel.Dialogs.SaveDialog();
+                if (string.IsNullOrEmpty(outputFile))
+                    return;
+
+                if (null == value)
+                    return;
+
+                if (null != value)
+                {
+                    value.LoadProperties();
+                }
+
+                if (!ExcelExportUtils.CreateCOA1aFile(outputFile, true))
+                {
+                    M3QAApp.Windows.ExportFailed();
+                    return;
+                }
+
+                try
+                {
+                    using (var package = new ExcelPackage(outputFile))
+                    {
+                        var ws = package.Workbook.Worksheets[0]; // check exists
+                        if (null != ws)
+                        {
+                            #region Write Cells
+
+                            // DATE
+                            ws.Cells["I7"].Value = (value.InputDate.HasValue) ?
+                                value.InputDate.Value.Date : new DateTime?();
+                            // USER
+                            ws.Cells["B11"].Value = value.UserName;
+                            // PRODUCT
+                            ws.Cells["B12"].Value = value.ProductName;
+                            // ITEM CODE
+                            ws.Cells["B13"].Value = value.ItemCode;
+                            // YARN TYPE
+                            ws.Cells["B14"].Value = value.YarnCode;
+                            // PRODUCT LOT NO
+                            ws.Cells["B15"].Value = value.ProductionLot;
+                            // PI NO 
+                            ws.Cells["B16"].Value = value.PiNoSL;
+
+                            #endregion
+
+                            #region Write each properties
+
+                            int iNG = 0;
+                            CordProductionProperty p;
+
+                            // TENSILE STRENGTH (PropertyNo = 1)
+                            p = value.Properties.FindByPropertyNo(1);
+                            if (WriteProperty(ws, 20, p) == JudgeStatus.NG) iNG++;
+
+                            // ELONG AT BREAK (PropertyNo = 2)
+                            p = value.Properties.FindByPropertyNo(2);
+                            if (WriteProperty(ws, 21, p) == JudgeStatus.NG) iNG++;
+
+                            // ELONG AT LOAD (PropertyNo = 3)
+                            p = value.Properties.FindByPropertyNo(3);
+                            if (WriteProperty(ws, 22, p) == JudgeStatus.NG) iNG++;
+
+                            // NO OF TWIST (PropertyNo = 7)
+                            p = value.Properties.FindByPropertyNo(7);
+                            if (WriteProperty(ws, 23, p) == JudgeStatus.NG) iNG++;
+
+                            // THERMAL SHRINKAGE (PropertyNo = 6)
+                            p = value.Properties.FindByPropertyNo(6);
+                            if (WriteProperty(ws, 24, p) == JudgeStatus.NG) iNG++;
+
+                            // DENIER (PropertyNo = 10)
+                            p = value.Properties.FindByPropertyNo(10);
+                            if (WriteProperty(ws, 25, p) == JudgeStatus.NG) iNG++;
+
+                            // RPU (PropertyNo = 12)
+                            p = value.Properties.FindByPropertyNo(12);
+                            if (WriteProperty(ws, 26, p) == JudgeStatus.NG) iNG++;
+
+                            #endregion
+
+                            // Update overall judge
+                            ws.Cells["E12"].Value = (iNG > 0) ? "NO PASSED" : "PASSED";
+                            ws.Cells["E12"].Style.Font.Size = 50;
+                            ws.Cells["E12"].Style.Font.Bold = true;
+                            if (iNG > 0)
+                            {
+                                ws.Cells["E12"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                                //ws.Cells["E12"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                //ws.Cells["E12"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                            }
+                            else
+                            {
+                                ws.Cells["E12"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                                //ws.Cells["E12"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                //ws.Cells["E12"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.WhiteSmoke);
+                            }
+                        }
+
+                        package.Save();
+                    }
+                    M3QAApp.Windows.ExportSuccess();
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    M3QAApp.Windows.ExportFailed(ex.Message);
+                }
+            }
+        }
+
+        #endregion
+
         #region COA 2
 
         public class COA2

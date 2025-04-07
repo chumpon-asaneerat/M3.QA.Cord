@@ -9,6 +9,7 @@ namespace M3.QA
     internal class ExcelResource
     {
         public const string COA1 = "M3.QA.Resources.Excels.COA1.xlsx";
+        public const string COA1a = "M3.QA.Resources.Excels.COA1a.xlsx";
         public const string COA2 = "M3.QA.Resources.Excels.COA2.xlsx";
         public const string COA3 = "M3.QA.Resources.Excels.COA3.xlsx";
         public const string COA4 = "M3.QA.Resources.Excels.COA4.xlsx";
@@ -112,6 +113,22 @@ namespace M3.QA
         public static bool CreateCOA1File(string FullFileName, bool AutoOverwrite)
         {
             return CreateFileFromResource(ExcelResource.COA1,
+                @"\COA1.xlsx", FullFileName, AutoOverwrite);
+        }
+
+        #endregion
+
+        #region COA1a
+
+        /// <summary>
+        /// Create COA1a File
+        /// </summary>
+        /// <param name="FullFileName">FileName</param>
+        /// <param name="AutoOverwrite">Force Overwrite</param>
+        /// <returns>true if file is created</returns>
+        public static bool CreateCOA1aFile(string FullFileName, bool AutoOverwrite)
+        {
+            return CreateFileFromResource(ExcelResource.COA1a,
                 @"\COA1.xlsx", FullFileName, AutoOverwrite);
         }
 
