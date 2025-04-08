@@ -1468,6 +1468,8 @@ namespace M3.QA.Models
 
             p.Add("@operator", (null != user) ? user.FullName : null);
 
+            p.Add("@unitdescription", value.UnitDesc);
+
             p.Add("@errNum", dbType: DbType.Int32, direction: ParameterDirection.Output);
             p.Add("@errMsg", dbType: DbType.String, direction: ParameterDirection.Output, size: -1);
 
