@@ -13,8 +13,10 @@ M3 QA Cord #547
 M3 QA Cord #546
 - 
 
+[commit]
 M3 QA Cord #545
-- 
+- Fixed COA1, COA1a, COA2, COA3, COA4
+  - for Elong at Load need to find N in spec to get ElongN value (UnitId)
 
 [commit]
 M3 QA Cord #544

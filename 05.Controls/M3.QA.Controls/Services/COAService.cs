@@ -5,9 +5,12 @@ using System.Reflection;
 using System.Collections.Generic;
 using M3.QA.Models;
 using NLib;
+using NLib.Models;
+
 using OfficeOpenXml;
 using System.Drawing;
 using System.Windows;
+using System.Linq;
 
 #endregion
 
@@ -195,7 +198,13 @@ namespace M3.QA
                             if (WriteProperty(ws, 21, p) == JudgeStatus.NG) iNG++;
 
                             // ELONG AT LOAD (PropertyNo = 3)
-                            p = value.Properties.FindByPropertyNo(3);
+
+                            // Need to find ELongN in report spec first
+                            var rpts = Models.Utils.M_GetReportTestSpecByMasterid.Gets(value.MasterId).Value();
+                            var rpt = (null != rpts) ? rpts.Find(x => x.PropertyNo == 3) : null;
+                            string elongN = (null != rpt) ? rpt.UnitId : null;
+
+                            p = value.Properties.FindByPropertyNo(3, elongN);
                             if (WriteProperty(ws, 22, p) == JudgeStatus.NG) iNG++;
 
                             // NO OF TWIST (PropertyNo = 7)
@@ -404,7 +413,13 @@ namespace M3.QA
                             if (WriteProperty(ws, 21, p) == JudgeStatus.NG) iNG++;
 
                             // ELONG AT LOAD (PropertyNo = 3)
-                            p = value.Properties.FindByPropertyNo(3);
+
+                            // Need to find ELongN in report spec first
+                            var rpts = Models.Utils.M_GetReportTestSpecByMasterid.Gets(value.MasterId).Value();
+                            var rpt = (null != rpts) ? rpts.Find(x => x.PropertyNo == 3) : null;
+                            string elongN = (null != rpt) ? rpt.UnitId : null;
+
+                            p = value.Properties.FindByPropertyNo(3, elongN);
                             if (WriteProperty(ws, 22, p) == JudgeStatus.NG) iNG++;
 
                             // NO OF TWIST (PropertyNo = 7)
@@ -595,18 +610,29 @@ namespace M3.QA
                             if (WriteProperty(ws, 23, p) == JudgeStatus.OK) iOk++;
                             iCnt++;
 
+                            // Need to find ELongN in report spec first
+                            var rpts = Models.Utils.M_GetReportTestSpecByMasterid.Gets(value.MasterId).Value();
+                            var matchs = (null != rpts) ? rpts.FindAll(x => x.PropertyNo == 3) : null;
+                            var rpt1 = (null != matchs && matchs.Count > 0) ? matchs[0] : null;
+                            var rpt2 = (null != matchs && matchs.Count > 1) ? matchs[1] : null;
+                            var rpt3 = (null != matchs && matchs.Count > 2) ? matchs[2] : null;
+
+                            string elongN1 = (null != rpt1) ? rpt1.UnitId : null;
+                            string elongN2 = (null != rpt2) ? rpt2.UnitId : null;
+                            string elongN3 = (null != rpt3) ? rpt3.UnitId : null;
+
                             // ELONG AT LOAD (PropertyNo = 3 AT 10 N)
-                            p = value.Properties.FindByPropertyNo(3, "10");
+                            p = value.Properties.FindByPropertyNo(3, elongN1);
                             if (WriteProperty(ws, 24, p) == JudgeStatus.OK) iOk++;
                             iCnt++;
 
                             // ELONG AT LOAD (PropertyNo = 3 AT 20 N)
-                            p = value.Properties.FindByPropertyNo(3, "20");
+                            p = value.Properties.FindByPropertyNo(3, elongN2);
                             if (WriteProperty(ws, 25, p) == JudgeStatus.OK) iOk++;
                             iCnt++;
 
                             // ELONG AT LOAD (PropertyNo = 3 AT 50 N)
-                            p = value.Properties.FindByPropertyNo(3, "50");
+                            p = value.Properties.FindByPropertyNo(3, elongN3);
                             if (WriteProperty(ws, 26, p) == JudgeStatus.OK) iOk++;
                             iCnt++;
 
@@ -799,7 +825,13 @@ namespace M3.QA
                             iCnt++;
 
                             // ELONG AT LOAD (PropertyNo = 3 AT 100 N)
-                            p = value.Properties.FindByPropertyNo(3, "100");
+
+                            // Need to find ELongN in report spec first
+                            var rpts = Models.Utils.M_GetReportTestSpecByMasterid.Gets(value.MasterId).Value();
+                            var rpt = (null != rpts) ? rpts.Find(x => x.PropertyNo == 3) : null;
+                            string elongN = (null != rpt) ? rpt.UnitId : null;
+
+                            p = value.Properties.FindByPropertyNo(3, elongN);
                             if (WriteProperty(ws, 23, p) == JudgeStatus.OK) iOk++;
                             iCnt++;
 
@@ -1017,7 +1049,13 @@ namespace M3.QA
                             WriteJudge(ws, "J27", p); // Judge
 
                             // ELONG AT LOAD (PropertyNo = 3)
-                            p = value.Properties.FindByPropertyNo(3);
+
+                            // Need to find ELongN in report spec first
+                            var rpts = Models.Utils.M_GetReportTestSpecByMasterid.Gets(value.MasterId).Value();
+                            var rpt = (null != rpts) ? rpts.Find(x => x.PropertyNo == 3) : null;
+                            string elongN = (null != rpt) ? rpt.UnitId : null;
+
+                            p = value.Properties.FindByPropertyNo(3, elongN);
                             WriteProperty(ws, 17, p);
                             WriteJudge(ws, "K26", p); // Judge
 
