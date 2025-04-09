@@ -43,6 +43,13 @@ namespace M3.QA.Models
                 {
                     foreach (var item in this.Tests)
                     {
+                        if (PropertyNo == 3 && !string.IsNullOrEmpty(UnitId))
+                        {
+                            // Property 3 and Has load N
+                            if (string.Compare(UnitId, item.LoadN, true) != 0)
+                                continue; // not match so skip.
+                        }
+
                         if (item.N1.HasValue)
                         {
                             // update min/max
@@ -133,6 +140,13 @@ namespace M3.QA.Models
                     iCnt = 0;
                     foreach (var item in this.Tests)
                     {
+                        if (PropertyNo == 3 && !string.IsNullOrEmpty(UnitId))
+                        {
+                            // Property 3 and Has load N
+                            if (string.Compare(UnitId, item.LoadN, true) != 0)
+                                continue; // not match so skip.
+                        }
+
                         if (item.N1.HasValue)
                         {
                             // calc sum squar

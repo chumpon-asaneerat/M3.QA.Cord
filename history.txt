@@ -10,8 +10,10 @@ M3 QA Cord #548
 M3 QA Cord #547
 - 
 
+[commit]
 M3 QA Cord #546
-- 
+- Fixed COA1, COA1a, COA2, COA3, COA4 #2
+  - Update Calc Stat method for Property No = 3 need to match UnitId and Test.LoadN
 
 [commit]
 M3 QA Cord #545
