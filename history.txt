@@ -4,8 +4,15 @@ M3 QA Cord #550
 M3 QA Cord #549
 - 
 
+[commit]
 M3 QA Cord #548
-- 
+- Fixed COA1
+  - Change Label (NO -> NO.)
+  - DENIER
+    - Change MIN. to Min.
+    - Result convert to integer Floor mode
+  - RPU
+    - Result has 2 decimal places.
 
 [commit]
 M3 QA Cord #547

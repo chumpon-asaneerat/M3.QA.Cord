@@ -290,7 +290,14 @@ namespace M3.QA
                     ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
 
                     // SPEC
-                    if (p.PropertyNo == 10)
+                    if (p.PropertyNo == 2)
+                    {
+                        // ELONG AT BREAK
+                        string sVal = (null != p.Spec) ? p.Spec.ReportSpecInt : "(%)";
+                        sVal = sVal.Replace("MIN.", "Min.");
+                        ws.Cells["D" + iRow.ToString()].Value = sVal;
+                    }
+                    else if (p.PropertyNo == 10)
                     {
                         // DENIER
                         ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpecInt : "(%)";
@@ -303,9 +310,15 @@ namespace M3.QA
                     // RESULT
                     if (p.PropertyNo == 10)
                     {
-                        // DENIER
-                        ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        // DENIER                        
+                        ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? Math.Floor(p.Avg.Value) : 0;
                         ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "######0";
+                    }
+                    else if (p.PropertyNo == 12)
+                    {
+                        // RPU
+                        ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.00";
                     }
                     else
                     {
