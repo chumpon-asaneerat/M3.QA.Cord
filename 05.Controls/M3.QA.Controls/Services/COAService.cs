@@ -110,7 +110,7 @@ namespace M3.QA
                     {
                         // RPU
                         ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 2) : 0;
-                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.00";
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.0";
                     }
                     else
                     {
@@ -338,7 +338,7 @@ namespace M3.QA
                     {
                         // RPU
                         ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 2) : 0;
-                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.00";
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.0";
                     }
                     else
                     {
