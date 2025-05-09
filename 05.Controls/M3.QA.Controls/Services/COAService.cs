@@ -106,6 +106,13 @@ namespace M3.QA
                         ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 0) : 0;
                         ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "######0";
                     }
+                    else if (p.PropertyNo == 12)
+                    {
+                        // RPU
+                        //ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 2) : 0;
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.0#";
+                    }
                     else
                     {
                         //ws.Cells["E" + iRow.ToString()].Value = p.Avg;
@@ -328,6 +335,13 @@ namespace M3.QA
                         // DENIER                        
                         ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 0) : 0;
                         ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "######0";
+                    }
+                    else if (p.PropertyNo == 12)
+                    {
+                        // RPU
+                        //ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 2) : 0;
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.0#";
                     }
                     else
                     {

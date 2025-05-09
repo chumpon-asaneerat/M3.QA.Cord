@@ -10,8 +10,9 @@ M3 QA Cord #558
 M3 QA Cord #557
 - 
 
+[commit]
 M3 QA Cord #556
-- 
+- Coa1, Coa1a update RPU with supports 2 decimal places.
 
 [commit]
 M3 QA Cord #555
