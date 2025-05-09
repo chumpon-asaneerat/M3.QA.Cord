@@ -30,6 +30,12 @@ namespace M3.QA
             "A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M"
         };
 
+        public static decimal ToFloor(decimal i, double decimalPlaces)
+        {
+            var power = Convert.ToDecimal(Math.Pow(10, decimalPlaces));
+            return Math.Floor(i * power) / power;
+        }
+
         public static DateTime? GetDateFromLot(string productLotNo)
         {
             DateTime? ret = new DateTime?();
@@ -75,7 +81,14 @@ namespace M3.QA
                     ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
 
                     // SPEC
-                    if (p.PropertyNo == 10)
+                    if (p.PropertyNo == 2)
+                    {
+                        // ELONG AT BREAK
+                        string sVal = (null != p.Spec) ? p.Spec.ReportSpec : "(%)";
+                        sVal = sVal.Replace("MIN.", "Min.");
+                        ws.Cells["D" + iRow.ToString()].Value = sVal;
+                    }
+                    else if (p.PropertyNo == 10)
                     {
                         // DENIER
                         ws.Cells["D" + iRow.ToString()].Value = (null != p.Spec) ? p.Spec.ReportSpecInt : "(%)";
@@ -89,8 +102,15 @@ namespace M3.QA
                     if (p.PropertyNo == 10)
                     {
                         // DENIER
-                        ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        //ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 0) : 0;
                         ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "######0";
+                    }
+                    else if (p.PropertyNo == 12)
+                    {
+                        // RPU
+                        ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 2) : 0;
+                        ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.00";
                     }
                     else
                     {
@@ -293,7 +313,7 @@ namespace M3.QA
                     if (p.PropertyNo == 2)
                     {
                         // ELONG AT BREAK
-                        string sVal = (null != p.Spec) ? p.Spec.ReportSpecInt : "(%)";
+                        string sVal = (null != p.Spec) ? p.Spec.ReportSpec : "(%)";
                         sVal = sVal.Replace("MIN.", "Min.");
                         ws.Cells["D" + iRow.ToString()].Value = sVal;
                     }
@@ -311,13 +331,13 @@ namespace M3.QA
                     if (p.PropertyNo == 10)
                     {
                         // DENIER                        
-                        ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? Math.Floor(p.Avg.Value) : 0;
+                        ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 0) : 0;
                         ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "######0";
                     }
                     else if (p.PropertyNo == 12)
                     {
                         // RPU
-                        ws.Cells["E" + iRow.ToString()].Value = p.Avg;
+                        ws.Cells["E" + iRow.ToString()].Value = (p.Avg.HasValue) ? ToFloor(p.Avg.Value, 2) : 0;
                         ws.Cells["E" + iRow.ToString()].Style.Numberformat.Format = "#,##0.00";
                     }
                     else

@@ -25,8 +25,9 @@ M3 QA Cord #553
 M3 QA Cord #552
 - 
 
+[commit]
 M3 QA Cord #551
-- 
+- Coa1, Coa1a update math calculation Floor with supports decimal places.
 
 [commit]
 M3 QA Cord #550
