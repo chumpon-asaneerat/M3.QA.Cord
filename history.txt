@@ -22,8 +22,9 @@ M3 QA Cord #554
 M3 QA Cord #553
 - 
 
+[commit]
 M3 QA Cord #552
-- 
+- Update App build 552
 
 [commit]
 M3 QA Cord #551
