@@ -13,8 +13,10 @@ M3 QA Cord #557
 M3 QA Cord #556
 - 
 
+[commit]
 M3 QA Cord #555
-- 
+- Coa1, Coa1a Merge RPU value format to general prorperty format.
+- all property value floor to 1 decimal places
 
 [commit]
 M3 QA Cord #554
