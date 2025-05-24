@@ -1142,6 +1142,231 @@ namespace M3.QA
 
         #endregion
 
+        #region COA 4a
+
+        public class COA4a
+        {
+            private static void WriteProperty(ExcelWorksheet ws, int iRow, CordProductionProperty p)
+            {
+                if (null != ws && null != p && null != p.Spec)
+                {
+                    // Unit Report
+                    ws.Cells["C" + iRow.ToString()].Value = "(" + p.Spec.UnitReport + ")";
+                    // SPEC
+                    ws.Cells["D" + iRow.ToString()].Value = p.Spec.ReportSpec;
+
+                    // RESULT 1-5
+                    int iCnt = 1;
+                    foreach (var test in p.Tests)
+                    {
+                        if (iCnt == 1)
+                        {
+                            ws.Cells["G" + iRow.ToString()].Value = test.Avg;
+                        }
+                        else if (iCnt == 2)
+                        {
+                            ws.Cells["H" + iRow.ToString()].Value = test.Avg;
+                        }
+                        else if (iCnt == 3)
+                        {
+                            ws.Cells["I" + iRow.ToString()].Value = test.Avg;
+                        }
+                        else if (iCnt == 4)
+                        {
+                            ws.Cells["J" + iRow.ToString()].Value = test.Avg;
+                        }
+                        else if (iCnt == 5)
+                        {
+                            ws.Cells["K" + iRow.ToString()].Value = test.Avg;
+                        }
+                        iCnt++;
+                    }
+
+                    // Write AVG, STDDEV
+                    ws.Cells["L" + iRow.ToString()].Value = (p.Avg.HasValue) ? p.Avg : decimal.Zero;
+                    ws.Cells["M" + iRow.ToString()].Value = (p.StdDev.HasValue) ? p.StdDev : decimal.Zero;
+
+                    // CP/CPK
+                    if (p.Cp.HasValue)
+                        ws.Cells["N" + iRow.ToString()].Value = p.Cp.Value;
+                    else ws.Cells["N" + iRow.ToString()].Value = "-";
+
+                    if (p.Cpk.HasValue)
+                        ws.Cells["O" + iRow.ToString()].Value = p.Cpk.Value;
+                    else ws.Cells["O" + iRow.ToString()].Value = "-";
+                }
+            }
+
+            private static void WriteAllJudge(ExcelWorksheet ws, string sCell, bool outOfSpec)
+            {
+                if (null != ws)
+                {
+                    if (outOfSpec)
+                    {
+                        ws.Cells[sCell].Value = "NO PASSED";
+                        ws.Cells[sCell].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        ws.Cells[sCell].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        ws.Cells[sCell].Style.Font.Bold = true;
+                        ws.Cells[sCell].Style.Font.Size = 28;
+                        ws.Cells[sCell].Style.Font.Color.SetColor(System.Drawing.Color.WhiteSmoke);
+                        ws.Cells[sCell].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        ws.Cells[sCell].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkRed);
+                    }
+                    else
+                    {
+                        ws.Cells[sCell].Value = "OK"; // or PASSED
+                        ws.Cells[sCell].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        ws.Cells[sCell].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        ws.Cells[sCell].Style.Font.Bold = true;
+                        ws.Cells[sCell].Style.Font.Size = 48;
+                        ws.Cells[sCell].Style.Font.Color.SetColor(System.Drawing.Color.WhiteSmoke);
+                        ws.Cells[sCell].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        ws.Cells[sCell].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.ForestGreen);
+                    }
+                }
+                else
+                {
+                    ws.Cells[sCell].Value = "";
+                }
+            }
+
+            public static void Export(CordProduction value)
+            {
+                MethodBase med = MethodBase.GetCurrentMethod();
+
+                string outputFile = ExcelModel.Dialogs.SaveDialog();
+                if (string.IsNullOrEmpty(outputFile))
+                    return;
+
+                if (null == value)
+                    return;
+
+                if (null != value)
+                {
+                    value.LoadProperties();
+                }
+
+                if (!ExcelExportUtils.CreateCOA4aFile(outputFile, true))
+                {
+                    M3QAApp.Windows.ExportFailed();
+                    return;
+                }
+
+                try
+                {
+                    using (var package = new ExcelPackage(outputFile))
+                    {
+                        var ws = package.Workbook.Worksheets[0]; // check exists
+                        if (null != ws)
+                        {
+                            #region Write Cells
+
+                            // DATE
+                            ws.Cells["M7"].Value = (value.InputDate.HasValue) ?
+                                value.InputDate.Value.Date : new DateTime?();
+                            // USER
+                            ws.Cells["B10"].Value = value.UserName;
+                            // ITEM CODE
+                            ws.Cells["I10"].Value = value.ItemCode;
+                            // PRODUCT LOT NO
+                            ws.Cells["N10"].Value = value.ProductionLot;
+
+                            #endregion
+
+                            #region Write Lot 1-5
+
+                            ws.Cells["G14"].Value = string.Format("{0}-1", value.LotNo);
+                            ws.Cells["H14"].Value = string.Format("{0}-2", value.LotNo);
+                            ws.Cells["I14"].Value = string.Format("{0}-3", value.LotNo);
+                            ws.Cells["J14"].Value = string.Format("{0}-4", value.LotNo);
+                            ws.Cells["K14"].Value = string.Format("{0}-5", value.LotNo);
+
+                            #endregion
+
+                            int iOutOfRangeCnt = 0;
+
+                            #region Write each properties
+
+                            CordProductionProperty p;
+                            // TENSILE STRENGTH (PropertyNo = 1)
+                            p = value.Properties.FindByPropertyNo(1);
+                            WriteProperty(ws, 15, p);
+                            // Check out of range
+                            iOutOfRangeCnt += (null != p && null != p.Spec && p.Spec.IsOutOfSpec(p.Avg)) ? 1 : 0;
+
+                            // ELONG AT BREAK (PropertyNo = 2)
+                            p = value.Properties.FindByPropertyNo(2);
+                            WriteProperty(ws, 16, p);
+                            // Check out of range
+                            iOutOfRangeCnt += (null != p && null != p.Spec && p.Spec.IsOutOfSpec(p.Avg)) ? 1 : 0;
+
+                            // ELONG AT LOAD (PropertyNo = 3)
+
+                            // Need to find ELongN in report spec first
+                            var rpts = Models.Utils.M_GetReportTestSpecByMasterid.Gets(value.MasterId).Value();
+                            var rpt = (null != rpts) ? rpts.Find(x => x.PropertyNo == 3) : null;
+                            string elongN = (null != rpt) ? rpt.UnitId : null;
+
+                            p = value.Properties.FindByPropertyNo(3, elongN);
+                            WriteProperty(ws, 17, p);
+                            // Check out of range
+                            iOutOfRangeCnt += (null != p && null != p.Spec && p.Spec.IsOutOfSpec(p.Avg)) ? 1 : 0;
+
+                            // FIRST TWIST (PropertyNo = 7)
+                            p = value.Properties.FindByPropertyNo(7);
+                            WriteProperty(ws, 18, p);
+                            // Check out of range
+                            iOutOfRangeCnt += (null != p && null != p.Spec && p.Spec.IsOutOfSpec(p.Avg)) ? 1 : 0;
+
+                            // SECOND TWIST (PropertyNo = 8)
+                            p = value.Properties.FindByPropertyNo(8);
+                            WriteProperty(ws, 19, p);
+                            // Check out of range
+                            iOutOfRangeCnt += (null != p && null != p.Spec && p.Spec.IsOutOfSpec(p.Avg)) ? 1 : 0;
+
+                            // THERMAL SHRINKAGE (PropertyNo = 6)
+                            p = value.Properties.FindByPropertyNo(6);
+                            WriteProperty(ws, 20, p);
+                            // Check out of range
+                            iOutOfRangeCnt += (null != p && null != p.Spec && p.Spec.IsOutOfSpec(p.Avg)) ? 1 : 0;
+
+                            // SHRINKAGE FORCE (PropertyNo = 5)
+                            p = value.Properties.FindByPropertyNo(5);
+                            WriteProperty(ws, 21, p);
+                            // Check out of range
+                            iOutOfRangeCnt += (null != p && null != p.Spec && p.Spec.IsOutOfSpec(p.Avg)) ? 1 : 0;
+
+                            // MOISTURE REGAIN (PropertyNo = 11)
+                            p = value.Properties.FindByPropertyNo(11);
+                            WriteProperty(ws, 22, p);
+                            // Check out of range
+                            iOutOfRangeCnt += (null != p && null != p.Spec && p.Spec.IsOutOfSpec(p.Avg)) ? 1 : 0;
+
+                            // FINENESS (PropertyNo = 10)
+                            p = value.Properties.FindByPropertyNo(10);
+                            WriteProperty(ws, 23, p);
+
+                            // Write Judge result
+                            bool isOutOfSpec = (iOutOfRangeCnt > 0);
+                            WriteAllJudge(ws, "J26", isOutOfSpec);
+
+                            #endregion
+                        }
+
+                        package.Save();
+                    }
+                    M3QAApp.Windows.ExportSuccess();
+                }
+                catch (Exception ex)
+                {
+                    med.Err(ex);
+                    M3QAApp.Windows.ExportFailed(ex.Message);
+                }
+            }
+        }
+
+        #endregion
+
         #region COA 5
 
         public class COA5

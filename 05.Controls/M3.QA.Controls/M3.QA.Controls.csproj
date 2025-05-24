@@ -282,6 +282,7 @@
     <EmbeddedResource Include="Resources\Excels\COA3.xlsx" />
     <EmbeddedResource Include="Resources\Excels\COA5.xlsx" />
     <EmbeddedResource Include="Resources\Excels\COA1a.xlsx" />
+    <EmbeddedResource Include="Resources\Excels\COA4a.xlsx" />
     <None Include="Resources\Original\COA Format.xlsx" />
     <EmbeddedResource Include="Resources\Excels\COA1.xlsx" />
     <EmbeddedResource Include="Resources\Excels\COA4.xlsx" />

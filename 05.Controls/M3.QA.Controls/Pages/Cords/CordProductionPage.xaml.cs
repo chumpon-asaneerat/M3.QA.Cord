@@ -195,7 +195,8 @@ namespace M3.QA.Pages
                     }
                 case 4:
                     {
-                        COAService.COA4.Export(item);
+                        //COAService.COA4.Export(item);
+                        COAService.COA4a.Export(item);
                         break;
                     }
                 default:
